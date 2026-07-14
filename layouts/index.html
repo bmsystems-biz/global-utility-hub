@@ -1,0 +1,28 @@
+{{ define "main" }}
+<div class="text-center py-5">
+  <h1 class="display-5 fw-bold">{{ .Site.Title }}</h1>
+  <p class="lead text-muted">{{ .Site.Params.description }}</p>
+</div>
+
+{{ $posts := where .Site.RegularPages "Section" "blog" }}
+{{ if $posts }}
+<h2 class="fw-bold mb-4">최근 블로그</h2>
+<div class="row g-4">
+  {{ range first 6 $posts }}
+  <div class="col-md-6 col-lg-4">
+    <div class="card h-100 border-0 shadow-sm">
+      {{ with .Params.cover }}{{ with .image }}
+      <img src="{{ . }}" class="card-img-top" alt="{{ $.Title }}" style="height:180px;object-fit:cover;" />
+      {{ end }}{{ end }}
+      <div class="card-body">
+        <h5 class="card-title fw-semibold">
+          <a href="{{ .Permalink }}" class="text-decoration-none text-dark">{{ .Title }}</a>
+        </h5>
+        <p class="card-text text-muted small">{{ .Description | truncate 80 }}</p>
+      </div>
+    </div>
+  </div>
+  {{ end }}
+</div>
+{{ end }}
+{{ end }}

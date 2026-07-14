@@ -1,0 +1,26 @@
+{{ define "main" }}
+<h1 class="fw-bold mb-4">{{ .Title }}</h1>
+<div class="row g-4">
+  {{ range .Pages }}
+  <div class="col-md-6 col-lg-4">
+    <div class="card h-100 border-0 shadow-sm">
+      {{ with .Params.cover }}{{ with .image }}
+      <img src="{{ . }}" class="card-img-top" alt="{{ $.Title }}" style="height:180px;object-fit:cover;" />
+      {{ end }}{{ end }}
+      <div class="card-body">
+        {{ with .Params.categories }}
+        <div class="mb-2">{{ range . }}<span class="badge bg-secondary me-1 small">{{ . }}</span>{{ end }}</div>
+        {{ end }}
+        <h5 class="card-title fw-semibold">
+          <a href="{{ .Permalink }}" class="text-decoration-none text-dark">{{ .Title }}</a>
+        </h5>
+        <p class="card-text text-muted small">{{ .Description | truncate 80 }}</p>
+      </div>
+      <div class="card-footer bg-transparent border-0 text-muted small">
+        {{ .Date.Format "2006-01-02" }}
+      </div>
+    </div>
+  </div>
+  {{ end }}
+</div>
+{{ end }}

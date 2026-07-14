@@ -1,0 +1,27 @@
+{{ define "title" }}{{ .Title }} | {{ .Site.Title }}{{ end }}
+{{ define "main" }}
+<article class="row justify-content-center">
+  <div class="col-lg-8">
+    {{ with .Params.cover }}{{ with .image }}
+    <img src="{{ . }}" alt="{{ $.Title }}" class="img-fluid rounded mb-4 w-100" style="max-height:400px;object-fit:cover;" />
+    {{ end }}{{ end }}
+
+    <h1 class="fw-bold mb-2">{{ .Title }}</h1>
+    <div class="text-muted small mb-4">
+      {{ .Date.Format "2006-01-02" }}
+      {{ with .Params.categories }}· {{ range . }}<span class="badge bg-secondary me-1">{{ . }}</span>{{ end }}{{ end }}
+    </div>
+
+    <div class="article-content">
+      {{ .Content }}
+    </div>
+
+    {{ with .Params.related_tool }}
+    <div class="mt-5 p-4 bg-light rounded">
+      <p class="mb-2 fw-semibold">관련 도구</p>
+      <a href="/tools/{{ . }}/" class="btn btn-primary btn-sm">{{ . }} 바로가기 →</a>
+    </div>
+    {{ end }}
+  </div>
+</article>
+{{ end }}
