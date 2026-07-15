@@ -1,27 +1,87 @@
 {{ define "title" }}{{ .Title }} | {{ .Site.Title }}{{ end }}
+{{ define "head_extra" }}
+{{ $lang := .Language.Lang }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": {{ .Title | jsonify }},
+  "description": {{ .Description | jsonify }},
+  "datePublished": "{{ .Date.Format "2006-01-02" }}",
+  "dateModified": "{{ .Lastmod.Format "2006-01-02" }}",
+  "author": { "@type": "Organization", "name": "Global Utility Hub" },
+  "publisher": { "@type": "Organization", "name": "Global Utility Hub", "url": "{{ .Site.BaseURL }}" },
+  "url": {{ .Permalink | jsonify }}
+}
+</script>
+{{ end }}
+
 {{ define "main" }}
-<article class="row justify-content-center">
-  <div class="col-lg-8">
+{{ $lang := .Language.Lang }}
+<div class="guh-container guh-page">
+  <!-- Breadcrumb -->
+  <nav class="guh-breadcrumb" aria-label="Breadcrumb">
+    <a href="/{{ $lang }}/">{{ if eq $lang "ko" }}홈{{ else }}Home{{ end }}</a>
+    <span class="guh-breadcrumb-sep">›</span>
+    <a href="/{{ $lang }}/blog/">{{ if eq $lang "ko" }}블로그{{ else }}Blog{{ end }}</a>
+    <span class="guh-breadcrumb-sep">›</span>
+    <span>{{ .Title | truncate 40 }}</span>
+  </nav>
+
+  <article>
+    {{ with .Params.categories }}
+    <div style="margin-bottom:10px;">
+      {{ range . }}<a href="/{{ $lang }}/blog/" class="guh-category-chip">{{ . }}</a>{{ end }}
+    </div>
+    {{ end }}
+
+    <h1 style="font-size:26px;font-weight:700;color:var(--text-1);letter-spacing:-0.5px;margin-bottom:10px;line-height:1.3;">{{ .Title }}</h1>
+
+    <div style="display:flex;align-items:center;gap:12px;font-size:12px;color:var(--text-3);margin-bottom:24px;flex-wrap:wrap;">
+      <span>📅 {{ .Date.Format "2006.01.02" }}</span>
+      <span>⏱ {{ if eq $lang "ko" }}약 {{ div (add .WordCount 199) 200 }}분 읽기{{ else }}{{ div (add .WordCount 199) 200 }} min read{{ end }}</span>
+    </div>
+
     {{ with .Params.cover }}{{ with .image }}
-    <img src="{{ . }}" alt="{{ $.Title }}" class="img-fluid rounded mb-4 w-100" style="max-height:400px;object-fit:cover;" />
+    <img src="{{ . }}" alt="{{ $.Title }}" style="width:100%;max-height:360px;object-fit:cover;border-radius:12px;margin-bottom:24px;" loading="lazy" />
     {{ end }}{{ end }}
 
-    <h1 class="fw-bold mb-2">{{ .Title }}</h1>
-    <div class="text-muted small mb-4">
-      {{ .Date.Format "2006-01-02" }}
-      {{ with .Params.categories }}· {{ range . }}<span class="badge bg-secondary me-1">{{ . }}</span>{{ end }}{{ end }}
+    {{ with .Params.related_tool }}
+    <div style="margin-bottom:20px;padding:14px 16px;background:var(--accent-soft);border:1px solid var(--accent);border-radius:12px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+      <span style="font-size:13px;color:var(--text-2);">{{ if eq $lang "ko" }}🔧 관련 도구:{{ else }}🔧 Related Tool:{{ end }}</span>
+      <a href="/tools/{{ $lang }}/{{ . }}/" class="blog-tool-btn">
+        {{ if eq $lang "ko" }}도구 바로 사용하기 →{{ else }}Use Tool Now →{{ end }}
+      </a>
     </div>
+    {{ end }}
 
     <div class="article-content">
       {{ .Content }}
     </div>
 
-    {{ with .Params.related_tool }}
-    <div class="mt-5 p-4 bg-light rounded">
-      <p class="mb-2 fw-semibold">관련 도구</p>
-      <a href="/tools/{{ . }}/" class="btn btn-primary btn-sm">{{ . }} 바로가기 →</a>
+    {{ with .Params.tags }}
+    <div style="margin-top:24px;display:flex;gap:6px;flex-wrap:wrap;">
+      {{ range . }}<span style="font-size:11px;padding:3px 10px;background:var(--surface2);color:var(--text-3);border-radius:100px;border:1px solid var(--border);">#{{ . }}</span>{{ end }}
     </div>
     {{ end }}
-  </div>
-</article>
+  </article>
+
+  {{ $related_tool := .Params.related_tool }}
+  {{ $allPosts := where .Site.RegularPages "Section" "blog" }}
+  {{ $others := $allPosts | complement (slice .) }}
+  {{ $related := where $others "Params.related_tool" $related_tool }}
+  {{ if $related }}
+  <section style="margin-top:40px;" aria-label="Related posts">
+    <h2 class="guh-section-title">{{ if eq $lang "ko" }}관련 포스트{{ else }}Related Posts{{ end }}</h2>
+    <div class="guh-blog-grid">
+      {{ range first 3 $related }}
+      <a href="{{ .Permalink }}" class="guh-blog-card">
+        <div class="guh-blog-card-title">{{ .Title }}</div>
+        <div class="guh-blog-card-date">{{ .Date.Format "2006.01.02" }}</div>
+      </a>
+      {{ end }}
+    </div>
+  </section>
+  {{ end }}
+</div>
 {{ end }}

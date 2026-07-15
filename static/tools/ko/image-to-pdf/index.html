@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>이미지 PDF 변환기 – JPG PNG를 PDF로 무료 변환 | 글로벌 유틸리티 허브</title>
+  <meta name="description" content="JPG, PNG, GIF, WebP 이미지를 PDF로 무료 변환하세요. 여러 이미지를 하나의 PDF로 합치기 가능. 파일이 서버에 업로드되지 않는 안전한 변환기." />
+  <link rel="canonical" href="https://util.bmsystems.biz/tools/ko/image-to-pdf/" />
+  <link rel="alternate" hreflang="ko" href="https://util.bmsystems.biz/tools/ko/image-to-pdf/" />
+  <link rel="alternate" hreflang="en" href="https://util.bmsystems.biz/tools/en/image-to-pdf/" />
+  <link rel="alternate" hreflang="x-default" href="https://util.bmsystems.biz/tools/en/image-to-pdf/" />
+  <meta property="og:title" content="이미지 PDF 변환기 – JPG PNG를 PDF로 무료 변환" />
+  <meta property="og:description" content="이미지를 PDF로 무료 변환. 서버 업로드 없이 브라우저에서 직접 처리." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://util.bmsystems.biz/tools/ko/image-to-pdf/" />
+  <meta property="og:locale" content="ko_KR" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/common.css" />
+  <script>(function(){var t=localStorage.getItem('GUH-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark';})();</script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"이미지 PDF 변환기","applicationCategory":"UtilityApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"description":"JPG, PNG 이미지를 PDF로 변환합니다. 클라이언트 사이드 처리로 개인정보 보호.","url":"https://util.bmsystems.biz/tools/ko/image-to-pdf/"}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"어떤 이미지 형식을 지원하나요?","acceptedAnswer":{"@type":"Answer","text":"JPG(JPEG), PNG, GIF, WebP, BMP 등 브라우저에서 표시 가능한 모든 이미지 형식을 지원합니다."}},{"@type":"Question","name":"이미지가 서버에 저장되나요?","acceptedAnswer":{"@type":"Answer","text":"아니요. 모든 처리는 브라우저에서만 이루어집니다. 이미지는 서버로 전송되지 않아 개인정보가 100% 보호됩니다."}},{"@type":"Question","name":"여러 이미지를 하나의 PDF로 합칠 수 있나요?","acceptedAnswer":{"@type":"Answer","text":"네, 여러 이미지를 업로드하면 미리보기 순서대로 하나의 PDF에 한 페이지씩 배치됩니다. 드래그로 순서를 조정할 수 있습니다."}},{"@type":"Question","name":"PDF 페이지 크기는 어떻게 설정되나요?","acceptedAnswer":{"@type":"Answer","text":"각 이미지의 크기에 맞춰 A4 용지(210×297mm) 기준으로 이미지가 비율을 유지하며 삽입됩니다. 용지 방향(가로/세로)은 이미지 비율에 따라 자동 선택됩니다."}},{"@type":"Question","name":"파일 크기 제한이 있나요?","acceptedAnswer":{"@type":"Answer","text":"브라우저 메모리 내에서 처리하므로 이론상 제한은 없지만, 매우 큰 이미지(50MB 이상)는 브라우저 성능에 영향을 줄 수 있습니다. 10MB 이하 이미지를 권장합니다."}}]}
+  </script>
+  <style>
+    .img-list { list-style:none; padding:0; }
+    .img-list-item { display:flex; align-items:center; gap:10px; padding:8px 12px; background:var(--surface); border:1px solid var(--border); border-radius:8px; margin-bottom:6px; cursor:grab; }
+    .img-list-item img { width:48px; height:48px; object-fit:cover; border-radius:4px; flex-shrink:0; }
+    .img-list-item .img-name { flex:1; font-size:13px; color:var(--text-2); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .img-list-item .img-size { font-size:11px; color:var(--text-3); flex-shrink:0; }
+    .img-list-item .img-del { width:24px; height:24px; border:none; background:var(--surface2); border-radius:50%; cursor:pointer; color:var(--text-3); font-size:14px; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:all 0.15s; }
+    .img-list-item .img-del:hover { background:var(--red-soft); color:var(--red); }
+    .progress-bar { height:6px; background:var(--accent); border-radius:3px; width:0; transition:width 0.3s; }
+    .progress-track { background:var(--surface2); border-radius:3px; overflow:hidden; margin:8px 0; }
+  </style>
+</head>
+<body>
+<header class="guh-header" role="banner">
+  <div class="guh-header-inner">
+    <a href="/ko/" class="guh-logo">글로벌 <span>유틸리티</span> 허브</a>
+    <nav class="guh-nav" aria-label="Main navigation">
+      <a href="/ko/" class="guh-nav-link">생활도구</a>
+      <a href="/ko/" class="guh-nav-link">금융계산기</a>
+      <a href="/ko/" class="guh-nav-link">건강</a>
+      <a href="/ko/" class="guh-nav-link">개발자도구</a>
+      <a href="/ko/" class="guh-nav-link active">파일도구</a>
+      <a href="/ko/blog/" class="guh-nav-link">블로그</a>
+    </nav>
+    <div class="guh-header-actions">
+      <div class="guh-lang-select">
+        <a href="/tools/ko/image-to-pdf/" class="guh-lang-btn active">KO</a>
+        <a href="/tools/en/image-to-pdf/" class="guh-lang-btn">EN</a>
+      </div>
+      <button class="guh-theme-btn" onclick="guhToggleTheme()" aria-label="다크모드 전환"><span id="theme-icon">🌙</span></button>
+      <button class="guh-menu-btn" id="menu-btn" aria-label="메뉴">☰</button>
+    </div>
+  </div>
+</header>
+<div class="guh-mobile-nav" id="mobile-nav">
+  <a href="/ko/">생활도구</a><a href="/ko/">금융계산기</a><a href="/ko/">건강</a>
+  <a href="/ko/">개발자도구</a><a href="/ko/">파일도구</a><a href="/ko/blog/">블로그</a>
+  <hr /><a href="/tools/ko/image-to-pdf/">🇰🇷 한국어</a><a href="/tools/en/image-to-pdf/">🇺🇸 English</a>
+</div>
+
+<main class="guh-container guh-page" id="main-content">
+  <nav class="guh-breadcrumb" aria-label="Breadcrumb">
+    <a href="/ko/">홈</a><span class="guh-breadcrumb-sep">›</span>
+    <a href="/ko/">파일도구</a><span class="guh-breadcrumb-sep">›</span>
+    <span>이미지 PDF 변환기</span>
+  </nav>
+
+  <div class="guh-hero">
+    <h1>📄 이미지 PDF 변환기</h1>
+    <p>JPG, PNG, WebP 등 이미지를 PDF로 무료 변환합니다. 서버에 파일이 전송되지 않아 개인정보가 완전히 보호됩니다.</p>
+  </div>
+
+  <!-- Tool -->
+  <section class="guh-section" id="calculator" aria-label="이미지 PDF 변환">
+    <div class="guh-calc-card">
+      <!-- Upload Zone -->
+      <div class="guh-upload-zone" id="upload-zone" onclick="document.getElementById('file-input').click()" role="button" tabindex="0" aria-label="이미지 업로드 영역" onkeydown="if(event.key==='Enter')document.getElementById('file-input').click()">
+        <div class="guh-upload-icon">🖼️</div>
+        <div class="guh-upload-text">이미지를 클릭하거나 드래그하여 업로드</div>
+        <div class="guh-upload-hint">JPG, PNG, GIF, WebP, BMP 지원 · 여러 파일 선택 가능</div>
+      </div>
+      <input type="file" id="file-input" accept="image/*" multiple style="display:none" onchange="handleFiles(this.files)" aria-hidden="true" />
+
+      <!-- Image List -->
+      <div id="img-list-wrap" style="display:none;margin-top:16px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+          <span style="font-size:13px;font-weight:600;color:var(--text-2);" id="img-count-label">0개 이미지</span>
+          <button class="guh-btn guh-btn-outline" style="width:auto;padding:6px 12px;font-size:12px;" onclick="clearAll()">전체 삭제</button>
+        </div>
+        <ul class="img-list" id="img-list" aria-label="업로드된 이미지 목록"></ul>
+
+        <!-- Options -->
+        <div class="guh-input-row" style="margin-top:12px;">
+          <div class="guh-form-group">
+            <label class="guh-label" for="pdf-orientation">페이지 방향</label>
+            <select id="pdf-orientation" class="guh-select" aria-label="PDF 페이지 방향">
+              <option value="auto">자동 (이미지 비율 기준)</option>
+              <option value="portrait">세로 (Portrait)</option>
+              <option value="landscape">가로 (Landscape)</option>
+            </select>
+          </div>
+          <div class="guh-form-group">
+            <label class="guh-label" for="pdf-margin">여백</label>
+            <select id="pdf-margin" class="guh-select" aria-label="PDF 여백">
+              <option value="0">여백 없음</option>
+              <option value="10" selected>작은 여백 (10mm)</option>
+              <option value="20">표준 여백 (20mm)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="progress-track" id="progress-track" style="display:none;"><div class="progress-bar" id="progress-bar"></div></div>
+        <button class="guh-btn guh-btn-green" onclick="convertToPDF()" id="convert-btn" style="margin-top:12px;">📄 PDF로 변환하기</button>
+      </div>
+    </div>
+
+    <!-- Privacy Note -->
+    <div style="display:flex;align-items:flex-start;gap:10px;padding:12px 16px;background:var(--green-soft);border:1px solid var(--green);border-radius:var(--radius);margin-top:12px;">
+      <span style="color:var(--green);font-size:16px;flex-shrink:0;">🔒</span>
+      <div>
+        <strong style="font-size:13px;color:var(--green);">개인정보 보호</strong>
+        <p style="font-size:12px;color:var(--text-2);margin:2px 0 0;">이미지는 서버에 전송되지 않습니다. 모든 처리가 브라우저에서만 이루어집니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="guh-section" id="formula">
+    <h2 class="guh-section-title">📐 사용 방법</h2>
+    <ul class="guh-info-list">
+      <li>이미지를 드래그&드롭하거나 클릭하여 업로드합니다.</li>
+      <li>여러 이미지를 선택하면 목록의 순서대로 PDF 페이지가 생성됩니다.</li>
+      <li>페이지 방향과 여백을 설정합니다.</li>
+      <li>'PDF로 변환하기' 버튼을 클릭하면 자동으로 PDF 파일이 다운로드됩니다.</li>
+    </ul>
+  </section>
+
+  <!-- Examples -->
+  <section class="guh-section" id="examples">
+    <h2 class="guh-section-title">💡 활용 예시</h2>
+    <div class="guh-example">
+      <div class="guh-example-title">예시 1 – 스캔 이미지를 PDF로</div>
+      <dl>
+        <dt>입력</dt><dd>영수증, 계약서 JPG 사진 3장</dd>
+        <dt>결과</dt><dd>3페이지 PDF 파일 1개 생성</dd>
+        <dt>용도</dt><dd>이메일 제출, 클라우드 저장</dd>
+      </dl>
+    </div>
+    <div class="guh-example">
+      <div class="guh-example-title">예시 2 – 포트폴리오 PDF 제작</div>
+      <dl>
+        <dt>입력</dt><dd>작품 이미지 PNG 10장</dd>
+        <dt>결과</dt><dd>10페이지 포트폴리오 PDF</dd>
+        <dt>용도</dt><dd>취업 지원 포트폴리오 제출</dd>
+      </dl>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="guh-section" id="faq">
+    <h2 class="guh-section-title">❓ 자주 묻는 질문</h2>
+    <div class="guh-faq-item">
+      <button class="guh-faq-q" aria-expanded="false">어떤 이미지 형식을 지원하나요?<span class="guh-faq-icon">+</span></button>
+      <div class="guh-faq-a">JPG(JPEG), PNG, GIF, WebP, BMP 등 브라우저에서 표시 가능한 모든 이미지 형식을 지원합니다.</div>
+    </div>
+    <div class="guh-faq-item">
+      <button class="guh-faq-q" aria-expanded="false">이미지가 서버에 저장되나요?<span class="guh-faq-icon">+</span></button>
+      <div class="guh-faq-a">아니요. 모든 처리가 브라우저에서만 이루어집니다. 이미지는 절대 서버로 전송되지 않아 개인정보가 100% 보호됩니다.</div>
+    </div>
+    <div class="guh-faq-item">
+      <button class="guh-faq-q" aria-expanded="false">여러 이미지를 하나의 PDF로 합칠 수 있나요?<span class="guh-faq-icon">+</span></button>
+      <div class="guh-faq-a">네, 여러 이미지를 업로드하면 목록 순서대로 하나의 PDF에 한 페이지씩 배치됩니다.</div>
+    </div>
+    <div class="guh-faq-item">
+      <button class="guh-faq-q" aria-expanded="false">PDF 페이지 크기는 어떻게 설정되나요?<span class="guh-faq-icon">+</span></button>
+      <div class="guh-faq-a">A4 용지(210×297mm) 기준으로 이미지가 비율을 유지하며 삽입됩니다. 페이지 방향(가로/세로)은 이미지 비율에 따라 자동 선택하거나 직접 설정할 수 있습니다.</div>
+    </div>
+    <div class="guh-faq-item">
+      <button class="guh-faq-q" aria-expanded="false">파일 크기 제한이 있나요?<span class="guh-faq-icon">+</span></button>
+      <div class="guh-faq-a">이론상 제한은 없지만, 브라우저 메모리 내에서 처리하므로 매우 큰 이미지(50MB 이상)는 성능에 영향을 줄 수 있습니다. 파일당 10MB 이하를 권장합니다.</div>
+    </div>
+  </section>
+
+  <!-- Related Tools -->
+  <section class="guh-section" id="related-tools">
+    <h2 class="guh-section-title">🔗 관련 도구</h2>
+    <div class="guh-tool-grid">
+      <a href="/tools/ko/qr-code-generator/" class="guh-tool-card"><span class="guh-tool-icon">📱</span><span>QR코드 생성기</span></a>
+      <a href="/tools/ko/date-calculator/" class="guh-tool-card"><span class="guh-tool-icon">📅</span><span>날짜 계산기</span></a>
+      <a href="/tools/ko/korean-age-calculator/" class="guh-tool-card"><span class="guh-tool-icon">🎂</span><span>만나이 계산기</span></a>
+      <a href="/tools/ko/bmi-calculator/" class="guh-tool-card"><span class="guh-tool-icon">⚖️</span><span>BMI 계산기</span></a>
+      <a href="/tools/ko/ideal-weight-calculator/" class="guh-tool-card"><span class="guh-tool-icon">🏋️</span><span>이상체중 계산기</span></a>
+    </div>
+  </section>
+
+  <section class="guh-section" id="related-blog">
+    <h2 class="guh-section-title">📝 관련 블로그</h2>
+    <div class="guh-blog-grid" id="blog-grid">
+      <div class="guh-blog-empty">관련 블로그 포스트를 불러오는 중...</div>
+    </div>
+  </section>
+</main>
+
+<footer class="guh-footer" role="contentinfo">
+  <div class="guh-footer-inner">
+    <a href="/ko/" class="guh-footer-logo">Global Utility Hub</a>
+    <nav class="guh-footer-links"><a href="/ko/blog/">블로그</a><a href="/ko/">도구 목록</a><a href="mailto:contact@bmsystems.biz">문의</a></nav>
+    <p class="guh-footer-copy">© 2026 Global Utility Hub. All rights reserved.</p>
+  </div>
+</footer>
+<div class="guh-toast" id="toast"></div>
+
+<!-- jsPDF: client-side PDF generation, no server upload -->
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+<script>
+  function guhToggleTheme() {
+    var isDark = document.documentElement.dataset.theme === 'dark';
+    document.documentElement.dataset.theme = isDark ? 'light' : 'dark';
+    localStorage.setItem('GUH-theme', document.documentElement.dataset.theme);
+    document.getElementById('theme-icon').textContent = isDark ? '🌙' : '☀️';
+  }
+  (function(){ document.getElementById('theme-icon').textContent = document.documentElement.dataset.theme === 'dark' ? '☀️' : '🌙'; })();
+  document.getElementById('menu-btn').addEventListener('click', function() { document.getElementById('mobile-nav').classList.toggle('open'); });
+  document.querySelectorAll('.guh-faq-q').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var isOpen = this.classList.contains('open');
+      document.querySelectorAll('.guh-faq-q').forEach(function(b){ b.classList.remove('open'); b.nextElementSibling.classList.remove('open'); });
+      if (!isOpen) { this.classList.add('open'); this.nextElementSibling.classList.add('open'); }
+    });
+  });
+
+  // Drag & Drop
+  var zone = document.getElementById('upload-zone');
+  zone.addEventListener('dragover', function(e){ e.preventDefault(); this.classList.add('drag-over'); });
+  zone.addEventListener('dragleave', function(){ this.classList.remove('drag-over'); });
+  zone.addEventListener('drop', function(e){ e.preventDefault(); this.classList.remove('drag-over'); handleFiles(e.dataTransfer.files); });
+
+  var images = [];
+
+  function handleFiles(files) {
+    var arr = Array.from(files).filter(function(f){ return f.type.startsWith('image/'); });
+    if (arr.length === 0) { showToast('이미지 파일을 선택해주세요.', true); return; }
+    arr.forEach(function(file) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        images.push({ name: file.name, size: file.size, src: e.target.result });
+        renderList();
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function renderList() {
+    var list = document.getElementById('img-list');
+    document.getElementById('img-list-wrap').style.display = 'block';
+    document.getElementById('img-count-label').textContent = images.length + '개 이미지';
+    list.innerHTML = images.map(function(img, i){
+      return '<li class="img-list-item" data-idx="'+i+'"><img src="'+img.src+'" alt="'+img.name+'" /><span class="img-name">'+img.name+'</span><span class="img-size">'+(img.size/1024).toFixed(0)+'KB</span><button class="img-del" onclick="removeImg('+i+')" aria-label="삭제">✕</button></li>';
+    }).join('');
+  }
+
+  function removeImg(idx) {
+    images.splice(idx, 1);
+    if (images.length === 0) { document.getElementById('img-list-wrap').style.display = 'none'; return; }
+    renderList();
+  }
+
+  function clearAll() { images = []; document.getElementById('img-list-wrap').style.display = 'none'; }
+
+  async function convertToPDF() {
+    if (images.length === 0) { showToast('이미지를 먼저 업로드하세요.', true); return; }
+    var btn = document.getElementById('convert-btn');
+    btn.disabled = true; btn.textContent = '변환 중...';
+    var track = document.getElementById('progress-track');
+    var bar = document.getElementById('progress-bar');
+    track.style.display = 'block'; bar.style.width = '0%';
+
+    var margin = parseInt(document.getElementById('pdf-margin').value);
+    var orientPref = document.getElementById('pdf-orientation').value;
+    var { jsPDF } = window.jspdf;
+
+    try {
+      var pdf = null;
+      for (var i = 0; i < images.length; i++) {
+        bar.style.width = ((i / images.length) * 90 + 5) + '%';
+        await new Promise(function(resolve){ setTimeout(resolve, 10); });
+        var img = new Image();
+        img.src = images[i].src;
+        await new Promise(function(resolve){ img.onload = resolve; });
+
+        var iw = img.naturalWidth, ih = img.naturalHeight;
+        var orientation = orientPref === 'auto' ? (iw > ih ? 'landscape' : 'portrait') : orientPref;
+        var pdfW = orientation === 'landscape' ? 297 : 210;
+        var pdfH = orientation === 'landscape' ? 210 : 297;
+        var contentW = pdfW - margin * 2, contentH = pdfH - margin * 2;
+        var scale = Math.min(contentW / iw, contentH / ih);
+        var drawW = iw * scale, drawH = ih * scale;
+        var x = margin + (contentW - drawW) / 2, y = margin + (contentH - drawH) / 2;
+
+        if (pdf === null) {
+          pdf = new jsPDF({ orientation: orientation, unit: 'mm', format: 'a4' });
+        } else {
+          pdf.addPage([pdfW, pdfH], orientation);
+        }
+        pdf.addImage(images[i].src, 'JPEG', x, y, drawW, drawH);
+      }
+      bar.style.width = '100%';
+      pdf.save('converted.pdf');
+      showToast('PDF 변환 완료! 다운로드되었습니다.');
+    } catch(e) {
+      showToast('변환 실패: ' + e.message, true);
+    } finally {
+      btn.disabled = false; btn.textContent = '📄 PDF로 변환하기';
+      setTimeout(function(){ track.style.display = 'none'; bar.style.width = '0%'; }, 1500);
+    }
+  }
+
+  function showToast(msg, isErr) {
+    var t = document.getElementById('toast'); t.textContent = msg;
+    t.style.background = isErr ? 'var(--red)' : 'var(--green)';
+    t.classList.add('show'); setTimeout(function(){ t.classList.remove('show'); }, 3000);
+  }
+
+  (async function loadBlogs() {
+    try {
+      var r = await fetch('/ko/blog/index.json'); if (!r.ok) return;
+      var posts = await r.json();
+      var related = posts.filter(function(p){ return p.related_tool === 'image-to-pdf'; }).slice(0,3);
+      var grid = document.getElementById('blog-grid');
+      if (related.length === 0) { grid.innerHTML = '<div class="guh-blog-empty">관련 블로그 포스트가 준비 중입니다.</div>'; return; }
+      grid.innerHTML = related.map(function(p){ return '<a href="'+p.url+'" class="guh-blog-card"><div class="guh-blog-card-title">'+p.title+'</div><div class="guh-blog-card-date">'+p.date+'</div></a>'; }).join('');
+    } catch(e) { document.getElementById('blog-grid').innerHTML = '<div class="guh-blog-empty">관련 블로그 포스트가 준비 중입니다.</div>'; }
+  })();
+</script>
+</body>
+</html>

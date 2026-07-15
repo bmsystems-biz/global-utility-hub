@@ -1,0 +1,29 @@
+site:
+  name: "Global Utility Hub"
+  tagline: "SEO-focused Utility Platform for global users"
+
+nav:
+  daily: "Daily Tools"
+  finance: "Finance"
+  health: "Health"
+  dev: "Dev Tools"
+  file: "File Tools"
+  blog: "Blog"
+
+common:
+  calculate: "Calculate"
+  reset: "Reset"
+  copy: "Copy"
+  download: "Download"
+  related_tools: "Related Tools"
+  related_blogs: "Related Blog Posts"
+  formula: "Formula"
+  examples: "Examples"
+  faq: "FAQ"
+  home: "Home"
+
+blog:
+  title: "Blog"
+  read_more: "Read More"
+  published: "Published"
+  related_tool: "Related Tool"

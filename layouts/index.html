@@ -1,28 +1,86 @@
+{{ define "title" }}{{ .Site.Title }} – {{ .Site.Params.description }}{{ end }}
 {{ define "main" }}
-<div class="text-center py-5">
-  <h1 class="display-5 fw-bold">{{ .Site.Title }}</h1>
-  <p class="lead text-muted">{{ .Site.Params.description }}</p>
-</div>
+{{ $lang := .Language.Lang }}
+<div class="guh-container guh-page">
+  <!-- Hero -->
+  <section class="guh-hero" style="text-align:center;padding:32px 0 40px;">
+    <h1 style="font-size:32px;">
+      {{ if eq $lang "ko" }}🌍 글로벌 유틸리티 허브{{ else }}🌍 Global Utility Hub{{ end }}
+    </h1>
+    <p style="font-size:16px;max-width:520px;margin:10px auto 0;">{{ .Site.Params.description }}</p>
+  </section>
 
-{{ $posts := where .Site.RegularPages "Section" "blog" }}
-{{ if $posts }}
-<h2 class="fw-bold mb-4">최근 블로그</h2>
-<div class="row g-4">
-  {{ range first 6 $posts }}
-  <div class="col-md-6 col-lg-4">
-    <div class="card h-100 border-0 shadow-sm">
-      {{ with .Params.cover }}{{ with .image }}
-      <img src="{{ . }}" class="card-img-top" alt="{{ $.Title }}" style="height:180px;object-fit:cover;" />
-      {{ end }}{{ end }}
-      <div class="card-body">
-        <h5 class="card-title fw-semibold">
-          <a href="{{ .Permalink }}" class="text-decoration-none text-dark">{{ .Title }}</a>
-        </h5>
-        <p class="card-text text-muted small">{{ .Description | truncate 80 }}</p>
-      </div>
+  <!-- Tools Grid -->
+  <section class="guh-section" aria-label="Available tools">
+    <h2 class="guh-section-title">
+      {{ if eq $lang "ko" }}🔧 생활도구{{ else }}🔧 Daily Tools{{ end }}
+    </h2>
+    <div class="guh-tool-grid">
+      <a href="/tools/{{ $lang }}/date-calculator/" class="guh-tool-card">
+        <span class="guh-tool-icon">📅</span>
+        <span>{{ if eq $lang "ko" }}날짜 계산기{{ else }}Date Calculator{{ end }}</span>
+      </a>
+      <a href="/tools/{{ $lang }}/korean-age-calculator/" class="guh-tool-card">
+        <span class="guh-tool-icon">🎂</span>
+        <span>{{ if eq $lang "ko" }}만나이 계산기{{ else }}Korean Age{{ end }}</span>
+      </a>
     </div>
-  </div>
+  </section>
+
+  <section class="guh-section" aria-label="Health tools">
+    <h2 class="guh-section-title">
+      {{ if eq $lang "ko" }}💪 건강 계산기{{ else }}💪 Health Calculators{{ end }}
+    </h2>
+    <div class="guh-tool-grid">
+      <a href="/tools/{{ $lang }}/bmi-calculator/" class="guh-tool-card">
+        <span class="guh-tool-icon">⚖️</span>
+        <span>{{ if eq $lang "ko" }}BMI 계산기{{ else }}BMI Calculator{{ end }}</span>
+      </a>
+      <a href="/tools/{{ $lang }}/ideal-weight-calculator/" class="guh-tool-card">
+        <span class="guh-tool-icon">🏋️</span>
+        <span>{{ if eq $lang "ko" }}이상체중 계산기{{ else }}Ideal Weight{{ end }}</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="guh-section" aria-label="File tools">
+    <h2 class="guh-section-title">
+      {{ if eq $lang "ko" }}📁 파일 도구{{ else }}📁 File Tools{{ end }}
+    </h2>
+    <div class="guh-tool-grid">
+      <a href="/tools/{{ $lang }}/qr-code-generator/" class="guh-tool-card">
+        <span class="guh-tool-icon">📱</span>
+        <span>{{ if eq $lang "ko" }}QR코드 생성기{{ else }}QR Code Generator{{ end }}</span>
+      </a>
+      <a href="/tools/{{ $lang }}/image-to-pdf/" class="guh-tool-card">
+        <span class="guh-tool-icon">📄</span>
+        <span>{{ if eq $lang "ko" }}이미지→PDF{{ else }}Image to PDF{{ end }}</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Recent Blog -->
+  {{ $posts := where .Site.RegularPages "Section" "blog" }}
+  {{ if $posts }}
+  <section class="guh-section" aria-label="Recent blog posts">
+    <h2 class="guh-section-title">
+      {{ if eq $lang "ko" }}📝 최근 블로그{{ else }}📝 Recent Blog Posts{{ end }}
+    </h2>
+    <div class="guh-blog-grid">
+      {{ range first 6 $posts }}
+      <a href="{{ .Permalink }}" class="guh-blog-card">
+        <div class="guh-blog-card-title">{{ .Title }}</div>
+        <div style="font-size:12px;color:var(--text-2);margin:4px 0 6px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">{{ .Description }}</div>
+        <div class="guh-blog-card-date">{{ .Date.Format "2006.01.02" }}</div>
+      </a>
+      {{ end }}
+    </div>
+    <div style="text-align:center;margin-top:20px;">
+      <a href="/{{ $lang }}/blog/" style="font-size:14px;color:var(--accent);text-decoration:none;font-weight:500;">
+        {{ if eq $lang "ko" }}모든 포스트 보기 →{{ else }}View all posts →{{ end }}
+      </a>
+    </div>
+  </section>
   {{ end }}
 </div>
-{{ end }}
 {{ end }}

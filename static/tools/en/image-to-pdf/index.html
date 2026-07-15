@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Image to PDF Converter – Free Online JPG PNG to PDF | Global Utility Hub</title>
+  <meta name="description" content="Convert JPG, PNG, WebP, and GIF images to PDF for free. Combine multiple images into one PDF. All processing done in your browser — files never uploaded to any server." />
+  <link rel="canonical" href="https://util.bmsystems.biz/tools/en/image-to-pdf/" />
+  <link rel="alternate" hreflang="ko" href="https://util.bmsystems.biz/tools/ko/image-to-pdf/" />
+  <link rel="alternate" hreflang="en" href="https://util.bmsystems.biz/tools/en/image-to-pdf/" />
+  <link rel="alternate" hreflang="x-default" href="https://util.bmsystems.biz/tools/en/image-to-pdf/" />
+  <meta property="og:title" content="Image to PDF Converter – Free Online JPG PNG to PDF" />
+  <meta property="og:description" content="Convert images to PDF for free. No server upload — 100% private, browser-based conversion." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://util.bmsystems.biz/tools/en/image-to-pdf/" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/common.css" />
+  <script>(function(){var t=localStorage.getItem('GUH-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark';})();</script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Image to PDF Converter","applicationCategory":"UtilityApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Convert JPG, PNG, WebP images to PDF. Client-side processing protects your privacy.","url":"https://util.bmsystems.biz/tools/en/image-to-pdf/"}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What image formats are supported?","acceptedAnswer":{"@type":"Answer","text":"All image formats that browsers can display are supported: JPG/JPEG, PNG, GIF, WebP, BMP, and more."}},{"@type":"Question","name":"Are my images uploaded to a server?","acceptedAnswer":{"@type":"Answer","text":"No. All conversion happens entirely in your browser using JavaScript. Your images never leave your device, ensuring 100% privacy."}},{"@type":"Question","name":"Can I combine multiple images into one PDF?","acceptedAnswer":{"@type":"Answer","text":"Yes. Upload multiple images and they will be placed on separate pages in a single PDF, in the order shown in the list."}},{"@type":"Question","name":"What PDF page size is used?","acceptedAnswer":{"@type":"Answer","text":"Pages are A4 size (210×297mm). Images are scaled to fit while maintaining their aspect ratio. Page orientation (portrait or landscape) is determined automatically by the image aspect ratio, or you can set it manually."}},{"@type":"Question","name":"Is there a file size limit?","acceptedAnswer":{"@type":"Answer","text":"There is no hard limit since processing is done in-browser, but very large images (50MB+) may slow down your browser. We recommend keeping individual images under 10MB for best performance."}}]}
+  </script>
+  <style>
+    .img-list { list-style:none; padding:0; }
+    .img-list-item { display:flex; align-items:center; gap:10px; padding:8px 12px; background:var(--surface); border:1px solid var(--border); border-radius:8px; margin-bottom:6px; cursor:grab; }
+    .img-list-item img { width:48px; height:48px; object-fit:cover; border-radius:4px; flex-shrink:0; }
+    .img-list-item .img-name { flex:1; font-size:13px; color:var(--text-2); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .img-list-item .img-size { font-size:11px; color:var(--text-3); flex-shrink:0; }
+    .img-list-item .img-del { width:24px; height:24px; border:none; background:var(--surface2); border-radius:50%; cursor:pointer; color:var(--text-3); font-size:14px; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:all 0.15s; }
+    .img-list-item .img-del:hover { background:var(--red-soft); color:var(--red); }
+    .progress-bar { height:6px; background:var(--accent); border-radius:3px; width:0; transition:width 0.3s; }
+    .progress-track { background:var(--surface2); border-radius:3px; overflow:hidden; margin:8px 0; }
+  </style>
+</head>
+<body>
+<header class="guh-header" role="banner">
+  <div class="guh-header-inner">
+    <a href="/en/" class="guh-logo">Global <span>Utility</span> Hub</a>
+    <nav class="guh-nav" aria-label="Main navigation">
+      <a href="/en/" class="guh-nav-link">Daily Tools</a>
+      <a href="/en/" class="guh-nav-link">Finance</a>
+      <a href="/en/" class="guh-nav-link">Health</a>
+      <a href="/en/" class="guh-nav-link">Dev Tools</a>
+      <a href="/en/" class="guh-nav-link active">File Tools</a>
+      <a href="/en/blog/" class="guh-nav-link">Blog</a>
+    </nav>
+    <div class="guh-header-actions">
+      <div class="guh-lang-select">
+        <a href="/tools/ko/image-to-pdf/" class="guh-lang-btn">KO</a>
+        <a href="/tools/en/image-to-pdf/" class="guh-lang-btn active">EN</a>
+      </div>
+      <button class="guh-theme-btn" onclick="guhToggleTheme()" aria-label="Toggle dark mode"><span id="theme-icon">🌙</span></button>
+      <button class="guh-menu-btn" id="menu-btn" aria-label="Menu">☰</button>
+    </div>
+  </div>
+</header>
+<div class="guh-mobile-nav" id="mobile-nav">
+  <a href="/en/">Daily Tools</a><a href="/en/">Finance</a><a href="/en/">Health</a>
+  <a href="/en/">Dev Tools</a><a href="/en/">File Tools</a><a href="/en/blog/">Blog</a>
+  <hr /><a href="/tools/ko/image-to-pdf/">🇰🇷 한국어</a><a href="/tools/en/image-to-pdf/">🇺🇸 English</a>
+</div>
+
+<main class="guh-container guh-page" id="main-content">
+  <nav class="guh-breadcrumb" aria-label="Breadcrumb">
+    <a href="/en/">Home</a><span class="guh-breadcrumb-sep">›</span>
+    <a href="/en/">File Tools</a><span class="guh-breadcrumb-sep">›</span>
+    <span>Image to PDF</span>
+  </nav>
+
+  <div class="guh-hero">
+    <h1>📄 Image to PDF Converter</h1>
+    <p>Convert JPG, PNG, WebP, and more to PDF for free. Your files never leave your browser — 100% private conversion with no server upload.</p>
+  </div>
+
+  <!-- Tool -->
+  <section class="guh-section" id="calculator" aria-label="Image to PDF Converter">
+    <div class="guh-calc-card">
+      <!-- Upload Zone -->
+      <div class="guh-upload-zone" id="upload-zone" onclick="document.getElementById('file-input').click()" role="button" tabindex="0" aria-label="Image upload area" onkeydown="if(event.key==='Enter')document.getElementById('file-input').click()">
+        <div class="guh-upload-icon">🖼️</div>
+        <div class="guh-upload-text">Click or drag images here to upload</div>
+        <div class="guh-upload-hint">JPG, PNG, GIF, WebP, BMP supported · Multiple files allowed</div>
+      </div>
+      <input type="file" id="file-input" accept="image/*" multiple style="display:none" onchange="handleFiles(this.files)" aria-hidden="true" />
+
+      <!-- Image List -->
+      <div id="img-list-wrap" style="display:none;margin-top:16px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+          <span style="font-size:13px;font-weight:600;color:var(--text-2);" id="img-count-label">0 images</span>
+          <button class="guh-btn guh-btn-outline" style="width:auto;padding:6px 12px;font-size:12px;" onclick="clearAll()">Clear All</button>
+        </div>
+        <ul class="img-list" id="img-list" aria-label="Uploaded images list"></ul>
+
+        <!-- Options -->
+        <div class="guh-input-row" style="margin-top:12px;">
+          <div class="guh-form-group">
+            <label class="guh-label" for="pdf-orientation">Page Orientation</label>
+            <select id="pdf-orientation" class="guh-select" aria-label="PDF page orientation">
+              <option value="auto">Auto (based on image ratio)</option>
+              <option value="portrait">Portrait</option>
+              <option value="landscape">Landscape</option>
+            </select>
+          </div>
+          <div class="guh-form-group">
+            <label class="guh-label" for="pdf-margin">Margin</label>
+            <select id="pdf-margin" class="guh-select" aria-label="PDF margin">
+              <option value="0">No margin</option>
+              <option value="10" selected>Small margin (10mm)</option>
+              <option value="20">Standard margin (20mm)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="progress-track" id="progress-track" style="display:none;"><div class="progress-bar" id="progress-bar"></div></div>
+        <button class="guh-btn guh-btn-green" onclick="convertToPDF()" id="convert-btn" style="margin-top:12px;">📄 Convert to PDF</button>
+      </div>
+    </div>
+
+    <!-- Privacy Note -->
+    <div style="display:flex;align-items:flex-start;gap:10px;padding:12px 16px;background:var(--green-soft);border:1px solid var(--green);border-radius:var(--radius);margin-top:12px;">
+      <span style="color:var(--green);font-size:16px;flex-shrink:0;">🔒</span>
+      <div>
+        <strong style="font-size:13px;color:var(--green);">Privacy Protected</strong>
+        <p style="font-size:12px;color:var(--text-2);margin:2px 0 0;">Your images are never uploaded to any server. All conversion happens locally in your browser.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="guh-section" id="formula">
+    <h2 class="guh-section-title">📐 How to Use</h2>
+    <ul class="guh-info-list">
+      <li>Click the upload area or drag and drop your images.</li>
+      <li>Multiple images will each become a separate page in the PDF, in list order.</li>
+      <li>Choose your preferred page orientation and margin settings.</li>
+      <li>Click 'Convert to PDF' — the PDF downloads automatically.</li>
+    </ul>
+  </section>
+
+  <!-- Examples -->
+  <section class="guh-section" id="examples">
+    <h2 class="guh-section-title">💡 Use Cases</h2>
+    <div class="guh-example">
+      <div class="guh-example-title">Example 1 – Scanned Documents to PDF</div>
+      <dl>
+        <dt>Input</dt><dd>3 JPG photos of receipts or contracts</dd>
+        <dt>Output</dt><dd>Single 3-page PDF file</dd>
+        <dt>Use case</dt><dd>Email submission, cloud storage, record keeping</dd>
+      </dl>
+    </div>
+    <div class="guh-example">
+      <div class="guh-example-title">Example 2 – Portfolio PDF</div>
+      <dl>
+        <dt>Input</dt><dd>10 PNG artwork images</dd>
+        <dt>Output</dt><dd>10-page portfolio PDF</dd>
+        <dt>Use case</dt><dd>Job application portfolio submission</dd>
+      </dl>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="guh-section" id="faq">
+    <h2 class="guh-section-title">❓ Frequently Asked Questions</h2>
+    <div class="guh-faq-item">
+      <button class="guh-faq-q" aria-expanded="false">What image formats are supported?<span class="guh-faq-icon">+</span></button>
+      <div class="guh-faq-a">All image formats that modern browsers can display are supported, including JPG/JPEG, PNG, GIF, WebP, and BMP.</div>
+    </div>
+    <div class="guh-faq-item">
+      <button class="guh-faq-q" aria-expanded="false">Are my images uploaded to a server?<span class="guh-faq-icon">+</span></button>
+      <div class="guh-faq-a">No. All conversion is done entirely in your browser using JavaScript. Your images never leave your device, ensuring 100% privacy — no server, no cloud storage.</div>
+    </div>
+    <div class="guh-faq-item">
+      <button class="guh-faq-q" aria-expanded="false">Can I combine multiple images into one PDF?<span class="guh-faq-icon">+</span></button>
+      <div class="guh-faq-a">Yes. Upload as many images as you need and they will each become a separate page in a single PDF, placed in the order shown in the list.</div>
+    </div>
+    <div class="guh-faq-item">
+      <button class="guh-faq-q" aria-expanded="false">What PDF page size is used?<span class="guh-faq-icon">+</span></button>
+      <div class="guh-faq-a">A4 size (210×297mm) is used. Each image is scaled to fit within the page while maintaining its original aspect ratio. Page orientation defaults to auto-detect based on the image's proportions.</div>
+    </div>
+    <div class="guh-faq-item">
+      <button class="guh-faq-q" aria-expanded="false">Is there a file size limit?<span class="guh-faq-icon">+</span></button>
+      <div class="guh-faq-a">There is no strict limit since processing happens in your browser, but very large images (50MB+) may slow performance. For best results, keep individual images under 10MB.</div>
+    </div>
+  </section>
+
+  <!-- Related Tools -->
+  <section class="guh-section" id="related-tools">
+    <h2 class="guh-section-title">🔗 Related Tools</h2>
+    <div class="guh-tool-grid">
+      <a href="/tools/en/qr-code-generator/" class="guh-tool-card"><span class="guh-tool-icon">📱</span><span>QR Code Generator</span></a>
+      <a href="/tools/en/date-calculator/" class="guh-tool-card"><span class="guh-tool-icon">📅</span><span>Date Calculator</span></a>
+      <a href="/tools/en/korean-age-calculator/" class="guh-tool-card"><span class="guh-tool-icon">🎂</span><span>Korean Age Calculator</span></a>
+      <a href="/tools/en/bmi-calculator/" class="guh-tool-card"><span class="guh-tool-icon">⚖️</span><span>BMI Calculator</span></a>
+      <a href="/tools/en/ideal-weight-calculator/" class="guh-tool-card"><span class="guh-tool-icon">🏋️</span><span>Ideal Weight Calculator</span></a>
+    </div>
+  </section>
+
+  <section class="guh-section" id="related-blog">
+    <h2 class="guh-section-title">📝 Related Articles</h2>
+    <div class="guh-blog-grid" id="blog-grid">
+      <div class="guh-blog-empty">Loading related articles...</div>
+    </div>
+  </section>
+</main>
+
+<footer class="guh-footer" role="contentinfo">
+  <div class="guh-footer-inner">
+    <a href="/en/" class="guh-footer-logo">Global Utility Hub</a>
+    <nav class="guh-footer-links"><a href="/en/blog/">Blog</a><a href="/en/">All Tools</a><a href="mailto:contact@bmsystems.biz">Contact</a></nav>
+    <p class="guh-footer-copy">© 2026 Global Utility Hub. All rights reserved.</p>
+  </div>
+</footer>
+<div class="guh-toast" id="toast"></div>
+
+<!-- jsPDF: client-side PDF generation, no server upload -->
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+<script>
+  function guhToggleTheme() {
+    var isDark = document.documentElement.dataset.theme === 'dark';
+    document.documentElement.dataset.theme = isDark ? 'light' : 'dark';
+    localStorage.setItem('GUH-theme', document.documentElement.dataset.theme);
+    document.getElementById('theme-icon').textContent = isDark ? '🌙' : '☀️';
+  }
+  (function(){ document.getElementById('theme-icon').textContent = document.documentElement.dataset.theme === 'dark' ? '☀️' : '🌙'; })();
+  document.getElementById('menu-btn').addEventListener('click', function() { document.getElementById('mobile-nav').classList.toggle('open'); });
+  document.querySelectorAll('.guh-faq-q').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var isOpen = this.classList.contains('open');
+      document.querySelectorAll('.guh-faq-q').forEach(function(b){ b.classList.remove('open'); b.nextElementSibling.classList.remove('open'); });
+      if (!isOpen) { this.classList.add('open'); this.nextElementSibling.classList.add('open'); }
+    });
+  });
+
+  // Drag & Drop
+  var zone = document.getElementById('upload-zone');
+  zone.addEventListener('dragover', function(e){ e.preventDefault(); this.classList.add('drag-over'); });
+  zone.addEventListener('dragleave', function(){ this.classList.remove('drag-over'); });
+  zone.addEventListener('drop', function(e){ e.preventDefault(); this.classList.remove('drag-over'); handleFiles(e.dataTransfer.files); });
+
+  var images = [];
+
+  function handleFiles(files) {
+    var arr = Array.from(files).filter(function(f){ return f.type.startsWith('image/'); });
+    if (arr.length === 0) { showToast('Please select image files.', true); return; }
+    arr.forEach(function(file) {
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        images.push({ name: file.name, size: file.size, src: e.target.result });
+        renderList();
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function renderList() {
+    var list = document.getElementById('img-list');
+    document.getElementById('img-list-wrap').style.display = 'block';
+    document.getElementById('img-count-label').textContent = images.length + (images.length === 1 ? ' image' : ' images');
+    list.innerHTML = images.map(function(img, i){
+      return '<li class="img-list-item" data-idx="'+i+'"><img src="'+img.src+'" alt="'+img.name+'" /><span class="img-name">'+img.name+'</span><span class="img-size">'+(img.size/1024).toFixed(0)+'KB</span><button class="img-del" onclick="removeImg('+i+')" aria-label="Remove">✕</button></li>';
+    }).join('');
+  }
+
+  function removeImg(idx) {
+    images.splice(idx, 1);
+    if (images.length === 0) { document.getElementById('img-list-wrap').style.display = 'none'; return; }
+    renderList();
+  }
+
+  function clearAll() { images = []; document.getElementById('img-list-wrap').style.display = 'none'; }
+
+  async function convertToPDF() {
+    if (images.length === 0) { showToast('Please upload images first.', true); return; }
+    var btn = document.getElementById('convert-btn');
+    btn.disabled = true; btn.textContent = 'Converting...';
+    var track = document.getElementById('progress-track');
+    var bar = document.getElementById('progress-bar');
+    track.style.display = 'block'; bar.style.width = '0%';
+
+    var margin = parseInt(document.getElementById('pdf-margin').value);
+    var orientPref = document.getElementById('pdf-orientation').value;
+    var { jsPDF } = window.jspdf;
+
+    try {
+      var pdf = null;
+      for (var i = 0; i < images.length; i++) {
+        bar.style.width = ((i / images.length) * 90 + 5) + '%';
+        await new Promise(function(resolve){ setTimeout(resolve, 10); });
+        var img = new Image();
+        img.src = images[i].src;
+        await new Promise(function(resolve){ img.onload = resolve; });
+
+        var iw = img.naturalWidth, ih = img.naturalHeight;
+        var orientation = orientPref === 'auto' ? (iw > ih ? 'landscape' : 'portrait') : orientPref;
+        var pdfW = orientation === 'landscape' ? 297 : 210;
+        var pdfH = orientation === 'landscape' ? 210 : 297;
+        var contentW = pdfW - margin * 2, contentH = pdfH - margin * 2;
+        var scale = Math.min(contentW / iw, contentH / ih);
+        var drawW = iw * scale, drawH = ih * scale;
+        var x = margin + (contentW - drawW) / 2, y = margin + (contentH - drawH) / 2;
+
+        if (pdf === null) {
+          pdf = new jsPDF({ orientation: orientation, unit: 'mm', format: 'a4' });
+        } else {
+          pdf.addPage([pdfW, pdfH], orientation);
+        }
+        pdf.addImage(images[i].src, 'JPEG', x, y, drawW, drawH);
+      }
+      bar.style.width = '100%';
+      pdf.save('converted.pdf');
+      showToast('PDF created and downloaded!');
+    } catch(e) {
+      showToast('Conversion failed: ' + e.message, true);
+    } finally {
+      btn.disabled = false; btn.textContent = '📄 Convert to PDF';
+      setTimeout(function(){ track.style.display = 'none'; bar.style.width = '0%'; }, 1500);
+    }
+  }
+
+  function showToast(msg, isErr) {
+    var t = document.getElementById('toast'); t.textContent = msg;
+    t.style.background = isErr ? 'var(--red)' : 'var(--green)';
+    t.classList.add('show'); setTimeout(function(){ t.classList.remove('show'); }, 3000);
+  }
+
+  (async function loadBlogs() {
+    try {
+      var r = await fetch('/en/blog/index.json'); if (!r.ok) return;
+      var posts = await r.json();
+      var related = posts.filter(function(p){ return p.related_tool === 'image-to-pdf'; }).slice(0,3);
+      var grid = document.getElementById('blog-grid');
+      if (related.length === 0) { grid.innerHTML = '<div class="guh-blog-empty">Related articles coming soon.</div>'; return; }
+      grid.innerHTML = related.map(function(p){ return '<a href="'+p.url+'" class="guh-blog-card"><div class="guh-blog-card-title">'+p.title+'</div><div class="guh-blog-card-date">'+p.date+'</div></a>'; }).join('');
+    } catch(e) { document.getElementById('blog-grid').innerHTML = '<div class="guh-blog-empty">Related articles coming soon.</div>'; }
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BMI 계산기 – 체질량지수 계산 및 건강 체중 확인 | 글로벌 유틸리티 허브</title>
+  <meta name="description" content="키와 몸무게를 입력해 BMI(체질량지수)를 즉시 계산하세요. 저체중·정상·과체중·비만 단계 확인, WHO 기준 및 아시아 기준 동시 제공. 무료 온라인 BMI 계산기." />
+  <link rel="canonical" href="https://util.bmsystems.biz/tools/ko/bmi-calculator/" />
+  <link rel="alternate" hreflang="ko" href="https://util.bmsystems.biz/tools/ko/bmi-calculator/" />
+  <link rel="alternate" hreflang="en" href="https://util.bmsystems.biz/tools/en/bmi-calculator/" />
+  <link rel="alternate" hreflang="x-default" href="https://util.bmsystems.biz/tools/en/bmi-calculator/" />
+  <meta property="og:title" content="BMI 계산기 – 체질량지수 계산" />
+  <meta property="og:description" content="키와 몸무게를 입력해 BMI를 즉시 계산하세요. 저체중·정상·과체중·비만 단계 확인." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://util.bmsystems.biz/tools/ko/bmi-calculator/" />
+  <meta property="og:locale" content="ko_KR" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/common.css" />
+  <script>(function(){var t=localStorage.getItem('GUH-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark';})();</script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"BMI 계산기","applicationCategory":"HealthApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"description":"체질량지수(BMI)를 계산하고 건강 상태를 확인합니다.","url":"https://util.bmsystems.biz/tools/ko/bmi-calculator/"}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"홈","item":"https://util.bmsystems.biz/ko/"},{"@type":"ListItem","position":2,"name":"건강","item":"https://util.bmsystems.biz/ko/"},{"@type":"ListItem","position":3,"name":"BMI 계산기","item":"https://util.bmsystems.biz/tools/ko/bmi-calculator/"}]}
+  </script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"BMI란 무엇인가요?","acceptedAnswer":{"@type":"Answer","text":"BMI(Body Mass Index, 체질량지수)는 체중(kg)을 키(m)의 제곱으로 나눈 값으로, 체지방 수준을 간편하게 평가하는 지표입니다. 세계보건기구(WHO)가 권장하는 비만도 측정 방법입니다."}},{"@type":"Question","name":"정상 BMI 범위는 어떻게 되나요?","acceptedAnswer":{"@type":"Answer","text":"WHO 기준으로 BMI 18.5~24.9는 정상 범위입니다. 아시아 기준(한국 포함)은 더 낮아서 18.5~22.9가 정상 범위입니다. BMI 25 이상은 과체중, 30 이상은 비만으로 분류됩니다."}},{"@type":"Question","name":"BMI가 정확하지 않은 경우는 언제인가요?","acceptedAnswer":{"@type":"Answer","text":"BMI는 근육량이 많은 운동선수, 임산부, 65세 이상 노인, 성장기 어린이의 경우 정확하지 않을 수 있습니다. 이런 경우 체지방률 측정을 권장합니다."}},{"@type":"Question","name":"아시아인 BMI 기준이 다른 이유는?","acceptedAnswer":{"@type":"Answer","text":"아시아인은 같은 BMI에서도 서양인보다 체지방률이 높고, 복부 비만의 위험이 더 크다는 연구 결과가 있습니다. 이 때문에 한국, 일본, 중국 등 아시아 국가에서는 BMI 23 이상을 과체중으로 분류합니다."}},{"@type":"Question","name":"BMI를 낮추는 방법은?","acceptedAnswer":{"@type":"Answer","text":"BMI를 낮추려면 칼로리 섭취를 줄이고 유산소 운동을 늘리는 것이 기본입니다. 단, 급격한 체중 감량보다는 주당 0.5~1kg 정도의 점진적인 감량을 권장합니다. 의료 전문가와 상담하는 것이 가장 안전합니다."}}]}
+  </script>
+</head>
+<body>
+<header class="guh-header" role="banner">
+  <div class="guh-header-inner">
+    <a href="/ko/" class="guh-logo">글로벌 <span>유틸리티</span> 허브</a>
+    <nav class="guh-nav" aria-label="Main navigation">
+      <a href="/ko/" class="guh-nav-link">생활도구</a>
+      <a href="/ko/" class="guh-nav-link">금융계산기</a>
+      <a href="/ko/" class="guh-nav-link active">건강</a>
+      <a href="/ko/" class="guh-nav-link">개발자도구</a>
+      <a href="/ko/" class="guh-nav-link">파일도구</a>
+      <a href="/ko/blog/" class="guh-nav-link">블로그</a>
+    </nav>
+    <div class="guh-header-actions">
+      <div class="guh-lang-select">
+        <a href="/tools/ko/bmi-calculator/" class="guh-lang-btn active">KO</a>
+        <a href="/tools/en/bmi-calculator/" class="guh-lang-btn">EN</a>
+      </div>
+      <button class="guh-theme-btn" onclick="guhToggleTheme()" aria-label="다크모드 전환"><span id="theme-icon">🌙</span></button>
+      <button class="guh-menu-btn" id="menu-btn" aria-label="메뉴">☰</button>
+    </div>
+  </div>
+</header>
+<div class="guh-mobile-nav" id="mobile-nav">
+  <a href="/ko/">생활도구</a><a href="/ko/">금융계산기</a><a href="/ko/">건강</a>
+  <a href="/ko/">개발자도구</a><a href="/ko/">파일도구</a><a href="/ko/blog/">블로그</a>
+  <hr /><a href="/tools/ko/bmi-calculator/">🇰🇷 한국어</a><a href="/tools/en/bmi-calculator/">🇺🇸 English</a>
+</div>
+
+<main class="guh-container guh-page" id="main-content">
+  <nav class="guh-breadcrumb" aria-label="Breadcrumb">
+    <a href="/ko/">홈</a><span class="guh-breadcrumb-sep">›</span>
+    <a href="/ko/">건강</a><span class="guh-breadcrumb-sep">›</span>
+    <span>BMI 계산기</span>
+  </nav>
+
+  <div class="guh-hero">
+    <h1>⚖️ BMI 계산기</h1>
+    <p>키와 몸무게를 입력하면 체질량지수(BMI)를 즉시 계산합니다. WHO 기준과 아시아(한국) 기준을 함께 제공합니다.</p>
+  </div>
+
+  <!-- Calculator -->
+  <section class="guh-section" id="calculator" aria-label="BMI 계산">
+    <div class="guh-calc-card">
+      <!-- Unit toggle -->
+      <div class="guh-toggle-group" role="group" aria-label="단위 선택">
+        <button class="guh-toggle-btn active" id="btn-metric" onclick="setUnit('metric')">미터법 (kg/cm)</button>
+        <button class="guh-toggle-btn" id="btn-imperial" onclick="setUnit('imperial')">야드파운드 (lb/ft)</button>
+      </div>
+
+      <div class="guh-input-row">
+        <div class="guh-form-group">
+          <label class="guh-label" for="height-input" id="height-label">키 (cm)</label>
+          <input type="number" id="height-input" class="guh-input" placeholder="170" min="50" max="300" aria-label="키 입력" oninput="calcBMI()" />
+        </div>
+        <div class="guh-form-group">
+          <label class="guh-label" for="weight-input" id="weight-label">몸무게 (kg)</label>
+          <input type="number" id="weight-input" class="guh-input" placeholder="65" min="1" max="500" aria-label="몸무게 입력" oninput="calcBMI()" />
+        </div>
+      </div>
+      <div class="guh-form-group" id="height2-group" style="display:none;">
+        <label class="guh-label" for="height-inch">키 (인치, 선택사항)</label>
+        <input type="number" id="height-inch" class="guh-input" placeholder="0" min="0" max="11" aria-label="키 인치 입력" oninput="calcBMI()" />
+      </div>
+      <button class="guh-btn" onclick="calcBMI()">⚖️ BMI 계산하기</button>
+    </div>
+
+    <!-- Result -->
+    <div class="guh-result-card" id="result-card" role="region" aria-live="polite">
+      <div class="guh-result-label">BMI (체질량지수)</div>
+      <div class="guh-result-value" id="result-bmi">-</div>
+      <div class="bmi-gauge" id="bmi-gauge" aria-hidden="true">
+        <div class="bmi-gauge-bar">
+          <div class="bmi-gauge-needle" id="gauge-needle" style="left:0%"></div>
+        </div>
+        <div class="bmi-gauge-labels">
+          <span>저체중</span><span>정상</span><span>과체중</span><span>비만</span><span>고도비만</span>
+        </div>
+      </div>
+      <div id="result-badge"></div>
+      <div class="guh-result-sub" id="result-desc" style="margin-top:8px;"></div>
+    </div>
+
+    <!-- Detail Grid -->
+    <div class="guh-result-grid" id="result-grid">
+      <div class="guh-result-item">
+        <div class="guh-result-item-label">BMI</div>
+        <div class="guh-result-item-value" id="r-bmi">-</div>
+        <div class="guh-result-item-unit">kg/m²</div>
+      </div>
+      <div class="guh-result-item">
+        <div class="guh-result-item-label">WHO 판정</div>
+        <div class="guh-result-item-value" id="r-who" style="font-size:14px;">-</div>
+        <div class="guh-result-item-unit"></div>
+      </div>
+      <div class="guh-result-item">
+        <div class="guh-result-item-label">한국 판정</div>
+        <div class="guh-result-item-value" id="r-kor" style="font-size:14px;">-</div>
+        <div class="guh-result-item-unit"></div>
+      </div>
+      <div class="guh-result-item">
+        <div class="guh-result-item-label">정상 체중 범위</div>
+        <div class="guh-result-item-value" id="r-normal" style="font-size:14px;">-</div>
+        <div class="guh-result-item-unit">kg</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Formula -->
+  <section class="guh-section" id="formula">
+    <h2 class="guh-section-title">📐 계산 공식</h2>
+    <div class="guh-formula-box">
+BMI = 체중(kg) ÷ 키(m)²
+
+예) 키 170cm, 몸무게 65kg
+    → BMI = 65 ÷ (1.70)² = 65 ÷ 2.89 = 22.5</div>
+    <div style="margin-top:16px;overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-size:13px;">
+        <thead>
+          <tr style="background:var(--surface2);">
+            <th style="padding:10px;border:1px solid var(--border);text-align:left;">분류</th>
+            <th style="padding:10px;border:1px solid var(--border);text-align:center;">WHO 기준</th>
+            <th style="padding:10px;border:1px solid var(--border);text-align:center;">한국/아시아 기준</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td style="padding:9px 10px;border:1px solid var(--border);">저체중</td><td style="padding:9px 10px;border:1px solid var(--border);text-align:center;">18.5 미만</td><td style="padding:9px 10px;border:1px solid var(--border);text-align:center;">18.5 미만</td></tr>
+          <tr><td style="padding:9px 10px;border:1px solid var(--border);">정상</td><td style="padding:9px 10px;border:1px solid var(--border);text-align:center;">18.5 ~ 24.9</td><td style="padding:9px 10px;border:1px solid var(--border);text-align:center;">18.5 ~ 22.9</td></tr>
+          <tr><td style="padding:9px 10px;border:1px solid var(--border);">과체중</td><td style="padding:9px 10px;border:1px solid var(--border);text-align:center;">25.0 ~ 29.9</td><td style="padding:9px 10px;border:1px solid var(--border);text-align:center;">23.0 ~ 24.9</td></tr>
+          <tr><td style="padding:9px 10px;border:1px solid var(--border);">비만 1단계</td><td style="padding:9px 10px;border:1px solid var(--border);text-align:center;">30.0 ~ 34.9</td><td style="padding:9px 10px;border:1px solid var(--border);text-align:center;">25.0 ~ 29.9</td></tr>
+          <tr><td style="padding:9px 10px;border:1px solid var(--border);">비만 2단계</td><td style="padding:9px 10px;border:1px solid var(--border);text-align:center;">35.0 이상</td><td style="padding:9px 10px;border:1px solid var(--border);text-align:center;">30.0 이상</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Examples -->
+  <section class="guh-section" id="examples">
+    <h2 class="guh-section-title">💡 사용 예시</h2>
+    <div class="guh-example">
+      <div class="guh-example-title">예시 1 – 정상 체중</div>
+      <dl>
+        <dt>키</dt><dd>170cm</dd><dt>몸무게</dt><dd>65kg</dd>
+        <dt>BMI</dt><dd>22.5 → 정상 (WHO), 정상 (한국)</dd>
+      </dl>
+    </div>
+    <div class="guh-example">
+      <div class="guh-example-title">예시 2 – 과체중 (한국 기준)</div>
+      <dl>
+        <dt>키</dt><dd>175cm</dd><dt>몸무게</dt><dd>80kg</dd>
+        <dt>BMI</dt><dd>26.1 → 과체중 (WHO), 비만 (한국)</dd>
+      </dl>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="guh-section" id="faq">
+    <h2 class="guh-section-title">❓ 자주 묻는 질문</h2>
+    <div class="guh-faq-item">
+      <button class="guh-faq-q" aria-expanded="false">BMI란 무엇인가요?<span class="guh-faq-icon">+</span></button>
+      <div class="guh-faq-a">BMI(Body Mass Index, 체질량지수)는 체중(kg)을 키(m)의 제곱으로 나눈 값입니다. 세계보건기구(WHO)가 권장하는 비만도 측정 방법으로, 성인의 체지방 수준을 간편하게 평가하는 데 사용됩니다.</div>
+    </div>
+    <div class="guh-faq-item">
+      <button class="guh-faq-q" aria-expanded="false">정상 BMI 범위는 어떻게 되나요?<span class="guh-faq-icon">+</span></button>
+      <div class="guh-faq-a">WHO 기준으로 18.5~24.9가 정상입니다. 한국 대한비만학회 기준은 18.5~22.9가 정상, 23.0~24.9는 과체중, 25.0 이상은 비만으로 분류합니다.</div>
+    </div>
+    <div class="guh-faq-item">
+      <button class="guh-faq-q" aria-expanded="false">BMI가 정확하지 않은 경우는?<span class="guh-faq-icon">+</span></button>
+      <div class="guh-faq-a">BMI는 근육량이 많은 운동선수, 임산부, 65세 이상 노인, 성장기 어린이에게는 정확하지 않을 수 있습니다. 이런 경우 체지방률 직접 측정을 권장합니다.</div>
+    </div>
+    <div class="guh-faq-item">
+      <button class="guh-faq-q" aria-expanded="false">아시아인 BMI 기준이 다른 이유는?<span class="guh-faq-icon">+</span></button>
+      <div class="guh-faq-a">아시아인은 같은 BMI에서도 서양인보다 체지방률이 높고 복부 비만 위험이 크다는 연구 결과에 따라, 한국·일본·중국 등은 더 낮은 기준을 적용합니다.</div>
+    </div>
+    <div class="guh-faq-item">
+      <button class="guh-faq-q" aria-expanded="false">BMI를 낮추는 방법은?<span class="guh-faq-icon">+</span></button>
+      <div class="guh-faq-a">칼로리 섭취를 줄이고 유산소 운동을 늘리는 것이 기본입니다. 주당 0.5~1kg의 점진적인 체중 감량이 건강에 좋습니다. 반드시 의료 전문가와 상담하세요.</div>
+    </div>
+  </section>
+
+  <!-- Related Tools -->
+  <section class="guh-section" id="related-tools">
+    <h2 class="guh-section-title">🔗 관련 도구</h2>
+    <div class="guh-tool-grid">
+      <a href="/tools/ko/ideal-weight-calculator/" class="guh-tool-card"><span class="guh-tool-icon">🏋️</span><span>이상체중 계산기</span></a>
+      <a href="/tools/ko/date-calculator/" class="guh-tool-card"><span class="guh-tool-icon">📅</span><span>날짜 계산기</span></a>
+      <a href="/tools/ko/korean-age-calculator/" class="guh-tool-card"><span class="guh-tool-icon">🎂</span><span>만나이 계산기</span></a>
+      <a href="/tools/ko/qr-code-generator/" class="guh-tool-card"><span class="guh-tool-icon">📱</span><span>QR코드 생성기</span></a>
+      <a href="/tools/ko/image-to-pdf/" class="guh-tool-card"><span class="guh-tool-icon">📄</span><span>이미지→PDF</span></a>
+    </div>
+  </section>
+
+  <section class="guh-section" id="related-blog">
+    <h2 class="guh-section-title">📝 관련 블로그</h2>
+    <div class="guh-blog-grid" id="blog-grid">
+      <div class="guh-blog-empty">관련 블로그 포스트를 불러오는 중...</div>
+    </div>
+  </section>
+</main>
+
+<footer class="guh-footer" role="contentinfo">
+  <div class="guh-footer-inner">
+    <a href="/ko/" class="guh-footer-logo">Global Utility Hub</a>
+    <nav class="guh-footer-links"><a href="/ko/blog/">블로그</a><a href="/ko/">도구 목록</a><a href="mailto:contact@bmsystems.biz">문의</a></nav>
+    <p class="guh-footer-copy">© 2026 Global Utility Hub. All rights reserved.</p>
+  </div>
+</footer>
+<div class="guh-toast" id="toast"></div>
+
+<script>
+  function guhToggleTheme() {
+    var isDark = document.documentElement.dataset.theme === 'dark';
+    document.documentElement.dataset.theme = isDark ? 'light' : 'dark';
+    localStorage.setItem('GUH-theme', document.documentElement.dataset.theme);
+    document.getElementById('theme-icon').textContent = isDark ? '🌙' : '☀️';
+  }
+  (function(){ document.getElementById('theme-icon').textContent = document.documentElement.dataset.theme === 'dark' ? '☀️' : '🌙'; })();
+  document.getElementById('menu-btn').addEventListener('click', function() { document.getElementById('mobile-nav').classList.toggle('open'); });
+  document.querySelectorAll('.guh-faq-q').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var isOpen = this.classList.contains('open');
+      document.querySelectorAll('.guh-faq-q').forEach(function(b){ b.classList.remove('open'); b.nextElementSibling.classList.remove('open'); });
+      if (!isOpen) { this.classList.add('open'); this.nextElementSibling.classList.add('open'); }
+    });
+  });
+
+  var unit = 'metric';
+  function setUnit(u) {
+    unit = u;
+    document.getElementById('btn-metric').classList.toggle('active', u === 'metric');
+    document.getElementById('btn-imperial').classList.toggle('active', u === 'imperial');
+    var hLabel = document.getElementById('height-label'), wLabel = document.getElementById('weight-label');
+    var hInput = document.getElementById('height-input'), wInput = document.getElementById('weight-input');
+    var h2Group = document.getElementById('height2-group');
+    if (u === 'metric') {
+      hLabel.textContent = '키 (cm)'; wLabel.textContent = '몸무게 (kg)';
+      hInput.placeholder = '170'; wInput.placeholder = '65'; h2Group.style.display = 'none';
+    } else {
+      hLabel.textContent = '키 (ft)'; wLabel.textContent = '몸무게 (lb)';
+      hInput.placeholder = '5'; wInput.placeholder = '143'; h2Group.style.display = 'block';
+    }
+    hInput.value = ''; wInput.value = '';
+  }
+
+  function calcBMI() {
+    var h, w;
+    if (unit === 'metric') {
+      h = parseFloat(document.getElementById('height-input').value) / 100;
+      w = parseFloat(document.getElementById('weight-input').value);
+    } else {
+      var ft = parseFloat(document.getElementById('height-input').value) || 0;
+      var inch = parseFloat(document.getElementById('height-inch').value) || 0;
+      h = (ft * 30.48 + inch * 2.54) / 100;
+      w = parseFloat(document.getElementById('weight-input').value) * 0.453592;
+    }
+    if (!h || !w || h <= 0 || w <= 0) return;
+    var bmi = w / (h * h);
+    bmi = Math.round(bmi * 10) / 10;
+
+    // WHO classification
+    var whoClass, korClass, badgeClass;
+    if (bmi < 18.5) { whoClass = '저체중'; korClass = '저체중'; badgeClass = 'badge-info'; }
+    else if (bmi < 25) { whoClass = '정상'; korClass = bmi < 23 ? '정상' : '과체중'; badgeClass = 'badge-normal'; }
+    else if (bmi < 30) { whoClass = '과체중'; korClass = bmi < 25 ? '비만1단계' : '비만1단계'; badgeClass = 'badge-warning'; }
+    else { whoClass = '비만'; korClass = '비만2단계'; badgeClass = 'badge-danger'; }
+    if (bmi >= 25 && bmi < 30) korClass = '비만1단계';
+    if (bmi >= 30) korClass = '비만2단계';
+
+    // Korean classification (more strict)
+    if (bmi < 18.5) korClass = '저체중';
+    else if (bmi < 23) korClass = '정상';
+    else if (bmi < 25) korClass = '과체중';
+    else if (bmi < 30) korClass = '비만1단계';
+    else korClass = '비만2단계';
+
+    var desc = '';
+    if (bmi < 18.5) desc = '영양 섭취를 늘리고 근력 운동을 시작하세요.';
+    else if (bmi < 23) desc = '건강한 체중 범위입니다. 현재 생활 습관을 유지하세요.';
+    else if (bmi < 25) desc = '조금 주의가 필요합니다. 규칙적인 운동을 권장합니다.';
+    else if (bmi < 30) desc = '체중 관리가 필요합니다. 식이 조절과 운동을 병행하세요.';
+    else desc = '건강 위험이 높습니다. 의료 전문가와 상담하세요.';
+
+    // Gauge needle position (BMI 15~40 range → 0~100%)
+    var needlePct = Math.min(Math.max((bmi - 15) / (40 - 15) * 100, 0), 100);
+
+    // Normal weight range
+    var normalMin = (18.5 * h * h).toFixed(1), normalMax = (22.9 * h * h).toFixed(1);
+
+    document.getElementById('result-card').classList.add('show');
+    document.getElementById('result-bmi').textContent = bmi;
+    document.getElementById('gauge-needle').style.left = needlePct + '%';
+    document.getElementById('result-badge').innerHTML = '<span class="guh-result-badge '+badgeClass+'">'+korClass+'</span>';
+    document.getElementById('result-desc').textContent = desc;
+
+    document.getElementById('result-grid').classList.add('show');
+    document.getElementById('r-bmi').textContent = bmi;
+    document.getElementById('r-who').textContent = whoClass;
+    document.getElementById('r-kor').textContent = korClass;
+    document.getElementById('r-normal').textContent = normalMin + '~' + normalMax;
+  }
+
+  function showToast(msg, isErr) {
+    var t = document.getElementById('toast'); t.textContent = msg;
+    t.style.background = isErr ? 'var(--red)' : 'var(--green)';
+    t.classList.add('show'); setTimeout(function(){ t.classList.remove('show'); }, 2500);
+  }
+
+  (async function loadBlogs() {
+    try {
+      var r = await fetch('/ko/blog/index.json'); if (!r.ok) return;
+      var posts = await r.json();
+      var related = posts.filter(function(p){ return p.related_tool === 'bmi-calculator'; }).slice(0,3);
+      var grid = document.getElementById('blog-grid');
+      if (related.length === 0) { grid.innerHTML = '<div class="guh-blog-empty">관련 블로그 포스트가 준비 중입니다.</div>'; return; }
+      grid.innerHTML = related.map(function(p){ return '<a href="'+p.url+'" class="guh-blog-card"><div class="guh-blog-card-title">'+p.title+'</div><div class="guh-blog-card-date">'+p.date+'</div></a>'; }).join('');
+    } catch(e) { document.getElementById('blog-grid').innerHTML = '<div class="guh-blog-empty">관련 블로그 포스트가 준비 중입니다.</div>'; }
+  })();
+</script>
+</body>
+</html>

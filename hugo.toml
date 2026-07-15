@@ -29,5 +29,5 @@ defaultContentLanguageInSubdir = true
 
 [outputs]
   home    = ["HTML", "RSS"]
-  section = ["HTML", "RSS"]
+  section = ["HTML", "RSS", "JSON"]
   page    = ["HTML"]

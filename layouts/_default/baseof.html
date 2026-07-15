@@ -1,50 +1,156 @@
 <!DOCTYPE html>
-<html lang="{{ .Language.LanguageCode }}">
+<html lang="{{ .Language.LanguageCode }}" data-theme="">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{{ block "title" . }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
   <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}" />
-  {{ with .Params.canonical }}<link rel="canonical" href="{{ . }}" />{{ else }}<link rel="canonical" href="{{ .Permalink }}" />{{ end }}
-  {{ range .AlternativeOutputFormats -}}
-    {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
-  {{ end }}
+  <link rel="canonical" href="{{ .Permalink }}" />
   {{ range .Site.Languages }}
-  <link rel="alternate" hreflang="{{ .LanguageCode }}" href="{{ $.Permalink }}" />
+  <link rel="alternate" hreflang="{{ .LanguageCode }}" href="{{ $.Permalink | replaceRE (printf "/%s/" $.Language.Lang) (printf "/%s/" .Lang) }}" />
   {{ end }}
+  <link rel="alternate" hreflang="x-default" href="{{ .Permalink | replaceRE (printf "/%s/" .Language.Lang) "/en/" }}" />
   <!-- Open Graph -->
   <meta property="og:title" content="{{ with .Params.og_title }}{{ . }}{{ else }}{{ .Title }}{{ end }}" />
-  <meta property="og:description" content="{{ with .Params.og_description }}{{ . }}{{ else }}{{ .Description }}{{ end }}" />
+  <meta property="og:description" content="{{ with .Params.og_description }}{{ . }}{{ else }}{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}{{ end }}" />
   <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}" />
   <meta property="og:url" content="{{ .Permalink }}" />
+  <meta property="og:site_name" content="{{ .Site.Title }}" />
+  <meta property="og:locale" content="{{ .Language.LanguageCode | replaceRE "-" "_" }}" />
   {{ with .Params.cover }}{{ with .image }}<meta property="og:image" content="{{ . }}" />{{ end }}{{ end }}
-  <!-- Bootstrap 5 -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{{ .Title }}" />
+  <meta name="twitter:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}" />
+  <!-- Fonts & Styles -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/common.css" />
   <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
     .article-content img { max-width: 100%; height: auto; border-radius: 8px; }
-    .article-content h2 { margin-top: 2rem; }
-    .article-content h3 { margin-top: 1.5rem; }
+    .article-content h2 { font-size: 20px; font-weight: 700; margin: 28px 0 12px; color: var(--text-1); }
+    .article-content h3 { font-size: 17px; font-weight: 600; margin: 22px 0 8px; color: var(--text-1); }
+    .article-content p { font-size: 15px; color: var(--text-2); line-height: 1.8; margin-bottom: 16px; }
+    .article-content ul, .article-content ol { color: var(--text-2); font-size: 15px; line-height: 1.8; padding-left: 24px; margin-bottom: 16px; }
+    .article-content blockquote { border-left: 4px solid var(--accent); padding: 12px 16px; background: var(--accent-soft); border-radius: 0 8px 8px 0; margin: 16px 0; color: var(--text-2); }
+    .article-content code { background: var(--surface2); padding: 2px 6px; border-radius: 4px; font-size: 13px; font-family: 'Courier New', monospace; color: var(--accent); }
+    .article-content pre { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 16px; overflow-x: auto; margin: 16px 0; }
+    .article-content pre code { background: none; padding: 0; color: var(--text-1); font-size: 13px; }
+    .article-content table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+    .article-content th, .article-content td { padding: 10px 14px; border: 1px solid var(--border); font-size: 14px; }
+    .article-content th { background: var(--surface2); font-weight: 600; }
+    .blog-tool-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; background: var(--accent); color: white; border-radius: 10px; text-decoration: none; font-size: 14px; font-weight: 600; transition: opacity 0.2s; margin: 8px 0; }
+    .blog-tool-btn:hover { opacity: 0.88; color: white; text-decoration: none; }
   </style>
+  <!-- Theme: Apply before render to prevent flash -->
+  <script>
+    (function(){var t=localStorage.getItem('GUH-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark';})();
+  </script>
   {{ with .Params.json_ld }}<script type="application/ld+json">{{ . | safeJS }}</script>{{ end }}
+  {{ block "head_extra" . }}{{ end }}
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container">
-      <a class="navbar-brand fw-bold" href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a>
+  <!-- HEADER -->
+  {{ $lang := .Language.Lang }}
+  {{ $homeUrl := printf "/%s/" $lang }}
+  <header class="guh-header" role="banner">
+    <div class="guh-header-inner">
+      <a href="{{ $homeUrl }}" class="guh-logo">
+        {{ if eq $lang "ko" }}글로벌 <span>유틸리티</span> 허브{{ else }}Global <span>Utility</span> Hub{{ end }}
+      </a>
+      <nav class="guh-nav" aria-label="Main navigation">
+        {{ if eq $lang "ko" }}
+        <a href="{{ $homeUrl }}" class="guh-nav-link">생활도구</a>
+        <a href="{{ $homeUrl }}" class="guh-nav-link">금융계산기</a>
+        <a href="{{ $homeUrl }}" class="guh-nav-link">건강</a>
+        <a href="{{ $homeUrl }}" class="guh-nav-link">개발자도구</a>
+        <a href="{{ $homeUrl }}" class="guh-nav-link">파일도구</a>
+        <a href="{{ $homeUrl }}blog/" class="guh-nav-link{{ if eq .Section "blog" }} active{{ end }}">블로그</a>
+        {{ else }}
+        <a href="{{ $homeUrl }}" class="guh-nav-link">Daily Tools</a>
+        <a href="{{ $homeUrl }}" class="guh-nav-link">Finance</a>
+        <a href="{{ $homeUrl }}" class="guh-nav-link">Health</a>
+        <a href="{{ $homeUrl }}" class="guh-nav-link">Dev Tools</a>
+        <a href="{{ $homeUrl }}" class="guh-nav-link">File Tools</a>
+        <a href="{{ $homeUrl }}blog/" class="guh-nav-link{{ if eq .Section "blog" }} active{{ end }}">Blog</a>
+        {{ end }}
+      </nav>
+      <div class="guh-header-actions">
+        <div class="guh-lang-select">
+          <a href="{{ .Permalink | replaceRE (printf "/%s/" $lang) "/ko/" }}" class="guh-lang-btn{{ if eq $lang "ko" }} active{{ end }}">KO</a>
+          <a href="{{ .Permalink | replaceRE (printf "/%s/" $lang) "/en/" }}" class="guh-lang-btn{{ if eq $lang "en" }} active{{ end }}">EN</a>
+        </div>
+        <button class="guh-theme-btn" onclick="guhToggleTheme()" aria-label="Toggle dark mode" title="Toggle dark mode">
+          <span id="theme-icon">🌙</span>
+        </button>
+        <button class="guh-menu-btn" id="menu-btn" aria-label="Navigation menu">☰</button>
+      </div>
     </div>
-  </nav>
+  </header>
+  <!-- MOBILE NAV -->
+  <div class="guh-mobile-nav" id="mobile-nav" role="navigation" aria-label="Mobile navigation">
+    {{ if eq $lang "ko" }}
+    <a href="{{ $homeUrl }}">생활도구</a>
+    <a href="{{ $homeUrl }}">금융계산기</a>
+    <a href="{{ $homeUrl }}">건강</a>
+    <a href="{{ $homeUrl }}">개발자도구</a>
+    <a href="{{ $homeUrl }}">파일도구</a>
+    <a href="{{ $homeUrl }}blog/">블로그</a>
+    <hr />
+    <a href="{{ .Permalink | replaceRE (printf "/%s/" $lang) "/ko/" }}">🇰🇷 한국어</a>
+    <a href="{{ .Permalink | replaceRE (printf "/%s/" $lang) "/en/" }}">🇺🇸 English</a>
+    {{ else }}
+    <a href="{{ $homeUrl }}">Daily Tools</a>
+    <a href="{{ $homeUrl }}">Finance</a>
+    <a href="{{ $homeUrl }}">Health</a>
+    <a href="{{ $homeUrl }}">Dev Tools</a>
+    <a href="{{ $homeUrl }}">File Tools</a>
+    <a href="{{ $homeUrl }}blog/">Blog</a>
+    <hr />
+    <a href="{{ .Permalink | replaceRE (printf "/%s/" $lang) "/ko/" }}">🇰🇷 한국어</a>
+    <a href="{{ .Permalink | replaceRE (printf "/%s/" $lang) "/en/" }}">🇺🇸 English</a>
+    {{ end }}
+  </div>
 
-  <main class="container my-5">
+  <main id="main-content">
     {{ block "main" . }}{{ end }}
   </main>
 
-  <footer class="bg-light py-4 mt-5">
-    <div class="container text-center text-muted small">
-      © {{ now.Year }} {{ .Site.Title }}. All rights reserved.
+  <!-- FOOTER -->
+  <footer class="guh-footer" role="contentinfo">
+    <div class="guh-footer-inner">
+      <a href="{{ $homeUrl }}" class="guh-footer-logo">Global Utility Hub</a>
+      <nav class="guh-footer-links" aria-label="Footer navigation">
+        <a href="{{ $homeUrl }}blog/">{{ if eq $lang "ko" }}블로그{{ else }}Blog{{ end }}</a>
+        <a href="{{ $homeUrl }}">{{ if eq $lang "ko" }}도구 목록{{ else }}All Tools{{ end }}</a>
+        <a href="mailto:contact@bmsystems.biz">Contact</a>
+      </nav>
+      <p class="guh-footer-copy">© {{ now.Year }} Global Utility Hub. All rights reserved.</p>
     </div>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function guhToggleTheme() {
+      var isDark = document.documentElement.dataset.theme === 'dark';
+      document.documentElement.dataset.theme = isDark ? 'light' : 'dark';
+      localStorage.setItem('GUH-theme', document.documentElement.dataset.theme);
+      document.getElementById('theme-icon').textContent = isDark ? '🌙' : '☀️';
+    }
+    (function(){
+      var isDark = document.documentElement.dataset.theme === 'dark';
+      var icon = document.getElementById('theme-icon');
+      if (icon) icon.textContent = isDark ? '☀️' : '🌙';
+    })();
+    document.getElementById('menu-btn').addEventListener('click', function() {
+      document.getElementById('mobile-nav').classList.toggle('open');
+    });
+    document.querySelectorAll('.guh-faq-q').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        this.classList.toggle('open');
+        this.nextElementSibling.classList.toggle('open');
+      });
+    });
+  </script>
+  {{ block "scripts" . }}{{ end }}
 </body>
 </html>

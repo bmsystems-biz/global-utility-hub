@@ -1,0 +1,29 @@
+site:
+  name: "글로벌 유틸리티 허브"
+  tagline: "전 세계 사용자를 위한 SEO 중심 유틸리티 플랫폼"
+
+nav:
+  daily: "생활도구"
+  finance: "금융계산기"
+  health: "건강"
+  dev: "개발자도구"
+  file: "파일도구"
+  blog: "블로그"
+
+common:
+  calculate: "계산하기"
+  reset: "초기화"
+  copy: "복사"
+  download: "다운로드"
+  related_tools: "관련 도구"
+  related_blogs: "관련 블로그"
+  formula: "계산 공식"
+  examples: "사용 예시"
+  faq: "자주 묻는 질문"
+  home: "홈"
+
+blog:
+  title: "블로그"
+  read_more: "더 읽기"
+  published: "게시일"
+  related_tool: "관련 도구"
