@@ -1,19 +1,13 @@
-# Language redirect: root to default language (English)
-/  /en/  302
-
-# Legacy redirects (in case tool URLs change in the future)
-/tools/ko/date-calculator  /tools/ko/date-calculator/  301
-/tools/en/date-calculator  /tools/en/date-calculator/  301
-/tools/ko/korean-age-calculator  /tools/ko/korean-age-calculator/  301
-/tools/en/korean-age-calculator  /tools/en/korean-age-calculator/  301
-/tools/ko/qr-code-generator  /tools/ko/qr-code-generator/  301
-/tools/en/qr-code-generator  /tools/en/qr-code-generator/  301
-/tools/ko/image-to-pdf  /tools/ko/image-to-pdf/  301
-/tools/en/image-to-pdf  /tools/en/image-to-pdf/  301
-/tools/ko/bmi-calculator  /tools/ko/bmi-calculator/  301
-/tools/en/bmi-calculator  /tools/en/bmi-calculator/  301
-/tools/ko/ideal-weight-calculator  /tools/ko/ideal-weight-calculator/  301
-/tools/en/ideal-weight-calculator  /tools/en/ideal-weight-calculator/  301
-
-# 404 fallback
-/*  /en/404.html  404
+# Trailing slash normalization for tool pages
+/tools/ko/date-calculator /tools/ko/date-calculator/ 301
+/tools/en/date-calculator /tools/en/date-calculator/ 301
+/tools/ko/korean-age-calculator /tools/ko/korean-age-calculator/ 301
+/tools/en/korean-age-calculator /tools/en/korean-age-calculator/ 301
+/tools/ko/qr-code-generator /tools/ko/qr-code-generator/ 301
+/tools/en/qr-code-generator /tools/en/qr-code-generator/ 301
+/tools/ko/image-to-pdf /tools/ko/image-to-pdf/ 301
+/tools/en/image-to-pdf /tools/en/image-to-pdf/ 301
+/tools/ko/bmi-calculator /tools/ko/bmi-calculator/ 301
+/tools/en/bmi-calculator /tools/en/bmi-calculator/ 301
+/tools/ko/ideal-weight-calculator /tools/ko/ideal-weight-calculator/ 301
+/tools/en/ideal-weight-calculator /tools/en/ideal-weight-calculator/ 301
