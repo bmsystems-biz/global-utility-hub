@@ -1,7 +1,7 @@
 ---
 title: "BMI와 체지방률의 진짜 차이: 건강한 몸 만들기"
 description: "BMI와 체지방률의 차이를 이해하고, 건강한 몸을 만들기 위한 첫걸음을 내딛으세요. 체중 관리에 필수적인 지표입니다."
-date: "2026-07-16T15:43:13.712Z"
+date: "2026-07-16T16:05:16.829Z"
 slug: "bmi-mrktst71"
 keywords: [""]
 categories: ["건강"]
@@ -9,7 +9,7 @@ related_tool: "bmi-calculator"
 og_title: "BMI와 체지방률의 진짜 차이"
 og_description: "건강한 몸을 만들기 위해 알아야 할 BMI와 체지방률의 차이점과 활용 방법에 대해 알아보세요."
 canonical: "https://util.bmsystems.biz/bmi-mrktst71"
-json_ld: {"@context":"https://schema.org","@type":"BlogPosting","headline":"BMI와 체지방률의 진짜 차이: 건강한 몸 만들기","description":"BMI와 체지방률의 차이를 이해하고, 건강한 몸을 만들기 위한 첫걸음을 내딛으세요. 체중 관리에 필수적인 지표입니다.","url":"https://util.bmsystems.biz/bmi-mrktst71","datePublished":"2026-07-14T15:48:55.032Z","dateModified":"2026-07-14T15:48:55.032Z","author":{"@type":"Organization","name":"util.bmsystems.biz"}}
+json_ld: '{"@context":"https://schema.org","@type":"BlogPosting","headline":"BMI와 체지방률의 진짜 차이: 건강한 몸 만들기","description":"BMI와 체지방률의 차이를 이해하고, 건강한 몸을 만들기 위한 첫걸음을 내딛으세요. 체중 관리에 필수적인 지표입니다.","url":"https://util.bmsystems.biz/bmi-mrktst71","datePublished":"2026-07-14T15:48:55.032Z","dateModified":"2026-07-14T15:48:55.032Z","author":{"@type":"Organization","name":"util.bmsystems.biz"}}'
 ---
 
 # BMI와 체지방률 바로알기 - 건강한 몸 만들기의 첫걸음
