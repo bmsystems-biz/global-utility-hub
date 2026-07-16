@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://util.bmsystems.biz/sitemap.xml
