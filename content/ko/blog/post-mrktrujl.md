@@ -1,14 +1,14 @@
 ---
 title: "체질량지수로 건강 관리 시작하기: 실천 가능한 팁과 방법"
 description: "체질량지수를 활용한 건강 관리 방법을 알아보세요. BMI 계산법과 실천 가능한 팁을 통해 건강한 삶을 시작하세요."
-date: "2026-07-14T16:38:20.071Z"
+date: "2026-07-16T16:12:43.960Z"
 slug: "post-mrktrujl"
 keywords: [""]
 categories: ["건강"]
 og_title: "체질량지수로 건강 관리 시작하기"
 og_description: "체질량지수를 통해 건강을 관리하는 방법과 실천 가능한 팁을 소개합니다. 건강한 삶을 위한 첫걸음을 내딛어 보세요."
 canonical: "https://util.bmsystems.biz/post-mrktrujl"
-json_ld: {"@context":"https://schema.org","@type":"BlogPosting","headline":"체질량지수로 건강 관리 시작하기: 실천 가능한 팁과 방법","description":"체질량지수를 활용한 건강 관리 방법을 알아보세요. BMI 계산법과 실천 가능한 팁을 통해 건강한 삶을 시작하세요.","url":"https://util.bmsystems.biz/post-mrktrujl","datePublished":"2026-07-14T15:48:26.753Z","dateModified":"2026-07-14T15:48:26.753Z","author":{"@type":"Organization","name":"util.bmsystems.biz"}}
+json_ld: '{"@context":"https://schema.org","@type":"BlogPosting","headline":"체질량지수로 건강 관리 시작하기: 실천 가능한 팁과 방법","description":"체질량지수를 활용한 건강 관리 방법을 알아보세요. BMI 계산법과 실천 가능한 팁을 통해 건강한 삶을 시작하세요.","url":"https://util.bmsystems.biz/post-mrktrujl","datePublished":"2026-07-14T15:48:26.753Z","dateModified":"2026-07-14T15:48:26.753Z","author":{"@type":"Organization","name":"util.bmsystems.biz"}}'
 ---
 
 # 체질량지수로 건강 관리 시작하기: 실천 가능한 팁과 방법
