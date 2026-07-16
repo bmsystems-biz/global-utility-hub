@@ -46,7 +46,7 @@
   <script>
     (function(){var t=localStorage.getItem('GUH-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark';})();
   </script>
-  {{ with .Params.json_ld }}<script type="application/ld+json">{{ if kindIs "string" . }}{{ . | safeJS }}{{ else }}{{ . | jsonify | safeJS }}{{ end }}</script>{{ end }}
+  {{ with .Params.json_ld }}<script type="application/ld+json">{{ if eq (printf "%T" .) "string" }}{{ . | safeJS }}{{ else }}{{ . | jsonify | safeJS }}{{ end }}</script>{{ end }}
   {{ block "head_extra" . }}{{ end }}
 </head>
 <body>
