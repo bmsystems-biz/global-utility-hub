@@ -1,10 +1,11 @@
 ---
 title: "체질량지수로 건강 관리 시작하기: 실천 가능한 팁과 방법"
 description: "체질량지수를 활용한 건강 관리 방법을 알아보세요. BMI 계산법과 실천 가능한 팁을 통해 건강한 삶을 시작하세요."
-date: "2026-07-16T16:12:43.960Z"
+date: "2026-07-17T10:45:41.535Z"
 slug: "post-mrktrujl"
 keywords: [""]
 categories: ["건강"]
+related_tool: "bmi-calculator"
 og_title: "체질량지수로 건강 관리 시작하기"
 og_description: "체질량지수를 통해 건강을 관리하는 방법과 실천 가능한 팁을 소개합니다. 건강한 삶을 위한 첫걸음을 내딛어 보세요."
 canonical: "https://util.bmsystems.biz/post-mrktrujl"
@@ -25,7 +26,7 @@ json_ld: '{"@context":"https://schema.org","@type":"BlogPosting","headline":"체
 
 체질량지수는 다음의 공식을 통해 계산할 수 있습니다:
 
-\[ \text{BMI} = \frac{\text{체중(kg)}}{(\text{키(m)})^2} \]
+\[ \\text{BMI} = \\frac{\\text{체중(kg)}}{(\\text{키(m)})^2} \]
 
 예를 들어, 체중이 70kg이고 키가 1.75m인 경우, BMI는 22.86으로 계산됩니다.
 
