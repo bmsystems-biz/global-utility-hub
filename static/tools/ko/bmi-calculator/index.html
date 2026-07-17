@@ -92,7 +92,7 @@
         <label class="guh-label" for="height-inch">키 (인치, 선택사항)</label>
         <input type="number" id="height-inch" class="guh-input" placeholder="0" min="0" max="11" aria-label="키 인치 입력" oninput="calcBMI()" />
       </div>
-      <button class="guh-btn" onclick="calcBMI()">⚖️ BMI 계산하기</button>
+      <button class="guh-btn" onclick="calcBMI(true)">⚖️ BMI 계산하기</button>
     </div>
 
     <!-- Result -->
@@ -272,7 +272,7 @@ BMI = 체중(kg) ÷ 키(m)²
     hInput.value = ''; wInput.value = '';
   }
 
-  function calcBMI() {
+  function calcBMI(fromBtn) {
     var h, w;
     if (unit === 'metric') {
       h = parseFloat(document.getElementById('height-input').value) / 100;
@@ -283,7 +283,10 @@ BMI = 체중(kg) ÷ 키(m)²
       h = (ft * 30.48 + inch * 2.54) / 100;
       w = parseFloat(document.getElementById('weight-input').value) * 0.453592;
     }
-    if (!h || !w || h <= 0 || w <= 0) return;
+    if (!h || !w || h <= 0 || w <= 0) {
+      if (fromBtn) showToast('키와 몸무게를 모두 입력해주세요.', true);
+      return;
+    }
     var bmi = w / (h * h);
     bmi = Math.round(bmi * 10) / 10;
 
