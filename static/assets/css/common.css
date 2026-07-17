@@ -272,6 +272,7 @@ a { color: var(--accent); }
 @media (max-width: 768px) {
   .guh-nav { display: none; }
   .guh-menu-btn { display: flex; }
+  .guh-logo { flex: 1; }
   .guh-lang-select { display: none; }
   .guh-search-input { width: 0; padding: 0; opacity: 0; border-bottom-color: transparent; pointer-events: none; }
   .guh-search-wrap.open .guh-search-input { width: 110px; padding: 2px 4px; opacity: 1; border-bottom-color: var(--border); pointer-events: auto; }
