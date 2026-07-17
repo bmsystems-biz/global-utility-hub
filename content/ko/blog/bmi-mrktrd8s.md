@@ -5,6 +5,7 @@ date: "2026-07-14T16:38:25.657Z"
 slug: "bmi-mrktrd8s"
 keywords: [""]
 categories: ["건강"]
+related_tool: "bmi-calculator"
 og_title: "BMI 정상 범위 기준: 건강한 체중의 비밀을 밝혀보세요"
 og_description: "체중 관리와 건강을 위해 BMI의 정의, 계산 방법, 정상 범위 기준 및 중요성을 알아보세요."
 canonical: "https://util.bmsystems.biz/bmi-mrktrd8s"
