@@ -54,6 +54,7 @@
   {{ $homeUrl := printf "/%s/" $lang }}
   <header class="guh-header" role="banner">
     <div class="guh-header-inner">
+      <button class="guh-menu-btn" id="menu-btn" aria-label="Navigation menu">☰</button>
       <a href="{{ $homeUrl }}" class="guh-logo">
         {{ if eq $lang "ko" }}글로벌 <span>유틸리티</span> 허브{{ else }}Global <span>Utility</span> Hub{{ end }}
       </a>
@@ -82,7 +83,6 @@
         <button class="guh-theme-btn" onclick="guhToggleTheme()" aria-label="Toggle dark mode" title="Toggle dark mode">
           <span id="theme-icon">🌙</span>
         </button>
-        <button class="guh-menu-btn" id="menu-btn" aria-label="Navigation menu">☰</button>
       </div>
     </div>
   </header>
