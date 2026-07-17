@@ -131,9 +131,13 @@ a { color: var(--accent); }
 /* ─── Search ─────────────────────────────────────────────────────── */
 .guh-search-wrap { position: relative; display: flex; align-items: center; gap: 2px; }
 .guh-search-input {
-  border: none;
-  border-bottom: 1.5px solid var(--border);
-  background: transparent;
+  -webkit-appearance: none;
+  appearance: none;
+  border: none !important;
+  border-bottom: 1.5px solid var(--border) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
   padding: 2px 4px;
   font-size: 13px;
   color: var(--text-1);
