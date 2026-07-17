@@ -108,7 +108,10 @@
     <div class="guh-calc-card">
       <div class="guh-input-row">
         <div class="guh-form-group">
-          <label class="guh-label" for="start-date">시작 날짜</label>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+            <label class="guh-label" for="start-date" style="margin-bottom:0;">시작 날짜</label>
+            <button class="guh-btn guh-btn-outline" onclick="setToday()" style="padding:2px 10px;font-size:12px;height:auto;min-height:unset;">오늘 날짜 설정</button>
+          </div>
           <input type="date" id="start-date" class="guh-input" aria-label="시작 날짜" />
         </div>
         <div class="guh-form-group">
@@ -117,7 +120,6 @@
         </div>
       </div>
       <button class="guh-btn" onclick="calcDate()" id="calc-btn">📅 기간 계산하기</button>
-      <button class="guh-btn guh-btn-outline" onclick="setToday()" style="margin-top:8px;">오늘 날짜 설정</button>
     </div>
 
     <!-- Result -->
