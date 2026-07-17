@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html lang="{{ .Language.LanguageCode }}" data-theme="">
+<html lang="{{ .Language.Locale }}" data-theme="">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{{ block "title" . }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
   <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}" />
   <link rel="canonical" href="{{ .Permalink }}" />
-  {{ range .Site.Languages }}
-  <link rel="alternate" hreflang="{{ .LanguageCode }}" href="{{ $.Permalink | replaceRE (printf "/%s/" $.Language.Lang) (printf "/%s/" .Lang) }}" />
-  {{ end }}
+  <link rel="alternate" hreflang="ko-KR" href="{{ .Permalink | replaceRE (printf "/%s/" .Language.Lang) "/ko/" }}" />
+  <link rel="alternate" hreflang="en-US" href="{{ .Permalink | replaceRE (printf "/%s/" .Language.Lang) "/en/" }}" />
   <link rel="alternate" hreflang="x-default" href="{{ .Permalink | replaceRE (printf "/%s/" .Language.Lang) "/en/" }}" />
   <!-- Open Graph -->
   <meta property="og:title" content="{{ with .Params.og_title }}{{ . }}{{ else }}{{ .Title }}{{ end }}" />
@@ -16,7 +15,7 @@
   <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}" />
   <meta property="og:url" content="{{ .Permalink }}" />
   <meta property="og:site_name" content="{{ .Site.Title }}" />
-  <meta property="og:locale" content="{{ .Language.LanguageCode | replaceRE "-" "_" }}" />
+  <meta property="og:locale" content="{{ .Language.Locale | replaceRE "-" "_" }}" />
   {{ with .Params.cover }}{{ with .image }}<meta property="og:image" content="{{ . }}" />{{ end }}{{ end }}
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
