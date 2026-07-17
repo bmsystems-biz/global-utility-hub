@@ -213,6 +213,7 @@ a { color: var(--accent); }
 @media (max-width: 768px) {
   .guh-nav { display: none; }
   .guh-menu-btn { display: flex; }
+  .guh-lang-select { display: none; }
 }
 @media (max-width: 480px) {
   .guh-logo { font-size: 15px; }
