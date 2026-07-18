@@ -60,18 +60,18 @@
       </a>
       <nav class="guh-nav" aria-label="Main navigation">
         {{ if eq $lang "ko" }}
+        <a href="{{ $homeUrl }}#file-tools" class="guh-nav-link">파일도구</a>
         <a href="{{ $homeUrl }}#daily-tools" class="guh-nav-link">생활도구</a>
         <a href="{{ $homeUrl }}#finance" class="guh-nav-link">금융계산기</a>
         <a href="{{ $homeUrl }}#health" class="guh-nav-link">건강</a>
         <a href="{{ $homeUrl }}#dev-tools" class="guh-nav-link">개발자도구</a>
-        <a href="{{ $homeUrl }}#file-tools" class="guh-nav-link">파일도구</a>
         <a href="{{ $homeUrl }}blog/" class="guh-nav-link{{ if eq .Section "blog" }} active{{ end }}">블로그</a>
         {{ else }}
+        <a href="{{ $homeUrl }}#file-tools" class="guh-nav-link">File Tools</a>
         <a href="{{ $homeUrl }}#daily-tools" class="guh-nav-link">Daily Tools</a>
         <a href="{{ $homeUrl }}#finance" class="guh-nav-link">Finance</a>
         <a href="{{ $homeUrl }}#health" class="guh-nav-link">Health</a>
         <a href="{{ $homeUrl }}#dev-tools" class="guh-nav-link">Dev Tools</a>
-        <a href="{{ $homeUrl }}#file-tools" class="guh-nav-link">File Tools</a>
         <a href="{{ $homeUrl }}blog/" class="guh-nav-link{{ if eq .Section "blog" }} active{{ end }}">Blog</a>
         {{ end }}
       </nav>
@@ -89,21 +89,21 @@
   <!-- MOBILE NAV -->
   <div class="guh-mobile-nav" id="mobile-nav" role="navigation" aria-label="Mobile navigation">
     {{ if eq $lang "ko" }}
-    <a href="{{ $homeUrl }}">생활도구</a>
-    <a href="{{ $homeUrl }}">금융계산기</a>
-    <a href="{{ $homeUrl }}">건강</a>
-    <a href="{{ $homeUrl }}">개발자도구</a>
-    <a href="{{ $homeUrl }}">파일도구</a>
+    <a href="{{ $homeUrl }}#file-tools">파일도구</a>
+    <a href="{{ $homeUrl }}#daily-tools">생활도구</a>
+    <a href="{{ $homeUrl }}#finance">금융계산기</a>
+    <a href="{{ $homeUrl }}#health">건강</a>
+    <a href="{{ $homeUrl }}#dev-tools">개발자도구</a>
     <a href="{{ $homeUrl }}blog/">블로그</a>
     <hr />
     <a href="{{ .Permalink | replaceRE (printf "/%s/" $lang) "/ko/" }}">🇰🇷 한국어</a>
     <a href="{{ .Permalink | replaceRE (printf "/%s/" $lang) "/en/" }}">🇺🇸 English</a>
     {{ else }}
-    <a href="{{ $homeUrl }}">Daily Tools</a>
-    <a href="{{ $homeUrl }}">Finance</a>
-    <a href="{{ $homeUrl }}">Health</a>
-    <a href="{{ $homeUrl }}">Dev Tools</a>
-    <a href="{{ $homeUrl }}">File Tools</a>
+    <a href="{{ $homeUrl }}#file-tools">File Tools</a>
+    <a href="{{ $homeUrl }}#daily-tools">Daily Tools</a>
+    <a href="{{ $homeUrl }}#finance">Finance</a>
+    <a href="{{ $homeUrl }}#health">Health</a>
+    <a href="{{ $homeUrl }}#dev-tools">Dev Tools</a>
     <a href="{{ $homeUrl }}blog/">Blog</a>
     <hr />
     <a href="{{ .Permalink | replaceRE (printf "/%s/" $lang) "/ko/" }}">🇰🇷 한국어</a>
