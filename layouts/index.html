@@ -10,6 +10,55 @@
     <p style="font-size:16px;max-width:520px;margin:10px auto 0;">{{ .Site.Params.description }}</p>
   </section>
 
+  <!-- 파일도구 / File Tools -->
+  <section class="guh-section" id="file-tools" aria-label="File tools">
+    <h2 class="guh-section-title">
+      {{ if eq $lang "ko" }}📁 파일 도구{{ else }}📁 File Tools{{ end }}
+    </h2>
+    <div class="guh-tool-grid">
+      <a href="/tools/{{ $lang }}/image-converter/" class="guh-tool-card">
+        <span class="guh-tool-icon">🖼️</span>
+        <span>{{ if eq $lang "ko" }}이미지 변환기{{ else }}Image Converter{{ end }}</span>
+      </a>
+      <a href="/tools/{{ $lang }}/barcode-generator/" class="guh-tool-card">
+        <span class="guh-tool-icon">📊</span>
+        <span>{{ if eq $lang "ko" }}바코드 생성기{{ else }}Barcode Generator{{ end }}</span>
+      </a>
+      <a href="/tools/{{ $lang }}/image-resizer/" class="guh-tool-card">
+        <span class="guh-tool-icon">↔️</span>
+        <span>{{ if eq $lang "ko" }}이미지 리사이저{{ else }}Image Resizer{{ end }}</span>
+      </a>
+      <a href="/tools/{{ $lang }}/image-compress/" class="guh-tool-card">
+        <span class="guh-tool-icon">🗜️</span>
+        <span>{{ if eq $lang "ko" }}이미지 파일크기 압축기{{ else }}Image Compress{{ end }}</span>
+      </a>
+      <a href="/tools/{{ $lang }}/svg-converter/" class="guh-tool-card">
+        <span class="guh-tool-icon">✏️</span>
+        <span>{{ if eq $lang "ko" }}SVG 변환기{{ else }}SVG Converter{{ end }}</span>
+      </a>
+      <a href="/tools/{{ $lang }}/gif-maker/" class="guh-tool-card">
+        <span class="guh-tool-icon">🎞️</span>
+        <span>{{ if eq $lang "ko" }}GIF 메이커{{ else }}GIF Maker{{ end }}</span>
+      </a>
+      <a href="/tools/{{ $lang }}/zip-extractor/" class="guh-tool-card">
+        <span class="guh-tool-icon">📦</span>
+        <span>{{ if eq $lang "ko" }}ZIP 압축해제{{ else }}ZIP Extractor{{ end }}</span>
+      </a>
+      <a href="/tools/{{ $lang }}/qr-code-generator/" class="guh-tool-card">
+        <span class="guh-tool-icon">📱</span>
+        <span>{{ if eq $lang "ko" }}QR코드 생성기{{ else }}QR Code Generator{{ end }}</span>
+      </a>
+      <a href="/tools/{{ $lang }}/image-to-pdf/" class="guh-tool-card">
+        <span class="guh-tool-icon">📄</span>
+        <span>{{ if eq $lang "ko" }}이미지→PDF{{ else }}Image to PDF{{ end }}</span>
+      </a>
+      <a href="/tools/{{ $lang }}/image-cropper/" class="guh-tool-card">
+        <span class="guh-tool-icon">✂️</span>
+        <span>{{ if eq $lang "ko" }}이미지 자르기{{ else }}Image Cropper{{ end }}</span>
+      </a>
+    </div>
+  </section>
+
   <!-- 생활도구 / Daily Tools -->
   <section class="guh-section" id="daily-tools" aria-label="Daily tools">
     <h2 class="guh-section-title">
@@ -130,55 +179,6 @@
       <a href="/tools/{{ $lang }}/color-picker/" class="guh-tool-card">
         <span class="guh-tool-icon">🎨</span>
         <span>{{ if eq $lang "ko" }}색상 선택기{{ else }}Color Picker{{ end }}</span>
-      </a>
-    </div>
-  </section>
-
-  <!-- 파일도구 / File Tools -->
-  <section class="guh-section" id="file-tools" aria-label="File tools">
-    <h2 class="guh-section-title">
-      {{ if eq $lang "ko" }}📁 파일 도구{{ else }}📁 File Tools{{ end }}
-    </h2>
-    <div class="guh-tool-grid">
-      <a href="/tools/{{ $lang }}/image-converter/" class="guh-tool-card">
-        <span class="guh-tool-icon">🖼️</span>
-        <span>{{ if eq $lang "ko" }}이미지 변환기{{ else }}Image Converter{{ end }}</span>
-      </a>
-      <a href="/tools/{{ $lang }}/barcode-generator/" class="guh-tool-card">
-        <span class="guh-tool-icon">📊</span>
-        <span>{{ if eq $lang "ko" }}바코드 생성기{{ else }}Barcode Generator{{ end }}</span>
-      </a>
-      <a href="/tools/{{ $lang }}/image-resizer/" class="guh-tool-card">
-        <span class="guh-tool-icon">↔️</span>
-        <span>{{ if eq $lang "ko" }}이미지 리사이저{{ else }}Image Resizer{{ end }}</span>
-      </a>
-      <a href="/tools/{{ $lang }}/image-compress/" class="guh-tool-card">
-        <span class="guh-tool-icon">🗜️</span>
-        <span>{{ if eq $lang "ko" }}이미지 압축기{{ else }}Image Compress{{ end }}</span>
-      </a>
-      <a href="/tools/{{ $lang }}/svg-converter/" class="guh-tool-card">
-        <span class="guh-tool-icon">✏️</span>
-        <span>{{ if eq $lang "ko" }}SVG 변환기{{ else }}SVG Converter{{ end }}</span>
-      </a>
-      <a href="/tools/{{ $lang }}/gif-maker/" class="guh-tool-card">
-        <span class="guh-tool-icon">🎞️</span>
-        <span>{{ if eq $lang "ko" }}GIF 메이커{{ else }}GIF Maker{{ end }}</span>
-      </a>
-      <a href="/tools/{{ $lang }}/zip-extractor/" class="guh-tool-card">
-        <span class="guh-tool-icon">📦</span>
-        <span>{{ if eq $lang "ko" }}ZIP 압축해제{{ else }}ZIP Extractor{{ end }}</span>
-      </a>
-      <a href="/tools/{{ $lang }}/qr-code-generator/" class="guh-tool-card">
-        <span class="guh-tool-icon">📱</span>
-        <span>{{ if eq $lang "ko" }}QR코드 생성기{{ else }}QR Code Generator{{ end }}</span>
-      </a>
-      <a href="/tools/{{ $lang }}/image-to-pdf/" class="guh-tool-card">
-        <span class="guh-tool-icon">📄</span>
-        <span>{{ if eq $lang "ko" }}이미지→PDF{{ else }}Image to PDF{{ end }}</span>
-      </a>
-      <a href="/tools/{{ $lang }}/image-cropper/" class="guh-tool-card">
-        <span class="guh-tool-icon">✂️</span>
-        <span>{{ if eq $lang "ko" }}이미지 자르기{{ else }}Image Cropper{{ end }}</span>
       </a>
     </div>
   </section>
