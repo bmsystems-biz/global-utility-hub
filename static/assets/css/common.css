@@ -342,7 +342,7 @@ a { color: var(--accent); }
 }
 
 /* ─── Section ───────────────────────────────────────────────────── */
-.guh-section { margin-bottom: 36px; }
+.guh-section { margin-bottom: 36px; scroll-margin-top: calc(var(--header-h) + 16px); }
 .guh-section-title {
   font-size: 17px;
   font-weight: 700;

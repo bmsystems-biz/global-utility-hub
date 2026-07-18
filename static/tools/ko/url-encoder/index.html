@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>URL 인코더 – URL 인코딩·디코딩 무료 온라인 | 글로벌 유틸리티 허브</title>
+  <meta name="description" content="URL 인코딩(퍼센트 인코딩)과 디코딩을 즉시 처리합니다. 한글 URL, 특수문자 변환. 무료 온라인 URL 인코더." />
+  <link rel="canonical" href="https://util.bmsystems.biz/tools/ko/url-encoder/" />
+  <link rel="alternate" hreflang="ko" href="https://util.bmsystems.biz/tools/ko/url-encoder/" />
+  <link rel="alternate" hreflang="en" href="https://util.bmsystems.biz/tools/en/url-encoder/" />
+  <link rel="alternate" hreflang="x-default" href="https://util.bmsystems.biz/tools/en/url-encoder/" />
+  <meta property="og:title" content="URL 인코더" /><meta property="og:description" content="URL 인코딩·디코딩을 처리합니다." /><meta property="og:type" content="website" /><meta property="og:url" content="https://util.bmsystems.biz/tools/ko/url-encoder/" /><meta property="og:locale" content="ko_KR" /><meta name="twitter:card" content="summary" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/common.css" />
+  <script>(function(){var t=localStorage.getItem('GUH-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark';})();</script>
+</head>
+<body>
+<header class="guh-header" role="banner">
+  <div class="guh-header-inner">
+    <button class="guh-menu-btn" id="menu-btn" aria-label="메뉴">☰</button>
+    <a href="/ko/" class="guh-logo">글로벌 <span>유틸리티</span> 허브</a>
+    <nav class="guh-nav"><a href="/ko/#daily-tools" class="guh-nav-link">생활도구</a><a href="/ko/#finance" class="guh-nav-link">금융계산기</a><a href="/ko/#health" class="guh-nav-link">건강</a><a href="/ko/#dev-tools" class="guh-nav-link active">개발자도구</a><a href="/ko/#file-tools" class="guh-nav-link">파일도구</a><a href="/ko/blog/" class="guh-nav-link">블로그</a></nav>
+    <div class="guh-header-actions">
+      <div class="guh-lang-select"><a href="/tools/ko/url-encoder/" class="guh-lang-btn active">KO</a><a href="/tools/en/url-encoder/" class="guh-lang-btn">EN</a></div>
+      <button class="guh-theme-btn" onclick="guhToggleTheme()" aria-label="다크모드 전환"><span id="theme-icon">🌙</span></button>
+    </div>
+  </div>
+</header>
+<div class="guh-mobile-nav" id="mobile-nav">
+  <a href="/ko/#daily-tools">생활도구</a><a href="/ko/#finance">금융계산기</a><a href="/ko/#health">건강</a><a href="/ko/#dev-tools">개발자도구</a><a href="/ko/#file-tools">파일도구</a><a href="/ko/blog/">블로그</a>
+  <hr/><a href="/tools/ko/url-encoder/">🇰🇷 한국어</a><a href="/tools/en/url-encoder/">🇺🇸 English</a>
+</div>
+
+<main class="guh-container guh-page" id="main-content">
+  <nav class="guh-breadcrumb"><a href="/ko/">홈</a><span class="guh-breadcrumb-sep">›</span><a href="/ko/#dev-tools">개발자도구</a><span class="guh-breadcrumb-sep">›</span><span>URL 인코더</span></nav>
+  <div class="guh-hero"><h1>🔗 URL 인코더</h1><p>텍스트를 URL 퍼센트 인코딩으로 변환하거나 디코딩합니다.</p></div>
+
+  <section class="guh-section" id="calculator">
+    <div class="guh-calc-card">
+      <div class="guh-form-group">
+        <label class="guh-label">입력 텍스트</label>
+        <textarea id="input" class="guh-input" rows="5" placeholder="인코딩하거나 디코딩할 텍스트를 입력하세요" oninput="liveProcess()"></textarea>
+      </div>
+
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0;">
+        <button class="guh-btn" onclick="encode()">인코딩 (encode)</button>
+        <button class="guh-btn guh-btn-outline" onclick="decode()">디코딩 (decode)</button>
+        <button class="guh-btn guh-btn-outline" onclick="clearAll()">지우기</button>
+      </div>
+
+      <div class="guh-form-group" style="margin-top:12px;">
+        <label class="guh-label">결과</label>
+        <textarea id="output" class="guh-input" rows="5" readonly placeholder="결과가 여기에 표시됩니다"></textarea>
+      </div>
+      <div id="err-msg" style="color:var(--red);font-size:13px;margin-top:4px;"></div>
+      <button class="guh-btn guh-btn-outline" style="margin-top:8px;" onclick="copyResult()">결과 복사</button>
+    </div>
+  </section>
+
+  <section class="guh-section" id="faq">
+    <h2 class="guh-section-title">❓ 자주 묻는 질문</h2>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">URL 인코딩이란?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">URL에서 특수문자나 한글 등 비ASCII 문자는 %XX 형식(퍼센트 인코딩)으로 변환해야 합니다. 예: 안녕 → %EC%95%88%EB%85%95, 공백 → %20</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">encodeURI와 encodeURIComponent의 차이?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">encodeURI는 URL 전체를 인코딩하므로 /, ?, # 등 URL 구조 문자는 유지합니다. encodeURIComponent는 쿼리 파라미터 등 URL 일부를 인코딩할 때 사용하며 특수문자를 더 철저히 변환합니다. 이 도구는 encodeURIComponent를 사용합니다.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">+ 기호가 공백인가요?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">HTML form 인코딩(application/x-www-form-urlencoded)에서는 공백이 +로 인코딩됩니다. 퍼센트 인코딩에서는 공백이 %20입니다. 이 도구는 %20을 사용합니다.</div></div>
+  </section>
+
+  <section class="guh-section" id="related-tools">
+    <h2 class="guh-section-title">🔗 관련 도구</h2>
+    <div class="guh-tool-grid">
+      <a href="/tools/ko/base64/" class="guh-tool-card"><span class="guh-tool-icon">🔐</span><span>Base64</span></a>
+      <a href="/tools/ko/html-escape/" class="guh-tool-card"><span class="guh-tool-icon">🏷️</span><span>HTML 이스케이프</span></a>
+      <a href="/tools/ko/json-formatter/" class="guh-tool-card"><span class="guh-tool-icon">📋</span><span>JSON 포매터</span></a>
+      <a href="/tools/ko/regex-tester/" class="guh-tool-card"><span class="guh-tool-icon">🔍</span><span>정규식 테스터</span></a>
+      <a href="/tools/ko/color-picker/" class="guh-tool-card"><span class="guh-tool-icon">🎨</span><span>색상 선택기</span></a>
+    </div>
+  </section>
+  <section class="guh-section" id="related-blog"><h2 class="guh-section-title">📝 관련 블로그</h2><div class="guh-blog-grid" id="blog-grid"><div class="guh-blog-empty">관련 블로그 포스트를 불러오는 중...</div></div></section>
+</main>
+
+<footer class="guh-footer"><div class="guh-footer-inner"><a href="/ko/" class="guh-footer-logo">Global Utility Hub</a><nav class="guh-footer-links"><a href="/ko/blog/">블로그</a><a href="/ko/">도구 목록</a><a href="mailto:contact@bmsystems.biz">문의</a></nav><p class="guh-footer-copy">© 2026 Global Utility Hub. All rights reserved.</p></div></footer>
+<div class="guh-toast" id="toast"></div>
+<script>
+  function guhToggleTheme(){var isDark=document.documentElement.dataset.theme==='dark';document.documentElement.dataset.theme=isDark?'light':'dark';localStorage.setItem('GUH-theme',document.documentElement.dataset.theme);document.getElementById('theme-icon').textContent=isDark?'🌙':'☀️';}
+  (function(){document.getElementById('theme-icon').textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';})();
+  document.getElementById('menu-btn').addEventListener('click',function(){document.getElementById('mobile-nav').classList.toggle('open');});
+  document.querySelectorAll('.guh-faq-q').forEach(function(btn){btn.addEventListener('click',function(){var isOpen=this.classList.contains('open');document.querySelectorAll('.guh-faq-q').forEach(function(b){b.classList.remove('open');b.nextElementSibling.classList.remove('open');});if(!isOpen){this.classList.add('open');this.nextElementSibling.classList.add('open');}});});
+  function showToast(msg,isErr){var t=document.getElementById('toast');t.textContent=msg;t.style.background=isErr?'var(--red)':'var(--green)';t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2500);}
+
+  function encode(){
+    var inp=document.getElementById('input').value;
+    document.getElementById('err-msg').textContent='';
+    try{document.getElementById('output').value=encodeURIComponent(inp);}
+    catch(e){document.getElementById('err-msg').textContent='❌ 인코딩 실패: '+e.message;}
+  }
+  function decode(){
+    var inp=document.getElementById('input').value;
+    document.getElementById('err-msg').textContent='';
+    try{document.getElementById('output').value=decodeURIComponent(inp);}
+    catch(e){document.getElementById('err-msg').textContent='❌ 디코딩 실패: 유효하지 않은 URL 인코딩입니다.';}
+  }
+  function liveProcess(){document.getElementById('output').value='';document.getElementById('err-msg').textContent='';}
+  function clearAll(){document.getElementById('input').value='';document.getElementById('output').value='';document.getElementById('err-msg').textContent='';}
+  function copyResult(){
+    var val=document.getElementById('output').value;
+    if(!val){showToast('복사할 결과가 없습니다.',true);return;}
+    navigator.clipboard.writeText(val).then(function(){showToast('복사됨!',false);});
+  }
+
+  (async function(){try{var r=await fetch('/ko/blog/index.json');if(!r.ok)return;var posts=await r.json();var related=posts.filter(function(p){return p.related_tool==='url-encoder';}).slice(0,3);var grid=document.getElementById('blog-grid');if(!related.length){grid.innerHTML='<div class="guh-blog-empty">관련 블로그 포스트가 준비 중입니다.</div>';return;}grid.innerHTML=related.map(function(p){return'<a href="'+p.url+'" class="guh-blog-card"><div class="guh-blog-card-title">'+p.title+'</div><div class="guh-blog-card-date">'+p.date+'</div></a>';}).join('');}catch(e){document.getElementById('blog-grid').innerHTML='<div class="guh-blog-empty">관련 블로그 포스트가 준비 중입니다.</div>';}})();
+</script>
+<script src="/assets/js/guh-search.js" defer></script>
+</body>
+</html>

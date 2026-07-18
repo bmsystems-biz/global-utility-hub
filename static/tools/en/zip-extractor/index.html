@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZIP Extractor – Open ZIP Files Online Free | Global Utility Hub</title>
+  <meta name="description" content="Extract ZIP files directly in your browser. View file list, download individual files. No server upload. Free online ZIP extractor." />
+  <link rel="canonical" href="https://util.bmsystems.biz/tools/en/zip-extractor/" />
+  <link rel="alternate" hreflang="ko" href="https://util.bmsystems.biz/tools/ko/zip-extractor/" />
+  <link rel="alternate" hreflang="en" href="https://util.bmsystems.biz/tools/en/zip-extractor/" />
+  <link rel="alternate" hreflang="x-default" href="https://util.bmsystems.biz/tools/en/zip-extractor/" />
+  <meta property="og:title" content="ZIP Extractor" /><meta property="og:description" content="Open and extract ZIP files in your browser." /><meta property="og:type" content="website" /><meta property="og:url" content="https://util.bmsystems.biz/tools/en/zip-extractor/" /><meta property="og:locale" content="en_US" /><meta name="twitter:card" content="summary" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/common.css" />
+  <script>(function(){var t=localStorage.getItem('GUH-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark';})();</script>
+  <style>
+    .drop-zone{border:2px dashed var(--border);border-radius:12px;padding:36px 20px;text-align:center;cursor:pointer;transition:border-color 0.2s;color:var(--text-3);}
+    .drop-zone:hover,.drop-zone.drag-over{border-color:var(--accent);background:var(--accent-soft);}
+    .file-list{margin:12px 0;}
+    .file-row{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-bottom:1px solid var(--border);font-size:13px;gap:8px;}
+    .file-row:last-child{border-bottom:none;}
+    .file-name{flex:1;word-break:break-all;color:var(--text-1);}
+    .file-size{color:var(--text-3);white-space:nowrap;min-width:60px;text-align:right;}
+    .file-dl{padding:3px 10px;font-size:12px;border-radius:4px;border:1px solid var(--accent);color:var(--accent);background:transparent;cursor:pointer;white-space:nowrap;}
+    .file-dl:hover{background:var(--accent);color:#fff;}
+    .dir-row{padding:6px 12px;font-size:12px;color:var(--text-3);background:var(--surface2);}
+  </style>
+</head>
+<body>
+<header class="guh-header" role="banner">
+  <div class="guh-header-inner">
+    <button class="guh-menu-btn" id="menu-btn" aria-label="Menu">☰</button>
+    <a href="/en/" class="guh-logo">Global <span>Utility</span> Hub</a>
+    <nav class="guh-nav"><a href="/en/#daily-tools" class="guh-nav-link">Daily Tools</a><a href="/en/#finance" class="guh-nav-link">Finance</a><a href="/en/#health" class="guh-nav-link">Health</a><a href="/en/#dev-tools" class="guh-nav-link">Dev Tools</a><a href="/en/#file-tools" class="guh-nav-link active">File Tools</a><a href="/en/blog/" class="guh-nav-link">Blog</a></nav>
+    <div class="guh-header-actions">
+      <div class="guh-lang-select"><a href="/tools/ko/zip-extractor/" class="guh-lang-btn">KO</a><a href="/tools/en/zip-extractor/" class="guh-lang-btn active">EN</a></div>
+      <button class="guh-theme-btn" onclick="guhToggleTheme()" aria-label="Toggle dark mode"><span id="theme-icon">🌙</span></button>
+    </div>
+  </div>
+</header>
+<div class="guh-mobile-nav" id="mobile-nav">
+  <a href="/en/#daily-tools">Daily Tools</a><a href="/en/#finance">Finance</a><a href="/en/#health">Health</a><a href="/en/#dev-tools">Dev Tools</a><a href="/en/#file-tools">File Tools</a><a href="/en/blog/">Blog</a>
+  <hr/><a href="/tools/ko/zip-extractor/">🇰🇷 한국어</a><a href="/tools/en/zip-extractor/">🇺🇸 English</a>
+</div>
+
+<main class="guh-container guh-page" id="main-content">
+  <nav class="guh-breadcrumb"><a href="/en/">Home</a><span class="guh-breadcrumb-sep">›</span><a href="/en/#file-tools">File Tools</a><span class="guh-breadcrumb-sep">›</span><span>ZIP Extractor</span></nav>
+  <div class="guh-hero"><h1>📦 ZIP Extractor</h1><p>Open ZIP files directly in your browser. View contents and download individual files instantly.</p></div>
+
+  <section class="guh-section" id="calculator">
+    <div class="guh-calc-card">
+      <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
+        <div style="font-size:28px;margin-bottom:6px;">📦</div>
+        <div style="font-weight:600;margin-bottom:4px;">Drop a ZIP file here or click to select</div>
+        <div style="font-size:13px;">Supports .zip files</div>
+        <input type="file" id="file-input" accept=".zip,application/zip" style="display:none" onchange="onFile(this.files[0])" />
+      </div>
+
+      <div id="zip-info" style="display:none;">
+        <div id="zip-summary" style="font-size:13px;color:var(--text-2);margin:8px 0;"></div>
+        <div style="display:flex;gap:8px;margin-bottom:8px;">
+          <button class="guh-btn" onclick="downloadAll()">Download All</button>
+          <button class="guh-btn guh-btn-outline" onclick="resetAll()">Reset</button>
+        </div>
+        <div id="file-list" class="file-list guh-calc-card" style="padding:0;max-height:400px;overflow-y:auto;"></div>
+      </div>
+
+      <div id="err-msg" style="color:var(--red);font-size:13px;margin-top:8px;"></div>
+    </div>
+  </section>
+
+  <section class="guh-section" id="faq">
+    <h2 class="guh-section-title">❓ FAQ</h2>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">Are files uploaded to a server?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">No. The JSZip library processes everything locally in your browser. No files are sent to any server, ensuring complete privacy.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">What ZIP files are supported?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">Standard ZIP format (.zip) is supported. Password-protected ZIP files are not supported. Other archive formats like RAR, 7z, and tar.gz are not supported.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">File names appear garbled?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">This typically happens with ZIP files created on older Windows systems using non-UTF-8 encoding (e.g. CP932 for Japanese, EUC-KR for Korean). Modern ZIP tools use UTF-8 by default which displays correctly.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">How does Download All work?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">Files are downloaded one at a time with a short delay. Your browser may ask permission for multiple downloads. The files download to your default downloads folder.</div></div>
+  </section>
+
+  <section class="guh-section" id="related-tools">
+    <h2 class="guh-section-title">🔗 Related Tools</h2>
+    <div class="guh-tool-grid">
+      <a href="/tools/en/image-converter/" class="guh-tool-card"><span class="guh-tool-icon">🖼️</span><span>Image Converter</span></a>
+      <a href="/tools/en/image-compress/" class="guh-tool-card"><span class="guh-tool-icon">🗜️</span><span>Image Compress</span></a>
+      <a href="/tools/en/svg-converter/" class="guh-tool-card"><span class="guh-tool-icon">✏️</span><span>SVG Converter</span></a>
+      <a href="/tools/en/gif-maker/" class="guh-tool-card"><span class="guh-tool-icon">🎞️</span><span>GIF Maker</span></a>
+      <a href="/tools/en/barcode-generator/" class="guh-tool-card"><span class="guh-tool-icon">📊</span><span>Barcode Generator</span></a>
+    </div>
+  </section>
+  <section class="guh-section" id="related-blog"><h2 class="guh-section-title">📝 Related Blog</h2><div class="guh-blog-grid" id="blog-grid"><div class="guh-blog-empty">Loading...</div></div></section>
+</main>
+
+<footer class="guh-footer"><div class="guh-footer-inner"><a href="/en/" class="guh-footer-logo">Global Utility Hub</a><nav class="guh-footer-links"><a href="/en/blog/">Blog</a><a href="/en/">All Tools</a><a href="mailto:contact@bmsystems.biz">Contact</a></nav><p class="guh-footer-copy">© 2026 Global Utility Hub. All rights reserved.</p></div></footer>
+<div class="guh-toast" id="toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+<script>
+  function guhToggleTheme(){var isDark=document.documentElement.dataset.theme==='dark';document.documentElement.dataset.theme=isDark?'light':'dark';localStorage.setItem('GUH-theme',document.documentElement.dataset.theme);document.getElementById('theme-icon').textContent=isDark?'🌙':'☀️';}
+  (function(){document.getElementById('theme-icon').textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';})();
+  document.getElementById('menu-btn').addEventListener('click',function(){document.getElementById('mobile-nav').classList.toggle('open');});
+  document.querySelectorAll('.guh-faq-q').forEach(function(btn){btn.addEventListener('click',function(){var isOpen=this.classList.contains('open');document.querySelectorAll('.guh-faq-q').forEach(function(b){b.classList.remove('open');b.nextElementSibling.classList.remove('open');});if(!isOpen){this.classList.add('open');this.nextElementSibling.classList.add('open');}});});
+  function showToast(msg,isErr){var t=document.getElementById('toast');t.textContent=msg;t.style.background=isErr?'var(--red)':'var(--green)';t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2500);}
+
+  var currentZip=null;
+  var dz=document.getElementById('drop-zone');
+  dz.addEventListener('dragover',function(e){e.preventDefault();dz.classList.add('drag-over');});
+  dz.addEventListener('dragleave',function(){dz.classList.remove('drag-over');});
+  dz.addEventListener('drop',function(e){e.preventDefault();dz.classList.remove('drag-over');if(e.dataTransfer.files[0])onFile(e.dataTransfer.files[0]);});
+
+  function onFile(file){
+    document.getElementById('err-msg').textContent='';
+    if(!file||(file.type!=='application/zip'&&!file.name.endsWith('.zip'))){showToast('Please select a ZIP file.',true);return;}
+    JSZip.loadAsync(file).then(function(zip){
+      currentZip=zip;
+      var files=[];
+      zip.forEach(function(path,entry){files.push({path:path,entry:entry});});
+      var fileCount=files.filter(function(f){return!f.entry.dir;}).length;
+      var dirCount=files.filter(function(f){return f.entry.dir;}).length;
+      document.getElementById('zip-summary').textContent=file.name+' — '+fileCount+' files, '+dirCount+' folders';
+      var list=document.getElementById('file-list');
+      list.innerHTML='';
+      files.sort(function(a,b){return a.path.localeCompare(b.path);}).forEach(function(f){
+        var row=document.createElement('div');
+        if(f.entry.dir){row.className='dir-row';row.textContent='📁 '+f.path;}
+        else{
+          row.className='file-row';
+          var nm=document.createElement('span');nm.className='file-name';nm.textContent='📄 '+f.path;
+          var sz=document.createElement('span');sz.className='file-size';sz.textContent=f.entry._data?Math.round(f.entry._data.uncompressedSize/1024)+' KB':'';
+          var dl=document.createElement('button');dl.className='file-dl';dl.textContent='Download';
+          dl.onclick=(function(entry,name){return function(){entry.async('blob').then(function(blob){var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name.split('/').pop();a.click();});};})(f.entry,f.path);
+          row.appendChild(nm);row.appendChild(sz);row.appendChild(dl);
+        }
+        list.appendChild(row);
+      });
+      document.getElementById('zip-info').style.display='block';
+    }).catch(function(e){document.getElementById('err-msg').textContent='❌ Cannot read ZIP file: '+e.message;});
+  }
+
+  function downloadAll(){
+    if(!currentZip){return;}
+    var files=[];
+    currentZip.forEach(function(path,entry){if(!entry.dir)files.push({entry:entry,path:path});});
+    files.forEach(function(f,i){
+      setTimeout(function(){f.entry.async('blob').then(function(blob){var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=f.path.split('/').pop();a.click();});},i*300);
+    });
+  }
+
+  function resetAll(){currentZip=null;document.getElementById('zip-info').style.display='none';document.getElementById('file-list').innerHTML='';document.getElementById('file-input').value='';document.getElementById('err-msg').textContent='';}
+
+  (async function(){try{var r=await fetch('/en/blog/index.json');if(!r.ok)return;var posts=await r.json();var related=posts.filter(function(p){return p.related_tool==='zip-extractor';}).slice(0,3);var grid=document.getElementById('blog-grid');if(!related.length){grid.innerHTML='<div class="guh-blog-empty">No related posts yet.</div>';return;}grid.innerHTML=related.map(function(p){return'<a href="'+p.url+'" class="guh-blog-card"><div class="guh-blog-card-title">'+p.title+'</div><div class="guh-blog-card-date">'+p.date+'</div></a>';}).join('');}catch(e){document.getElementById('blog-grid').innerHTML='<div class="guh-blog-empty">No related posts yet.</div>';}})();
+</script>
+<script src="/assets/js/guh-search.js" defer></script>
+</body>
+</html>

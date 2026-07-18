@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HTML Escape – Escape & Unescape HTML Entities Online | Global Utility Hub</title>
+  <meta name="description" content="Escape and unescape HTML special characters (&, <, >, &quot;, ') online. Prevent XSS vulnerabilities with proper HTML encoding. Free HTML escape tool." />
+  <link rel="canonical" href="https://util.bmsystems.biz/tools/en/html-escape/" />
+  <link rel="alternate" hreflang="ko" href="https://util.bmsystems.biz/tools/ko/html-escape/" />
+  <link rel="alternate" hreflang="en" href="https://util.bmsystems.biz/tools/en/html-escape/" />
+  <link rel="alternate" hreflang="x-default" href="https://util.bmsystems.biz/tools/en/html-escape/" />
+  <meta property="og:title" content="HTML Escape – Escape & Unescape HTML Entities" />
+  <meta property="og:description" content="Escape and unescape HTML special characters online for free." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://util.bmsystems.biz/tools/en/html-escape/" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/common.css" />
+  <script>(function(){var t=localStorage.getItem('GUH-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark';})();</script>
+</head>
+<body>
+<header class="guh-header" role="banner">
+  <div class="guh-header-inner">
+    <button class="guh-menu-btn" id="menu-btn" aria-label="Menu">☰</button>
+    <a href="/en/" class="guh-logo">Global <span>Utility</span> Hub</a>
+    <nav class="guh-nav"><a href="/en/#daily-tools" class="guh-nav-link">Daily Tools</a><a href="/en/#finance" class="guh-nav-link">Finance</a><a href="/en/#health" class="guh-nav-link">Health</a><a href="/en/#dev-tools" class="guh-nav-link active">Dev Tools</a><a href="/en/#file-tools" class="guh-nav-link">File Tools</a><a href="/en/blog/" class="guh-nav-link">Blog</a></nav>
+    <div class="guh-header-actions">
+      <div class="guh-lang-select"><a href="/tools/ko/html-escape/" class="guh-lang-btn">KO</a><a href="/tools/en/html-escape/" class="guh-lang-btn active">EN</a></div>
+      <button class="guh-theme-btn" onclick="guhToggleTheme()" aria-label="Toggle dark mode"><span id="theme-icon">🌙</span></button>
+    </div>
+  </div>
+</header>
+<div class="guh-mobile-nav" id="mobile-nav">
+  <a href="/en/#daily-tools">Daily Tools</a><a href="/en/#finance">Finance</a><a href="/en/#health">Health</a><a href="/en/#dev-tools">Dev Tools</a><a href="/en/#file-tools">File Tools</a><a href="/en/blog/">Blog</a>
+  <hr/><a href="/tools/ko/html-escape/">🇰🇷 한국어</a><a href="/tools/en/html-escape/">🇺🇸 English</a>
+</div>
+
+<main class="guh-container guh-page" id="main-content">
+  <nav class="guh-breadcrumb"><a href="/en/">Home</a><span class="guh-breadcrumb-sep">›</span><a href="/en/#dev-tools">Dev Tools</a><span class="guh-breadcrumb-sep">›</span><span>HTML Escape</span></nav>
+  <div class="guh-hero"><h1>🛡️ HTML Escape</h1><p>Escape and unescape HTML special characters to prevent XSS and display issues.</p></div>
+
+  <section class="guh-section" id="calculator">
+    <div class="guh-calc-card">
+      <div class="guh-form-group">
+        <label class="guh-label">Input</label>
+        <textarea id="input-text" class="guh-input" rows="6" placeholder='e.g. <div class="box">Hello &amp; World!</div>' oninput="autoConvert()" style="resize:vertical;font-family:monospace;font-size:13px;"></textarea>
+      </div>
+      <div style="display:flex;gap:8px;margin:8px 0;flex-wrap:wrap;">
+        <button class="guh-btn" onclick="doEscape()">Escape ▼</button>
+        <button class="guh-btn guh-btn-outline" onclick="doUnescape()">Unescape ▲</button>
+        <button class="guh-btn guh-btn-outline" onclick="swapFields()">⇅ Swap</button>
+        <button class="guh-btn guh-btn-outline" onclick="clearAll()">Clear</button>
+      </div>
+      <div class="guh-form-group" style="margin-top:4px;">
+        <label class="guh-label">Result</label>
+        <textarea id="output-text" class="guh-input" rows="6" readonly style="resize:vertical;font-family:monospace;font-size:13px;background:var(--surface2);"></textarea>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:8px;">
+        <button class="guh-btn guh-btn-outline" onclick="copyOutput()">Copy Result</button>
+      </div>
+
+      <div style="margin-top:20px;">
+        <h3 style="font-size:14px;font-weight:600;color:var(--text-2);margin-bottom:10px;">Escape Reference</h3>
+        <table style="width:100%;border-collapse:collapse;font-size:13px;">
+          <thead><tr style="background:var(--surface2);"><th style="padding:6px 10px;border:1px solid var(--border);text-align:left;">Character</th><th style="padding:6px 10px;border:1px solid var(--border);text-align:left;">Escaped</th></tr></thead>
+          <tbody>
+            <tr><td style="padding:6px 10px;border:1px solid var(--border);">&amp;</td><td style="padding:6px 10px;border:1px solid var(--border);font-family:monospace;">&amp;amp;</td></tr>
+            <tr><td style="padding:6px 10px;border:1px solid var(--border);">&lt;</td><td style="padding:6px 10px;border:1px solid var(--border);font-family:monospace;">&amp;lt;</td></tr>
+            <tr><td style="padding:6px 10px;border:1px solid var(--border);">&gt;</td><td style="padding:6px 10px;border:1px solid var(--border);font-family:monospace;">&amp;gt;</td></tr>
+            <tr><td style="padding:6px 10px;border:1px solid var(--border);">"</td><td style="padding:6px 10px;border:1px solid var(--border);font-family:monospace;">&amp;quot;</td></tr>
+            <tr><td style="padding:6px 10px;border:1px solid var(--border);">'</td><td style="padding:6px 10px;border:1px solid var(--border);font-family:monospace;">&amp;#39;</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="guh-section" id="faq">
+    <h2 class="guh-section-title">❓ FAQ</h2>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">Why do we need HTML escaping?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">Characters like &lt;, &gt;, and &amp; have special meaning in HTML and will be interpreted as tags or entities. To display them as literal text, they must be escaped. More critically, failing to escape user input before inserting it into HTML creates XSS (Cross-Site Scripting) vulnerabilities.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">What is XSS and how does HTML escaping prevent it?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">XSS (Cross-Site Scripting) is an attack where malicious scripts are injected into web pages. If you output user input without escaping, an attacker can inject &lt;script&gt;alert('hacked')&lt;/script&gt;. Escaping turns &lt; into &amp;lt; so the browser renders it as text, not code.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">What is &amp;nbsp;?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">&amp;nbsp; is a Non-Breaking Space — a space character that prevents line breaking at that position. Unlike regular spaces, browsers won't collapse multiple &amp;nbsp; entities into one space, making it useful for precise layout control.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">When should I escape vs. unescape?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">Escape when inserting text into HTML to display it safely. Unescape when you've received HTML-encoded text (e.g., from an API or database) and need to convert it back to readable characters. Never unescape user content and then insert it into the DOM without sanitization.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">Which characters must be escaped in HTML attributes?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">In HTML attributes, you must escape &amp; and whichever quote character surrounds the attribute value: &amp;quot; for double-quoted attributes, &amp;#39; for single-quoted. In text content, only &amp; and &lt; are strictly required, though escaping &gt; is recommended for clarity.</div></div>
+  </section>
+
+  <section class="guh-section" id="related-tools">
+    <h2 class="guh-section-title">🔗 Related Tools</h2>
+    <div class="guh-tool-grid">
+      <a href="/tools/en/url-encoder/" class="guh-tool-card"><span class="guh-tool-icon">🔗</span><span>URL Encoder</span></a>
+      <a href="/tools/en/base64/" class="guh-tool-card"><span class="guh-tool-icon">🔤</span><span>Base64 Encoder</span></a>
+      <a href="/tools/en/json-formatter/" class="guh-tool-card"><span class="guh-tool-icon">{ }</span><span>JSON Formatter</span></a>
+      <a href="/tools/en/xml-formatter/" class="guh-tool-card"><span class="guh-tool-icon">📄</span><span>XML Formatter</span></a>
+      <a href="/tools/en/regex-tester/" class="guh-tool-card"><span class="guh-tool-icon">🔍</span><span>Regex Tester</span></a>
+    </div>
+  </section>
+  <section class="guh-section" id="related-blog"><h2 class="guh-section-title">📝 Related Blog</h2><div class="guh-blog-grid" id="blog-grid"><div class="guh-blog-empty">Loading...</div></div></section>
+</main>
+
+<footer class="guh-footer"><div class="guh-footer-inner"><a href="/en/" class="guh-footer-logo">Global Utility Hub</a><nav class="guh-footer-links"><a href="/en/blog/">Blog</a><a href="/en/">All Tools</a><a href="mailto:contact@bmsystems.biz">Contact</a></nav><p class="guh-footer-copy">© 2026 Global Utility Hub. All rights reserved.</p></div></footer>
+<div class="guh-toast" id="toast"></div>
+<script>
+  function guhToggleTheme(){var isDark=document.documentElement.dataset.theme==='dark';document.documentElement.dataset.theme=isDark?'light':'dark';localStorage.setItem('GUH-theme',document.documentElement.dataset.theme);document.getElementById('theme-icon').textContent=isDark?'🌙':'☀️';}
+  (function(){document.getElementById('theme-icon').textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';})();
+  document.getElementById('menu-btn').addEventListener('click',function(){document.getElementById('mobile-nav').classList.toggle('open');});
+  document.querySelectorAll('.guh-faq-q').forEach(function(btn){btn.addEventListener('click',function(){var isOpen=this.classList.contains('open');document.querySelectorAll('.guh-faq-q').forEach(function(b){b.classList.remove('open');b.nextElementSibling.classList.remove('open');});if(!isOpen){this.classList.add('open');this.nextElementSibling.classList.add('open');}});});
+  function showToast(msg,isErr){var t=document.getElementById('toast');t.textContent=msg;t.style.background=isErr?'var(--red)':'var(--green)';t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2500);}
+
+  function escapeHTML(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+  function unescapeHTML(s){return s.replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/&apos;/g,"'");}
+
+  function doEscape(){var v=document.getElementById('input-text').value;document.getElementById('output-text').value=escapeHTML(v);showToast('Escaped!',false);}
+  function doUnescape(){var v=document.getElementById('input-text').value;document.getElementById('output-text').value=unescapeHTML(v);showToast('Unescaped!',false);}
+  function autoConvert(){}
+  function swapFields(){var a=document.getElementById('input-text').value;var b=document.getElementById('output-text').value;document.getElementById('input-text').value=b;document.getElementById('output-text').value=a;}
+  function copyOutput(){var v=document.getElementById('output-text').value;if(!v){showToast('No result to copy.',true);return;}navigator.clipboard.writeText(v).then(function(){showToast('Copied!',false);});}
+  function clearAll(){document.getElementById('input-text').value='';document.getElementById('output-text').value='';}
+
+  (async function(){try{var r=await fetch('/en/blog/index.json');if(!r.ok)return;var posts=await r.json();var related=posts.filter(function(p){return p.related_tool==='html-escape';}).slice(0,3);var grid=document.getElementById('blog-grid');if(!related.length){grid.innerHTML='<div class="guh-blog-empty">No related posts yet.</div>';return;}grid.innerHTML=related.map(function(p){return'<a href="'+p.url+'" class="guh-blog-card"><div class="guh-blog-card-title">'+p.title+'</div><div class="guh-blog-card-date">'+p.date+'</div></a>';}).join('');}catch(e){document.getElementById('blog-grid').innerHTML='<div class="guh-blog-empty">No related posts yet.</div>';}})();
+</script>
+<script src="/assets/js/guh-search.js" defer></script>
+</body>
+</html>

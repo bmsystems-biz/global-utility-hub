@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exchange Rate Calculator – Currency Converter Free Online | Global Utility Hub</title>
+  <meta name="description" content="Convert between KRW, USD, EUR, JPY, GBP and more. Reference exchange rates. Free online currency converter." />
+  <link rel="canonical" href="https://util.bmsystems.biz/tools/en/exchange-rate/" />
+  <link rel="alternate" hreflang="ko" href="https://util.bmsystems.biz/tools/ko/exchange-rate/" />
+  <link rel="alternate" hreflang="en" href="https://util.bmsystems.biz/tools/en/exchange-rate/" />
+  <link rel="alternate" hreflang="x-default" href="https://util.bmsystems.biz/tools/en/exchange-rate/" />
+  <meta property="og:title" content="Exchange Rate Calculator" /><meta property="og:description" content="Convert between major world currencies." /><meta property="og:type" content="website" /><meta property="og:url" content="https://util.bmsystems.biz/tools/en/exchange-rate/" /><meta property="og:locale" content="en_US" /><meta name="twitter:card" content="summary" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/common.css" />
+  <script>(function(){var t=localStorage.getItem('GUH-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark';})();</script>
+  <style>
+    .rate-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px;}
+    .rate-table th{background:var(--surface2);padding:8px 12px;text-align:left;border-bottom:2px solid var(--border);}
+    .rate-table td{padding:8px 12px;border-bottom:1px solid var(--border);}
+    .rate-table tr:hover td{background:var(--accent-soft);}
+    .notice{font-size:12px;color:var(--text-3);margin-top:8px;}
+  </style>
+</head>
+<body>
+<header class="guh-header" role="banner">
+  <div class="guh-header-inner">
+    <button class="guh-menu-btn" id="menu-btn" aria-label="Menu">☰</button>
+    <a href="/en/" class="guh-logo">Global <span>Utility</span> Hub</a>
+    <nav class="guh-nav"><a href="/en/#daily-tools" class="guh-nav-link">Daily Tools</a><a href="/en/#finance" class="guh-nav-link active">Finance</a><a href="/en/#health" class="guh-nav-link">Health</a><a href="/en/#dev-tools" class="guh-nav-link">Dev Tools</a><a href="/en/#file-tools" class="guh-nav-link">File Tools</a><a href="/en/blog/" class="guh-nav-link">Blog</a></nav>
+    <div class="guh-header-actions">
+      <div class="guh-lang-select"><a href="/tools/ko/exchange-rate/" class="guh-lang-btn">KO</a><a href="/tools/en/exchange-rate/" class="guh-lang-btn active">EN</a></div>
+      <button class="guh-theme-btn" onclick="guhToggleTheme()" aria-label="Toggle dark mode"><span id="theme-icon">🌙</span></button>
+    </div>
+  </div>
+</header>
+<div class="guh-mobile-nav" id="mobile-nav">
+  <a href="/en/#daily-tools">Daily Tools</a><a href="/en/#finance">Finance</a><a href="/en/#health">Health</a><a href="/en/#dev-tools">Dev Tools</a><a href="/en/#file-tools">File Tools</a><a href="/en/blog/">Blog</a>
+  <hr/><a href="/tools/ko/exchange-rate/">🇰🇷 한국어</a><a href="/tools/en/exchange-rate/">🇺🇸 English</a>
+</div>
+
+<main class="guh-container guh-page" id="main-content">
+  <nav class="guh-breadcrumb"><a href="/en/">Home</a><span class="guh-breadcrumb-sep">›</span><a href="/en/#finance">Finance</a><span class="guh-breadcrumb-sep">›</span><span>Exchange Rate</span></nav>
+  <div class="guh-hero"><h1>💱 Exchange Rate Calculator</h1><p>Convert between major world currencies instantly. Enter an amount and select a base currency.</p></div>
+
+  <section class="guh-section" id="calculator">
+    <div class="guh-calc-card">
+      <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;">
+        <div class="guh-form-group" style="flex:2;min-width:160px;margin:0;">
+          <label class="guh-label">Amount</label>
+          <input type="number" id="amount" class="guh-input" value="100" min="0" step="any" oninput="calc()" />
+        </div>
+        <div class="guh-form-group" style="flex:1;min-width:140px;margin:0;">
+          <label class="guh-label">From Currency</label>
+          <select id="from-cur" class="guh-input" onchange="calc()">
+            <option value="USD">🇺🇸 USD (Dollar)</option>
+            <option value="KRW">🇰🇷 KRW (Won)</option>
+            <option value="EUR">🇪🇺 EUR (Euro)</option>
+            <option value="JPY">🇯🇵 JPY (Yen)</option>
+            <option value="GBP">🇬🇧 GBP (Pound)</option>
+            <option value="CNY">🇨🇳 CNY (Yuan)</option>
+            <option value="SGD">🇸🇬 SGD (S. Dollar)</option>
+            <option value="AUD">🇦🇺 AUD (A. Dollar)</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="overflow-x:auto;margin-top:4px;">
+        <table class="rate-table" id="rate-table">
+          <thead><tr><th>Currency</th><th>Converted Amount</th><th>Rate (vs USD)</th></tr></thead>
+          <tbody id="rate-tbody"></tbody>
+        </table>
+      </div>
+      <div class="notice">※ Rates shown are fixed reference values (ca. 2025). Always check live rates before making transactions.</div>
+    </div>
+  </section>
+
+  <section class="guh-section" id="faq">
+    <h2 class="guh-section-title">❓ FAQ</h2>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">Are these real-time rates?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">No. This tool uses fixed reference rates from approximately 2025. For live rates, check your bank's app, Google Finance, or XE.com before making actual currency exchanges.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">What fees do currency exchanges charge?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">Banks typically charge 1-3% above the mid-market rate. Airport exchanges are often the most expensive (3-7%). Online services like Wise or Revolut often offer rates closer to the mid-market rate with lower fees.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">What is the mid-market rate?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">The mid-market rate (also called the interbank rate) is the midpoint between buy and sell prices on global currency markets. It's the "true" exchange rate with no markup — used as a reference for fair pricing.</div></div>
+  </section>
+
+  <section class="guh-section" id="related-tools">
+    <h2 class="guh-section-title">🔗 Related Tools</h2>
+    <div class="guh-tool-grid">
+      <a href="/tools/en/compound-interest/" class="guh-tool-card"><span class="guh-tool-icon">📈</span><span>Compound Interest</span></a>
+      <a href="/tools/en/loan-calculator/" class="guh-tool-card"><span class="guh-tool-icon">🏦</span><span>Loan Calculator</span></a>
+      <a href="/tools/en/vat-calculator/" class="guh-tool-card"><span class="guh-tool-icon">🧾</span><span>VAT Calculator</span></a>
+      <a href="/tools/en/salary-calculator/" class="guh-tool-card"><span class="guh-tool-icon">💼</span><span>Salary Calculator</span></a>
+      <a href="/tools/en/percentage-calculator/" class="guh-tool-card"><span class="guh-tool-icon">🔢</span><span>Percentage Calculator</span></a>
+    </div>
+  </section>
+  <section class="guh-section" id="related-blog"><h2 class="guh-section-title">📝 Related Blog</h2><div class="guh-blog-grid" id="blog-grid"><div class="guh-blog-empty">Loading...</div></div></section>
+</main>
+
+<footer class="guh-footer"><div class="guh-footer-inner"><a href="/en/" class="guh-footer-logo">Global Utility Hub</a><nav class="guh-footer-links"><a href="/en/blog/">Blog</a><a href="/en/">All Tools</a><a href="mailto:contact@bmsystems.biz">Contact</a></nav><p class="guh-footer-copy">© 2026 Global Utility Hub. All rights reserved.</p></div></footer>
+<div class="guh-toast" id="toast"></div>
+<script>
+  function guhToggleTheme(){var isDark=document.documentElement.dataset.theme==='dark';document.documentElement.dataset.theme=isDark?'light':'dark';localStorage.setItem('GUH-theme',document.documentElement.dataset.theme);document.getElementById('theme-icon').textContent=isDark?'🌙':'☀️';}
+  (function(){document.getElementById('theme-icon').textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';})();
+  document.getElementById('menu-btn').addEventListener('click',function(){document.getElementById('mobile-nav').classList.toggle('open');});
+  document.querySelectorAll('.guh-faq-q').forEach(function(btn){btn.addEventListener('click',function(){var isOpen=this.classList.contains('open');document.querySelectorAll('.guh-faq-q').forEach(function(b){b.classList.remove('open');b.nextElementSibling.classList.remove('open');});if(!isOpen){this.classList.add('open');this.nextElementSibling.classList.add('open');}});});
+
+  var RATES_KRW={KRW:1,USD:1380,EUR:1520,JPY:9.2,GBP:1760,CNY:190,SGD:1030,AUD:890};
+  var LABELS={KRW:'🇰🇷 KRW Korean Won',USD:'🇺🇸 USD US Dollar',EUR:'🇪🇺 EUR Euro',JPY:'🇯🇵 JPY Japanese Yen',GBP:'🇬🇧 GBP British Pound',CNY:'🇨🇳 CNY Chinese Yuan',SGD:'🇸🇬 SGD Singapore Dollar',AUD:'🇦🇺 AUD Australian Dollar'};
+
+  function calc(){
+    var amount=parseFloat(document.getElementById('amount').value)||0;
+    var from=document.getElementById('from-cur').value;
+    var fromKRW=amount*RATES_KRW[from];
+    var tbody=document.getElementById('rate-tbody');
+    tbody.innerHTML='';
+    Object.keys(RATES_KRW).forEach(function(cur){
+      if(cur===from)return;
+      var converted=fromKRW/RATES_KRW[cur];
+      var rateVsUsd=RATES_KRW[cur]/RATES_KRW['USD'];
+      var tr=document.createElement('tr');
+      tr.innerHTML='<td>'+LABELS[cur]+'</td><td style="font-weight:600">'+converted.toLocaleString('en-US',{maximumFractionDigits:2})+'</td><td style="color:var(--text-2)">1 USD = '+rateVsUsd.toFixed(cur==='JPY'?2:4)+' '+cur+'</td>';
+      tbody.appendChild(tr);
+    });
+  }
+
+  calc();
+
+  (async function(){try{var r=await fetch('/en/blog/index.json');if(!r.ok)return;var posts=await r.json();var related=posts.filter(function(p){return p.related_tool==='exchange-rate';}).slice(0,3);var grid=document.getElementById('blog-grid');if(!related.length){grid.innerHTML='<div class="guh-blog-empty">No related posts yet.</div>';return;}grid.innerHTML=related.map(function(p){return'<a href="'+p.url+'" class="guh-blog-card"><div class="guh-blog-card-title">'+p.title+'</div><div class="guh-blog-card-date">'+p.date+'</div></a>';}).join('');}catch(e){document.getElementById('blog-grid').innerHTML='<div class="guh-blog-empty">No related posts yet.</div>';}})();
+</script>
+<script src="/assets/js/guh-search.js" defer></script>
+</body>
+</html>

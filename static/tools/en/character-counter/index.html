@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Character Counter – Count Characters, Words & Bytes | Global Utility Hub</title>
+  <meta name="description" content="Count characters, words, lines, and bytes in real time. Useful for blog posts, tweets, resumes, and any text with a character limit. Free online character counter." />
+  <link rel="canonical" href="https://util.bmsystems.biz/tools/en/character-counter/" />
+  <link rel="alternate" hreflang="ko" href="https://util.bmsystems.biz/tools/ko/character-counter/" />
+  <link rel="alternate" hreflang="en" href="https://util.bmsystems.biz/tools/en/character-counter/" />
+  <link rel="alternate" hreflang="x-default" href="https://util.bmsystems.biz/tools/en/character-counter/" />
+  <meta property="og:title" content="Character Counter – Count Characters, Words & Bytes" />
+  <meta property="og:description" content="Count characters, words, lines, and bytes in real time." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://util.bmsystems.biz/tools/en/character-counter/" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/common.css" />
+  <script>(function(){var t=localStorage.getItem('GUH-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark';})();</script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Character Counter","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Count characters, words, lines, and bytes in real time.","url":"https://util.bmsystems.biz/tools/en/character-counter/"}
+  </script>
+</head>
+<body>
+<header class="guh-header" role="banner">
+  <div class="guh-header-inner">
+    <button class="guh-menu-btn" id="menu-btn" aria-label="Menu">☰</button>
+    <a href="/en/" class="guh-logo">Global <span>Utility</span> Hub</a>
+    <nav class="guh-nav" aria-label="Main navigation">
+      <a href="/en/" class="guh-nav-link active">Daily Tools</a>
+      <a href="/en/" class="guh-nav-link">Finance</a>
+      <a href="/en/" class="guh-nav-link">Health</a>
+      <a href="/en/" class="guh-nav-link">Dev Tools</a>
+      <a href="/en/" class="guh-nav-link">File Tools</a>
+      <a href="/en/blog/" class="guh-nav-link">Blog</a>
+    </nav>
+    <div class="guh-header-actions">
+      <div class="guh-lang-select">
+        <a href="/tools/ko/character-counter/" class="guh-lang-btn">KO</a>
+        <a href="/tools/en/character-counter/" class="guh-lang-btn active">EN</a>
+      </div>
+      <button class="guh-theme-btn" onclick="guhToggleTheme()" aria-label="Toggle dark mode"><span id="theme-icon">🌙</span></button>
+    </div>
+  </div>
+</header>
+<div class="guh-mobile-nav" id="mobile-nav">
+  <a href="/en/">Daily Tools</a><a href="/en/">Finance</a><a href="/en/">Health</a>
+  <a href="/en/">Dev Tools</a><a href="/en/">File Tools</a><a href="/en/blog/">Blog</a>
+  <hr /><a href="/tools/ko/character-counter/">🇰🇷 한국어</a><a href="/tools/en/character-counter/">🇺🇸 English</a>
+</div>
+
+<main class="guh-container guh-page" id="main-content">
+  <nav class="guh-breadcrumb" aria-label="Breadcrumb">
+    <a href="/en/">Home</a><span class="guh-breadcrumb-sep">›</span>
+    <a href="/en/">Daily Tools</a><span class="guh-breadcrumb-sep">›</span>
+    <span>Character Counter</span>
+  </nav>
+
+  <div class="guh-hero">
+    <h1>📝 Character Counter</h1>
+    <p>Paste or type your text below to instantly count characters, words, lines, and bytes.</p>
+  </div>
+
+  <section class="guh-section" id="calculator">
+    <div class="guh-calc-card">
+      <div class="guh-form-group">
+        <label class="guh-label" for="text-input">Enter Text</label>
+        <textarea id="text-input" class="guh-input" rows="8" placeholder="Paste or type your text here..." oninput="countChars()" style="resize:vertical;font-family:inherit;"></textarea>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">
+        <button class="guh-btn guh-btn-outline" onclick="document.getElementById('text-input').value='';countChars();" style="font-size:13px;">Clear</button>
+        <button class="guh-btn guh-btn-outline" onclick="copyResult()" style="font-size:13px;">Copy Result</button>
+      </div>
+    </div>
+
+    <div class="guh-result-grid show" style="margin-top:16px;">
+      <div class="guh-result-item">
+        <div class="guh-result-item-label">Total Characters</div>
+        <div class="guh-result-item-value" id="r-total">0</div>
+        <div class="guh-result-item-unit">chars</div>
+      </div>
+      <div class="guh-result-item">
+        <div class="guh-result-item-label">Without Spaces</div>
+        <div class="guh-result-item-value" id="r-nospace">0</div>
+        <div class="guh-result-item-unit">chars</div>
+      </div>
+      <div class="guh-result-item">
+        <div class="guh-result-item-label">Word Count</div>
+        <div class="guh-result-item-value" id="r-words">0</div>
+        <div class="guh-result-item-unit">words</div>
+      </div>
+      <div class="guh-result-item">
+        <div class="guh-result-item-label">Line Count</div>
+        <div class="guh-result-item-value" id="r-lines">0</div>
+        <div class="guh-result-item-unit">lines</div>
+      </div>
+      <div class="guh-result-item">
+        <div class="guh-result-item-label">Bytes (UTF-8)</div>
+        <div class="guh-result-item-value" id="r-bytes">0</div>
+        <div class="guh-result-item-unit">B</div>
+      </div>
+      <div class="guh-result-item">
+        <div class="guh-result-item-label">Read Time</div>
+        <div class="guh-result-item-value" id="r-readtime">0</div>
+        <div class="guh-result-item-unit">min</div>
+      </div>
+    </div>
+
+    <div class="guh-section" style="margin-top:16px;">
+      <h2 class="guh-section-title" style="font-size:15px;">📱 Social Media Limits</h2>
+      <div id="sns-bars" style="display:flex;flex-direction:column;gap:10px;"></div>
+    </div>
+  </section>
+
+  <section class="guh-section" id="faq">
+    <h2 class="guh-section-title">❓ FAQ</h2>
+    <div class="guh-faq-item">
+      <button class="guh-faq-q" aria-expanded="false">What counts as a character?<span class="guh-faq-icon">+</span></button>
+      <div class="guh-faq-a">Every letter, number, space, punctuation mark, and symbol counts as one character. Emojis typically count as 1–2 characters depending on the platform.</div>
+    </div>
+    <div class="guh-faq-item">
+      <button class="guh-faq-q" aria-expanded="false">What are the Twitter/X character limits?<span class="guh-faq-icon">+</span></button>
+      <div class="guh-faq-a">X (Twitter) allows 280 characters per tweet. URLs are automatically shortened to 23 characters regardless of their actual length.</div>
+    </div>
+    <div class="guh-faq-item">
+      <button class="guh-faq-q" aria-expanded="false">What is the difference between characters and bytes?<span class="guh-faq-icon">+</span></button>
+      <div class="guh-faq-a">A character is a single unit of text (a letter, digit, or symbol). A byte is a unit of digital storage. ASCII characters use 1 byte, while characters like Korean, Chinese, or emoji may use 2–4 bytes in UTF-8.</div>
+    </div>
+    <div class="guh-faq-item">
+      <button class="guh-faq-q" aria-expanded="false">How is word count calculated?<span class="guh-faq-icon">+</span></button>
+      <div class="guh-faq-a">Words are counted by splitting the text on whitespace (spaces, tabs, newlines). Consecutive spaces are treated as one separator.</div>
+    </div>
+    <div class="guh-faq-item">
+      <button class="guh-faq-q" aria-expanded="false">How is reading time estimated?<span class="guh-faq-icon">+</span></button>
+      <div class="guh-faq-a">Reading time is estimated at 200 words per minute, which is an average adult reading speed. Actual reading speed varies by individual and content complexity.</div>
+    </div>
+  </section>
+
+  <section class="guh-section" id="related-tools">
+    <h2 class="guh-section-title">🔗 Related Tools</h2>
+    <div class="guh-tool-grid">
+      <a href="/tools/en/byte-calculator/" class="guh-tool-card"><span class="guh-tool-icon">💾</span><span>Byte Calculator</span></a>
+      <a href="/tools/en/dday-calculator/" class="guh-tool-card"><span class="guh-tool-icon">📅</span><span>D-Day Calculator</span></a>
+      <a href="/tools/en/percentage-calculator/" class="guh-tool-card"><span class="guh-tool-icon">💯</span><span>Percentage Calculator</span></a>
+      <a href="/tools/en/date-calculator/" class="guh-tool-card"><span class="guh-tool-icon">🗓️</span><span>Date Calculator</span></a>
+      <a href="/tools/en/unit-converter/" class="guh-tool-card"><span class="guh-tool-icon">📏</span><span>Unit Converter</span></a>
+    </div>
+  </section>
+
+  <section class="guh-section" id="related-blog">
+    <h2 class="guh-section-title">📝 Related Blog</h2>
+    <div class="guh-blog-grid" id="blog-grid">
+      <div class="guh-blog-empty">Loading related posts...</div>
+    </div>
+  </section>
+</main>
+
+<footer class="guh-footer" role="contentinfo">
+  <div class="guh-footer-inner">
+    <a href="/en/" class="guh-footer-logo">Global Utility Hub</a>
+    <nav class="guh-footer-links"><a href="/en/blog/">Blog</a><a href="/en/">All Tools</a><a href="mailto:contact@bmsystems.biz">Contact</a></nav>
+    <p class="guh-footer-copy">© 2026 Global Utility Hub. All rights reserved.</p>
+  </div>
+</footer>
+<div class="guh-toast" id="toast"></div>
+
+<script>
+  function guhToggleTheme() {
+    var isDark = document.documentElement.dataset.theme === 'dark';
+    document.documentElement.dataset.theme = isDark ? 'light' : 'dark';
+    localStorage.setItem('GUH-theme', document.documentElement.dataset.theme);
+    document.getElementById('theme-icon').textContent = isDark ? '🌙' : '☀️';
+  }
+  (function(){ document.getElementById('theme-icon').textContent = document.documentElement.dataset.theme === 'dark' ? '☀️' : '🌙'; })();
+  document.getElementById('menu-btn').addEventListener('click', function() { document.getElementById('mobile-nav').classList.toggle('open'); });
+  document.querySelectorAll('.guh-faq-q').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var isOpen = this.classList.contains('open');
+      document.querySelectorAll('.guh-faq-q').forEach(function(b){ b.classList.remove('open'); b.nextElementSibling.classList.remove('open'); });
+      if (!isOpen) { this.classList.add('open'); this.nextElementSibling.classList.add('open'); }
+    });
+  });
+
+  var SNS = [
+    { name: 'X (Twitter)', max: 280 },
+    { name: 'Instagram Caption', max: 2200 },
+    { name: 'YouTube Title', max: 100 },
+    { name: 'LinkedIn Post', max: 3000 },
+    { name: 'Meta Description (SEO)', max: 160 }
+  ];
+
+  function countChars() {
+    var txt = document.getElementById('text-input').value;
+    var total = txt.length;
+    var nospace = txt.replace(/\s/g, '').length;
+    var words = txt.trim() === '' ? 0 : txt.trim().split(/\s+/).length;
+    var lines = txt === '' ? 0 : txt.split('\n').length;
+    var utf8bytes = new TextEncoder().encode(txt).length;
+    var readTime = Math.max(1, Math.ceil(words / 200));
+
+    document.getElementById('r-total').textContent = total.toLocaleString();
+    document.getElementById('r-nospace').textContent = nospace.toLocaleString();
+    document.getElementById('r-words').textContent = words.toLocaleString();
+    document.getElementById('r-lines').textContent = lines.toLocaleString();
+    document.getElementById('r-bytes').textContent = utf8bytes.toLocaleString();
+    document.getElementById('r-readtime').textContent = words < 10 ? '< 1' : readTime;
+
+    var barsHtml = SNS.map(function(s) {
+      var pct = Math.min(total / s.max * 100, 100);
+      var color = pct > 90 ? 'var(--red)' : pct > 70 ? '#f59e0b' : 'var(--green)';
+      return '<div><div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px;"><span>' + s.name + '</span><span style="color:' + color + ';">' + total + ' / ' + s.max + '</span></div>' +
+        '<div style="height:6px;background:var(--surface2);border-radius:3px;"><div style="height:6px;width:' + pct + '%;background:' + color + ';border-radius:3px;transition:width 0.3s;"></div></div></div>';
+    }).join('');
+    document.getElementById('sns-bars').innerHTML = barsHtml;
+  }
+
+  function copyResult() {
+    var txt = document.getElementById('text-input').value;
+    var total = txt.length;
+    var nospace = txt.replace(/\s/g, '').length;
+    var words = txt.trim() === '' ? 0 : txt.trim().split(/\s+/).length;
+    var summary = 'Total characters: ' + total + '\nWithout spaces: ' + nospace + '\nWord count: ' + words;
+    navigator.clipboard.writeText(summary).then(function(){ showToast('Result copied!', false); });
+  }
+
+  function showToast(msg, isErr) {
+    var t = document.getElementById('toast'); t.textContent = msg;
+    t.style.background = isErr ? 'var(--red)' : 'var(--green)';
+    t.classList.add('show'); setTimeout(function(){ t.classList.remove('show'); }, 2500);
+  }
+
+  countChars();
+
+  (async function() {
+    try {
+      var r = await fetch('/en/blog/index.json'); if (!r.ok) return;
+      var posts = await r.json();
+      var related = posts.filter(function(p){ return p.related_tool === 'character-counter'; }).slice(0,3);
+      var grid = document.getElementById('blog-grid');
+      if (!related.length) { grid.innerHTML = '<div class="guh-blog-empty">No related posts yet.</div>'; return; }
+      grid.innerHTML = related.map(function(p){ return '<a href="'+p.url+'" class="guh-blog-card"><div class="guh-blog-card-title">'+p.title+'</div><div class="guh-blog-card-date">'+p.date+'</div></a>'; }).join('');
+    } catch(e) { document.getElementById('blog-grid').innerHTML = '<div class="guh-blog-empty">No related posts yet.</div>'; }
+  })();
+</script>
+<script src="/assets/js/guh-search.js" defer></script>
+</body>
+</html>

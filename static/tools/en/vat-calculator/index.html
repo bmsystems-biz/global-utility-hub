@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VAT Calculator – Add or Remove Tax Free Online | Global Utility Hub</title>
+  <meta name="description" content="Calculate VAT (Value Added Tax) instantly. Add VAT to get gross price or remove VAT from gross price. Supports any tax rate. Free online VAT calculator." />
+  <link rel="canonical" href="https://util.bmsystems.biz/tools/en/vat-calculator/" />
+  <link rel="alternate" hreflang="ko" href="https://util.bmsystems.biz/tools/ko/vat-calculator/" />
+  <link rel="alternate" hreflang="en" href="https://util.bmsystems.biz/tools/en/vat-calculator/" />
+  <link rel="alternate" hreflang="x-default" href="https://util.bmsystems.biz/tools/en/vat-calculator/" />
+  <meta property="og:title" content="VAT Calculator" /><meta property="og:description" content="Add or remove VAT from any amount." /><meta property="og:type" content="website" /><meta property="og:url" content="https://util.bmsystems.biz/tools/en/vat-calculator/" /><meta property="og:locale" content="en_US" /><meta name="twitter:card" content="summary" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/common.css" />
+  <script>(function(){var t=localStorage.getItem('GUH-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark';})();</script>
+  <style>
+    .result-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);}
+    .result-row:last-child{border-bottom:none;font-weight:700;font-size:1.1rem;}
+    .result-row .label{color:var(--text-2);font-size:13px;}
+    .result-row .value{font-size:1.1rem;font-weight:600;color:var(--accent);}
+    .result-row:last-child .value{font-size:1.3rem;}
+  </style>
+</head>
+<body>
+<header class="guh-header" role="banner">
+  <div class="guh-header-inner">
+    <button class="guh-menu-btn" id="menu-btn" aria-label="Menu">☰</button>
+    <a href="/en/" class="guh-logo">Global <span>Utility</span> Hub</a>
+    <nav class="guh-nav"><a href="/en/#daily-tools" class="guh-nav-link">Daily Tools</a><a href="/en/#finance" class="guh-nav-link active">Finance</a><a href="/en/#health" class="guh-nav-link">Health</a><a href="/en/#dev-tools" class="guh-nav-link">Dev Tools</a><a href="/en/#file-tools" class="guh-nav-link">File Tools</a><a href="/en/blog/" class="guh-nav-link">Blog</a></nav>
+    <div class="guh-header-actions">
+      <div class="guh-lang-select"><a href="/tools/ko/vat-calculator/" class="guh-lang-btn">KO</a><a href="/tools/en/vat-calculator/" class="guh-lang-btn active">EN</a></div>
+      <button class="guh-theme-btn" onclick="guhToggleTheme()" aria-label="Toggle dark mode"><span id="theme-icon">🌙</span></button>
+    </div>
+  </div>
+</header>
+<div class="guh-mobile-nav" id="mobile-nav">
+  <a href="/en/#daily-tools">Daily Tools</a><a href="/en/#finance">Finance</a><a href="/en/#health">Health</a><a href="/en/#dev-tools">Dev Tools</a><a href="/en/#file-tools">File Tools</a><a href="/en/blog/">Blog</a>
+  <hr/><a href="/tools/ko/vat-calculator/">🇰🇷 한국어</a><a href="/tools/en/vat-calculator/">🇺🇸 English</a>
+</div>
+
+<main class="guh-container guh-page" id="main-content">
+  <nav class="guh-breadcrumb"><a href="/en/">Home</a><span class="guh-breadcrumb-sep">›</span><a href="/en/#finance">Finance</a><span class="guh-breadcrumb-sep">›</span><span>VAT Calculator</span></nav>
+  <div class="guh-hero"><h1>🧾 VAT Calculator</h1><p>Add VAT to get the gross price, or remove VAT from a gross price. Supports any tax rate.</p></div>
+
+  <section class="guh-section" id="calculator">
+    <div class="guh-calc-card">
+      <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:12px;">
+        <div class="guh-form-group" style="flex:2;min-width:160px;margin:0;">
+          <label class="guh-label">Amount</label>
+          <input type="number" id="amount" class="guh-input" value="1000" min="0" oninput="calc()" />
+        </div>
+        <div class="guh-form-group" style="flex:1;min-width:160px;margin:0;">
+          <label class="guh-label">Mode</label>
+          <select id="mode" class="guh-input" onchange="calc()">
+            <option value="add">Add VAT (net → gross)</option>
+            <option value="remove">Remove VAT (gross → net)</option>
+          </select>
+        </div>
+        <div class="guh-form-group" style="flex:1;min-width:100px;margin:0;">
+          <label class="guh-label">VAT Rate (%)</label>
+          <input type="number" id="vat-rate" class="guh-input" value="20" min="0" max="100" step="0.1" oninput="calc()" />
+        </div>
+      </div>
+
+      <div id="result-wrap" class="guh-calc-card" style="background:var(--surface2);display:none;">
+        <div class="result-row"><span class="label">Net Price (excl. VAT)</span><span class="value" id="supply-price"></span></div>
+        <div class="result-row"><span class="label">VAT Amount</span><span class="value" id="vat-amount"></span></div>
+        <div class="result-row"><span class="label" style="font-weight:700;">Gross Price (incl. VAT)</span><span class="value" id="total-price"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="guh-section" id="faq">
+    <h2 class="guh-section-title">❓ FAQ</h2>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">What is VAT?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">VAT (Value Added Tax) is a consumption tax applied at each stage of production and distribution. In the UK the standard rate is 20%, in the EU it varies from 15-27% by country. In the US, sales tax is used instead of VAT.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">How do I remove VAT from a price?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">Divide the gross price by (1 + VAT rate). For example, with 20% VAT: £120 ÷ 1.20 = £100 net. The VAT amount is £120 - £100 = £20. Use the "Remove VAT" mode in this calculator.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">What VAT rate should I use?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">Common standard rates: UK 20%, Germany 19%, France 20%, Italy 22%, Spain 21%, Korea 10%, Japan 10%, Australia 10% (GST). Reduced rates apply to certain goods — check your country's tax authority for specifics.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">Is this tool suitable for invoice calculations?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">Yes, for quick estimates. For official invoices, ensure you use the exact rates mandated by your jurisdiction and consult an accountant for complex transactions.</div></div>
+  </section>
+
+  <section class="guh-section" id="related-tools">
+    <h2 class="guh-section-title">🔗 Related Tools</h2>
+    <div class="guh-tool-grid">
+      <a href="/tools/en/compound-interest/" class="guh-tool-card"><span class="guh-tool-icon">📈</span><span>Compound Interest</span></a>
+      <a href="/tools/en/loan-calculator/" class="guh-tool-card"><span class="guh-tool-icon">🏦</span><span>Loan Calculator</span></a>
+      <a href="/tools/en/salary-calculator/" class="guh-tool-card"><span class="guh-tool-icon">💼</span><span>Salary Calculator</span></a>
+      <a href="/tools/en/exchange-rate/" class="guh-tool-card"><span class="guh-tool-icon">💱</span><span>Exchange Rate</span></a>
+      <a href="/tools/en/percentage-calculator/" class="guh-tool-card"><span class="guh-tool-icon">🔢</span><span>Percentage Calculator</span></a>
+    </div>
+  </section>
+  <section class="guh-section" id="related-blog"><h2 class="guh-section-title">📝 Related Blog</h2><div class="guh-blog-grid" id="blog-grid"><div class="guh-blog-empty">Loading...</div></div></section>
+</main>
+
+<footer class="guh-footer"><div class="guh-footer-inner"><a href="/en/" class="guh-footer-logo">Global Utility Hub</a><nav class="guh-footer-links"><a href="/en/blog/">Blog</a><a href="/en/">All Tools</a><a href="mailto:contact@bmsystems.biz">Contact</a></nav><p class="guh-footer-copy">© 2026 Global Utility Hub. All rights reserved.</p></div></footer>
+<div class="guh-toast" id="toast"></div>
+<script>
+  function guhToggleTheme(){var isDark=document.documentElement.dataset.theme==='dark';document.documentElement.dataset.theme=isDark?'light':'dark';localStorage.setItem('GUH-theme',document.documentElement.dataset.theme);document.getElementById('theme-icon').textContent=isDark?'🌙':'☀️';}
+  (function(){document.getElementById('theme-icon').textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';})();
+  document.getElementById('menu-btn').addEventListener('click',function(){document.getElementById('mobile-nav').classList.toggle('open');});
+  document.querySelectorAll('.guh-faq-q').forEach(function(btn){btn.addEventListener('click',function(){var isOpen=this.classList.contains('open');document.querySelectorAll('.guh-faq-q').forEach(function(b){b.classList.remove('open');b.nextElementSibling.classList.remove('open');});if(!isOpen){this.classList.add('open');this.nextElementSibling.classList.add('open');}});});
+
+  function fmt(n){return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+
+  function calc(){
+    var amount=parseFloat(document.getElementById('amount').value)||0;
+    var mode=document.getElementById('mode').value;
+    var vatRate=parseFloat(document.getElementById('vat-rate').value)/100||0.2;
+    var supply,vat,total;
+    if(mode==='add'){supply=amount;vat=supply*vatRate;total=supply+vat;}
+    else{total=amount;supply=total/(1+vatRate);vat=total-supply;}
+    document.getElementById('supply-price').textContent=fmt(supply);
+    document.getElementById('vat-amount').textContent=fmt(vat);
+    document.getElementById('total-price').textContent=fmt(total);
+    document.getElementById('result-wrap').style.display='block';
+  }
+
+  calc();
+
+  (async function(){try{var r=await fetch('/en/blog/index.json');if(!r.ok)return;var posts=await r.json();var related=posts.filter(function(p){return p.related_tool==='vat-calculator';}).slice(0,3);var grid=document.getElementById('blog-grid');if(!related.length){grid.innerHTML='<div class="guh-blog-empty">No related posts yet.</div>';return;}grid.innerHTML=related.map(function(p){return'<a href="'+p.url+'" class="guh-blog-card"><div class="guh-blog-card-title">'+p.title+'</div><div class="guh-blog-card-date">'+p.date+'</div></a>';}).join('');}catch(e){document.getElementById('blog-grid').innerHTML='<div class="guh-blog-empty">No related posts yet.</div>';}})();
+</script>
+<script src="/assets/js/guh-search.js" defer></script>
+</body>
+</html>

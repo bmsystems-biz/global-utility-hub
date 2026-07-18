@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Color Picker – HEX, RGB & HSL Color Converter Online | Global Utility Hub</title>
+  <meta name="description" content="Pick any color and instantly convert between HEX, RGB, and HSL formats. Color presets, copy buttons, real-time preview. Free online color picker." />
+  <link rel="canonical" href="https://util.bmsystems.biz/tools/en/color-picker/" />
+  <link rel="alternate" hreflang="ko" href="https://util.bmsystems.biz/tools/ko/color-picker/" />
+  <link rel="alternate" hreflang="en" href="https://util.bmsystems.biz/tools/en/color-picker/" />
+  <link rel="alternate" hreflang="x-default" href="https://util.bmsystems.biz/tools/en/color-picker/" />
+  <meta property="og:title" content="Color Picker – HEX, RGB & HSL Converter" />
+  <meta property="og:description" content="Pick colors and convert between HEX, RGB, and HSL formats instantly." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://util.bmsystems.biz/tools/en/color-picker/" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/common.css" />
+  <script>(function(){var t=localStorage.getItem('GUH-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark';})();</script>
+  <style>
+    .color-preview{width:100%;height:120px;border-radius:12px;border:1px solid var(--border);transition:background 0.2s;margin-bottom:12px;}
+    .color-input-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+    .color-input-row label{min-width:48px;font-size:13px;font-weight:600;color:var(--text-2);}
+    .color-input-row input[type=text]{flex:1;}
+    .color-copy-btn{padding:4px 10px;font-size:12px;border-radius:6px;border:1px solid var(--border);background:var(--surface2);cursor:pointer;color:var(--text-1);white-space:nowrap;}
+    .color-copy-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent);}
+    .preset-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;}
+    .preset-swatch{width:36px;height:36px;border-radius:8px;border:2px solid transparent;cursor:pointer;transition:transform 0.15s,border-color 0.15s;}
+    .preset-swatch:hover{transform:scale(1.15);border-color:var(--accent);}
+    .color-wheel-wrap{display:flex;justify-content:center;margin-bottom:12px;}
+    input[type=color]{width:80px;height:80px;border:none;background:none;cursor:pointer;padding:0;border-radius:50%;outline:none;}
+  </style>
+</head>
+<body>
+<header class="guh-header" role="banner">
+  <div class="guh-header-inner">
+    <button class="guh-menu-btn" id="menu-btn" aria-label="Menu">☰</button>
+    <a href="/en/" class="guh-logo">Global <span>Utility</span> Hub</a>
+    <nav class="guh-nav"><a href="/en/#daily-tools" class="guh-nav-link">Daily Tools</a><a href="/en/#finance" class="guh-nav-link">Finance</a><a href="/en/#health" class="guh-nav-link">Health</a><a href="/en/#dev-tools" class="guh-nav-link active">Dev Tools</a><a href="/en/#file-tools" class="guh-nav-link">File Tools</a><a href="/en/blog/" class="guh-nav-link">Blog</a></nav>
+    <div class="guh-header-actions">
+      <div class="guh-lang-select"><a href="/tools/ko/color-picker/" class="guh-lang-btn">KO</a><a href="/tools/en/color-picker/" class="guh-lang-btn active">EN</a></div>
+      <button class="guh-theme-btn" onclick="guhToggleTheme()" aria-label="Toggle dark mode"><span id="theme-icon">🌙</span></button>
+    </div>
+  </div>
+</header>
+<div class="guh-mobile-nav" id="mobile-nav">
+  <a href="/en/#daily-tools">Daily Tools</a><a href="/en/#finance">Finance</a><a href="/en/#health">Health</a><a href="/en/#dev-tools">Dev Tools</a><a href="/en/#file-tools">File Tools</a><a href="/en/blog/">Blog</a>
+  <hr/><a href="/tools/ko/color-picker/">🇰🇷 한국어</a><a href="/tools/en/color-picker/">🇺🇸 English</a>
+</div>
+
+<main class="guh-container guh-page" id="main-content">
+  <nav class="guh-breadcrumb"><a href="/en/">Home</a><span class="guh-breadcrumb-sep">›</span><a href="/en/#dev-tools">Dev Tools</a><span class="guh-breadcrumb-sep">›</span><span>Color Picker</span></nav>
+  <div class="guh-hero"><h1>🎨 Color Picker</h1><p>Pick any color and instantly convert between HEX, RGB, and HSL formats.</p></div>
+
+  <section class="guh-section" id="calculator">
+    <div class="guh-calc-card">
+      <div class="color-wheel-wrap">
+        <input type="color" id="color-wheel" value="#3b82f6" oninput="onColorWheel(this.value)" />
+      </div>
+      <div class="color-preview" id="color-preview" style="background:#3b82f6;"></div>
+
+      <div class="color-input-row">
+        <label>HEX</label>
+        <input type="text" id="hex-input" class="guh-input" value="#3b82f6" oninput="onHexInput(this.value)" style="font-family:monospace;" />
+        <button class="color-copy-btn" onclick="copyVal('hex-input')">Copy</button>
+      </div>
+      <div class="color-input-row">
+        <label>RGB</label>
+        <input type="text" id="rgb-input" class="guh-input" value="rgb(59, 130, 246)" readonly style="font-family:monospace;background:var(--surface2);" />
+        <button class="color-copy-btn" onclick="copyVal('rgb-input')">Copy</button>
+      </div>
+      <div class="color-input-row">
+        <label>HSL</label>
+        <input type="text" id="hsl-input" class="guh-input" value="hsl(217, 91%, 60%)" readonly style="font-family:monospace;background:var(--surface2);" />
+        <button class="color-copy-btn" onclick="copyVal('hsl-input')">Copy</button>
+      </div>
+
+      <div style="margin-top:16px;">
+        <div style="font-size:13px;font-weight:600;color:var(--text-2);margin-bottom:8px;">Preset Colors</div>
+        <div class="preset-grid" id="preset-grid"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="guh-section" id="faq">
+    <h2 class="guh-section-title">❓ FAQ</h2>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">What is a HEX color code?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">HEX color codes use the format #RRGGBB where each pair of digits represents Red, Green, and Blue channels in hexadecimal (0-255). For example, #FF0000 is pure red, #000000 is black, and #FFFFFF is white. HEX is the most widely used format in CSS and web design.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">What is the difference between RGB and HEX?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">Both represent the same colors differently. RGB uses decimal values like rgb(255, 0, 0) while HEX uses hexadecimal like #FF0000. RGB is easier for programmatic manipulation (e.g., blending colors), while HEX is more compact and commonly used by designers in style sheets.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">What is HSL?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">HSL stands for Hue (0-360°), Saturation (0-100%), and Lightness (0-100%). It's more intuitive for humans — you can easily adjust brightness or saturation without recalculating all three channels. For example, to make a color lighter, just increase the L value.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">How do I add transparency to a color?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">For HEX, use the 8-digit format #RRGGBBAA (e.g., #3b82f680 for 50% opacity). For RGB, use rgba(59, 130, 246, 0.5). For HSL, use hsla(217, 91%, 60%, 0.5). The alpha value ranges from 0 (fully transparent) to 1 (fully opaque).</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">What are CSS named colors?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">CSS defines 140 named colors ranging from basic ones (red, blue, green) to specific ones (tomato, cornflowerblue, rebeccapurple). While convenient, named colors can render slightly differently across browsers, so HEX or RGB values are recommended for precise color matching in production.</div></div>
+  </section>
+
+  <section class="guh-section" id="related-tools">
+    <h2 class="guh-section-title">🔗 Related Tools</h2>
+    <div class="guh-tool-grid">
+      <a href="/tools/en/html-escape/" class="guh-tool-card"><span class="guh-tool-icon">🛡️</span><span>HTML Escape</span></a>
+      <a href="/tools/en/base64/" class="guh-tool-card"><span class="guh-tool-icon">🔤</span><span>Base64 Encoder</span></a>
+      <a href="/tools/en/image-converter/" class="guh-tool-card"><span class="guh-tool-icon">🖼️</span><span>Image Converter</span></a>
+      <a href="/tools/en/json-formatter/" class="guh-tool-card"><span class="guh-tool-icon">{ }</span><span>JSON Formatter</span></a>
+      <a href="/tools/en/regex-tester/" class="guh-tool-card"><span class="guh-tool-icon">🔍</span><span>Regex Tester</span></a>
+    </div>
+  </section>
+  <section class="guh-section" id="related-blog"><h2 class="guh-section-title">📝 Related Blog</h2><div class="guh-blog-grid" id="blog-grid"><div class="guh-blog-empty">Loading...</div></div></section>
+</main>
+
+<footer class="guh-footer"><div class="guh-footer-inner"><a href="/en/" class="guh-footer-logo">Global Utility Hub</a><nav class="guh-footer-links"><a href="/en/blog/">Blog</a><a href="/en/">All Tools</a><a href="mailto:contact@bmsystems.biz">Contact</a></nav><p class="guh-footer-copy">© 2026 Global Utility Hub. All rights reserved.</p></div></footer>
+<div class="guh-toast" id="toast"></div>
+<script>
+  function guhToggleTheme(){var isDark=document.documentElement.dataset.theme==='dark';document.documentElement.dataset.theme=isDark?'light':'dark';localStorage.setItem('GUH-theme',document.documentElement.dataset.theme);document.getElementById('theme-icon').textContent=isDark?'🌙':'☀️';}
+  (function(){document.getElementById('theme-icon').textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';})();
+  document.getElementById('menu-btn').addEventListener('click',function(){document.getElementById('mobile-nav').classList.toggle('open');});
+  document.querySelectorAll('.guh-faq-q').forEach(function(btn){btn.addEventListener('click',function(){var isOpen=this.classList.contains('open');document.querySelectorAll('.guh-faq-q').forEach(function(b){b.classList.remove('open');b.nextElementSibling.classList.remove('open');});if(!isOpen){this.classList.add('open');this.nextElementSibling.classList.add('open');}});});
+  function showToast(msg,isErr){var t=document.getElementById('toast');t.textContent=msg;t.style.background=isErr?'var(--red)':'var(--green)';t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2500);}
+
+  var PRESETS=['#ef4444','#f97316','#eab308','#22c55e','#3b82f6','#8b5cf6','#ec4899','#000000','#374151','#6b7280','#d1d5db','#ffffff','#92400e','#065f46','#1e3a8a','#7c3aed'];
+
+  function hexToRgb(hex){var r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);return{r:r,g:g,b:b};}
+  function rgbToHsl(r,g,b){r/=255;g/=255;b/=255;var max=Math.max(r,g,b),min=Math.min(r,g,b),h,s,l=(max+min)/2;if(max===min){h=s=0;}else{var d=max-min;s=l>0.5?d/(2-max-min):d/(max+min);switch(max){case r:h=(g-b)/d+(g<b?6:0);break;case g:h=(b-r)/d+2;break;case b:h=(r-g)/d+4;break;}h/=6;}return{h:Math.round(h*360),s:Math.round(s*100),l:Math.round(l*100)};}
+
+  function updateAll(hex){
+    document.getElementById('color-preview').style.background=hex;
+    document.getElementById('color-wheel').value=hex;
+    document.getElementById('hex-input').value=hex;
+    var rgb=hexToRgb(hex);
+    document.getElementById('rgb-input').value='rgb('+rgb.r+', '+rgb.g+', '+rgb.b+')';
+    var hsl=rgbToHsl(rgb.r,rgb.g,rgb.b);
+    document.getElementById('hsl-input').value='hsl('+hsl.h+', '+hsl.s+'%, '+hsl.l+'%)';
+  }
+
+  function onColorWheel(val){updateAll(val);}
+  function onHexInput(val){var v=val.trim();if(/^#[0-9a-fA-F]{6}$/.test(v)){updateAll(v);}}
+  function copyVal(id){var v=document.getElementById(id).value;navigator.clipboard.writeText(v).then(function(){showToast('Copied!',false);});}
+
+  var pg=document.getElementById('preset-grid');
+  PRESETS.forEach(function(c){var s=document.createElement('div');s.className='preset-swatch';s.style.background=c;s.title=c;s.addEventListener('click',function(){updateAll(c);});pg.appendChild(s);});
+
+  updateAll('#3b82f6');
+
+  (async function(){try{var r=await fetch('/en/blog/index.json');if(!r.ok)return;var posts=await r.json();var related=posts.filter(function(p){return p.related_tool==='color-picker';}).slice(0,3);var grid=document.getElementById('blog-grid');if(!related.length){grid.innerHTML='<div class="guh-blog-empty">No related posts yet.</div>';return;}grid.innerHTML=related.map(function(p){return'<a href="'+p.url+'" class="guh-blog-card"><div class="guh-blog-card-title">'+p.title+'</div><div class="guh-blog-card-date">'+p.date+'</div></a>';}).join('');}catch(e){document.getElementById('blog-grid').innerHTML='<div class="guh-blog-empty">No related posts yet.</div>';}})();
+</script>
+<script src="/assets/js/guh-search.js" defer></script>
+</body>
+</html>

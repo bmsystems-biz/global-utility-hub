@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Salary Calculator – Annual to Monthly Net Pay Calculator | Global Utility Hub</title>
+  <meta name="description" content="Calculate your take-home pay from annual salary. Estimate income tax, social security, and net monthly income. Free online salary calculator." />
+  <link rel="canonical" href="https://util.bmsystems.biz/tools/en/salary-calculator/" />
+  <link rel="alternate" hreflang="ko" href="https://util.bmsystems.biz/tools/ko/salary-calculator/" />
+  <link rel="alternate" hreflang="en" href="https://util.bmsystems.biz/tools/en/salary-calculator/" />
+  <link rel="alternate" hreflang="x-default" href="https://util.bmsystems.biz/tools/en/salary-calculator/" />
+  <meta property="og:title" content="Salary Calculator" /><meta property="og:description" content="Calculate net take-home pay from annual salary." /><meta property="og:type" content="website" /><meta property="og:url" content="https://util.bmsystems.biz/tools/en/salary-calculator/" /><meta property="og:locale" content="en_US" /><meta name="twitter:card" content="summary" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/common.css" />
+  <script>(function(){var t=localStorage.getItem('GUH-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark';})();</script>
+  <style>
+    .deduct-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px;}
+    .deduct-table th{background:var(--surface2);padding:8px 12px;text-align:left;border-bottom:2px solid var(--border);}
+    .deduct-table td{padding:7px 12px;border-bottom:1px solid var(--border);}
+    .deduct-table td:last-child{text-align:right;color:var(--red);}
+    .deduct-table tr.total td{font-weight:700;border-top:2px solid var(--border);}
+    .deduct-table tr.total td:last-child{color:var(--accent);font-size:1.1rem;}
+    .result-box{background:var(--accent-soft);border:1px solid var(--accent);border-radius:10px;padding:16px;margin:16px 0;text-align:center;}
+    .result-main{font-size:2rem;font-weight:700;color:var(--accent);}
+  </style>
+</head>
+<body>
+<header class="guh-header" role="banner">
+  <div class="guh-header-inner">
+    <button class="guh-menu-btn" id="menu-btn" aria-label="Menu">☰</button>
+    <a href="/en/" class="guh-logo">Global <span>Utility</span> Hub</a>
+    <nav class="guh-nav"><a href="/en/#daily-tools" class="guh-nav-link">Daily Tools</a><a href="/en/#finance" class="guh-nav-link active">Finance</a><a href="/en/#health" class="guh-nav-link">Health</a><a href="/en/#dev-tools" class="guh-nav-link">Dev Tools</a><a href="/en/#file-tools" class="guh-nav-link">File Tools</a><a href="/en/blog/" class="guh-nav-link">Blog</a></nav>
+    <div class="guh-header-actions">
+      <div class="guh-lang-select"><a href="/tools/ko/salary-calculator/" class="guh-lang-btn">KO</a><a href="/tools/en/salary-calculator/" class="guh-lang-btn active">EN</a></div>
+      <button class="guh-theme-btn" onclick="guhToggleTheme()" aria-label="Toggle dark mode"><span id="theme-icon">🌙</span></button>
+    </div>
+  </div>
+</header>
+<div class="guh-mobile-nav" id="mobile-nav">
+  <a href="/en/#daily-tools">Daily Tools</a><a href="/en/#finance">Finance</a><a href="/en/#health">Health</a><a href="/en/#dev-tools">Dev Tools</a><a href="/en/#file-tools">File Tools</a><a href="/en/blog/">Blog</a>
+  <hr/><a href="/tools/ko/salary-calculator/">🇰🇷 한국어</a><a href="/tools/en/salary-calculator/">🇺🇸 English</a>
+</div>
+
+<main class="guh-container guh-page" id="main-content">
+  <nav class="guh-breadcrumb"><a href="/en/">Home</a><span class="guh-breadcrumb-sep">›</span><a href="/en/#finance">Finance</a><span class="guh-breadcrumb-sep">›</span><span>Salary Calculator</span></nav>
+  <div class="guh-hero"><h1>💼 Salary Calculator</h1><p>Enter your annual salary to estimate monthly take-home pay after taxes and deductions.</p></div>
+
+  <section class="guh-section" id="calculator">
+    <div class="guh-calc-card">
+      <div style="display:flex;flex-wrap:wrap;gap:12px;">
+        <div class="guh-form-group" style="flex:2;min-width:200px;margin:0;">
+          <label class="guh-label">Annual Salary ($)</label>
+          <input type="number" id="annual" class="guh-input" value="80000" min="0" step="1000" oninput="calc()" />
+        </div>
+        <div class="guh-form-group" style="flex:1;min-width:120px;margin:0;">
+          <label class="guh-label">Filing Status</label>
+          <select id="filing" class="guh-input" onchange="calc()">
+            <option value="single">Single</option>
+            <option value="married">Married Filing Jointly</option>
+          </select>
+        </div>
+        <div class="guh-form-group" style="flex:1;min-width:100px;margin:0;">
+          <label class="guh-label">State Tax (%)</label>
+          <input type="number" id="state-tax" class="guh-input" value="5" min="0" max="15" step="0.1" oninput="calc()" />
+        </div>
+      </div>
+
+      <div class="result-box" id="result-box" style="display:none;">
+        <div style="font-size:13px;color:var(--text-2);margin-bottom:4px;">Monthly Take-Home Pay</div>
+        <div class="result-main" id="monthly-net"></div>
+        <div style="font-size:12px;color:var(--text-2);margin-top:4px;" id="annual-net"></div>
+      </div>
+
+      <table class="deduct-table" id="deduct-table" style="display:none;">
+        <thead><tr><th>Deduction</th><th>Monthly Amount</th></tr></thead>
+        <tbody id="deduct-tbody"></tbody>
+      </table>
+      <div style="font-size:11px;color:var(--text-3);margin-top:8px;">※ Estimates based on 2025 US federal tax brackets. Actual amounts vary by state, filing status, and deductions.</div>
+    </div>
+  </section>
+
+  <section class="guh-section" id="faq">
+    <h2 class="guh-section-title">❓ FAQ</h2>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">What deductions are included?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">This calculator estimates: Federal income tax (2025 brackets), Social Security (6.2%), Medicare (1.45%), and a configurable state income tax rate. It does not include retirement contributions (401k), health insurance, or other voluntary deductions.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">What are the 2025 federal tax brackets?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">Single filers: 10% up to $11,925 | 12% up to $48,475 | 22% up to $103,350 | 24% up to $197,300 | 32% up to $250,525 | 35% up to $626,350 | 37% above. Married filing jointly rates apply to double those thresholds.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">What is FICA?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">FICA (Federal Insurance Contributions Act) covers Social Security (6.2% on wages up to $176,100 in 2025) and Medicare (1.45% with no wage cap). Employers match these contributions.</div></div>
+  </section>
+
+  <section class="guh-section" id="related-tools">
+    <h2 class="guh-section-title">🔗 Related Tools</h2>
+    <div class="guh-tool-grid">
+      <a href="/tools/en/monthly-salary/" class="guh-tool-card"><span class="guh-tool-icon">⏰</span><span>Hourly Wage Calculator</span></a>
+      <a href="/tools/en/compound-interest/" class="guh-tool-card"><span class="guh-tool-icon">📈</span><span>Compound Interest</span></a>
+      <a href="/tools/en/vat-calculator/" class="guh-tool-card"><span class="guh-tool-icon">🧾</span><span>VAT Calculator</span></a>
+      <a href="/tools/en/percentage-calculator/" class="guh-tool-card"><span class="guh-tool-icon">🔢</span><span>Percentage Calculator</span></a>
+      <a href="/tools/en/loan-calculator/" class="guh-tool-card"><span class="guh-tool-icon">🏦</span><span>Loan Calculator</span></a>
+    </div>
+  </section>
+  <section class="guh-section" id="related-blog"><h2 class="guh-section-title">📝 Related Blog</h2><div class="guh-blog-grid" id="blog-grid"><div class="guh-blog-empty">Loading...</div></div></section>
+</main>
+
+<footer class="guh-footer"><div class="guh-footer-inner"><a href="/en/" class="guh-footer-logo">Global Utility Hub</a><nav class="guh-footer-links"><a href="/en/blog/">Blog</a><a href="/en/">All Tools</a><a href="mailto:contact@bmsystems.biz">Contact</a></nav><p class="guh-footer-copy">© 2026 Global Utility Hub. All rights reserved.</p></div></footer>
+<div class="guh-toast" id="toast"></div>
+<script>
+  function guhToggleTheme(){var isDark=document.documentElement.dataset.theme==='dark';document.documentElement.dataset.theme=isDark?'light':'dark';localStorage.setItem('GUH-theme',document.documentElement.dataset.theme);document.getElementById('theme-icon').textContent=isDark?'🌙':'☀️';}
+  (function(){document.getElementById('theme-icon').textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';})();
+  document.getElementById('menu-btn').addEventListener('click',function(){document.getElementById('mobile-nav').classList.toggle('open');});
+  document.querySelectorAll('.guh-faq-q').forEach(function(btn){btn.addEventListener('click',function(){var isOpen=this.classList.contains('open');document.querySelectorAll('.guh-faq-q').forEach(function(b){b.classList.remove('open');b.nextElementSibling.classList.remove('open');});if(!isOpen){this.classList.add('open');this.nextElementSibling.classList.add('open');}});});
+
+  function fmt(n){return '$'+Math.round(n).toLocaleString('en-US');}
+
+  function calcFederalTax(annual,married){
+    var brackets=married?
+      [[23850,0.10],[96950,0.12],[206700,0.22],[394600,0.24],[501050,0.32],[751600,0.35],[Infinity,0.37]]:
+      [[11925,0.10],[48475,0.12],[103350,0.22],[197300,0.24],[250525,0.32],[626350,0.35],[Infinity,0.37]];
+    var standardDeduction=married?30000:15000;
+    var taxable=Math.max(0,annual-standardDeduction);
+    var tax=0,prev=0;
+    for(var i=0;i<brackets.length;i++){
+      var limit=brackets[i][0],rate=brackets[i][1];
+      if(taxable<=prev)break;
+      tax+=Math.min(taxable-prev,limit-prev)*rate;
+      prev=limit;
+    }
+    return tax;
+  }
+
+  function calc(){
+    var annual=parseFloat(document.getElementById('annual').value)||0;
+    var married=document.getElementById('filing').value==='married';
+    var stateTaxRate=parseFloat(document.getElementById('state-tax').value)/100||0;
+    var monthly=annual/12;
+
+    var fedTax=calcFederalTax(annual,married)/12;
+    var stateTax=annual*stateTaxRate/12;
+    var ssTax=Math.min(monthly,176100/12)*0.062;
+    var medicareTax=monthly*0.0145;
+    var totalDeduct=fedTax+stateTax+ssTax+medicareTax;
+    var netMonthly=monthly-totalDeduct;
+
+    var rows=[
+      ['Federal Income Tax',fedTax],['State Income Tax ('+( document.getElementById('state-tax').value)+'%)',stateTax],
+      ['Social Security (6.2%)',ssTax],['Medicare (1.45%)',medicareTax]
+    ];
+    var tbody=document.getElementById('deduct-tbody');tbody.innerHTML='';
+    rows.forEach(function(r){
+      var tr=document.createElement('tr');
+      tr.innerHTML='<td>'+r[0]+'</td><td>-'+fmt(r[1])+'</td>';
+      tbody.appendChild(tr);
+    });
+    var tr=document.createElement('tr');tr.className='total';
+    tr.innerHTML='<td>Monthly Take-Home</td><td>'+fmt(netMonthly)+'</td>';
+    tbody.appendChild(tr);
+
+    document.getElementById('monthly-net').textContent=fmt(netMonthly);
+    document.getElementById('annual-net').textContent='Annual Net: '+fmt(netMonthly*12)+' | Gross Monthly: '+fmt(monthly);
+    document.getElementById('result-box').style.display='block';
+    document.getElementById('deduct-table').style.display='table';
+  }
+
+  calc();
+
+  (async function(){try{var r=await fetch('/en/blog/index.json');if(!r.ok)return;var posts=await r.json();var related=posts.filter(function(p){return p.related_tool==='salary-calculator';}).slice(0,3);var grid=document.getElementById('blog-grid');if(!related.length){grid.innerHTML='<div class="guh-blog-empty">No related posts yet.</div>';return;}grid.innerHTML=related.map(function(p){return'<a href="'+p.url+'" class="guh-blog-card"><div class="guh-blog-card-title">'+p.title+'</div><div class="guh-blog-card-date">'+p.date+'</div></a>';}).join('');}catch(e){document.getElementById('blog-grid').innerHTML='<div class="guh-blog-empty">No related posts yet.</div>';}})();
+</script>
+<script src="/assets/js/guh-search.js" defer></script>
+</body>
+</html>

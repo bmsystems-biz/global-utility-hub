@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>복리 계산기 – 원금·이자율·기간으로 복리 계산 | 글로벌 유틸리티 허브</title>
+  <meta name="description" content="원금, 이자율, 투자 기간을 입력해 복리 수익을 계산합니다. 연도별 성장 표, 복리 공식 설명. 무료 온라인 복리 계산기." />
+  <link rel="canonical" href="https://util.bmsystems.biz/tools/ko/compound-interest/" />
+  <link rel="alternate" hreflang="ko" href="https://util.bmsystems.biz/tools/ko/compound-interest/" />
+  <link rel="alternate" hreflang="en" href="https://util.bmsystems.biz/tools/en/compound-interest/" />
+  <link rel="alternate" hreflang="x-default" href="https://util.bmsystems.biz/tools/en/compound-interest/" />
+  <meta property="og:title" content="복리 계산기" /><meta property="og:description" content="복리 수익을 계산합니다." /><meta property="og:type" content="website" /><meta property="og:url" content="https://util.bmsystems.biz/tools/ko/compound-interest/" /><meta property="og:locale" content="ko_KR" /><meta name="twitter:card" content="summary" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/common.css" />
+  <script>(function(){var t=localStorage.getItem('GUH-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark';})();</script>
+  <style>
+    .result-box{background:var(--accent-soft);border:1px solid var(--accent);border-radius:10px;padding:16px;margin:16px 0;text-align:center;}
+    .result-main{font-size:2rem;font-weight:700;color:var(--accent);}
+    .result-sub{font-size:13px;color:var(--text-2);margin-top:4px;}
+    .year-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px;}
+    .year-table th{background:var(--surface2);padding:8px 10px;text-align:right;border-bottom:2px solid var(--border);}
+    .year-table th:first-child{text-align:center;}
+    .year-table td{padding:7px 10px;text-align:right;border-bottom:1px solid var(--border);}
+    .year-table td:first-child{text-align:center;color:var(--text-2);}
+    .year-table tr:last-child td{font-weight:700;color:var(--accent);}
+  </style>
+</head>
+<body>
+<header class="guh-header" role="banner">
+  <div class="guh-header-inner">
+    <button class="guh-menu-btn" id="menu-btn" aria-label="메뉴">☰</button>
+    <a href="/ko/" class="guh-logo">글로벌 <span>유틸리티</span> 허브</a>
+    <nav class="guh-nav"><a href="/ko/#daily-tools" class="guh-nav-link">생활도구</a><a href="/ko/#finance" class="guh-nav-link active">금융계산기</a><a href="/ko/#health" class="guh-nav-link">건강</a><a href="/ko/#dev-tools" class="guh-nav-link">개발자도구</a><a href="/ko/#file-tools" class="guh-nav-link">파일도구</a><a href="/ko/blog/" class="guh-nav-link">블로그</a></nav>
+    <div class="guh-header-actions">
+      <div class="guh-lang-select"><a href="/tools/ko/compound-interest/" class="guh-lang-btn active">KO</a><a href="/tools/en/compound-interest/" class="guh-lang-btn">EN</a></div>
+      <button class="guh-theme-btn" onclick="guhToggleTheme()" aria-label="다크모드 전환"><span id="theme-icon">🌙</span></button>
+    </div>
+  </div>
+</header>
+<div class="guh-mobile-nav" id="mobile-nav">
+  <a href="/ko/#daily-tools">생활도구</a><a href="/ko/#finance">금융계산기</a><a href="/ko/#health">건강</a><a href="/ko/#dev-tools">개발자도구</a><a href="/ko/#file-tools">파일도구</a><a href="/ko/blog/">블로그</a>
+  <hr/><a href="/tools/ko/compound-interest/">🇰🇷 한국어</a><a href="/tools/en/compound-interest/">🇺🇸 English</a>
+</div>
+
+<main class="guh-container guh-page" id="main-content">
+  <nav class="guh-breadcrumb"><a href="/ko/">홈</a><span class="guh-breadcrumb-sep">›</span><a href="/ko/#finance">금융계산기</a><span class="guh-breadcrumb-sep">›</span><span>복리 계산기</span></nav>
+  <div class="guh-hero"><h1>📈 복리 계산기</h1><p>원금·이자율·기간을 입력하면 복리 수익과 연도별 성장표를 확인할 수 있습니다.</p></div>
+
+  <section class="guh-section" id="calculator">
+    <div class="guh-calc-card">
+      <div style="display:flex;flex-wrap:wrap;gap:12px;">
+        <div class="guh-form-group" style="flex:1;min-width:140px;">
+          <label class="guh-label">원금 (원)</label>
+          <input type="number" id="principal" class="guh-input" value="10000000" min="0" oninput="calc()" />
+        </div>
+        <div class="guh-form-group" style="flex:1;min-width:120px;">
+          <label class="guh-label">연이자율 (%)</label>
+          <input type="number" id="rate" class="guh-input" value="5" min="0" max="100" step="0.1" oninput="calc()" />
+        </div>
+        <div class="guh-form-group" style="flex:1;min-width:100px;">
+          <label class="guh-label">투자 기간 (년)</label>
+          <input type="number" id="years" class="guh-input" value="10" min="1" max="50" oninput="calc()" />
+        </div>
+        <div class="guh-form-group" style="flex:1;min-width:120px;">
+          <label class="guh-label">복리 주기</label>
+          <select id="freq" class="guh-input" onchange="calc()">
+            <option value="1">연 1회</option>
+            <option value="2">반기 1회</option>
+            <option value="4">분기 1회</option>
+            <option value="12">월 1회</option>
+          </select>
+        </div>
+      </div>
+      <div style="margin:12px 0;">
+        <label class="guh-label">월 추가 납입 (원)</label>
+        <input type="number" id="monthly" class="guh-input" value="0" min="0" oninput="calc()" />
+      </div>
+
+      <div class="result-box" id="result-box" style="display:none;">
+        <div style="font-size:13px;color:var(--text-2);margin-bottom:4px;">최종 금액</div>
+        <div class="result-main" id="final-amount"></div>
+        <div class="result-sub" id="result-detail"></div>
+      </div>
+
+      <div id="table-wrap" style="overflow-x:auto;display:none;">
+        <table class="year-table" id="year-table">
+          <thead><tr><th>연도</th><th>원금</th><th>이자</th><th>잔액</th></tr></thead>
+          <tbody id="year-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="guh-section" id="faq">
+    <h2 class="guh-section-title">❓ 자주 묻는 질문</h2>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">복리 공식은?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">A = P × (1 + r/n)^(n×t) 입니다. 여기서 P는 원금, r은 연이자율, n은 복리 횟수(연), t는 기간(년)입니다. 예: 1000만원 × 5% × 10년(연복리) = 1,628만원</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">복리와 단리의 차이는?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">단리는 원금에만 이자가 붙습니다. 복리는 원금과 이미 발생한 이자에 이자가 붙습니다. 투자 기간이 길수록 복리의 효과(72의 법칙)가 극적으로 커집니다.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">72의 법칙이란?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">원금이 두 배가 되는 기간을 빠르게 계산하는 규칙입니다. 72 ÷ 연이자율(%) = 원금이 두 배가 되는 기간(년). 예: 연 6%이면 72÷6=12년 후 두 배.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">복리 주기가 수익에 미치는 영향?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">같은 연이자율이라도 복리 주기가 짧을수록(월복리 > 분기복리 > 반기복리 > 연복리) 실효 수익률이 높아집니다. 차이는 이자율이 낮을수록 작고, 높을수록 커집니다.</div></div>
+  </section>
+
+  <section class="guh-section" id="related-tools">
+    <h2 class="guh-section-title">🔗 관련 도구</h2>
+    <div class="guh-tool-grid">
+      <a href="/tools/ko/loan-calculator/" class="guh-tool-card"><span class="guh-tool-icon">🏦</span><span>대출 계산기</span></a>
+      <a href="/tools/ko/exchange-rate/" class="guh-tool-card"><span class="guh-tool-icon">💱</span><span>환율 계산기</span></a>
+      <a href="/tools/ko/vat-calculator/" class="guh-tool-card"><span class="guh-tool-icon">🧾</span><span>부가세 계산기</span></a>
+      <a href="/tools/ko/salary-calculator/" class="guh-tool-card"><span class="guh-tool-icon">💼</span><span>연봉 계산기</span></a>
+      <a href="/tools/ko/percentage-calculator/" class="guh-tool-card"><span class="guh-tool-icon">🔢</span><span>퍼센트 계산기</span></a>
+    </div>
+  </section>
+  <section class="guh-section" id="related-blog"><h2 class="guh-section-title">📝 관련 블로그</h2><div class="guh-blog-grid" id="blog-grid"><div class="guh-blog-empty">관련 블로그 포스트를 불러오는 중...</div></div></section>
+</main>
+
+<footer class="guh-footer"><div class="guh-footer-inner"><a href="/ko/" class="guh-footer-logo">Global Utility Hub</a><nav class="guh-footer-links"><a href="/ko/blog/">블로그</a><a href="/ko/">도구 목록</a><a href="mailto:contact@bmsystems.biz">문의</a></nav><p class="guh-footer-copy">© 2026 Global Utility Hub. All rights reserved.</p></div></footer>
+<div class="guh-toast" id="toast"></div>
+<script>
+  function guhToggleTheme(){var isDark=document.documentElement.dataset.theme==='dark';document.documentElement.dataset.theme=isDark?'light':'dark';localStorage.setItem('GUH-theme',document.documentElement.dataset.theme);document.getElementById('theme-icon').textContent=isDark?'🌙':'☀️';}
+  (function(){document.getElementById('theme-icon').textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';})();
+  document.getElementById('menu-btn').addEventListener('click',function(){document.getElementById('mobile-nav').classList.toggle('open');});
+  document.querySelectorAll('.guh-faq-q').forEach(function(btn){btn.addEventListener('click',function(){var isOpen=this.classList.contains('open');document.querySelectorAll('.guh-faq-q').forEach(function(b){b.classList.remove('open');b.nextElementSibling.classList.remove('open');});if(!isOpen){this.classList.add('open');this.nextElementSibling.classList.add('open');}});});
+
+  function fmt(n){return Math.round(n).toLocaleString('ko-KR')+'원';}
+
+  function calc(){
+    var P=parseFloat(document.getElementById('principal').value)||0;
+    var r=parseFloat(document.getElementById('rate').value)/100||0;
+    var t=parseInt(document.getElementById('years').value)||0;
+    var n=parseInt(document.getElementById('freq').value)||1;
+    var m=parseFloat(document.getElementById('monthly').value)||0;
+    if(P<0||t<1){return;}
+
+    var tbody=document.getElementById('year-tbody');
+    tbody.innerHTML='';
+    var balance=P;
+    var totalDeposit=P;
+    var rows=[];
+    for(var y=1;y<=t;y++){
+      var startBal=balance;
+      for(var p=0;p<n;p++){balance+=balance*(r/n)+m*(12/n);}
+      totalDeposit+=m*12;
+      rows.push({year:y,deposit:totalDeposit,interest:balance-totalDeposit,balance:balance});
+    }
+    rows.forEach(function(row){
+      var tr=document.createElement('tr');
+      tr.innerHTML='<td>'+row.year+'년</td><td>'+fmt(row.deposit)+'</td><td>'+fmt(row.interest)+'</td><td>'+fmt(row.balance)+'</td>';
+      tbody.appendChild(tr);
+    });
+
+    var totalInterest=balance-totalDeposit;
+    document.getElementById('final-amount').textContent=fmt(balance);
+    document.getElementById('result-detail').textContent='원금(+납입): '+fmt(totalDeposit)+' | 이자: '+fmt(totalInterest)+' | 수익률: '+(totalDeposit>0?(totalInterest/totalDeposit*100).toFixed(2):'0')+'%';
+    document.getElementById('result-box').style.display='block';
+    document.getElementById('table-wrap').style.display='block';
+  }
+
+  calc();
+
+  (async function(){try{var r=await fetch('/ko/blog/index.json');if(!r.ok)return;var posts=await r.json();var related=posts.filter(function(p){return p.related_tool==='compound-interest';}).slice(0,3);var grid=document.getElementById('blog-grid');if(!related.length){grid.innerHTML='<div class="guh-blog-empty">관련 블로그 포스트가 준비 중입니다.</div>';return;}grid.innerHTML=related.map(function(p){return'<a href="'+p.url+'" class="guh-blog-card"><div class="guh-blog-card-title">'+p.title+'</div><div class="guh-blog-card-date">'+p.date+'</div></a>';}).join('');}catch(e){document.getElementById('blog-grid').innerHTML='<div class="guh-blog-empty">관련 블로그 포스트가 준비 중입니다.</div>';}})();
+</script>
+<script src="/assets/js/guh-search.js" defer></script>
+</body>
+</html>

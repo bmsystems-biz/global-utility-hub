@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>부가세 계산기 – 공급가액·부가세·공급대가 계산 무료 | 글로벌 유틸리티 허브</title>
+  <meta name="description" content="공급가액에서 부가세(VAT) 10%를 계산합니다. 부가세 포함/제외 금액 변환, 역산 지원. 무료 온라인 부가가치세 계산기." />
+  <link rel="canonical" href="https://util.bmsystems.biz/tools/ko/vat-calculator/" />
+  <link rel="alternate" hreflang="ko" href="https://util.bmsystems.biz/tools/ko/vat-calculator/" />
+  <link rel="alternate" hreflang="en" href="https://util.bmsystems.biz/tools/en/vat-calculator/" />
+  <link rel="alternate" hreflang="x-default" href="https://util.bmsystems.biz/tools/en/vat-calculator/" />
+  <meta property="og:title" content="부가세 계산기" /><meta property="og:description" content="부가세를 계산합니다." /><meta property="og:type" content="website" /><meta property="og:url" content="https://util.bmsystems.biz/tools/ko/vat-calculator/" /><meta property="og:locale" content="ko_KR" /><meta name="twitter:card" content="summary" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/common.css" />
+  <script>(function(){var t=localStorage.getItem('GUH-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark';})();</script>
+  <style>
+    .result-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);}
+    .result-row:last-child{border-bottom:none;font-weight:700;font-size:1.1rem;}
+    .result-row .label{color:var(--text-2);font-size:13px;}
+    .result-row .value{font-size:1.1rem;font-weight:600;color:var(--accent);}
+    .result-row:last-child .value{font-size:1.3rem;}
+  </style>
+</head>
+<body>
+<header class="guh-header" role="banner">
+  <div class="guh-header-inner">
+    <button class="guh-menu-btn" id="menu-btn" aria-label="메뉴">☰</button>
+    <a href="/ko/" class="guh-logo">글로벌 <span>유틸리티</span> 허브</a>
+    <nav class="guh-nav"><a href="/ko/#daily-tools" class="guh-nav-link">생활도구</a><a href="/ko/#finance" class="guh-nav-link active">금융계산기</a><a href="/ko/#health" class="guh-nav-link">건강</a><a href="/ko/#dev-tools" class="guh-nav-link">개발자도구</a><a href="/ko/#file-tools" class="guh-nav-link">파일도구</a><a href="/ko/blog/" class="guh-nav-link">블로그</a></nav>
+    <div class="guh-header-actions">
+      <div class="guh-lang-select"><a href="/tools/ko/vat-calculator/" class="guh-lang-btn active">KO</a><a href="/tools/en/vat-calculator/" class="guh-lang-btn">EN</a></div>
+      <button class="guh-theme-btn" onclick="guhToggleTheme()" aria-label="다크모드 전환"><span id="theme-icon">🌙</span></button>
+    </div>
+  </div>
+</header>
+<div class="guh-mobile-nav" id="mobile-nav">
+  <a href="/ko/#daily-tools">생활도구</a><a href="/ko/#finance">금융계산기</a><a href="/ko/#health">건강</a><a href="/ko/#dev-tools">개발자도구</a><a href="/ko/#file-tools">파일도구</a><a href="/ko/blog/">블로그</a>
+  <hr/><a href="/tools/ko/vat-calculator/">🇰🇷 한국어</a><a href="/tools/en/vat-calculator/">🇺🇸 English</a>
+</div>
+
+<main class="guh-container guh-page" id="main-content">
+  <nav class="guh-breadcrumb"><a href="/ko/">홈</a><span class="guh-breadcrumb-sep">›</span><a href="/ko/#finance">금융계산기</a><span class="guh-breadcrumb-sep">›</span><span>부가세 계산기</span></nav>
+  <div class="guh-hero"><h1>🧾 부가세 계산기</h1><p>공급가액 또는 공급대가로 부가가치세(VAT 10%)를 계산합니다.</p></div>
+
+  <section class="guh-section" id="calculator">
+    <div class="guh-calc-card">
+      <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:12px;">
+        <div class="guh-form-group" style="flex:2;min-width:180px;margin:0;">
+          <label class="guh-label">금액 (원)</label>
+          <input type="number" id="amount" class="guh-input" value="100000" min="0" oninput="calc()" />
+        </div>
+        <div class="guh-form-group" style="flex:1;min-width:160px;margin:0;">
+          <label class="guh-label">계산 방식</label>
+          <select id="mode" class="guh-input" onchange="calc()">
+            <option value="add">부가세 추가 (공급가액 → 공급대가)</option>
+            <option value="remove">부가세 제거 (공급대가 → 공급가액)</option>
+          </select>
+        </div>
+        <div class="guh-form-group" style="flex:1;min-width:100px;margin:0;">
+          <label class="guh-label">세율 (%)</label>
+          <input type="number" id="vat-rate" class="guh-input" value="10" min="0" max="100" step="0.1" oninput="calc()" />
+        </div>
+      </div>
+
+      <div id="result-wrap" class="guh-calc-card" style="background:var(--surface2);display:none;">
+        <div class="result-row"><span class="label">공급가액 (부가세 제외)</span><span class="value" id="supply-price"></span></div>
+        <div class="result-row"><span class="label">부가세 (VAT)</span><span class="value" id="vat-amount"></span></div>
+        <div class="result-row"><span class="label" style="font-weight:700;">공급대가 (부가세 포함)</span><span class="value" id="total-price"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="guh-section" id="faq">
+    <h2 class="guh-section-title">❓ 자주 묻는 질문</h2>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">공급가액과 공급대가의 차이?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">공급가액은 부가세를 제외한 금액이고, 공급대가는 부가세를 포함한 금액입니다. 세금계산서에서 공급가액 × 1.1 = 공급대가입니다.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">역산 방법은?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">공급대가(VAT 포함)에서 공급가액을 구하려면 ÷ 1.1을 하면 됩니다. 부가세는 공급대가 ÷ 11입니다. 이 도구의 '부가세 제거' 모드를 선택하면 자동으로 계산됩니다.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">면세 항목은?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">기초생활 필수품(가공되지 않은 농축수산물, 연탄, 연탄), 의료보건 용역, 교육 서비스, 금융·보험 서비스 등은 부가세가 면제됩니다.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">간이과세자는?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">연 매출 8,000만원 미만의 간이과세자는 업종별로 1.5~4%의 낮은 부가세율을 적용받습니다. 이 도구는 일반과세자 기준(10%) 계산기입니다.</div></div>
+  </section>
+
+  <section class="guh-section" id="related-tools">
+    <h2 class="guh-section-title">🔗 관련 도구</h2>
+    <div class="guh-tool-grid">
+      <a href="/tools/ko/compound-interest/" class="guh-tool-card"><span class="guh-tool-icon">📈</span><span>복리 계산기</span></a>
+      <a href="/tools/ko/loan-calculator/" class="guh-tool-card"><span class="guh-tool-icon">🏦</span><span>대출 계산기</span></a>
+      <a href="/tools/ko/salary-calculator/" class="guh-tool-card"><span class="guh-tool-icon">💼</span><span>연봉 계산기</span></a>
+      <a href="/tools/ko/exchange-rate/" class="guh-tool-card"><span class="guh-tool-icon">💱</span><span>환율 계산기</span></a>
+      <a href="/tools/ko/percentage-calculator/" class="guh-tool-card"><span class="guh-tool-icon">🔢</span><span>퍼센트 계산기</span></a>
+    </div>
+  </section>
+  <section class="guh-section" id="related-blog"><h2 class="guh-section-title">📝 관련 블로그</h2><div class="guh-blog-grid" id="blog-grid"><div class="guh-blog-empty">관련 블로그 포스트를 불러오는 중...</div></div></section>
+</main>
+
+<footer class="guh-footer"><div class="guh-footer-inner"><a href="/ko/" class="guh-footer-logo">Global Utility Hub</a><nav class="guh-footer-links"><a href="/ko/blog/">블로그</a><a href="/ko/">도구 목록</a><a href="mailto:contact@bmsystems.biz">문의</a></nav><p class="guh-footer-copy">© 2026 Global Utility Hub. All rights reserved.</p></div></footer>
+<div class="guh-toast" id="toast"></div>
+<script>
+  function guhToggleTheme(){var isDark=document.documentElement.dataset.theme==='dark';document.documentElement.dataset.theme=isDark?'light':'dark';localStorage.setItem('GUH-theme',document.documentElement.dataset.theme);document.getElementById('theme-icon').textContent=isDark?'🌙':'☀️';}
+  (function(){document.getElementById('theme-icon').textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';})();
+  document.getElementById('menu-btn').addEventListener('click',function(){document.getElementById('mobile-nav').classList.toggle('open');});
+  document.querySelectorAll('.guh-faq-q').forEach(function(btn){btn.addEventListener('click',function(){var isOpen=this.classList.contains('open');document.querySelectorAll('.guh-faq-q').forEach(function(b){b.classList.remove('open');b.nextElementSibling.classList.remove('open');});if(!isOpen){this.classList.add('open');this.nextElementSibling.classList.add('open');}});});
+
+  function fmt(n){return Math.round(n).toLocaleString('ko-KR')+'원';}
+
+  function calc(){
+    var amount=parseFloat(document.getElementById('amount').value)||0;
+    var mode=document.getElementById('mode').value;
+    var vatRate=parseFloat(document.getElementById('vat-rate').value)/100||0.1;
+    var supply,vat,total;
+    if(mode==='add'){supply=amount;vat=supply*vatRate;total=supply+vat;}
+    else{total=amount;supply=total/(1+vatRate);vat=total-supply;}
+    document.getElementById('supply-price').textContent=fmt(supply);
+    document.getElementById('vat-amount').textContent=fmt(vat);
+    document.getElementById('total-price').textContent=fmt(total);
+    document.getElementById('result-wrap').style.display='block';
+  }
+
+  calc();
+
+  (async function(){try{var r=await fetch('/ko/blog/index.json');if(!r.ok)return;var posts=await r.json();var related=posts.filter(function(p){return p.related_tool==='vat-calculator';}).slice(0,3);var grid=document.getElementById('blog-grid');if(!related.length){grid.innerHTML='<div class="guh-blog-empty">관련 블로그 포스트가 준비 중입니다.</div>';return;}grid.innerHTML=related.map(function(p){return'<a href="'+p.url+'" class="guh-blog-card"><div class="guh-blog-card-title">'+p.title+'</div><div class="guh-blog-card-date">'+p.date+'</div></a>';}).join('');}catch(e){document.getElementById('blog-grid').innerHTML='<div class="guh-blog-empty">관련 블로그 포스트가 준비 중입니다.</div>';}})();
+</script>
+<script src="/assets/js/guh-search.js" defer></script>
+</body>
+</html>

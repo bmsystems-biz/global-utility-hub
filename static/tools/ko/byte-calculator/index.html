@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Byte 계산기 – 텍스트 바이트 용량 계산 | 글로벌 유틸리티 허브</title>
+  <meta name="description" content="텍스트의 UTF-8, UTF-16, EUC-KR 바이트 용량을 실시간 계산합니다. KB, MB 단위로 변환하여 확인할 수 있는 무료 온라인 Byte 계산기." />
+  <link rel="canonical" href="https://util.bmsystems.biz/tools/ko/byte-calculator/" />
+  <link rel="alternate" hreflang="ko" href="https://util.bmsystems.biz/tools/ko/byte-calculator/" />
+  <link rel="alternate" hreflang="en" href="https://util.bmsystems.biz/tools/en/byte-calculator/" />
+  <link rel="alternate" hreflang="x-default" href="https://util.bmsystems.biz/tools/en/byte-calculator/" />
+  <meta property="og:title" content="Byte 계산기 – 텍스트 바이트 용량 계산" />
+  <meta property="og:description" content="텍스트의 UTF-8, UTF-16, EUC-KR 바이트 용량을 실시간 계산합니다." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://util.bmsystems.biz/tools/ko/byte-calculator/" />
+  <meta property="og:locale" content="ko_KR" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/common.css" />
+  <script>(function(){var t=localStorage.getItem('GUH-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark';})();</script>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"Byte 계산기","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"description":"텍스트의 바이트 용량을 UTF-8, UTF-16, EUC-KR 기준으로 계산합니다.","url":"https://util.bmsystems.biz/tools/ko/byte-calculator/"}
+  </script>
+</head>
+<body>
+<header class="guh-header" role="banner">
+  <div class="guh-header-inner">
+    <button class="guh-menu-btn" id="menu-btn" aria-label="메뉴">☰</button>
+    <a href="/ko/" class="guh-logo">글로벌 <span>유틸리티</span> 허브</a>
+    <nav class="guh-nav" aria-label="Main navigation">
+      <a href="/ko/" class="guh-nav-link active">생활도구</a>
+      <a href="/ko/" class="guh-nav-link">금융계산기</a>
+      <a href="/ko/" class="guh-nav-link">건강</a>
+      <a href="/ko/" class="guh-nav-link">개발자도구</a>
+      <a href="/ko/" class="guh-nav-link">파일도구</a>
+      <a href="/ko/blog/" class="guh-nav-link">블로그</a>
+    </nav>
+    <div class="guh-header-actions">
+      <div class="guh-lang-select">
+        <a href="/tools/ko/byte-calculator/" class="guh-lang-btn active">KO</a>
+        <a href="/tools/en/byte-calculator/" class="guh-lang-btn">EN</a>
+      </div>
+      <button class="guh-theme-btn" onclick="guhToggleTheme()" aria-label="다크모드 전환"><span id="theme-icon">🌙</span></button>
+    </div>
+  </div>
+</header>
+<div class="guh-mobile-nav" id="mobile-nav">
+  <a href="/ko/">생활도구</a><a href="/ko/">금융계산기</a><a href="/ko/">건강</a>
+  <a href="/ko/">개발자도구</a><a href="/ko/">파일도구</a><a href="/ko/blog/">블로그</a>
+  <hr /><a href="/tools/ko/byte-calculator/">🇰🇷 한국어</a><a href="/tools/en/byte-calculator/">🇺🇸 English</a>
+</div>
+
+<main class="guh-container guh-page" id="main-content">
+  <nav class="guh-breadcrumb" aria-label="Breadcrumb">
+    <a href="/ko/">홈</a><span class="guh-breadcrumb-sep">›</span>
+    <a href="/ko/">생활도구</a><span class="guh-breadcrumb-sep">›</span>
+    <span>Byte 계산기</span>
+  </nav>
+
+  <div class="guh-hero">
+    <h1>💾 Byte 계산기</h1>
+    <p>텍스트를 입력하면 UTF-8, UTF-16, EUC-KR 기준 바이트 용량을 실시간으로 계산합니다.</p>
+  </div>
+
+  <section class="guh-section" id="calculator">
+    <div class="guh-calc-card">
+      <div class="guh-form-group">
+        <label class="guh-label" for="text-input">텍스트 입력</label>
+        <textarea id="text-input" class="guh-input" rows="7" placeholder="바이트를 계산할 텍스트를 입력하세요..." oninput="calcBytes()" style="resize:vertical;font-family:inherit;"></textarea>
+      </div>
+      <button class="guh-btn guh-btn-outline" onclick="document.getElementById('text-input').value='';calcBytes();" style="font-size:13px;margin-top:8px;">지우기</button>
+    </div>
+
+    <div class="guh-result-grid show" style="margin-top:16px;">
+      <div class="guh-result-item">
+        <div class="guh-result-item-label">UTF-8 바이트</div>
+        <div class="guh-result-item-value" id="r-utf8">0</div>
+        <div class="guh-result-item-unit">B</div>
+      </div>
+      <div class="guh-result-item">
+        <div class="guh-result-item-label">UTF-16 바이트</div>
+        <div class="guh-result-item-value" id="r-utf16">0</div>
+        <div class="guh-result-item-unit">B</div>
+      </div>
+      <div class="guh-result-item">
+        <div class="guh-result-item-label">EUC-KR (추정)</div>
+        <div class="guh-result-item-value" id="r-euckr">0</div>
+        <div class="guh-result-item-unit">B</div>
+      </div>
+      <div class="guh-result-item">
+        <div class="guh-result-item-label">글자 수</div>
+        <div class="guh-result-item-value" id="r-chars">0</div>
+        <div class="guh-result-item-unit">자</div>
+      </div>
+      <div class="guh-result-item">
+        <div class="guh-result-item-label">KB (UTF-8)</div>
+        <div class="guh-result-item-value" id="r-kb">0</div>
+        <div class="guh-result-item-unit">KB</div>
+      </div>
+      <div class="guh-result-item">
+        <div class="guh-result-item-label">한글 글자 수</div>
+        <div class="guh-result-item-value" id="r-korean">0</div>
+        <div class="guh-result-item-unit">자</div>
+      </div>
+    </div>
+
+    <div style="margin-top:16px;padding:16px;background:var(--surface2);border-radius:10px;font-size:13px;line-height:1.8;">
+      <strong>인코딩별 바이트 설명</strong><br/>
+      • 영문/숫자/특수문자: UTF-8 1B / UTF-16 2B / EUC-KR 1B<br/>
+      • 한글: UTF-8 <strong>3B</strong> / UTF-16 2B / EUC-KR <strong>2B</strong><br/>
+      • 이모지: UTF-8 4B / UTF-16 4B
+    </div>
+  </section>
+
+  <section class="guh-section" id="formula">
+    <h2 class="guh-section-title">📐 바이트 계산 공식</h2>
+    <div class="guh-formula-box">UTF-8 바이트 계산:
+• ASCII(영문, 숫자) → 1 byte/char
+• 한글, 한자, 일본어 → 3 bytes/char
+• 이모지 → 4 bytes/char
+
+EUC-KR 계산:
+• ASCII → 1 byte/char
+• 한글 → 2 bytes/char</div>
+  </section>
+
+  <section class="guh-section" id="faq">
+    <h2 class="guh-section-title">❓ 자주 묻는 질문</h2>
+    <div class="guh-faq-item">
+      <button class="guh-faq-q" aria-expanded="false">UTF-8과 EUC-KR의 차이는 무엇인가요?<span class="guh-faq-icon">+</span></button>
+      <div class="guh-faq-a">UTF-8은 전 세계 모든 문자를 표현하는 국제 표준이고, EUC-KR은 한국어에 특화된 인코딩입니다. 한글의 경우 UTF-8은 3바이트, EUC-KR은 2바이트를 사용합니다. 현재 대부분의 웹사이트는 UTF-8을 사용합니다.</div>
+    </div>
+    <div class="guh-faq-item">
+      <button class="guh-faq-q" aria-expanded="false">DB 컬럼 크기를 설정할 때 왜 바이트를 알아야 하나요?<span class="guh-faq-icon">+</span></button>
+      <div class="guh-faq-a">MySQL 등의 데이터베이스에서 VARCHAR 컬럼은 바이트 기준으로 크기를 제한합니다. 한글이 포함된 경우 UTF-8 기준으로 1글자당 최대 3바이트가 필요하므로, 글자 수의 3배 이상으로 컬럼 크기를 설정해야 합니다.</div>
+    </div>
+    <div class="guh-faq-item">
+      <button class="guh-faq-q" aria-expanded="false">이메일 본문의 바이트 제한은 얼마인가요?<span class="guh-faq-icon">+</span></button>
+      <div class="guh-faq-a">RFC 표준에 따르면 이메일 한 줄은 998바이트 이하여야 합니다. 대부분의 이메일 서비스는 전체 본문 크기를 수 MB 이하로 제한합니다.</div>
+    </div>
+    <div class="guh-faq-item">
+      <button class="guh-faq-q" aria-expanded="false">SMS 문자의 바이트 제한은?<span class="guh-faq-icon">+</span></button>
+      <div class="guh-faq-a">기본 SMS는 GSM-7 인코딩 기준 160자(160바이트)입니다. 한글이 포함되면 유니코드(UCS-2) 방식으로 전환되어 70자 제한이 됩니다.</div>
+    </div>
+    <div class="guh-faq-item">
+      <button class="guh-faq-q" aria-expanded="false">1KB는 몇 바이트인가요?<span class="guh-faq-icon">+</span></button>
+      <div class="guh-faq-a">1KB = 1,024바이트, 1MB = 1,024KB = 1,048,576바이트입니다. SI 단위(kB)에서는 1kB = 1,000바이트로 표기하기도 합니다.</div>
+    </div>
+  </section>
+
+  <section class="guh-section" id="related-tools">
+    <h2 class="guh-section-title">🔗 관련 도구</h2>
+    <div class="guh-tool-grid">
+      <a href="/tools/ko/character-counter/" class="guh-tool-card"><span class="guh-tool-icon">📝</span><span>글자수 계산기</span></a>
+      <a href="/tools/ko/base64/" class="guh-tool-card"><span class="guh-tool-icon">🔤</span><span>Base64 인코더</span></a>
+      <a href="/tools/ko/url-encoder/" class="guh-tool-card"><span class="guh-tool-icon">🔗</span><span>URL 인코더</span></a>
+      <a href="/tools/ko/json-formatter/" class="guh-tool-card"><span class="guh-tool-icon">{ }</span><span>JSON Formatter</span></a>
+      <a href="/tools/ko/percentage-calculator/" class="guh-tool-card"><span class="guh-tool-icon">💯</span><span>퍼센트 계산기</span></a>
+    </div>
+  </section>
+
+  <section class="guh-section" id="related-blog">
+    <h2 class="guh-section-title">📝 관련 블로그</h2>
+    <div class="guh-blog-grid" id="blog-grid">
+      <div class="guh-blog-empty">관련 블로그 포스트를 불러오는 중...</div>
+    </div>
+  </section>
+</main>
+
+<footer class="guh-footer" role="contentinfo">
+  <div class="guh-footer-inner">
+    <a href="/ko/" class="guh-footer-logo">Global Utility Hub</a>
+    <nav class="guh-footer-links"><a href="/ko/blog/">블로그</a><a href="/ko/">도구 목록</a><a href="mailto:contact@bmsystems.biz">문의</a></nav>
+    <p class="guh-footer-copy">© 2026 Global Utility Hub. All rights reserved.</p>
+  </div>
+</footer>
+<div class="guh-toast" id="toast"></div>
+
+<script>
+  function guhToggleTheme() {
+    var isDark = document.documentElement.dataset.theme === 'dark';
+    document.documentElement.dataset.theme = isDark ? 'light' : 'dark';
+    localStorage.setItem('GUH-theme', document.documentElement.dataset.theme);
+    document.getElementById('theme-icon').textContent = isDark ? '🌙' : '☀️';
+  }
+  (function(){ document.getElementById('theme-icon').textContent = document.documentElement.dataset.theme === 'dark' ? '☀️' : '🌙'; })();
+  document.getElementById('menu-btn').addEventListener('click', function() { document.getElementById('mobile-nav').classList.toggle('open'); });
+  document.querySelectorAll('.guh-faq-q').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var isOpen = this.classList.contains('open');
+      document.querySelectorAll('.guh-faq-q').forEach(function(b){ b.classList.remove('open'); b.nextElementSibling.classList.remove('open'); });
+      if (!isOpen) { this.classList.add('open'); this.nextElementSibling.classList.add('open'); }
+    });
+  });
+
+  function calcBytes() {
+    var txt = document.getElementById('text-input').value;
+    var utf8 = new TextEncoder().encode(txt).length;
+    var utf16 = txt.length * 2;
+    var euckr = 0, korean = 0;
+    for (var i = 0; i < txt.length; i++) {
+      var c = txt.charCodeAt(i);
+      if (c >= 0xAC00 && c <= 0xD7A3) { euckr += 2; korean++; }
+      else if (c > 0x7F) euckr += 2;
+      else euckr += 1;
+    }
+    var kb = (utf8 / 1024).toFixed(3);
+
+    document.getElementById('r-utf8').textContent = utf8.toLocaleString();
+    document.getElementById('r-utf16').textContent = utf16.toLocaleString();
+    document.getElementById('r-euckr').textContent = euckr.toLocaleString();
+    document.getElementById('r-chars').textContent = txt.length.toLocaleString();
+    document.getElementById('r-kb').textContent = kb;
+    document.getElementById('r-korean').textContent = korean.toLocaleString();
+  }
+
+  calcBytes();
+
+  (async function() {
+    try {
+      var r = await fetch('/ko/blog/index.json'); if (!r.ok) return;
+      var posts = await r.json();
+      var related = posts.filter(function(p){ return p.related_tool === 'byte-calculator'; }).slice(0,3);
+      var grid = document.getElementById('blog-grid');
+      if (!related.length) { grid.innerHTML = '<div class="guh-blog-empty">관련 블로그 포스트가 준비 중입니다.</div>'; return; }
+      grid.innerHTML = related.map(function(p){ return '<a href="'+p.url+'" class="guh-blog-card"><div class="guh-blog-card-title">'+p.title+'</div><div class="guh-blog-card-date">'+p.date+'</div></a>'; }).join('');
+    } catch(e) { document.getElementById('blog-grid').innerHTML = '<div class="guh-blog-empty">관련 블로그 포스트가 준비 중입니다.</div>'; }
+  })();
+</script>
+<script src="/assets/js/guh-search.js" defer></script>
+</body>
+</html>

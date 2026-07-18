@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SVG Converter – Convert SVG to PNG/JPG Online Free | Global Utility Hub</title>
+  <meta name="description" content="Convert SVG files to PNG or JPG online. Paste SVG code or upload a file. Set output size and download instantly. Free browser-based SVG converter." />
+  <link rel="canonical" href="https://util.bmsystems.biz/tools/en/svg-converter/" />
+  <link rel="alternate" hreflang="ko" href="https://util.bmsystems.biz/tools/ko/svg-converter/" />
+  <link rel="alternate" hreflang="en" href="https://util.bmsystems.biz/tools/en/svg-converter/" />
+  <link rel="alternate" hreflang="x-default" href="https://util.bmsystems.biz/tools/en/svg-converter/" />
+  <meta property="og:title" content="SVG Converter" /><meta property="og:description" content="Convert SVG to PNG or JPG." /><meta property="og:type" content="website" /><meta property="og:url" content="https://util.bmsystems.biz/tools/en/svg-converter/" /><meta property="og:locale" content="en_US" /><meta name="twitter:card" content="summary" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/common.css" />
+  <script>(function(){var t=localStorage.getItem('GUH-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark';})();</script>
+  <style>
+    .drop-zone{border:2px dashed var(--border);border-radius:12px;padding:28px 20px;text-align:center;cursor:pointer;transition:border-color 0.2s;color:var(--text-3);}
+    .drop-zone:hover,.drop-zone.drag-over{border-color:var(--accent);background:var(--accent-soft);}
+    #preview-wrap{background:var(--surface2);border-radius:8px;padding:16px;margin:12px 0;display:none;text-align:center;}
+    #preview-wrap img{max-width:100%;max-height:300px;display:inline-block;}
+  </style>
+</head>
+<body>
+<header class="guh-header" role="banner">
+  <div class="guh-header-inner">
+    <button class="guh-menu-btn" id="menu-btn" aria-label="Menu">☰</button>
+    <a href="/en/" class="guh-logo">Global <span>Utility</span> Hub</a>
+    <nav class="guh-nav"><a href="/en/#daily-tools" class="guh-nav-link">Daily Tools</a><a href="/en/#finance" class="guh-nav-link">Finance</a><a href="/en/#health" class="guh-nav-link">Health</a><a href="/en/#dev-tools" class="guh-nav-link">Dev Tools</a><a href="/en/#file-tools" class="guh-nav-link active">File Tools</a><a href="/en/blog/" class="guh-nav-link">Blog</a></nav>
+    <div class="guh-header-actions">
+      <div class="guh-lang-select"><a href="/tools/ko/svg-converter/" class="guh-lang-btn">KO</a><a href="/tools/en/svg-converter/" class="guh-lang-btn active">EN</a></div>
+      <button class="guh-theme-btn" onclick="guhToggleTheme()" aria-label="Toggle dark mode"><span id="theme-icon">🌙</span></button>
+    </div>
+  </div>
+</header>
+<div class="guh-mobile-nav" id="mobile-nav">
+  <a href="/en/#daily-tools">Daily Tools</a><a href="/en/#finance">Finance</a><a href="/en/#health">Health</a><a href="/en/#dev-tools">Dev Tools</a><a href="/en/#file-tools">File Tools</a><a href="/en/blog/">Blog</a>
+  <hr/><a href="/tools/ko/svg-converter/">🇰🇷 한국어</a><a href="/tools/en/svg-converter/">🇺🇸 English</a>
+</div>
+
+<main class="guh-container guh-page" id="main-content">
+  <nav class="guh-breadcrumb"><a href="/en/">Home</a><span class="guh-breadcrumb-sep">›</span><a href="/en/#file-tools">File Tools</a><span class="guh-breadcrumb-sep">›</span><span>SVG Converter</span></nav>
+  <div class="guh-hero"><h1>✏️ SVG Converter</h1><p>Convert SVG files or code to PNG/JPG. Set output size and download instantly.</p></div>
+
+  <section class="guh-section" id="calculator">
+    <div class="guh-calc-card">
+      <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
+        <div style="font-size:28px;margin-bottom:6px;">✏️</div>
+        <div style="font-weight:600;margin-bottom:4px;">Drop an SVG file here or click to select</div>
+        <input type="file" id="file-input" accept=".svg,image/svg+xml" style="display:none" onchange="onFile(this.files[0])" />
+      </div>
+
+      <div class="guh-form-group" style="margin-top:12px;">
+        <label class="guh-label">Or paste SVG code directly</label>
+        <textarea id="svg-code" class="guh-input" rows="5" placeholder='&lt;svg xmlns="http://www.w3.org/2000/svg" ...&gt;...&lt;/svg&gt;' oninput="onSvgCode()"></textarea>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:12px 0;">
+        <div class="guh-form-group" style="margin:0;flex:1;min-width:120px;">
+          <label class="guh-label">Output Format</label>
+          <select id="out-fmt" class="guh-input">
+            <option value="image/png">PNG</option>
+            <option value="image/jpeg">JPG</option>
+          </select>
+        </div>
+        <div class="guh-form-group" style="margin:0;flex:1;min-width:100px;">
+          <label class="guh-label">Width (px)</label>
+          <input type="number" id="out-w" class="guh-input" value="512" min="1" max="4096" />
+        </div>
+        <div class="guh-form-group" style="margin:0;flex:1;min-width:100px;">
+          <label class="guh-label">Height (px)</label>
+          <input type="number" id="out-h" class="guh-input" value="512" min="1" max="4096" />
+        </div>
+      </div>
+
+      <div id="preview-wrap"><img id="preview-img" alt="Preview" /></div>
+
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">
+        <button class="guh-btn" id="convert-btn" onclick="doConvert()" disabled>Convert & Download</button>
+        <button class="guh-btn guh-btn-outline" onclick="resetAll()">Reset</button>
+      </div>
+      <div id="err-msg" style="color:var(--red);font-size:13px;margin-top:6px;"></div>
+    </div>
+  </section>
+
+  <section class="guh-section" id="faq">
+    <h2 class="guh-section-title">❓ FAQ</h2>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">What is SVG?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">SVG (Scalable Vector Graphics) is an XML-based vector image format. Unlike raster formats (JPG, PNG), SVG maintains crisp quality at any size. It's commonly used for logos, icons, and illustrations.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">Why convert SVG to PNG?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">Some applications (Word documents, older browsers, social media platforms) don't support SVG. Converting to PNG/JPG ensures universal compatibility. Note that raster images can't be scaled infinitely like SVG.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">Are my files uploaded to a server?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">No. All conversion is done entirely in your browser using the HTML5 Canvas API. Your files never leave your device.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">What size should I use?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">Since SVG is vector-based, you can output at any size without quality loss. Use 1200px+ for print, 64-256px for web icons, and 1080px for social media posts.</div></div>
+  </section>
+
+  <section class="guh-section" id="related-tools">
+    <h2 class="guh-section-title">🔗 Related Tools</h2>
+    <div class="guh-tool-grid">
+      <a href="/tools/en/image-converter/" class="guh-tool-card"><span class="guh-tool-icon">🖼️</span><span>Image Converter</span></a>
+      <a href="/tools/en/image-resizer/" class="guh-tool-card"><span class="guh-tool-icon">↔️</span><span>Image Resizer</span></a>
+      <a href="/tools/en/image-compress/" class="guh-tool-card"><span class="guh-tool-icon">🗜️</span><span>Image Compress</span></a>
+      <a href="/tools/en/gif-maker/" class="guh-tool-card"><span class="guh-tool-icon">🎞️</span><span>GIF Maker</span></a>
+      <a href="/tools/en/barcode-generator/" class="guh-tool-card"><span class="guh-tool-icon">📊</span><span>Barcode Generator</span></a>
+    </div>
+  </section>
+  <section class="guh-section" id="related-blog"><h2 class="guh-section-title">📝 Related Blog</h2><div class="guh-blog-grid" id="blog-grid"><div class="guh-blog-empty">Loading...</div></div></section>
+</main>
+
+<footer class="guh-footer"><div class="guh-footer-inner"><a href="/en/" class="guh-footer-logo">Global Utility Hub</a><nav class="guh-footer-links"><a href="/en/blog/">Blog</a><a href="/en/">All Tools</a><a href="mailto:contact@bmsystems.biz">Contact</a></nav><p class="guh-footer-copy">© 2026 Global Utility Hub. All rights reserved.</p></div></footer>
+<div class="guh-toast" id="toast"></div>
+<script>
+  function guhToggleTheme(){var isDark=document.documentElement.dataset.theme==='dark';document.documentElement.dataset.theme=isDark?'light':'dark';localStorage.setItem('GUH-theme',document.documentElement.dataset.theme);document.getElementById('theme-icon').textContent=isDark?'🌙':'☀️';}
+  (function(){document.getElementById('theme-icon').textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';})();
+  document.getElementById('menu-btn').addEventListener('click',function(){document.getElementById('mobile-nav').classList.toggle('open');});
+  document.querySelectorAll('.guh-faq-q').forEach(function(btn){btn.addEventListener('click',function(){var isOpen=this.classList.contains('open');document.querySelectorAll('.guh-faq-q').forEach(function(b){b.classList.remove('open');b.nextElementSibling.classList.remove('open');});if(!isOpen){this.classList.add('open');this.nextElementSibling.classList.add('open');}});});
+  function showToast(msg,isErr){var t=document.getElementById('toast');t.textContent=msg;t.style.background=isErr?'var(--red)':'var(--green)';t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2500);}
+
+  var svgContent='',origName='image';
+  var dz=document.getElementById('drop-zone');
+  dz.addEventListener('dragover',function(e){e.preventDefault();dz.classList.add('drag-over');});
+  dz.addEventListener('dragleave',function(){dz.classList.remove('drag-over');});
+  dz.addEventListener('drop',function(e){e.preventDefault();dz.classList.remove('drag-over');if(e.dataTransfer.files[0])onFile(e.dataTransfer.files[0]);});
+
+  function onFile(file){
+    if(!file||(file.type!=='image/svg+xml'&&!file.name.endsWith('.svg'))){showToast('Please select an SVG file.',true);return;}
+    origName=file.name.replace(/\.[^.]+$/,'');
+    var reader=new FileReader();
+    reader.onload=function(e){document.getElementById('svg-code').value=e.target.result;onSvgCode();};
+    reader.readAsText(file);
+  }
+
+  function onSvgCode(){
+    var code=document.getElementById('svg-code').value.trim();
+    document.getElementById('err-msg').textContent='';
+    if(!code){svgContent='';document.getElementById('preview-wrap').style.display='none';document.getElementById('convert-btn').disabled=true;return;}
+    if(!code.includes('<svg')){document.getElementById('err-msg').textContent='❌ Invalid SVG code.';return;}
+    svgContent=code;
+    var blob=new Blob([code],{type:'image/svg+xml'});
+    var url=URL.createObjectURL(blob);
+    document.getElementById('preview-img').onload=function(){URL.revokeObjectURL(url);};
+    document.getElementById('preview-img').src=url;
+    document.getElementById('preview-wrap').style.display='block';
+    document.getElementById('convert-btn').disabled=false;
+  }
+
+  function doConvert(){
+    if(!svgContent){showToast('Please enter SVG code or select a file.',true);return;}
+    var w=parseInt(document.getElementById('out-w').value)||512;
+    var h=parseInt(document.getElementById('out-h').value)||512;
+    var fmt=document.getElementById('out-fmt').value;
+    var ext=fmt==='image/jpeg'?'jpg':'png';
+    var blob=new Blob([svgContent],{type:'image/svg+xml'});
+    var url=URL.createObjectURL(blob);
+    var img=new Image();
+    img.onload=function(){
+      var canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;
+      var ctx=canvas.getContext('2d');
+      if(fmt==='image/jpeg'){ctx.fillStyle='#ffffff';ctx.fillRect(0,0,w,h);}
+      ctx.drawImage(img,0,0,w,h);URL.revokeObjectURL(url);
+      var a=document.createElement('a');a.download=origName+'.'+ext;a.href=canvas.toDataURL(fmt,0.95);a.click();
+      showToast('Converted! Downloading...',false);
+    };
+    img.onerror=function(){URL.revokeObjectURL(url);document.getElementById('err-msg').textContent='❌ Conversion failed. Please check your SVG code.';};
+    img.src=url;
+  }
+
+  function resetAll(){svgContent='';document.getElementById('svg-code').value='';document.getElementById('preview-wrap').style.display='none';document.getElementById('convert-btn').disabled=true;document.getElementById('file-input').value='';document.getElementById('err-msg').textContent='';}
+
+  (async function(){try{var r=await fetch('/en/blog/index.json');if(!r.ok)return;var posts=await r.json();var related=posts.filter(function(p){return p.related_tool==='svg-converter';}).slice(0,3);var grid=document.getElementById('blog-grid');if(!related.length){grid.innerHTML='<div class="guh-blog-empty">No related posts yet.</div>';return;}grid.innerHTML=related.map(function(p){return'<a href="'+p.url+'" class="guh-blog-card"><div class="guh-blog-card-title">'+p.title+'</div><div class="guh-blog-card-date">'+p.date+'</div></a>';}).join('');}catch(e){document.getElementById('blog-grid').innerHTML='<div class="guh-blog-empty">No related posts yet.</div>';}})();
+</script>
+<script src="/assets/js/guh-search.js" defer></script>
+</body>
+</html>

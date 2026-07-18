@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Byte Calculator – Text Size in UTF-8, UTF-16 & More | Global Utility Hub</title>
+  <meta name="description" content="Calculate the byte size of any text in UTF-8, UTF-16, and other encodings instantly. Find how many bytes your string uses. Free online byte calculator." />
+  <link rel="canonical" href="https://util.bmsystems.biz/tools/en/byte-calculator/" />
+  <link rel="alternate" hreflang="ko" href="https://util.bmsystems.biz/tools/ko/byte-calculator/" />
+  <link rel="alternate" hreflang="en" href="https://util.bmsystems.biz/tools/en/byte-calculator/" />
+  <link rel="alternate" hreflang="x-default" href="https://util.bmsystems.biz/tools/en/byte-calculator/" />
+  <meta property="og:title" content="Byte Calculator – Text Size in UTF-8, UTF-16" />
+  <meta property="og:description" content="Calculate the byte size of any text in UTF-8, UTF-16, and other encodings instantly." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://util.bmsystems.biz/tools/en/byte-calculator/" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/common.css" />
+  <script>(function(){var t=localStorage.getItem('GUH-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark';})();</script>
+</head>
+<body>
+<header class="guh-header" role="banner">
+  <div class="guh-header-inner">
+    <button class="guh-menu-btn" id="menu-btn" aria-label="Menu">☰</button>
+    <a href="/en/" class="guh-logo">Global <span>Utility</span> Hub</a>
+    <nav class="guh-nav" aria-label="Main navigation">
+      <a href="/en/" class="guh-nav-link active">Daily Tools</a>
+      <a href="/en/" class="guh-nav-link">Finance</a>
+      <a href="/en/" class="guh-nav-link">Health</a>
+      <a href="/en/" class="guh-nav-link">Dev Tools</a>
+      <a href="/en/" class="guh-nav-link">File Tools</a>
+      <a href="/en/blog/" class="guh-nav-link">Blog</a>
+    </nav>
+    <div class="guh-header-actions">
+      <div class="guh-lang-select">
+        <a href="/tools/ko/byte-calculator/" class="guh-lang-btn">KO</a>
+        <a href="/tools/en/byte-calculator/" class="guh-lang-btn active">EN</a>
+      </div>
+      <button class="guh-theme-btn" onclick="guhToggleTheme()" aria-label="Toggle dark mode"><span id="theme-icon">🌙</span></button>
+    </div>
+  </div>
+</header>
+<div class="guh-mobile-nav" id="mobile-nav">
+  <a href="/en/">Daily Tools</a><a href="/en/">Finance</a><a href="/en/">Health</a>
+  <a href="/en/">Dev Tools</a><a href="/en/">File Tools</a><a href="/en/blog/">Blog</a>
+  <hr /><a href="/tools/ko/byte-calculator/">🇰🇷 한국어</a><a href="/tools/en/byte-calculator/">🇺🇸 English</a>
+</div>
+
+<main class="guh-container guh-page" id="main-content">
+  <nav class="guh-breadcrumb" aria-label="Breadcrumb">
+    <a href="/en/">Home</a><span class="guh-breadcrumb-sep">›</span>
+    <a href="/en/">Daily Tools</a><span class="guh-breadcrumb-sep">›</span>
+    <span>Byte Calculator</span>
+  </nav>
+
+  <div class="guh-hero">
+    <h1>💾 Byte Calculator</h1>
+    <p>Enter any text to instantly see its byte size in UTF-8, UTF-16, and other common encodings.</p>
+  </div>
+
+  <section class="guh-section" id="calculator">
+    <div class="guh-calc-card">
+      <div class="guh-form-group">
+        <label class="guh-label" for="text-input">Enter Text</label>
+        <textarea id="text-input" class="guh-input" rows="7" placeholder="Type or paste text here..." oninput="calcBytes()" style="resize:vertical;font-family:inherit;"></textarea>
+      </div>
+      <button class="guh-btn guh-btn-outline" onclick="document.getElementById('text-input').value='';calcBytes();" style="font-size:13px;margin-top:8px;">Clear</button>
+    </div>
+
+    <div class="guh-result-grid show" style="margin-top:16px;">
+      <div class="guh-result-item">
+        <div class="guh-result-item-label">UTF-8 Bytes</div>
+        <div class="guh-result-item-value" id="r-utf8">0</div>
+        <div class="guh-result-item-unit">B</div>
+      </div>
+      <div class="guh-result-item">
+        <div class="guh-result-item-label">UTF-16 Bytes</div>
+        <div class="guh-result-item-value" id="r-utf16">0</div>
+        <div class="guh-result-item-unit">B</div>
+      </div>
+      <div class="guh-result-item">
+        <div class="guh-result-item-label">ASCII Bytes</div>
+        <div class="guh-result-item-value" id="r-ascii">0</div>
+        <div class="guh-result-item-unit">B</div>
+      </div>
+      <div class="guh-result-item">
+        <div class="guh-result-item-label">Characters</div>
+        <div class="guh-result-item-value" id="r-chars">0</div>
+        <div class="guh-result-item-unit">chars</div>
+      </div>
+      <div class="guh-result-item">
+        <div class="guh-result-item-label">Size (KB)</div>
+        <div class="guh-result-item-value" id="r-kb">0</div>
+        <div class="guh-result-item-unit">KB</div>
+      </div>
+      <div class="guh-result-item">
+        <div class="guh-result-item-label">Non-ASCII Chars</div>
+        <div class="guh-result-item-value" id="r-nonascii">0</div>
+        <div class="guh-result-item-unit">chars</div>
+      </div>
+    </div>
+
+    <div style="margin-top:16px;padding:16px;background:var(--surface2);border-radius:10px;font-size:13px;line-height:1.8;">
+      <strong>Encoding reference:</strong><br/>
+      • ASCII (a–z, 0–9, etc.): 1 byte in UTF-8 and ASCII<br/>
+      • Latin/European chars: 2 bytes in UTF-8<br/>
+      • CJK (Chinese, Japanese, Korean): 3 bytes in UTF-8<br/>
+      • Emoji: 4 bytes in UTF-8
+    </div>
+  </section>
+
+  <section class="guh-section" id="faq">
+    <h2 class="guh-section-title">❓ FAQ</h2>
+    <div class="guh-faq-item">
+      <button class="guh-faq-q" aria-expanded="false">What is a byte?<span class="guh-faq-icon">+</span></button>
+      <div class="guh-faq-a">A byte is a unit of digital information consisting of 8 bits. It is the basic unit of text storage in computers. A single ASCII character (letter, digit) occupies exactly 1 byte.</div>
+    </div>
+    <div class="guh-faq-item">
+      <button class="guh-faq-q" aria-expanded="false">Why does UTF-8 use different bytes for different characters?<span class="guh-faq-icon">+</span></button>
+      <div class="guh-faq-a">UTF-8 is a variable-length encoding. It uses 1 byte for ASCII characters (code points U+0000–U+007F), 2 bytes for most European characters, 3 bytes for CJK characters, and 4 bytes for emoji and supplementary characters.</div>
+    </div>
+    <div class="guh-faq-item">
+      <button class="guh-faq-q" aria-expanded="false">When does byte count matter in programming?<span class="guh-faq-icon">+</span></button>
+      <div class="guh-faq-a">Byte count is critical for database VARCHAR column sizes, HTTP header limits (8KB per header typically), cookie size limits (4KB), and API payload restrictions. Many systems measure strings in bytes, not character count.</div>
+    </div>
+    <div class="guh-faq-item">
+      <button class="guh-faq-q" aria-expanded="false">How many bytes is 1 KB?<span class="guh-faq-icon">+</span></button>
+      <div class="guh-faq-a">1 KB (kibibyte) = 1,024 bytes. In SI units, 1 kB (kilobyte) = 1,000 bytes. Most operating systems and programming contexts use 1 KB = 1,024 bytes.</div>
+    </div>
+    <div class="guh-faq-item">
+      <button class="guh-faq-q" aria-expanded="false">What is the difference between UTF-8 and UTF-16?<span class="guh-faq-icon">+</span></button>
+      <div class="guh-faq-a">UTF-8 uses 1–4 bytes per character and is the web standard. UTF-16 uses 2–4 bytes per character and is used internally by JavaScript, Java, and Windows APIs. For ASCII-heavy text, UTF-8 is more compact. For CJK-heavy text, the sizes are similar.</div>
+    </div>
+  </section>
+
+  <section class="guh-section" id="related-tools">
+    <h2 class="guh-section-title">🔗 Related Tools</h2>
+    <div class="guh-tool-grid">
+      <a href="/tools/en/character-counter/" class="guh-tool-card"><span class="guh-tool-icon">📝</span><span>Character Counter</span></a>
+      <a href="/tools/en/base64/" class="guh-tool-card"><span class="guh-tool-icon">🔤</span><span>Base64 Encoder</span></a>
+      <a href="/tools/en/url-encoder/" class="guh-tool-card"><span class="guh-tool-icon">🔗</span><span>URL Encoder</span></a>
+      <a href="/tools/en/json-formatter/" class="guh-tool-card"><span class="guh-tool-icon">{ }</span><span>JSON Formatter</span></a>
+      <a href="/tools/en/percentage-calculator/" class="guh-tool-card"><span class="guh-tool-icon">💯</span><span>Percentage Calculator</span></a>
+    </div>
+  </section>
+
+  <section class="guh-section" id="related-blog">
+    <h2 class="guh-section-title">📝 Related Blog</h2>
+    <div class="guh-blog-grid" id="blog-grid"><div class="guh-blog-empty">Loading related posts...</div></div>
+  </section>
+</main>
+
+<footer class="guh-footer" role="contentinfo">
+  <div class="guh-footer-inner">
+    <a href="/en/" class="guh-footer-logo">Global Utility Hub</a>
+    <nav class="guh-footer-links"><a href="/en/blog/">Blog</a><a href="/en/">All Tools</a><a href="mailto:contact@bmsystems.biz">Contact</a></nav>
+    <p class="guh-footer-copy">© 2026 Global Utility Hub. All rights reserved.</p>
+  </div>
+</footer>
+<div class="guh-toast" id="toast"></div>
+<script>
+  function guhToggleTheme() {
+    var isDark = document.documentElement.dataset.theme === 'dark';
+    document.documentElement.dataset.theme = isDark ? 'light' : 'dark';
+    localStorage.setItem('GUH-theme', document.documentElement.dataset.theme);
+    document.getElementById('theme-icon').textContent = isDark ? '🌙' : '☀️';
+  }
+  (function(){ document.getElementById('theme-icon').textContent = document.documentElement.dataset.theme === 'dark' ? '☀️' : '🌙'; })();
+  document.getElementById('menu-btn').addEventListener('click', function() { document.getElementById('mobile-nav').classList.toggle('open'); });
+  document.querySelectorAll('.guh-faq-q').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var isOpen = this.classList.contains('open');
+      document.querySelectorAll('.guh-faq-q').forEach(function(b){ b.classList.remove('open'); b.nextElementSibling.classList.remove('open'); });
+      if (!isOpen) { this.classList.add('open'); this.nextElementSibling.classList.add('open'); }
+    });
+  });
+  function calcBytes() {
+    var txt = document.getElementById('text-input').value;
+    var utf8 = new TextEncoder().encode(txt).length;
+    var utf16 = txt.length * 2;
+    var ascii = 0, nonAscii = 0;
+    for (var i = 0; i < txt.length; i++) {
+      if (txt.charCodeAt(i) <= 127) ascii++;
+      else nonAscii++;
+    }
+    document.getElementById('r-utf8').textContent = utf8.toLocaleString();
+    document.getElementById('r-utf16').textContent = utf16.toLocaleString();
+    document.getElementById('r-ascii').textContent = ascii.toLocaleString();
+    document.getElementById('r-chars').textContent = txt.length.toLocaleString();
+    document.getElementById('r-kb').textContent = (utf8 / 1024).toFixed(3);
+    document.getElementById('r-nonascii').textContent = nonAscii.toLocaleString();
+  }
+  calcBytes();
+  (async function() {
+    try {
+      var r = await fetch('/en/blog/index.json'); if (!r.ok) return;
+      var posts = await r.json();
+      var related = posts.filter(function(p){ return p.related_tool === 'byte-calculator'; }).slice(0,3);
+      var grid = document.getElementById('blog-grid');
+      if (!related.length) { grid.innerHTML = '<div class="guh-blog-empty">No related posts yet.</div>'; return; }
+      grid.innerHTML = related.map(function(p){ return '<a href="'+p.url+'" class="guh-blog-card"><div class="guh-blog-card-title">'+p.title+'</div><div class="guh-blog-card-date">'+p.date+'</div></a>'; }).join('');
+    } catch(e) { document.getElementById('blog-grid').innerHTML = '<div class="guh-blog-empty">No related posts yet.</div>'; }
+  })();
+</script>
+<script src="/assets/js/guh-search.js" defer></script>
+</body>
+</html>

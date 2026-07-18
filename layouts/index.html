@@ -10,8 +10,8 @@
     <p style="font-size:16px;max-width:520px;margin:10px auto 0;">{{ .Site.Params.description }}</p>
   </section>
 
-  <!-- Tools Grid -->
-  <section class="guh-section" aria-label="Available tools">
+  <!-- 생활도구 / Daily Tools -->
+  <section class="guh-section" id="daily-tools" aria-label="Daily tools">
     <h2 class="guh-section-title">
       {{ if eq $lang "ko" }}🔧 생활도구{{ else }}🔧 Daily Tools{{ end }}
     </h2>
@@ -24,10 +24,64 @@
         <span class="guh-tool-icon">🎂</span>
         <span>{{ if eq $lang "ko" }}만나이 계산기{{ else }}Korean Age{{ end }}</span>
       </a>
+      <a href="/tools/{{ $lang }}/character-counter/" class="guh-tool-card">
+        <span class="guh-tool-icon">📝</span>
+        <span>{{ if eq $lang "ko" }}글자수 계산기{{ else }}Character Counter{{ end }}</span>
+      </a>
+      <a href="/tools/{{ $lang }}/byte-calculator/" class="guh-tool-card">
+        <span class="guh-tool-icon">💾</span>
+        <span>{{ if eq $lang "ko" }}Byte 계산기{{ else }}Byte Calculator{{ end }}</span>
+      </a>
+      <a href="/tools/{{ $lang }}/dday-calculator/" class="guh-tool-card">
+        <span class="guh-tool-icon">⏳</span>
+        <span>{{ if eq $lang "ko" }}D-Day 계산기{{ else }}D-Day Calculator{{ end }}</span>
+      </a>
+      <a href="/tools/{{ $lang }}/percentage-calculator/" class="guh-tool-card">
+        <span class="guh-tool-icon">💯</span>
+        <span>{{ if eq $lang "ko" }}퍼센트 계산기{{ else }}Percentage Calc{{ end }}</span>
+      </a>
+      <a href="/tools/{{ $lang }}/unit-converter/" class="guh-tool-card">
+        <span class="guh-tool-icon">📏</span>
+        <span>{{ if eq $lang "ko" }}단위환산기{{ else }}Unit Converter{{ end }}</span>
+      </a>
     </div>
   </section>
 
-  <section class="guh-section" aria-label="Health tools">
+  <!-- 금융 / Finance -->
+  <section class="guh-section" id="finance" aria-label="Finance tools">
+    <h2 class="guh-section-title">
+      {{ if eq $lang "ko" }}💰 금융 계산기{{ else }}💰 Finance Calculators{{ end }}
+    </h2>
+    <div class="guh-tool-grid">
+      <a href="/tools/{{ $lang }}/compound-interest/" class="guh-tool-card">
+        <span class="guh-tool-icon">📈</span>
+        <span>{{ if eq $lang "ko" }}복리 계산기{{ else }}Compound Interest{{ end }}</span>
+      </a>
+      <a href="/tools/{{ $lang }}/loan-calculator/" class="guh-tool-card">
+        <span class="guh-tool-icon">🏦</span>
+        <span>{{ if eq $lang "ko" }}대출 계산기{{ else }}Loan Calculator{{ end }}</span>
+      </a>
+      <a href="/tools/{{ $lang }}/exchange-rate/" class="guh-tool-card">
+        <span class="guh-tool-icon">💱</span>
+        <span>{{ if eq $lang "ko" }}환율 계산기{{ else }}Exchange Rate{{ end }}</span>
+      </a>
+      <a href="/tools/{{ $lang }}/vat-calculator/" class="guh-tool-card">
+        <span class="guh-tool-icon">🧾</span>
+        <span>{{ if eq $lang "ko" }}부가세 계산기{{ else }}VAT Calculator{{ end }}</span>
+      </a>
+      <a href="/tools/{{ $lang }}/salary-calculator/" class="guh-tool-card">
+        <span class="guh-tool-icon">💼</span>
+        <span>{{ if eq $lang "ko" }}연봉 계산기{{ else }}Salary Calculator{{ end }}</span>
+      </a>
+      <a href="/tools/{{ $lang }}/monthly-salary/" class="guh-tool-card">
+        <span class="guh-tool-icon">🕐</span>
+        <span>{{ if eq $lang "ko" }}월급·시급 계산기{{ else }}Hourly/Monthly Pay{{ end }}</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- 건강 / Health -->
+  <section class="guh-section" id="health" aria-label="Health tools">
     <h2 class="guh-section-title">
       {{ if eq $lang "ko" }}💪 건강 계산기{{ else }}💪 Health Calculators{{ end }}
     </h2>
@@ -43,11 +97,77 @@
     </div>
   </section>
 
-  <section class="guh-section" aria-label="File tools">
+  <!-- 개발자도구 / Dev Tools -->
+  <section class="guh-section" id="dev-tools" aria-label="Developer tools">
+    <h2 class="guh-section-title">
+      {{ if eq $lang "ko" }}🛠️ 개발자도구{{ else }}🛠️ Dev Tools{{ end }}
+    </h2>
+    <div class="guh-tool-grid">
+      <a href="/tools/{{ $lang }}/json-formatter/" class="guh-tool-card">
+        <span class="guh-tool-icon">{ }</span>
+        <span>JSON Formatter</span>
+      </a>
+      <a href="/tools/{{ $lang }}/xml-formatter/" class="guh-tool-card">
+        <span class="guh-tool-icon">📄</span>
+        <span>XML Formatter</span>
+      </a>
+      <a href="/tools/{{ $lang }}/regex-tester/" class="guh-tool-card">
+        <span class="guh-tool-icon">🔍</span>
+        <span>{{ if eq $lang "ko" }}Regex 테스터{{ else }}Regex Tester{{ end }}</span>
+      </a>
+      <a href="/tools/{{ $lang }}/base64/" class="guh-tool-card">
+        <span class="guh-tool-icon">🔤</span>
+        <span>{{ if eq $lang "ko" }}Base64 인코더{{ else }}Base64 Encoder{{ end }}</span>
+      </a>
+      <a href="/tools/{{ $lang }}/url-encoder/" class="guh-tool-card">
+        <span class="guh-tool-icon">🔗</span>
+        <span>{{ if eq $lang "ko" }}URL 인코더{{ else }}URL Encoder{{ end }}</span>
+      </a>
+      <a href="/tools/{{ $lang }}/html-escape/" class="guh-tool-card">
+        <span class="guh-tool-icon">🛡️</span>
+        <span>HTML Escape</span>
+      </a>
+      <a href="/tools/{{ $lang }}/color-picker/" class="guh-tool-card">
+        <span class="guh-tool-icon">🎨</span>
+        <span>{{ if eq $lang "ko" }}색상 선택기{{ else }}Color Picker{{ end }}</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- 파일도구 / File Tools -->
+  <section class="guh-section" id="file-tools" aria-label="File tools">
     <h2 class="guh-section-title">
       {{ if eq $lang "ko" }}📁 파일 도구{{ else }}📁 File Tools{{ end }}
     </h2>
     <div class="guh-tool-grid">
+      <a href="/tools/{{ $lang }}/image-converter/" class="guh-tool-card">
+        <span class="guh-tool-icon">🖼️</span>
+        <span>{{ if eq $lang "ko" }}이미지 변환기{{ else }}Image Converter{{ end }}</span>
+      </a>
+      <a href="/tools/{{ $lang }}/barcode-generator/" class="guh-tool-card">
+        <span class="guh-tool-icon">📊</span>
+        <span>{{ if eq $lang "ko" }}바코드 생성기{{ else }}Barcode Generator{{ end }}</span>
+      </a>
+      <a href="/tools/{{ $lang }}/image-resizer/" class="guh-tool-card">
+        <span class="guh-tool-icon">↔️</span>
+        <span>{{ if eq $lang "ko" }}이미지 리사이저{{ else }}Image Resizer{{ end }}</span>
+      </a>
+      <a href="/tools/{{ $lang }}/image-compress/" class="guh-tool-card">
+        <span class="guh-tool-icon">🗜️</span>
+        <span>{{ if eq $lang "ko" }}이미지 압축기{{ else }}Image Compress{{ end }}</span>
+      </a>
+      <a href="/tools/{{ $lang }}/svg-converter/" class="guh-tool-card">
+        <span class="guh-tool-icon">✏️</span>
+        <span>{{ if eq $lang "ko" }}SVG 변환기{{ else }}SVG Converter{{ end }}</span>
+      </a>
+      <a href="/tools/{{ $lang }}/gif-maker/" class="guh-tool-card">
+        <span class="guh-tool-icon">🎞️</span>
+        <span>{{ if eq $lang "ko" }}GIF 메이커{{ else }}GIF Maker{{ end }}</span>
+      </a>
+      <a href="/tools/{{ $lang }}/zip-extractor/" class="guh-tool-card">
+        <span class="guh-tool-icon">📦</span>
+        <span>{{ if eq $lang "ko" }}ZIP 압축해제{{ else }}ZIP Extractor{{ end }}</span>
+      </a>
       <a href="/tools/{{ $lang }}/qr-code-generator/" class="guh-tool-card">
         <span class="guh-tool-icon">📱</span>
         <span>{{ if eq $lang "ko" }}QR코드 생성기{{ else }}QR Code Generator{{ end }}</span>

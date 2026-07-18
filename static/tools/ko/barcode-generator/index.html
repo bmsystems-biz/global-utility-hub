@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>바코드 생성기 – 온라인 무료 바코드 생성 | 글로벌 유틸리티 허브</title>
+  <meta name="description" content="CODE128, EAN-13, QR 등 다양한 바코드를 무료로 생성합니다. PNG 다운로드, 크기/색상 설정 지원. 무료 온라인 바코드 생성기." />
+  <link rel="canonical" href="https://util.bmsystems.biz/tools/ko/barcode-generator/" />
+  <link rel="alternate" hreflang="ko" href="https://util.bmsystems.biz/tools/ko/barcode-generator/" />
+  <link rel="alternate" hreflang="en" href="https://util.bmsystems.biz/tools/en/barcode-generator/" />
+  <link rel="alternate" hreflang="x-default" href="https://util.bmsystems.biz/tools/en/barcode-generator/" />
+  <meta property="og:title" content="바코드 생성기" />
+  <meta property="og:description" content="다양한 형식의 바코드를 무료로 생성합니다." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://util.bmsystems.biz/tools/ko/barcode-generator/" />
+  <meta property="og:locale" content="ko_KR" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/common.css" />
+  <script>(function(){var t=localStorage.getItem('GUH-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark';})();</script>
+  <style>#barcode-wrap{display:flex;justify-content:center;margin:16px 0;min-height:80px;background:var(--surface2);border-radius:8px;padding:16px;}</style>
+</head>
+<body>
+<header class="guh-header" role="banner">
+  <div class="guh-header-inner">
+    <button class="guh-menu-btn" id="menu-btn" aria-label="메뉴">☰</button>
+    <a href="/ko/" class="guh-logo">글로벌 <span>유틸리티</span> 허브</a>
+    <nav class="guh-nav"><a href="/ko/#daily-tools" class="guh-nav-link">생활도구</a><a href="/ko/#finance" class="guh-nav-link">금융계산기</a><a href="/ko/#health" class="guh-nav-link">건강</a><a href="/ko/#dev-tools" class="guh-nav-link">개발자도구</a><a href="/ko/#file-tools" class="guh-nav-link active">파일도구</a><a href="/ko/blog/" class="guh-nav-link">블로그</a></nav>
+    <div class="guh-header-actions">
+      <div class="guh-lang-select"><a href="/tools/ko/barcode-generator/" class="guh-lang-btn active">KO</a><a href="/tools/en/barcode-generator/" class="guh-lang-btn">EN</a></div>
+      <button class="guh-theme-btn" onclick="guhToggleTheme()" aria-label="다크모드 전환"><span id="theme-icon">🌙</span></button>
+    </div>
+  </div>
+</header>
+<div class="guh-mobile-nav" id="mobile-nav">
+  <a href="/ko/#daily-tools">생활도구</a><a href="/ko/#finance">금융계산기</a><a href="/ko/#health">건강</a><a href="/ko/#dev-tools">개발자도구</a><a href="/ko/#file-tools">파일도구</a><a href="/ko/blog/">블로그</a>
+  <hr/><a href="/tools/ko/barcode-generator/">🇰🇷 한국어</a><a href="/tools/en/barcode-generator/">🇺🇸 English</a>
+</div>
+
+<main class="guh-container guh-page" id="main-content">
+  <nav class="guh-breadcrumb"><a href="/ko/">홈</a><span class="guh-breadcrumb-sep">›</span><a href="/ko/#file-tools">파일도구</a><span class="guh-breadcrumb-sep">›</span><span>바코드 생성기</span></nav>
+  <div class="guh-hero"><h1>📊 바코드 생성기</h1><p>CODE128, EAN-13 등 다양한 바코드를 즉시 생성하고 PNG로 다운로드합니다.</p></div>
+
+  <section class="guh-section" id="calculator">
+    <div class="guh-calc-card">
+      <div class="guh-form-group">
+        <label class="guh-label">바코드 내용</label>
+        <input type="text" id="barcode-value" class="guh-input" placeholder="예: 8801234567890" value="8801234567890" oninput="generateBarcode()" />
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;margin:8px 0;">
+        <div class="guh-form-group" style="margin:0;flex:1;min-width:120px;">
+          <label class="guh-label">형식</label>
+          <select id="barcode-format" class="guh-input" onchange="generateBarcode()">
+            <option value="CODE128">CODE128</option>
+            <option value="EAN13">EAN-13</option>
+            <option value="EAN8">EAN-8</option>
+            <option value="UPC">UPC-A</option>
+            <option value="CODE39">CODE39</option>
+            <option value="ITF14">ITF-14</option>
+          </select>
+        </div>
+        <div class="guh-form-group" style="margin:0;flex:1;min-width:120px;">
+          <label class="guh-label">높이 (px)</label>
+          <input type="number" id="barcode-height" class="guh-input" value="80" min="20" max="200" oninput="generateBarcode()" />
+        </div>
+        <div class="guh-form-group" style="margin:0;flex:1;min-width:120px;">
+          <label class="guh-label">텍스트 표시</label>
+          <select id="barcode-text" class="guh-input" onchange="generateBarcode()">
+            <option value="true">표시</option>
+            <option value="false">숨기기</option>
+          </select>
+        </div>
+      </div>
+      <div id="barcode-error" style="color:var(--red);font-size:13px;min-height:18px;margin:4px 0;"></div>
+      <div id="barcode-wrap"><svg id="barcode-svg"></svg></div>
+      <div style="display:flex;gap:8px;margin-top:8px;">
+        <button class="guh-btn" onclick="downloadBarcode()">PNG 다운로드</button>
+        <button class="guh-btn guh-btn-outline" onclick="copyBarcodeSvg()">SVG 복사</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="guh-section" id="faq">
+    <h2 class="guh-section-title">❓ 자주 묻는 질문</h2>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">CODE128과 EAN-13의 차이는?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">CODE128은 숫자, 문자, 특수문자 모두 인코딩 가능한 범용 바코드입니다. EAN-13은 국제 상품 코드로 13자리 숫자만 사용하며 마트·편의점 상품에 가장 많이 사용됩니다.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">EAN-13 바코드의 구조는?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">앞 3자리는 국가 코드(한국은 880), 다음 4~9자리는 제조사 코드, 그 다음은 상품 코드, 마지막 1자리는 체크 디지트입니다. 880으로 시작하면 한국 상품임을 의미합니다.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">바코드와 QR코드의 차이는?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">바코드(1D)는 가로 방향으로만 데이터를 저장하여 수십~수백 자를 담을 수 있습니다. QR코드(2D)는 가로·세로 두 방향으로 데이터를 저장해 수천 자를 담을 수 있으며 URL, 연락처 등 다양한 정보를 포함할 수 있습니다.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">생성된 바코드를 상업적으로 사용해도 되나요?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">실제 상업용 EAN-13 바코드는 GS1 Korea에서 공식 등록 후 사용해야 합니다. 이 도구로 생성한 바코드는 내부 테스트, 시제품, 개인 용도에 적합합니다. 실제 유통을 위해서는 공식 등록 절차가 필요합니다.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">ITF-14란?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">ITF-14는 물류·포장 박스에 사용되는 14자리 바코드입니다. EAN-13 앞에 포장 레벨을 나타내는 숫자(0~9)를 추가한 형식으로, 박스·팔레트 단위 재고 관리에 사용됩니다.</div></div>
+  </section>
+
+  <section class="guh-section" id="related-tools">
+    <h2 class="guh-section-title">🔗 관련 도구</h2>
+    <div class="guh-tool-grid">
+      <a href="/tools/ko/image-converter/" class="guh-tool-card"><span class="guh-tool-icon">🖼️</span><span>이미지 변환기</span></a>
+      <a href="/tools/ko/image-resizer/" class="guh-tool-card"><span class="guh-tool-icon">↔️</span><span>이미지 리사이저</span></a>
+      <a href="/tools/ko/svg-converter/" class="guh-tool-card"><span class="guh-tool-icon">✏️</span><span>SVG 변환기</span></a>
+      <a href="/tools/ko/gif-maker/" class="guh-tool-card"><span class="guh-tool-icon">🎞️</span><span>GIF 메이커</span></a>
+      <a href="/tools/ko/zip-extractor/" class="guh-tool-card"><span class="guh-tool-icon">📦</span><span>ZIP 압축해제</span></a>
+    </div>
+  </section>
+  <section class="guh-section" id="related-blog"><h2 class="guh-section-title">📝 관련 블로그</h2><div class="guh-blog-grid" id="blog-grid"><div class="guh-blog-empty">관련 블로그 포스트를 불러오는 중...</div></div></section>
+</main>
+
+<footer class="guh-footer"><div class="guh-footer-inner"><a href="/ko/" class="guh-footer-logo">Global Utility Hub</a><nav class="guh-footer-links"><a href="/ko/blog/">블로그</a><a href="/ko/">도구 목록</a><a href="mailto:contact@bmsystems.biz">문의</a></nav><p class="guh-footer-copy">© 2026 Global Utility Hub. All rights reserved.</p></div></footer>
+<div class="guh-toast" id="toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
+<script>
+  function guhToggleTheme(){var isDark=document.documentElement.dataset.theme==='dark';document.documentElement.dataset.theme=isDark?'light':'dark';localStorage.setItem('GUH-theme',document.documentElement.dataset.theme);document.getElementById('theme-icon').textContent=isDark?'🌙':'☀️';}
+  (function(){document.getElementById('theme-icon').textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';})();
+  document.getElementById('menu-btn').addEventListener('click',function(){document.getElementById('mobile-nav').classList.toggle('open');});
+  document.querySelectorAll('.guh-faq-q').forEach(function(btn){btn.addEventListener('click',function(){var isOpen=this.classList.contains('open');document.querySelectorAll('.guh-faq-q').forEach(function(b){b.classList.remove('open');b.nextElementSibling.classList.remove('open');});if(!isOpen){this.classList.add('open');this.nextElementSibling.classList.add('open');}});});
+  function showToast(msg,isErr){var t=document.getElementById('toast');t.textContent=msg;t.style.background=isErr?'var(--red)':'var(--green)';t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2500);}
+
+  function generateBarcode(){
+    var val=document.getElementById('barcode-value').value.trim();
+    var fmt=document.getElementById('barcode-format').value;
+    var h=parseInt(document.getElementById('barcode-height').value)||80;
+    var showTxt=document.getElementById('barcode-text').value==='true';
+    var errEl=document.getElementById('barcode-error');
+    if(!val){errEl.textContent='';return;}
+    try{
+      JsBarcode('#barcode-svg',val,{format:fmt,height:h,displayValue:showTxt,margin:10,background:'#ffffff'});
+      errEl.textContent='';
+    }catch(e){errEl.textContent='❌ '+e.message;}
+  }
+
+  function downloadBarcode(){
+    var svg=document.getElementById('barcode-svg');
+    var serializer=new XMLSerializer();
+    var svgStr=serializer.serializeToString(svg);
+    var canvas=document.createElement('canvas');
+    var img=new Image();
+    img.onload=function(){canvas.width=img.width;canvas.height=img.height;var ctx=canvas.getContext('2d');ctx.drawImage(img,0,0);var a=document.createElement('a');a.download='barcode.png';a.href=canvas.toDataURL('image/png');a.click();showToast('다운로드됩니다!',false);};
+    img.src='data:image/svg+xml;base64,'+btoa(unescape(encodeURIComponent(svgStr)));
+  }
+
+  function copyBarcodeSvg(){
+    var svg=document.getElementById('barcode-svg');
+    navigator.clipboard.writeText(new XMLSerializer().serializeToString(svg)).then(function(){showToast('SVG 복사됨!',false);});
+  }
+
+  generateBarcode();
+
+  (async function(){try{var r=await fetch('/ko/blog/index.json');if(!r.ok)return;var posts=await r.json();var related=posts.filter(function(p){return p.related_tool==='barcode-generator';}).slice(0,3);var grid=document.getElementById('blog-grid');if(!related.length){grid.innerHTML='<div class="guh-blog-empty">관련 블로그 포스트가 준비 중입니다.</div>';return;}grid.innerHTML=related.map(function(p){return'<a href="'+p.url+'" class="guh-blog-card"><div class="guh-blog-card-title">'+p.title+'</div><div class="guh-blog-card-date">'+p.date+'</div></a>';}).join('');}catch(e){document.getElementById('blog-grid').innerHTML='<div class="guh-blog-empty">관련 블로그 포스트가 준비 중입니다.</div>';}})();
+</script>
+<script src="/assets/js/guh-search.js" defer></script>
+</body>
+</html>

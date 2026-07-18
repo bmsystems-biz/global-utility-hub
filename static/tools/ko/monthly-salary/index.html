@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>시급 계산기 – 시급·월급·주휴수당 계산 무료 | 글로벌 유틸리티 허브</title>
+  <meta name="description" content="시급에서 월급을 계산하거나 월급에서 시급을 역산합니다. 주휴수당 자동 계산. 최저임금 확인. 무료 온라인 시급·월급 계산기." />
+  <link rel="canonical" href="https://util.bmsystems.biz/tools/ko/monthly-salary/" />
+  <link rel="alternate" hreflang="ko" href="https://util.bmsystems.biz/tools/ko/monthly-salary/" />
+  <link rel="alternate" hreflang="en" href="https://util.bmsystems.biz/tools/en/monthly-salary/" />
+  <link rel="alternate" hreflang="x-default" href="https://util.bmsystems.biz/tools/en/monthly-salary/" />
+  <meta property="og:title" content="시급·월급 계산기" /><meta property="og:description" content="시급과 월급을 상호 변환합니다." /><meta property="og:type" content="website" /><meta property="og:url" content="https://util.bmsystems.biz/tools/ko/monthly-salary/" /><meta property="og:locale" content="ko_KR" /><meta name="twitter:card" content="summary" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/common.css" />
+  <script>(function(){var t=localStorage.getItem('GUH-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark';})();</script>
+  <style>
+    .result-box{background:var(--accent-soft);border:1px solid var(--accent);border-radius:10px;padding:16px;margin:16px 0;}
+    .result-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);}
+    .result-item:last-child{border-bottom:none;font-weight:700;}
+    .result-item .label{color:var(--text-2);font-size:13px;}
+    .result-item .value{font-size:1.1rem;font-weight:600;color:var(--accent);}
+    .min-wage-note{font-size:12px;color:var(--text-3);margin-top:4px;}
+  </style>
+</head>
+<body>
+<header class="guh-header" role="banner">
+  <div class="guh-header-inner">
+    <button class="guh-menu-btn" id="menu-btn" aria-label="메뉴">☰</button>
+    <a href="/ko/" class="guh-logo">글로벌 <span>유틸리티</span> 허브</a>
+    <nav class="guh-nav"><a href="/ko/#daily-tools" class="guh-nav-link">생활도구</a><a href="/ko/#finance" class="guh-nav-link active">금융계산기</a><a href="/ko/#health" class="guh-nav-link">건강</a><a href="/ko/#dev-tools" class="guh-nav-link">개발자도구</a><a href="/ko/#file-tools" class="guh-nav-link">파일도구</a><a href="/ko/blog/" class="guh-nav-link">블로그</a></nav>
+    <div class="guh-header-actions">
+      <div class="guh-lang-select"><a href="/tools/ko/monthly-salary/" class="guh-lang-btn active">KO</a><a href="/tools/en/monthly-salary/" class="guh-lang-btn">EN</a></div>
+      <button class="guh-theme-btn" onclick="guhToggleTheme()" aria-label="다크모드 전환"><span id="theme-icon">🌙</span></button>
+    </div>
+  </div>
+</header>
+<div class="guh-mobile-nav" id="mobile-nav">
+  <a href="/ko/#daily-tools">생활도구</a><a href="/ko/#finance">금융계산기</a><a href="/ko/#health">건강</a><a href="/ko/#dev-tools">개발자도구</a><a href="/ko/#file-tools">파일도구</a><a href="/ko/blog/">블로그</a>
+  <hr/><a href="/tools/ko/monthly-salary/">🇰🇷 한국어</a><a href="/tools/en/monthly-salary/">🇺🇸 English</a>
+</div>
+
+<main class="guh-container guh-page" id="main-content">
+  <nav class="guh-breadcrumb"><a href="/ko/">홈</a><span class="guh-breadcrumb-sep">›</span><a href="/ko/#finance">금융계산기</a><span class="guh-breadcrumb-sep">›</span><span>시급·월급 계산기</span></nav>
+  <div class="guh-hero"><h1>⏰ 시급·월급 계산기</h1><p>시급과 월급을 상호 변환합니다. 주휴수당 자동 계산 포함.</p></div>
+
+  <section class="guh-section" id="calculator">
+    <div class="guh-calc-card">
+      <div style="margin-bottom:12px;">
+        <label class="guh-label">계산 방향</label>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;"><input type="radio" name="direction" value="hourly-to-monthly" checked onchange="switchMode()"> 시급 → 월급 계산</label>
+          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;"><input type="radio" name="direction" value="monthly-to-hourly" onchange="switchMode()"> 월급 → 시급 역산</label>
+        </div>
+      </div>
+
+      <div id="hourly-section">
+        <div style="display:flex;flex-wrap:wrap;gap:12px;">
+          <div class="guh-form-group" style="flex:1;min-width:140px;margin:0;">
+            <label class="guh-label">시급 (원)</label>
+            <input type="number" id="hourly" class="guh-input" value="10030" min="0" oninput="calc()" />
+          </div>
+          <div class="guh-form-group" style="flex:1;min-width:120px;margin:0;">
+            <label class="guh-label">하루 근무시간 (h)</label>
+            <input type="number" id="daily-hours" class="guh-input" value="8" min="1" max="24" step="0.5" oninput="calc()" />
+          </div>
+          <div class="guh-form-group" style="flex:1;min-width:120px;margin:0;">
+            <label class="guh-label">주 근무일수</label>
+            <input type="number" id="weekly-days" class="guh-input" value="5" min="1" max="7" oninput="calc()" />
+          </div>
+        </div>
+        <label style="display:flex;align-items:center;gap:6px;font-size:13px;margin-top:10px;"><input type="checkbox" id="include-weekly" checked onchange="calc()"> 주휴수당 포함</label>
+      </div>
+
+      <div id="monthly-section" style="display:none;">
+        <div style="display:flex;flex-wrap:wrap;gap:12px;">
+          <div class="guh-form-group" style="flex:1;min-width:160px;margin:0;">
+            <label class="guh-label">월급 (원)</label>
+            <input type="number" id="monthly-in" class="guh-input" value="2096270" min="0" oninput="calcReverse()" />
+          </div>
+          <div class="guh-form-group" style="flex:1;min-width:120px;margin:0;">
+            <label class="guh-label">월 근무시간 (h)</label>
+            <input type="number" id="monthly-hours" class="guh-input" value="209" min="1" oninput="calcReverse()" />
+          </div>
+        </div>
+      </div>
+
+      <div class="result-box" id="result-box" style="display:none;">
+        <div id="result-items"></div>
+      </div>
+      <div class="min-wage-note">※ 2025년 최저임금: 10,030원/시간 | 최저 월급 (주 40시간·209h): 2,096,270원</div>
+    </div>
+  </section>
+
+  <section class="guh-section" id="faq">
+    <h2 class="guh-section-title">❓ 자주 묻는 질문</h2>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">주휴수당이란?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">주 15시간 이상 근무하는 근로자에게 주어지는 유급 휴일 수당입니다. 1주일 개근 시 하루치 임금을 추가로 받습니다. 주 40시간 기준 월 209시간 = 주 40시간 × 4.345주 + 주휴시간입니다.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">월 209시간은 어떻게 계산되나요?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">주 40시간(8시간 × 5일) + 주휴 8시간 = 주 48시간 × (365일÷7÷12) ≈ 월 209시간입니다. 이 기준으로 최저시급 × 209시간 = 법정 최저 월급이 됩니다.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">2025년 최저임금은?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">2025년 최저임금은 10,030원(시급), 최저 월급은 2,096,270원(주 40시간·209h 기준)입니다. 2024년(9,860원) 대비 1.7% 인상된 금액입니다.</div></div>
+  </section>
+
+  <section class="guh-section" id="related-tools">
+    <h2 class="guh-section-title">🔗 관련 도구</h2>
+    <div class="guh-tool-grid">
+      <a href="/tools/ko/salary-calculator/" class="guh-tool-card"><span class="guh-tool-icon">💼</span><span>연봉 계산기</span></a>
+      <a href="/tools/ko/compound-interest/" class="guh-tool-card"><span class="guh-tool-icon">📈</span><span>복리 계산기</span></a>
+      <a href="/tools/ko/vat-calculator/" class="guh-tool-card"><span class="guh-tool-icon">🧾</span><span>부가세 계산기</span></a>
+      <a href="/tools/ko/percentage-calculator/" class="guh-tool-card"><span class="guh-tool-icon">🔢</span><span>퍼센트 계산기</span></a>
+      <a href="/tools/ko/loan-calculator/" class="guh-tool-card"><span class="guh-tool-icon">🏦</span><span>대출 계산기</span></a>
+    </div>
+  </section>
+  <section class="guh-section" id="related-blog"><h2 class="guh-section-title">📝 관련 블로그</h2><div class="guh-blog-grid" id="blog-grid"><div class="guh-blog-empty">관련 블로그 포스트를 불러오는 중...</div></div></section>
+</main>
+
+<footer class="guh-footer"><div class="guh-footer-inner"><a href="/ko/" class="guh-footer-logo">Global Utility Hub</a><nav class="guh-footer-links"><a href="/ko/blog/">블로그</a><a href="/ko/">도구 목록</a><a href="mailto:contact@bmsystems.biz">문의</a></nav><p class="guh-footer-copy">© 2026 Global Utility Hub. All rights reserved.</p></div></footer>
+<div class="guh-toast" id="toast"></div>
+<script>
+  function guhToggleTheme(){var isDark=document.documentElement.dataset.theme==='dark';document.documentElement.dataset.theme=isDark?'light':'dark';localStorage.setItem('GUH-theme',document.documentElement.dataset.theme);document.getElementById('theme-icon').textContent=isDark?'🌙':'☀️';}
+  (function(){document.getElementById('theme-icon').textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';})();
+  document.getElementById('menu-btn').addEventListener('click',function(){document.getElementById('mobile-nav').classList.toggle('open');});
+  document.querySelectorAll('.guh-faq-q').forEach(function(btn){btn.addEventListener('click',function(){var isOpen=this.classList.contains('open');document.querySelectorAll('.guh-faq-q').forEach(function(b){b.classList.remove('open');b.nextElementSibling.classList.remove('open');});if(!isOpen){this.classList.add('open');this.nextElementSibling.classList.add('open');}});});
+
+  function fmt(n){return Math.round(n).toLocaleString('ko-KR')+'원';}
+
+  function switchMode(){
+    var mode=document.querySelector('input[name="direction"]:checked').value;
+    document.getElementById('hourly-section').style.display=mode==='hourly-to-monthly'?'block':'none';
+    document.getElementById('monthly-section').style.display=mode==='monthly-to-hourly'?'block':'none';
+    if(mode==='hourly-to-monthly')calc();else calcReverse();
+  }
+
+  function calc(){
+    var hourly=parseFloat(document.getElementById('hourly').value)||0;
+    var dailyH=parseFloat(document.getElementById('daily-hours').value)||8;
+    var days=parseFloat(document.getElementById('weekly-days').value)||5;
+    var includeWeekly=document.getElementById('include-weekly').checked;
+    var weeklyH=dailyH*days;
+    var weeklyPay=hourly*weeklyH;
+    var weeklyBonus=includeWeekly&&weeklyH>=15?hourly*dailyH:0;
+    var totalWeekly=weeklyPay+weeklyBonus;
+    var monthly=totalWeekly*4.345;
+    var annualy=monthly*12;
+    var items=[
+      {label:'시급',value:fmt(hourly)},
+      {label:'하루 급여 ('+dailyH+'h)',value:fmt(hourly*dailyH)},
+      {label:'주급 ('+weeklyH+'h)',value:fmt(weeklyPay)},
+      {label:'주휴수당',value:includeWeekly&&weeklyH>=15?fmt(weeklyBonus):'해당없음 (주 15시간 미만)'},
+      {label:'월급 (주급×4.345)',value:fmt(monthly)},
+      {label:'연봉 (월급×12)',value:fmt(annualy)},
+    ];
+    renderResult(items);
+  }
+
+  function calcReverse(){
+    var monthly=parseFloat(document.getElementById('monthly-in').value)||0;
+    var monthlyH=parseFloat(document.getElementById('monthly-hours').value)||209;
+    var hourly=monthlyH>0?monthly/monthlyH:0;
+    var items=[
+      {label:'월급',value:fmt(monthly)},{label:'월 근무시간',value:monthlyH+'h'},
+      {label:'시급 (역산)',value:fmt(hourly)},{label:'연봉',value:fmt(monthly*12)},
+    ];
+    renderResult(items);
+  }
+
+  function renderResult(items){
+    var html='';
+    items.forEach(function(it,i){
+      html+='<div class="result-item"><span class="label">'+it.label+'</span><span class="value" style="'+(i===items.length-1?'font-size:1.3rem;':'')+'">'+it.value+'</span></div>';
+    });
+    document.getElementById('result-items').innerHTML=html;
+    document.getElementById('result-box').style.display='block';
+  }
+
+  calc();
+
+  (async function(){try{var r=await fetch('/ko/blog/index.json');if(!r.ok)return;var posts=await r.json();var related=posts.filter(function(p){return p.related_tool==='monthly-salary';}).slice(0,3);var grid=document.getElementById('blog-grid');if(!related.length){grid.innerHTML='<div class="guh-blog-empty">관련 블로그 포스트가 준비 중입니다.</div>';return;}grid.innerHTML=related.map(function(p){return'<a href="'+p.url+'" class="guh-blog-card"><div class="guh-blog-card-title">'+p.title+'</div><div class="guh-blog-card-date">'+p.date+'</div></a>';}).join('');}catch(e){document.getElementById('blog-grid').innerHTML='<div class="guh-blog-empty">관련 블로그 포스트가 준비 중입니다.</div>';}})();
+</script>
+<script src="/assets/js/guh-search.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Base64 Encoder/Decoder – Encode & Decode Online Free | Global Utility Hub</title>
+  <meta name="description" content="Encode and decode Base64 online. Supports Unicode, URL-safe Base64, and real-time conversion. Free Base64 encoder and decoder tool." />
+  <link rel="canonical" href="https://util.bmsystems.biz/tools/en/base64/" />
+  <link rel="alternate" hreflang="ko" href="https://util.bmsystems.biz/tools/ko/base64/" />
+  <link rel="alternate" hreflang="en" href="https://util.bmsystems.biz/tools/en/base64/" />
+  <link rel="alternate" hreflang="x-default" href="https://util.bmsystems.biz/tools/en/base64/" />
+  <meta property="og:title" content="Base64 Encoder/Decoder" />
+  <meta property="og:description" content="Encode and decode Base64 online with Unicode support." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://util.bmsystems.biz/tools/en/base64/" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/common.css" />
+  <script>(function(){var t=localStorage.getItem('GUH-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark';})();</script>
+</head>
+<body>
+<header class="guh-header" role="banner">
+  <div class="guh-header-inner">
+    <button class="guh-menu-btn" id="menu-btn" aria-label="Menu">☰</button>
+    <a href="/en/" class="guh-logo">Global <span>Utility</span> Hub</a>
+    <nav class="guh-nav"><a href="/en/" class="guh-nav-link">Daily Tools</a><a href="/en/" class="guh-nav-link">Finance</a><a href="/en/" class="guh-nav-link">Health</a><a href="/en/" class="guh-nav-link active">Dev Tools</a><a href="/en/" class="guh-nav-link">File Tools</a><a href="/en/blog/" class="guh-nav-link">Blog</a></nav>
+    <div class="guh-header-actions">
+      <div class="guh-lang-select"><a href="/tools/ko/base64/" class="guh-lang-btn">KO</a><a href="/tools/en/base64/" class="guh-lang-btn active">EN</a></div>
+      <button class="guh-theme-btn" onclick="guhToggleTheme()" aria-label="Toggle dark mode"><span id="theme-icon">🌙</span></button>
+    </div>
+  </div>
+</header>
+<div class="guh-mobile-nav" id="mobile-nav">
+  <a href="/en/">Daily Tools</a><a href="/en/">Finance</a><a href="/en/">Health</a><a href="/en/">Dev Tools</a><a href="/en/">File Tools</a><a href="/en/blog/">Blog</a>
+  <hr/><a href="/tools/ko/base64/">🇰🇷 한국어</a><a href="/tools/en/base64/">🇺🇸 English</a>
+</div>
+
+<main class="guh-container guh-page" id="main-content">
+  <nav class="guh-breadcrumb"><a href="/en/">Home</a><span class="guh-breadcrumb-sep">›</span><a href="/en/">Dev Tools</a><span class="guh-breadcrumb-sep">›</span><span>Base64 Encoder</span></nav>
+  <div class="guh-hero"><h1>🔤 Base64 Encoder / Decoder</h1><p>Encode and decode Base64 instantly. Supports Unicode, emoji, and URL-safe mode.</p></div>
+
+  <section class="guh-section" id="calculator">
+    <div class="guh-calc-card">
+      <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;align-items:center;">
+        <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer;"><input type="checkbox" id="url-safe" onchange="autoConvert()" /> URL-safe mode (+ → -, / → _)</label>
+      </div>
+      <div class="guh-form-group">
+        <label class="guh-label">Plain Text</label>
+        <textarea id="plain-input" class="guh-input" rows="5" placeholder="Enter text to encode..." oninput="encodeB64()" style="resize:vertical;font-family:monospace;font-size:13px;"></textarea>
+      </div>
+      <div style="display:flex;gap:8px;margin:8px 0;flex-wrap:wrap;">
+        <button class="guh-btn" onclick="encodeB64()">Encode ▼</button>
+        <button class="guh-btn guh-btn-outline" onclick="decodeB64()">Decode ▲</button>
+        <button class="guh-btn guh-btn-outline" onclick="swapFields()">⇅ Swap</button>
+        <button class="guh-btn guh-btn-outline" onclick="clearAll()">Clear</button>
+      </div>
+      <div class="guh-form-group" style="margin-top:4px;">
+        <label class="guh-label">Base64 Result</label>
+        <textarea id="b64-output" class="guh-input" rows="5" placeholder="Base64 result..." oninput="decodeFromOutput()" style="resize:vertical;font-family:monospace;font-size:13px;background:var(--surface2);"></textarea>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:8px;">
+        <button class="guh-btn guh-btn-outline" onclick="copyOutput()">Copy Result</button>
+        <button class="guh-btn guh-btn-outline" onclick="copyInput()">Copy Plain</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="guh-section" id="faq">
+    <h2 class="guh-section-title">❓ FAQ</h2>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">What is Base64?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">Base64 is an encoding scheme that converts binary data to ASCII text using 64 characters (A-Z, a-z, 0-9, +, /). It's used for email attachments, image data URIs, JWT tokens, and transmitting binary data over text-based protocols.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">Is Base64 encryption?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">No. Base64 is encoding, not encryption. Anyone can decode it — it provides no security. For protecting sensitive data, use actual encryption like AES or RSA. Base64 is purely for safe text transport of binary data.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">What is URL-safe Base64?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">Standard Base64 uses + and / which have special meaning in URLs and can cause issues in query strings. URL-safe Base64 replaces + with - and / with _, making it safe for use in URLs and HTTP headers. JWT tokens use this variant.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">How much does Base64 increase file size?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">Base64 encoding increases file size by approximately 33%. It converts every 3 bytes of binary data to 4 ASCII characters. So a 300KB image becomes about 400KB when Base64 encoded.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">Can I embed images in HTML using Base64?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">Yes. Use the format: &lt;img src="data:image/png;base64,encodedValue"&gt;. This embeds the image directly into HTML without a separate HTTP request. Useful for small icons, but avoid for large images as it significantly increases page size.</div></div>
+  </section>
+
+  <section class="guh-section" id="related-tools">
+    <h2 class="guh-section-title">🔗 Related Tools</h2>
+    <div class="guh-tool-grid">
+      <a href="/tools/en/url-encoder/" class="guh-tool-card"><span class="guh-tool-icon">🔗</span><span>URL Encoder</span></a>
+      <a href="/tools/en/html-escape/" class="guh-tool-card"><span class="guh-tool-icon">🛡️</span><span>HTML Escape</span></a>
+      <a href="/tools/en/json-formatter/" class="guh-tool-card"><span class="guh-tool-icon">{ }</span><span>JSON Formatter</span></a>
+      <a href="/tools/en/regex-tester/" class="guh-tool-card"><span class="guh-tool-icon">🔍</span><span>Regex Tester</span></a>
+      <a href="/tools/en/character-counter/" class="guh-tool-card"><span class="guh-tool-icon">📝</span><span>Character Counter</span></a>
+    </div>
+  </section>
+  <section class="guh-section" id="related-blog"><h2 class="guh-section-title">📝 Related Blog</h2><div class="guh-blog-grid" id="blog-grid"><div class="guh-blog-empty">Loading...</div></div></section>
+</main>
+
+<footer class="guh-footer"><div class="guh-footer-inner"><a href="/en/" class="guh-footer-logo">Global Utility Hub</a><nav class="guh-footer-links"><a href="/en/blog/">Blog</a><a href="/en/">All Tools</a><a href="mailto:contact@bmsystems.biz">Contact</a></nav><p class="guh-footer-copy">© 2026 Global Utility Hub. All rights reserved.</p></div></footer>
+<div class="guh-toast" id="toast"></div>
+<script>
+  function guhToggleTheme(){var isDark=document.documentElement.dataset.theme==='dark';document.documentElement.dataset.theme=isDark?'light':'dark';localStorage.setItem('GUH-theme',document.documentElement.dataset.theme);document.getElementById('theme-icon').textContent=isDark?'🌙':'☀️';}
+  (function(){document.getElementById('theme-icon').textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';})();
+  document.getElementById('menu-btn').addEventListener('click',function(){document.getElementById('mobile-nav').classList.toggle('open');});
+  document.querySelectorAll('.guh-faq-q').forEach(function(btn){btn.addEventListener('click',function(){var isOpen=this.classList.contains('open');document.querySelectorAll('.guh-faq-q').forEach(function(b){b.classList.remove('open');b.nextElementSibling.classList.remove('open');});if(!isOpen){this.classList.add('open');this.nextElementSibling.classList.add('open');}});});
+  function showToast(msg,isErr){var t=document.getElementById('toast');t.textContent=msg;t.style.background=isErr?'var(--red)':'var(--green)';t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2500);}
+
+  function isUrlSafe(){return document.getElementById('url-safe').checked;}
+
+  function toB64(str){
+    var b=btoa(unescape(encodeURIComponent(str)));
+    return isUrlSafe()?b.replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,''):b;
+  }
+  function fromB64(str){
+    var s=str;
+    if(isUrlSafe()){s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';}
+    try{return decodeURIComponent(escape(atob(s)));}
+    catch(e){throw new Error('Invalid Base64 string.');}
+  }
+
+  function encodeB64(){
+    var txt=document.getElementById('plain-input').value;
+    try{document.getElementById('b64-output').value=toB64(txt);}
+    catch(e){showToast(e.message,true);}
+  }
+  function decodeB64(){
+    var b64=document.getElementById('b64-output').value.trim();
+    try{document.getElementById('plain-input').value=fromB64(b64);}
+    catch(e){showToast(e.message,true);}
+  }
+  function decodeFromOutput(){
+    var b64=document.getElementById('b64-output').value.trim();
+    if(!b64){document.getElementById('plain-input').value='';return;}
+    try{document.getElementById('plain-input').value=fromB64(b64);}catch(e){}
+  }
+  function autoConvert(){encodeB64();}
+  function swapFields(){
+    var a=document.getElementById('plain-input').value;
+    var b=document.getElementById('b64-output').value;
+    document.getElementById('plain-input').value=b;
+    document.getElementById('b64-output').value=a;
+  }
+  function copyOutput(){var v=document.getElementById('b64-output').value;if(!v){showToast('No result to copy.',true);return;}navigator.clipboard.writeText(v).then(function(){showToast('Copied!',false);});}
+  function copyInput(){var v=document.getElementById('plain-input').value;if(!v){showToast('No plain text to copy.',true);return;}navigator.clipboard.writeText(v).then(function(){showToast('Copied!',false);});}
+  function clearAll(){document.getElementById('plain-input').value='';document.getElementById('b64-output').value='';}
+
+  (async function(){try{var r=await fetch('/en/blog/index.json');if(!r.ok)return;var posts=await r.json();var related=posts.filter(function(p){return p.related_tool==='base64';}).slice(0,3);var grid=document.getElementById('blog-grid');if(!related.length){grid.innerHTML='<div class="guh-blog-empty">No related posts yet.</div>';return;}grid.innerHTML=related.map(function(p){return'<a href="'+p.url+'" class="guh-blog-card"><div class="guh-blog-card-title">'+p.title+'</div><div class="guh-blog-card-date">'+p.date+'</div></a>';}).join('');}catch(e){document.getElementById('blog-grid').innerHTML='<div class="guh-blog-empty">No related posts yet.</div>';}})();
+</script>
+<script src="/assets/js/guh-search.js" defer></script>
+</body>
+</html>

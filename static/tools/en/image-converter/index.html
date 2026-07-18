@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Image Converter – Convert JPG, PNG, WebP Online Free | Global Utility Hub</title>
+  <meta name="description" content="Convert images between JPG, PNG, and WebP formats online. Adjust quality, preview results, and download instantly. All processing done in your browser." />
+  <link rel="canonical" href="https://util.bmsystems.biz/tools/en/image-converter/" />
+  <link rel="alternate" hreflang="ko" href="https://util.bmsystems.biz/tools/ko/image-converter/" />
+  <link rel="alternate" hreflang="en" href="https://util.bmsystems.biz/tools/en/image-converter/" />
+  <link rel="alternate" hreflang="x-default" href="https://util.bmsystems.biz/tools/en/image-converter/" />
+  <meta property="og:title" content="Image Converter – JPG, PNG, WebP" />
+  <meta property="og:description" content="Convert images between formats online for free." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://util.bmsystems.biz/tools/en/image-converter/" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/common.css" />
+  <script>(function(){var t=localStorage.getItem('GUH-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark';})();</script>
+  <style>
+    .drop-zone{border:2px dashed var(--border);border-radius:12px;padding:40px 20px;text-align:center;cursor:pointer;transition:border-color 0.2s,background 0.2s;color:var(--text-3);}
+    .drop-zone:hover,.drop-zone.drag-over{border-color:var(--accent);background:var(--accent-soft);}
+    .preview-img{max-width:100%;max-height:240px;border-radius:8px;margin:12px auto;display:block;}
+    .info-row{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--text-2);margin:8px 0;}
+  </style>
+</head>
+<body>
+<header class="guh-header" role="banner">
+  <div class="guh-header-inner">
+    <button class="guh-menu-btn" id="menu-btn" aria-label="Menu">☰</button>
+    <a href="/en/" class="guh-logo">Global <span>Utility</span> Hub</a>
+    <nav class="guh-nav"><a href="/en/#daily-tools" class="guh-nav-link">Daily Tools</a><a href="/en/#finance" class="guh-nav-link">Finance</a><a href="/en/#health" class="guh-nav-link">Health</a><a href="/en/#dev-tools" class="guh-nav-link">Dev Tools</a><a href="/en/#file-tools" class="guh-nav-link active">File Tools</a><a href="/en/blog/" class="guh-nav-link">Blog</a></nav>
+    <div class="guh-header-actions">
+      <div class="guh-lang-select"><a href="/tools/ko/image-converter/" class="guh-lang-btn">KO</a><a href="/tools/en/image-converter/" class="guh-lang-btn active">EN</a></div>
+      <button class="guh-theme-btn" onclick="guhToggleTheme()" aria-label="Toggle dark mode"><span id="theme-icon">🌙</span></button>
+    </div>
+  </div>
+</header>
+<div class="guh-mobile-nav" id="mobile-nav">
+  <a href="/en/#daily-tools">Daily Tools</a><a href="/en/#finance">Finance</a><a href="/en/#health">Health</a><a href="/en/#dev-tools">Dev Tools</a><a href="/en/#file-tools">File Tools</a><a href="/en/blog/">Blog</a>
+  <hr/><a href="/tools/ko/image-converter/">🇰🇷 한국어</a><a href="/tools/en/image-converter/">🇺🇸 English</a>
+</div>
+
+<main class="guh-container guh-page" id="main-content">
+  <nav class="guh-breadcrumb"><a href="/en/">Home</a><span class="guh-breadcrumb-sep">›</span><a href="/en/#file-tools">File Tools</a><span class="guh-breadcrumb-sep">›</span><span>Image Converter</span></nav>
+  <div class="guh-hero"><h1>🖼️ Image Converter</h1><p>Convert images between JPG, PNG, and WebP formats. All processing happens in your browser — no uploads.</p></div>
+
+  <section class="guh-section" id="calculator">
+    <div class="guh-calc-card">
+      <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
+        <div style="font-size:32px;margin-bottom:8px;">🖼️</div>
+        <div style="font-weight:600;margin-bottom:4px;">Drop an image here or click to select</div>
+        <div style="font-size:13px;">Supports JPG, PNG, WebP, GIF, BMP</div>
+        <input type="file" id="file-input" accept="image/*" style="display:none" onchange="onFileSelected(this.files[0])" />
+      </div>
+      <img id="preview-img" class="preview-img" style="display:none;" alt="Preview" />
+      <div class="info-row" id="file-info" style="display:none;"></div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:12px 0;">
+        <div class="guh-form-group" style="margin:0;flex:1;min-width:140px;">
+          <label class="guh-label">Output Format</label>
+          <select id="output-format" class="guh-input" onchange="updateQualityVisibility()">
+            <option value="image/jpeg">JPG</option>
+            <option value="image/png">PNG</option>
+            <option value="image/webp">WebP</option>
+          </select>
+        </div>
+        <div class="guh-form-group" id="quality-wrap" style="margin:0;flex:1;min-width:140px;">
+          <label class="guh-label">Quality: <span id="quality-val">90</span>%</label>
+          <input type="range" id="quality" min="10" max="100" value="90" oninput="document.getElementById('quality-val').textContent=this.value" style="width:100%;" />
+        </div>
+      </div>
+
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="guh-btn" id="convert-btn" onclick="convertImage()" disabled>Convert & Download</button>
+        <button class="guh-btn guh-btn-outline" onclick="resetAll()">Reset</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="guh-section" id="faq">
+    <h2 class="guh-section-title">❓ FAQ</h2>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">What is the difference between JPG and PNG?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">JPG uses lossy compression producing smaller files but with slight quality loss — ideal for photos. PNG uses lossless compression and supports transparent backgrounds (alpha channel) — best for logos, icons, and screenshots where clarity is critical.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">What is WebP?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">WebP is a modern image format developed by Google that provides 25-35% smaller file sizes than JPG at comparable quality. It also supports transparency like PNG. All major modern browsers support it, making it the recommended format for web optimization.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">Are my images uploaded to a server?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">No. All conversion happens entirely in your browser using the HTML5 Canvas API. Your images never leave your device, ensuring complete privacy and security.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">What happens to transparency when converting PNG to JPG?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">JPG doesn't support transparency. Transparent areas in PNG images will be filled with a white background when converting to JPG. If you need to preserve transparency, keep the image in PNG or WebP format.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">What quality setting should I use?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">For web use, 80-90% quality provides a good balance between file size and visual quality. Use 95-100% for print or archival purposes. PNG is lossless so the quality slider doesn't apply. For WebP, 80% often matches JPG at 90% with a smaller file size.</div></div>
+  </section>
+
+  <section class="guh-section" id="related-tools">
+    <h2 class="guh-section-title">🔗 Related Tools</h2>
+    <div class="guh-tool-grid">
+      <a href="/tools/en/image-resizer/" class="guh-tool-card"><span class="guh-tool-icon">↔️</span><span>Image Resizer</span></a>
+      <a href="/tools/en/image-compress/" class="guh-tool-card"><span class="guh-tool-icon">🗜️</span><span>Image Compress</span></a>
+      <a href="/tools/en/svg-converter/" class="guh-tool-card"><span class="guh-tool-icon">✏️</span><span>SVG Converter</span></a>
+      <a href="/tools/en/barcode-generator/" class="guh-tool-card"><span class="guh-tool-icon">📊</span><span>Barcode Generator</span></a>
+      <a href="/tools/en/gif-maker/" class="guh-tool-card"><span class="guh-tool-icon">🎞️</span><span>GIF Maker</span></a>
+    </div>
+  </section>
+  <section class="guh-section" id="related-blog"><h2 class="guh-section-title">📝 Related Blog</h2><div class="guh-blog-grid" id="blog-grid"><div class="guh-blog-empty">Loading...</div></div></section>
+</main>
+
+<footer class="guh-footer"><div class="guh-footer-inner"><a href="/en/" class="guh-footer-logo">Global Utility Hub</a><nav class="guh-footer-links"><a href="/en/blog/">Blog</a><a href="/en/">All Tools</a><a href="mailto:contact@bmsystems.biz">Contact</a></nav><p class="guh-footer-copy">© 2026 Global Utility Hub. All rights reserved.</p></div></footer>
+<div class="guh-toast" id="toast"></div>
+<script>
+  function guhToggleTheme(){var isDark=document.documentElement.dataset.theme==='dark';document.documentElement.dataset.theme=isDark?'light':'dark';localStorage.setItem('GUH-theme',document.documentElement.dataset.theme);document.getElementById('theme-icon').textContent=isDark?'🌙':'☀️';}
+  (function(){document.getElementById('theme-icon').textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';})();
+  document.getElementById('menu-btn').addEventListener('click',function(){document.getElementById('mobile-nav').classList.toggle('open');});
+  document.querySelectorAll('.guh-faq-q').forEach(function(btn){btn.addEventListener('click',function(){var isOpen=this.classList.contains('open');document.querySelectorAll('.guh-faq-q').forEach(function(b){b.classList.remove('open');b.nextElementSibling.classList.remove('open');});if(!isOpen){this.classList.add('open');this.nextElementSibling.classList.add('open');}});});
+  function showToast(msg,isErr){var t=document.getElementById('toast');t.textContent=msg;t.style.background=isErr?'var(--red)':'var(--green)';t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2500);}
+
+  var currentFile=null;
+  var dz=document.getElementById('drop-zone');
+  dz.addEventListener('dragover',function(e){e.preventDefault();dz.classList.add('drag-over');});
+  dz.addEventListener('dragleave',function(){dz.classList.remove('drag-over');});
+  dz.addEventListener('drop',function(e){e.preventDefault();dz.classList.remove('drag-over');if(e.dataTransfer.files[0])onFileSelected(e.dataTransfer.files[0]);});
+
+  function onFileSelected(file){
+    if(!file||!file.type.startsWith('image/')){showToast('Please select an image file.',true);return;}
+    currentFile=file;
+    var reader=new FileReader();
+    reader.onload=function(e){
+      var img=document.getElementById('preview-img');
+      img.src=e.target.result;img.style.display='block';
+      img.onload=function(){
+        document.getElementById('file-info').style.display='flex';
+        document.getElementById('file-info').innerHTML='<span>File: '+file.name+'</span><span>Size: '+(file.size/1024).toFixed(1)+' KB</span><span>Resolution: '+img.naturalWidth+'×'+img.naturalHeight+'</span>';
+      };
+    };
+    reader.readAsDataURL(file);
+    document.getElementById('convert-btn').disabled=false;
+  }
+
+  function updateQualityVisibility(){
+    var fmt=document.getElementById('output-format').value;
+    document.getElementById('quality-wrap').style.opacity=fmt==='image/png'?'0.4':'1';
+  }
+
+  function convertImage(){
+    if(!currentFile){showToast('Please select an image first.',true);return;}
+    var fmt=document.getElementById('output-format').value;
+    var quality=parseInt(document.getElementById('quality').value)/100;
+    var img=new Image();
+    img.onload=function(){
+      var canvas=document.createElement('canvas');
+      canvas.width=img.naturalWidth;canvas.height=img.naturalHeight;
+      var ctx=canvas.getContext('2d');
+      ctx.fillStyle='#ffffff';ctx.fillRect(0,0,canvas.width,canvas.height);
+      ctx.drawImage(img,0,0);
+      var ext=fmt==='image/jpeg'?'jpg':fmt==='image/webp'?'webp':'png';
+      var base=currentFile.name.replace(/\.[^.]+$/,'');
+      var dataUrl=canvas.toDataURL(fmt,quality);
+      var a=document.createElement('a');a.href=dataUrl;a.download=base+'.'+ext;a.click();
+      showToast('Converted! Downloading...',false);
+    };
+    img.src=document.getElementById('preview-img').src;
+  }
+
+  function resetAll(){currentFile=null;document.getElementById('preview-img').style.display='none';document.getElementById('file-info').style.display='none';document.getElementById('convert-btn').disabled=true;document.getElementById('file-input').value='';}
+
+  (async function(){try{var r=await fetch('/en/blog/index.json');if(!r.ok)return;var posts=await r.json();var related=posts.filter(function(p){return p.related_tool==='image-converter';}).slice(0,3);var grid=document.getElementById('blog-grid');if(!related.length){grid.innerHTML='<div class="guh-blog-empty">No related posts yet.</div>';return;}grid.innerHTML=related.map(function(p){return'<a href="'+p.url+'" class="guh-blog-card"><div class="guh-blog-card-title">'+p.title+'</div><div class="guh-blog-card-date">'+p.date+'</div></a>';}).join('');}catch(e){document.getElementById('blog-grid').innerHTML='<div class="guh-blog-empty">No related posts yet.</div>';}})();
+</script>
+<script src="/assets/js/guh-search.js" defer></script>
+</body>
+</html>
