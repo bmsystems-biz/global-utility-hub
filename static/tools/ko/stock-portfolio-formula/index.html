@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>구글시트 주식 포트폴리오 수식 생성기 | 글로벌 유틸리티 허브</title>
+  <meta name="description" content="GOOGLEFINANCE 함수로 주식 포트폴리오 수익률·평가금액을 자동 계산하는 구글시트 수식을 생성합니다. 국내·해외 종목 모두 지원, 무료 사용." />
+  <link rel="canonical" href="https://util.bmsystems.biz/tools/ko/stock-portfolio-formula/" />
+  <link rel="alternate" hreflang="ko-KR" href="https://util.bmsystems.biz/tools/ko/stock-portfolio-formula/" />
+  <link rel="alternate" hreflang="en-US" href="https://util.bmsystems.biz/tools/en/stock-portfolio-formula/" />
+  <link rel="alternate" hreflang="x-default" href="https://util.bmsystems.biz/tools/en/stock-portfolio-formula/" />
+  <meta property="og:title" content="구글시트 주식 포트폴리오 수식 생성기" />
+  <meta property="og:description" content="GOOGLEFINANCE 함수로 주식 포트폴리오 수익률·평가금액을 자동 계산하는 구글시트 수식을 생성합니다." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://util.bmsystems.biz/tools/ko/stock-portfolio-formula/" />
+  <meta property="og:site_name" content="Global Utility Hub" />
+  <meta property="og:locale" content="ko_KR" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="구글시트 주식 포트폴리오 수식 생성기" />
+  <meta name="twitter:description" content="GOOGLEFINANCE 함수로 주식 포트폴리오를 손쉽게 추적하세요." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/common.css" />
+  <style>
+    .spf-tabs { display: flex; gap: 0; margin-bottom: 24px; border-bottom: 2px solid var(--border); }
+    .spf-tab { padding: 10px 18px; border-radius: 8px 8px 0 0; cursor: pointer; font-weight: 600; font-size: 13px; background: var(--surface2); color: var(--text-2); border: 1px solid var(--border); border-bottom: none; transition: all 0.2s; position: relative; bottom: -2px; margin-right: 4px; }
+    .spf-tab.active { background: var(--bg); color: var(--accent); border-bottom: 2px solid var(--bg); z-index: 1; }
+    .spf-tab:hover:not(.active) { background: var(--accent-soft); color: var(--accent); }
+    .spf-panel { display: none; }
+    .spf-panel.active { display: block; }
+
+    .spf-info { background: var(--accent-soft); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0; padding: 14px 16px; margin: 16px 0; font-size: 13px; color: var(--text-1); line-height: 1.8; }
+    .spf-info strong { color: var(--accent); }
+
+    .spf-section-title { font-size: 15px; font-weight: 700; color: var(--text-1); margin: 28px 0 12px; padding-bottom: 8px; border-bottom: 2px solid var(--border); display: flex; align-items: center; gap: 8px; }
+
+    .spf-btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 18px; border-radius: 9px; border: none; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: inherit; }
+    .spf-btn-primary { background: var(--accent); color: white; }
+    .spf-btn-primary:hover { opacity: 0.88; }
+    .spf-btn-secondary { background: var(--surface2); color: var(--text-1); border: 1px solid var(--border); }
+    .spf-btn-secondary:hover { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
+    .spf-btn-sm { padding: 6px 12px; font-size: 12px; border-radius: 7px; }
+    .spf-btn-danger { background: var(--surface2); color: var(--text-3); border: 1px solid var(--border); }
+    .spf-btn-danger:hover { background: #fee2e2; color: #dc2626; border-color: #fca5a5; }
+
+    .spf-row-actions { display: flex; gap: 10px; margin: 14px 0; flex-wrap: wrap; align-items: center; }
+    .spf-row-count { font-size: 13px; color: var(--text-3); margin-left: auto; }
+
+    .spf-stock-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 10px; }
+    .spf-stock-table { width: 100%; border-collapse: collapse; min-width: 620px; }
+    .spf-stock-table th { background: var(--surface2); font-size: 12px; font-weight: 700; padding: 9px 10px; text-align: left; border-bottom: 1px solid var(--border); color: var(--text-2); white-space: nowrap; }
+    .spf-stock-table td { padding: 6px 6px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    .spf-stock-table tbody tr:last-child td { border-bottom: none; }
+    .spf-stock-table input, .spf-stock-table select { width: 100%; padding: 7px 8px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--text-1); font-size: 13px; box-sizing: border-box; font-family: inherit; }
+    .spf-stock-table input:focus, .spf-stock-table select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-soft); }
+    .spf-del-btn { background: none; border: 1px solid var(--border); color: var(--text-3); border-radius: 6px; padding: 5px 9px; cursor: pointer; font-size: 13px; transition: all 0.15s; }
+    .spf-del-btn:hover { background: #fee2e2; color: #dc2626; border-color: #fca5a5; }
+
+    .spf-gen-actions { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+
+    .spf-formula-wrap { margin-top: 28px; }
+    .spf-formula-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; flex-wrap: wrap; gap: 8px; }
+    .spf-formula-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .spf-formula-scroll { overflow-x: auto; border: 1px solid var(--border); border-radius: 10px; }
+    .spf-formula-table { width: max-content; min-width: 100%; border-collapse: collapse; font-size: 12px; }
+    .spf-formula-table th { background: #1a73e8; color: white; font-size: 11px; font-weight: 700; padding: 8px 12px; text-align: left; border: 1px solid #1557b0; white-space: nowrap; }
+    .spf-formula-table th .col-lbl { font-size: 10px; font-weight: 400; opacity: 0.8; display: block; }
+    .spf-formula-table td { padding: 7px 12px; border: 1px solid var(--border); white-space: nowrap; color: var(--text-1); }
+    .spf-formula-table td.gf { color: #1a73e8; font-family: 'Courier New', monospace; font-size: 11px; }
+    .spf-formula-table td.calc { color: #0f9d58; font-family: 'Courier New', monospace; font-size: 11px; }
+    .spf-formula-table tr:nth-child(even) td:not(.gf):not(.calc) { background: var(--surface); }
+    .spf-formula-table tr.sum-row td { background: #fef9c3; font-weight: 700; border-top: 2px solid #ca8a04; }
+    .spf-formula-table tr.sum-row td.gf, .spf-formula-table tr.sum-row td.calc { background: #fef9c3; }
+
+    .spf-builder { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 24px; }
+    .spf-builder-row { display: flex; gap: 12px; align-items: flex-end; flex-wrap: wrap; }
+    .spf-builder-field { flex: 1; min-width: 140px; }
+    .spf-builder-field label { display: block; font-size: 12px; font-weight: 600; color: var(--text-2); margin-bottom: 6px; }
+    .spf-builder-field input, .spf-builder-field select { width: 100%; padding: 9px 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text-1); font-size: 14px; box-sizing: border-box; font-family: inherit; }
+    .spf-builder-field input:focus, .spf-builder-field select:focus { outline: none; border-color: var(--accent); }
+    .spf-builder-out { margin-top: 16px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; font-family: 'Courier New', monospace; font-size: 14px; color: var(--accent); display: flex; align-items: center; justify-content: space-between; gap: 12px; word-break: break-all; min-height: 48px; }
+
+    .spf-ref-table { width: 100%; border-collapse: collapse; }
+    .spf-ref-table th { background: var(--surface2); font-size: 12px; font-weight: 700; padding: 10px 14px; text-align: left; border: 1px solid var(--border); }
+    .spf-ref-table td { font-size: 13px; padding: 9px 14px; border: 1px solid var(--border); vertical-align: middle; }
+    .spf-ref-table tr:nth-child(even) td { background: var(--surface); }
+    .spf-ref-table td.attr { font-family: 'Courier New', monospace; color: var(--accent); font-weight: 700; font-size: 13px; }
+    .spf-ref-table td.formula-cell { font-family: 'Courier New', monospace; font-size: 11px; color: var(--text-2); }
+    .spf-copy-btn { background: var(--surface2); border: 1px solid var(--border); color: var(--text-2); border-radius: 6px; padding: 4px 10px; font-size: 11px; cursor: pointer; white-space: nowrap; font-family: inherit; transition: all 0.15s; }
+    .spf-copy-btn:hover { background: var(--accent-soft); color: var(--accent); border-color: var(--accent); }
+
+    .spf-case { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+    .spf-case h3 { font-size: 15px; font-weight: 700; color: var(--text-1); margin: 0 0 8px; }
+    .spf-case p { font-size: 13px; color: var(--text-2); line-height: 1.75; margin: 0 0 14px; }
+    .spf-case p code { background: var(--surface2); padding: 2px 6px; border-radius: 4px; font-size: 12px; color: var(--accent); }
+    .spf-case-scroll { overflow-x: auto; border: 1px solid var(--border); border-radius: 8px; }
+    .spf-case-table { width: max-content; min-width: 100%; border-collapse: collapse; font-size: 12px; }
+    .spf-case-table th { background: #1a73e8; color: white; font-size: 11px; font-weight: 700; padding: 7px 12px; text-align: left; border: 1px solid #1557b0; white-space: nowrap; }
+    .spf-case-table td { padding: 6px 12px; border: 1px solid var(--border); white-space: nowrap; color: var(--text-1); }
+    .spf-case-table td.gf { color: #1a73e8; font-family: 'Courier New', monospace; font-size: 11px; }
+    .spf-case-table td.calc { color: #0f9d58; font-family: 'Courier New', monospace; font-size: 11px; }
+    .spf-case-table tr:nth-child(even) td:not(.gf):not(.calc) { background: var(--surface); }
+    .spf-case-table tr.sum-row td { background: #fef9c3; font-weight: 700; border-top: 2px solid #ca8a04; }
+    .spf-case-copy { margin-top: 12px; display: flex; justify-content: flex-end; }
+
+    .spf-toast { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%); background: var(--text-1); color: var(--bg); padding: 11px 22px; border-radius: 10px; font-size: 14px; font-weight: 500; z-index: 9999; opacity: 0; transition: opacity 0.3s; pointer-events: none; white-space: nowrap; max-width: 90vw; text-align: center; }
+    .spf-toast.show { opacity: 1; }
+    .spf-toast.err { background: #dc2626; }
+
+    @media (max-width: 680px) {
+      .spf-tabs { overflow-x: auto; flex-wrap: nowrap; }
+      .spf-tab { white-space: nowrap; font-size: 12px; padding: 8px 12px; }
+      .spf-builder-row { flex-direction: column; }
+      .spf-builder-field { min-width: 0; }
+    }
+  </style>
+  <script>(function(){var t=localStorage.getItem('GUH-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark';})();</script>
+</head>
+<body>
+  <header class="guh-header" role="banner">
+    <div class="guh-header-inner">
+      <button class="guh-menu-btn" id="menu-btn" aria-label="Navigation menu">☰</button>
+      <a href="/ko/" class="guh-logo">글로벌 <span>유틸리티</span> 허브</a>
+      <nav class="guh-nav" aria-label="Main navigation">
+        <a href="/ko/#file-tools" class="guh-nav-link">파일도구</a>
+        <a href="/ko/#daily-tools" class="guh-nav-link">생활도구</a>
+        <a href="/ko/#finance" class="guh-nav-link active">금융계산기</a>
+        <a href="/ko/#health" class="guh-nav-link">건강</a>
+        <a href="/ko/#dev-tools" class="guh-nav-link">개발자도구</a>
+        <a href="/ko/blog/" class="guh-nav-link">블로그</a>
+      </nav>
+      <div class="guh-header-actions">
+        <div class="guh-lang-select">
+          <a href="/tools/ko/stock-portfolio-formula/" class="guh-lang-btn active">KO</a>
+          <a href="/tools/en/stock-portfolio-formula/" class="guh-lang-btn">EN</a>
+        </div>
+        <button class="guh-theme-btn" onclick="guhToggleTheme()" aria-label="Toggle dark mode">
+          <span id="theme-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+  <div class="guh-mobile-nav" id="mobile-nav" role="navigation" aria-label="Mobile navigation">
+    <a href="/ko/#file-tools">파일도구</a>
+    <a href="/ko/#daily-tools">생활도구</a>
+    <a href="/ko/#finance">금융계산기</a>
+    <a href="/ko/#health">건강</a>
+    <a href="/ko/#dev-tools">개발자도구</a>
+    <a href="/ko/blog/">블로그</a>
+    <hr />
+    <a href="/tools/ko/stock-portfolio-formula/">🇰🇷 한국어</a>
+    <a href="/tools/en/stock-portfolio-formula/">🇺🇸 English</a>
+  </div>
+
+  <main id="main-content">
+    <div class="guh-container guh-page">
+      <nav class="guh-breadcrumb" aria-label="breadcrumb">
+        <a href="/ko/">홈</a> › <a href="/ko/#finance">금융계산기</a> › <span>주식 포트폴리오 수식 생성기</span>
+      </nav>
+
+      <h1 class="guh-tool-title">📊 구글시트 주식 포트폴리오 수식 생성기</h1>
+      <p class="guh-tool-desc">GOOGLEFINANCE 함수를 활용해 포트폴리오 수익률·평가금액을 자동 계산하는 구글시트 수식을 생성합니다. 국내·해외 종목을 모두 지원하며, 생성된 수식을 구글시트에 붙여넣으면 실시간 주가가 자동 반영됩니다.</p>
+
+      <!-- Tabs -->
+      <div class="spf-tabs" role="tablist">
+        <button class="spf-tab active" role="tab" onclick="switchTab('generator')">📋 포트폴리오 수식 생성</button>
+        <button class="spf-tab" role="tab" onclick="switchTab('reference')">📚 GOOGLEFINANCE 레퍼런스</button>
+        <button class="spf-tab" role="tab" onclick="switchTab('cases')">💡 활용 사례</button>
+      </div>
+
+      <!-- ===== TAB 1: GENERATOR ===== -->
+      <div class="spf-panel active" id="panel-generator">
+        <div class="spf-info">
+          <strong>사용 방법</strong><br>
+          ① 보유 종목의 거래소·코드·수량·매입가를 입력하세요.<br>
+          ② <strong>[수식 생성]</strong> 클릭 → 구글시트 수식이 자동 생성됩니다.<br>
+          ③ <strong>[클립보드 복사]</strong> → <a href="https://sheets.google.com" target="_blank" rel="noopener" style="color:var(--accent);">구글시트</a> <strong>A1 셀</strong>에 붙여넣기(Ctrl+V)하세요.
+        </div>
+
+        <div class="spf-row-actions">
+          <button class="spf-btn spf-btn-secondary spf-btn-sm" onclick="loadExample()">📂 예시 불러오기</button>
+          <button class="spf-btn spf-btn-secondary spf-btn-sm" onclick="addRow()">+ 종목 추가</button>
+          <span class="spf-row-count" id="row-count"></span>
+        </div>
+
+        <div class="spf-stock-wrap">
+          <table class="spf-stock-table" id="stock-table">
+            <thead>
+              <tr>
+                <th style="width:90px;">거래소</th>
+                <th style="width:100px;">종목코드</th>
+                <th style="width:120px;">종목명</th>
+                <th style="width:80px;">보유수량</th>
+                <th style="width:100px;">매입평균가</th>
+                <th style="width:80px;">통화</th>
+                <th style="width:36px;"></th>
+              </tr>
+            </thead>
+            <tbody id="stock-tbody"></tbody>
+          </table>
+        </div>
+
+        <div class="spf-gen-actions">
+          <button class="spf-btn spf-btn-primary" onclick="generateFormulas()">📋 수식 생성</button>
+          <button class="spf-btn spf-btn-danger" onclick="clearAll(false)">🗑️ 전체 초기화</button>
+        </div>
+
+        <!-- Formula output -->
+        <div class="spf-formula-wrap" id="formula-wrap" style="display:none;">
+          <div class="spf-section-title">📄 생성된 구글시트 수식</div>
+          <div class="spf-info" style="margin-top:0;">
+            <a href="https://sheets.google.com" target="_blank" rel="noopener" style="color:var(--accent);font-weight:700;">구글시트(sheets.google.com)</a>를 열고 <strong>A1 셀</strong>을 클릭한 뒤 <strong>[클립보드 복사]</strong> → <strong>Ctrl+V</strong>로 붙여넣으세요.<br>
+            <span style="color:var(--text-3);font-size:12px;">* F열(현재가)은 구글시트에서 실시간 자동 조회됩니다. G·H·I·J·K열은 자동 계산 수식입니다.</span>
+          </div>
+          <div class="spf-formula-meta">
+            <div style="font-size:12px;color:var(--text-3);">
+              <span style="color:#1a73e8;font-weight:700;">■</span> GOOGLEFINANCE 자동조회&nbsp;&nbsp;
+              <span style="color:#0f9d58;font-weight:700;">■</span> 자동계산 수식
+            </div>
+            <div class="spf-formula-actions">
+              <button class="spf-btn spf-btn-primary spf-btn-sm" onclick="copyFormulas()">📋 클립보드 복사</button>
+              <button class="spf-btn spf-btn-secondary spf-btn-sm" onclick="downloadCSV()">📥 CSV 다운로드</button>
+            </div>
+          </div>
+          <div class="spf-formula-scroll">
+            <table class="spf-formula-table" id="formula-table"></table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== TAB 2: REFERENCE ===== -->
+      <div class="spf-panel" id="panel-reference">
+        <div class="spf-section-title">🔧 수식 빌더</div>
+        <div class="spf-builder">
+          <div class="spf-builder-row">
+            <div class="spf-builder-field">
+              <label>종목 코드 (거래소 포함 권장)</label>
+              <input type="text" id="builder-ticker" value="KRX:005930" placeholder="예: KRX:005930, NASDAQ:AAPL" oninput="updateBuilder()" />
+            </div>
+            <div class="spf-builder-field">
+              <label>조회 속성</label>
+              <select id="builder-attr" onchange="updateBuilder()">
+                <option value="price">price — 현재가</option>
+                <option value="priceopen">priceopen — 시가</option>
+                <option value="high">high — 고가</option>
+                <option value="low">low — 저가</option>
+                <option value="closeyest">closeyest — 전일 종가</option>
+                <option value="volume">volume — 거래량</option>
+                <option value="change">change — 전일 대비 변동액</option>
+                <option value="changepct">changepct — 전일 대비 변동률(%)</option>
+                <option value="marketcap">marketcap — 시가총액</option>
+                <option value="pe">pe — PER (주가수익비율)</option>
+                <option value="eps">eps — EPS (주당순이익)</option>
+                <option value="high52">high52 — 52주 최고가</option>
+                <option value="low52">low52 — 52주 최저가</option>
+                <option value="shares">shares — 발행주식수</option>
+                <option value="beta">beta — 베타(시장 대비 변동성)</option>
+                <option value="currency">currency — 거래 통화</option>
+              </select>
+            </div>
+          </div>
+          <div class="spf-builder-out" id="builder-out">
+            <span id="builder-formula">=GOOGLEFINANCE("KRX:005930","price")</span>
+            <button class="spf-copy-btn" onclick="copyBuilderFormula()">복사</button>
+          </div>
+        </div>
+
+        <div class="spf-section-title">📋 GOOGLEFINANCE 속성 목록</div>
+        <div style="overflow-x:auto; border:1px solid var(--border); border-radius:10px;">
+          <table class="spf-ref-table">
+            <thead>
+              <tr><th>속성</th><th>설명</th><th>예시 수식</th><th></th></tr>
+            </thead>
+            <tbody id="ref-tbody"></tbody>
+          </table>
+        </div>
+
+        <div class="spf-section-title" style="margin-top:32px;">🌐 주요 거래소 코드</div>
+        <div style="overflow-x:auto; border:1px solid var(--border); border-radius:10px;">
+          <table class="spf-ref-table">
+            <thead>
+              <tr><th>거래소</th><th>코드 접두어</th><th>수식 예시</th><th></th></tr>
+            </thead>
+            <tbody id="exchange-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ===== TAB 3: USE CASES ===== -->
+      <div class="spf-panel" id="panel-cases">
+
+        <div class="spf-case">
+          <h3>📈 사례 1: 기본 포트폴리오 수익률 추적</h3>
+          <p>국내외 주식을 한눈에 파악하는 기본 템플릿입니다. F열(현재가)은 GOOGLEFINANCE가 자동 조회하고, G~J열은 수식으로 자동 계산됩니다.</p>
+          <div class="spf-case-scroll">
+            <table class="spf-case-table">
+              <thead><tr><th>거래소코드(A)</th><th>종목명(B)</th><th>수량(C)</th><th>매입가(D)</th><th>현재가(E)</th><th>평가금액(F)</th><th>매입금액(G)</th><th>손익(H)</th><th>수익률(I)</th></tr></thead>
+              <tbody>
+                <tr><td>KRX:005930</td><td>삼성전자</td><td>100</td><td>75000</td><td class="gf">=GOOGLEFINANCE(A2,"price")</td><td class="calc">=C2*E2</td><td class="calc">=C2*D2</td><td class="calc">=F2-G2</td><td class="calc">=IFERROR(H2/G2*100,0)&amp;"%"</td></tr>
+                <tr><td>KRX:000660</td><td>SK하이닉스</td><td>30</td><td>150000</td><td class="gf">=GOOGLEFINANCE(A3,"price")</td><td class="calc">=C3*E3</td><td class="calc">=C3*D3</td><td class="calc">=F3-G3</td><td class="calc">=IFERROR(H3/G3*100,0)&amp;"%"</td></tr>
+                <tr><td>NASDAQ:AAPL</td><td>Apple</td><td>10</td><td>180</td><td class="gf">=GOOGLEFINANCE(A4,"price")</td><td class="calc">=C4*E4</td><td class="calc">=C4*D4</td><td class="calc">=F4-G4</td><td class="calc">=IFERROR(H4/G4*100,0)&amp;"%"</td></tr>
+                <tr class="sum-row"><td colspan="5">합계</td><td class="calc">=SUM(F2:F4)</td><td class="calc">=SUM(G2:G4)</td><td class="calc">=SUM(H2:H4)</td><td class="calc">=IFERROR(SUM(H2:H4)/SUM(G2:G4)*100,0)&amp;"%"</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="spf-case-copy"><button class="spf-btn spf-btn-secondary spf-btn-sm" onclick="copyCase(1)">📋 이 수식 복사</button></div>
+        </div>
+
+        <div class="spf-case">
+          <h3>💱 사례 2: 해외주식 원화 환산 포트폴리오</h3>
+          <p>미국 주식을 원화 기준으로 통합 관리합니다. <code>=GOOGLEFINANCE("CURRENCY:USDKRW")</code>로 실시간 환율을 자동 조회하여 원화 평가금액을 계산합니다.</p>
+          <div class="spf-case-scroll">
+            <table class="spf-case-table">
+              <thead><tr><th>종목(A)</th><th>수량(B)</th><th>매입가$(C)</th><th>현재가$(D)</th><th>USD/KRW(E)</th><th>평가금액₩(F)</th><th>매입금액₩(G)</th><th>손익₩(H)</th></tr></thead>
+              <tbody>
+                <tr><td>NASDAQ:AAPL</td><td>10</td><td>180</td><td class="gf">=GOOGLEFINANCE(A2,"price")</td><td class="gf">=GOOGLEFINANCE("CURRENCY:USDKRW")</td><td class="calc">=B2*D2*E2</td><td class="calc">=B2*C2*E2</td><td class="calc">=F2-G2</td></tr>
+                <tr><td>NYSE:TSLA</td><td>5</td><td>220</td><td class="gf">=GOOGLEFINANCE(A3,"price")</td><td class="gf">=GOOGLEFINANCE("CURRENCY:USDKRW")</td><td class="calc">=B3*D3*E3</td><td class="calc">=B3*C3*E3</td><td class="calc">=F3-G3</td></tr>
+                <tr><td>NASDAQ:MSFT</td><td>8</td><td>380</td><td class="gf">=GOOGLEFINANCE(A4,"price")</td><td class="gf">=GOOGLEFINANCE("CURRENCY:USDKRW")</td><td class="calc">=B4*D4*E4</td><td class="calc">=B4*C4*E4</td><td class="calc">=F4-G4</td></tr>
+                <tr class="sum-row"><td colspan="5">합계</td><td class="calc">=SUM(F2:F4)</td><td class="calc">=SUM(G2:G4)</td><td class="calc">=SUM(H2:H4)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="spf-case-copy"><button class="spf-btn spf-btn-secondary spf-btn-sm" onclick="copyCase(2)">📋 이 수식 복사</button></div>
+        </div>
+
+        <div class="spf-case">
+          <h3>📉 사례 3: 52주 고저가 분석</h3>
+          <p>현재가가 52주 최고·최저가 대비 어느 위치인지 파악합니다. 저점 매수 기회 포착이나 고점 경계 시 유용합니다.</p>
+          <div class="spf-case-scroll">
+            <table class="spf-case-table">
+              <thead><tr><th>종목(A)</th><th>종목명(B)</th><th>현재가(C)</th><th>52주 최고(D)</th><th>52주 최저(E)</th><th>최고 대비(F)</th><th>최저 대비(G)</th><th>위치(%)(H)</th></tr></thead>
+              <tbody>
+                <tr><td>KRX:005930</td><td>삼성전자</td><td class="gf">=GOOGLEFINANCE(A2,"price")</td><td class="gf">=GOOGLEFINANCE(A2,"high52")</td><td class="gf">=GOOGLEFINANCE(A2,"low52")</td><td class="calc">=TEXT(C2/D2-1,"0.00%")</td><td class="calc">=TEXT(C2/E2-1,"0.00%")</td><td class="calc">=TEXT((C2-E2)/(D2-E2),"0%")</td></tr>
+                <tr><td>NASDAQ:NVDA</td><td>NVIDIA</td><td class="gf">=GOOGLEFINANCE(A3,"price")</td><td class="gf">=GOOGLEFINANCE(A3,"high52")</td><td class="gf">=GOOGLEFINANCE(A3,"low52")</td><td class="calc">=TEXT(C3/D3-1,"0.00%")</td><td class="calc">=TEXT(C3/E3-1,"0.00%")</td><td class="calc">=TEXT((C3-E3)/(D3-E3),"0%")</td></tr>
+                <tr><td>KRX:035420</td><td>NAVER</td><td class="gf">=GOOGLEFINANCE(A4,"price")</td><td class="gf">=GOOGLEFINANCE(A4,"high52")</td><td class="gf">=GOOGLEFINANCE(A4,"low52")</td><td class="calc">=TEXT(C4/D4-1,"0.00%")</td><td class="calc">=TEXT(C4/E4-1,"0.00%")</td><td class="calc">=TEXT((C4-E4)/(D4-E4),"0%")</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="spf-case-copy"><button class="spf-btn spf-btn-secondary spf-btn-sm" onclick="copyCase(3)">📋 이 수식 복사</button></div>
+        </div>
+
+        <div class="spf-case">
+          <h3>📆 사례 4: 과거 가격 이력 조회</h3>
+          <p>GOOGLEFINANCE의 3~5번째 인수를 활용해 특정 기간의 일별·주별 시세를 배열로 가져옵니다. 차트나 수익률 백테스트 분석에 유용합니다.</p>
+          <div class="spf-case-scroll">
+            <table class="spf-case-table">
+              <thead><tr><th>수식</th><th>설명</th></tr></thead>
+              <tbody>
+                <tr><td class="gf">=GOOGLEFINANCE("AAPL","price",DATE(2024,1,1),DATE(2024,12,31),"DAILY")</td><td>2024년 Apple 일별 종가 이력</td></tr>
+                <tr><td class="gf">=GOOGLEFINANCE("KRX:005930","price",DATE(2024,1,1),30)</td><td>2024-01-01부터 30일간 삼성전자 시세</td></tr>
+                <tr><td class="gf">=GOOGLEFINANCE("AAPL","price",DATE(2024,1,1),DATE(2024,12,31),"WEEKLY")</td><td>2024년 Apple 주별 시세</td></tr>
+                <tr><td class="gf">=GOOGLEFINANCE("CURRENCY:USDKRW","price",DATE(2024,1,1),DATE(2024,12,31),"DAILY")</td><td>2024년 USD/KRW 일별 환율 이력</td></tr>
+                <tr><td class="gf">=GOOGLEFINANCE("KRX:005930","all",DATE(2024,6,1),DATE(2024,6,30),"DAILY")</td><td>2024년 6월 삼성전자 OHLCV (시고저종거래량)</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="spf-case-copy"><button class="spf-btn spf-btn-secondary spf-btn-sm" onclick="copyCase(4)">📋 이 수식 복사</button></div>
+        </div>
+
+        <div class="spf-case">
+          <h3>📊 사례 5: 섹터별 비중 분석</h3>
+          <p>종목별 평가금액과 총 포트폴리오 대비 비중을 계산합니다. 구글시트의 원형 차트와 연동하면 섹터 배분을 시각화할 수 있습니다.</p>
+          <div class="spf-case-scroll">
+            <table class="spf-case-table">
+              <thead><tr><th>종목(A)</th><th>섹터(B)</th><th>수량(C)</th><th>현재가(D)</th><th>평가금액(E)</th><th>비중%(F)</th></tr></thead>
+              <tbody>
+                <tr><td>KRX:005930</td><td>반도체</td><td>100</td><td class="gf">=GOOGLEFINANCE(A2,"price")</td><td class="calc">=C2*D2</td><td class="calc">=TEXT(E2/SUM($E$2:$E$5),"0.0%")</td></tr>
+                <tr><td>KRX:000660</td><td>반도체</td><td>30</td><td class="gf">=GOOGLEFINANCE(A3,"price")</td><td class="calc">=C3*D3</td><td class="calc">=TEXT(E3/SUM($E$2:$E$5),"0.0%")</td></tr>
+                <tr><td>NASDAQ:AAPL</td><td>IT</td><td>10</td><td class="gf">=GOOGLEFINANCE(A4,"price")</td><td class="calc">=C4*D4</td><td class="calc">=TEXT(E4/SUM($E$2:$E$5),"0.0%")</td></tr>
+                <tr><td>NYSE:JPM</td><td>금융</td><td>15</td><td class="gf">=GOOGLEFINANCE(A5,"price")</td><td class="calc">=C5*D5</td><td class="calc">=TEXT(E5/SUM($E$2:$E$5),"0.0%")</td></tr>
+                <tr class="sum-row"><td colspan="4">합계</td><td class="calc">=SUM(E2:E5)</td><td>100.0%</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="spf-case-copy"><button class="spf-btn spf-btn-secondary spf-btn-sm" onclick="copyCase(5)">📋 이 수식 복사</button></div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="guh-footer" role="contentinfo">
+    <div class="guh-footer-inner">
+      <a href="/ko/" class="guh-footer-logo">Global Utility Hub</a>
+      <nav class="guh-footer-links" aria-label="Footer navigation">
+        <a href="/ko/blog/">블로그</a>
+        <a href="/ko/">도구 목록</a>
+        <a href="mailto:contact@bmsystems.biz">Contact</a>
+      </nav>
+      <p class="guh-footer-copy">© 2026 Global Utility Hub. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <div class="spf-toast" id="spf-toast"></div>
+
+  <script>
+    function guhToggleTheme(){var d=document.documentElement.dataset.theme==='dark';document.documentElement.dataset.theme=d?'light':'dark';localStorage.setItem('GUH-theme',document.documentElement.dataset.theme);document.getElementById('theme-icon').textContent=d?'🌙':'☀️';}
+    (function(){var d=document.documentElement.dataset.theme==='dark';var i=document.getElementById('theme-icon');if(i)i.textContent=d?'☀️':'🌙';})();
+    document.getElementById('menu-btn').addEventListener('click',function(){document.getElementById('mobile-nav').classList.toggle('open');});
+
+    function showToast(msg,err){var t=document.getElementById('spf-toast');t.textContent=msg;t.className='spf-toast'+(err?' err':'')+' show';clearTimeout(t._t);t._t=setTimeout(function(){t.classList.remove('show');},3000);}
+
+    function switchTab(name){
+      var names=['generator','reference','cases'];
+      document.querySelectorAll('.spf-tab').forEach(function(b,i){b.classList.toggle('active',names[i]===name);});
+      document.querySelectorAll('.spf-panel').forEach(function(p){p.classList.toggle('active',p.id==='panel-'+name);});
+    }
+
+    // ── GOOGLEFINANCE attribute reference data ──
+    var GF_ATTRS=[
+      {attr:'price',       desc:'실시간 현재가',          ex:'KRX:005930'},
+      {attr:'priceopen',   desc:'당일 시가',              ex:'KRX:005930'},
+      {attr:'high',        desc:'당일 고가',              ex:'KRX:005930'},
+      {attr:'low',         desc:'당일 저가',              ex:'KRX:005930'},
+      {attr:'closeyest',   desc:'전일 종가',              ex:'NASDAQ:AAPL'},
+      {attr:'volume',      desc:'당일 거래량',            ex:'KRX:005930'},
+      {attr:'change',      desc:'전일 대비 변동액',       ex:'NASDAQ:AAPL'},
+      {attr:'changepct',   desc:'전일 대비 변동률(%)',    ex:'NASDAQ:AAPL'},
+      {attr:'marketcap',   desc:'시가총액',               ex:'NASDAQ:AAPL'},
+      {attr:'pe',          desc:'PER (주가수익비율)',     ex:'NASDAQ:AAPL'},
+      {attr:'eps',         desc:'EPS (주당순이익)',       ex:'NASDAQ:AAPL'},
+      {attr:'high52',      desc:'52주 최고가',            ex:'KRX:005930'},
+      {attr:'low52',       desc:'52주 최저가',            ex:'KRX:005930'},
+      {attr:'shares',      desc:'발행주식수',             ex:'NASDAQ:AAPL'},
+      {attr:'beta',        desc:'베타(시장 대비 변동성)', ex:'NASDAQ:AAPL'},
+      {attr:'currency',    desc:'거래 통화 (KRW, USD 등)',ex:'KRX:005930'},
+    ];
+
+    var EXCHANGES=[
+      {name:'한국거래소 (KOSPI / KOSDAQ)', code:'KRX',      ex:'005930', note:'삼성전자'},
+      {name:'나스닥 (NASDAQ)',             code:'NASDAQ',   ex:'AAPL',   note:'Apple'},
+      {name:'뉴욕증권거래소 (NYSE)',       code:'NYSE',     ex:'BRK.B',  note:'Berkshire B'},
+      {name:'아멕스 (AMEX)',               code:'AMEX',     ex:'SPY',    note:'S&P 500 ETF'},
+      {name:'도쿄증권거래소 (TSE)',        code:'TYO',      ex:'7203',   note:'Toyota'},
+      {name:'홍콩증권거래소 (HKEX)',       code:'HKG',      ex:'0700',   note:'Tencent'},
+      {name:'런던증권거래소 (LSE)',        code:'LON',      ex:'SHEL',   note:'Shell'},
+      {name:'환율 (Currency pair)',        code:'CURRENCY', ex:'USDKRW', note:'달러/원 환율'},
+    ];
+
+    // Build reference tables
+    (function(){
+      var rt=document.getElementById('ref-tbody');
+      rt.innerHTML=GF_ATTRS.map(function(a){
+        var f='=GOOGLEFINANCE("'+a.ex+'","'+a.attr+'")';
+        return '<tr><td class="attr">'+a.attr+'</td><td>'+a.desc+'</td><td class="formula-cell">'+escHtml(f)+'</td><td><button class="spf-copy-btn" onclick="copyText(\''+escAttr(f)+'\')">복사</button></td></tr>';
+      }).join('');
+
+      var et=document.getElementById('exchange-tbody');
+      et.innerHTML=EXCHANGES.map(function(e){
+        var f=e.code==='CURRENCY'
+          ?'=GOOGLEFINANCE("CURRENCY:'+e.ex+'")'
+          :'=GOOGLEFINANCE("'+e.code+':'+e.ex+'","price")';
+        return '<tr><td>'+e.name+'</td><td class="attr">'+e.code+'</td>'
+          +'<td class="formula-cell">'+escHtml(f)+'<br><span style="color:var(--text-3);font-size:11px;">예: '+e.code+(e.code==='CURRENCY'?':':'&ZeroWidthSpace;:')+e.ex+' ('+e.note+')</span></td>'
+          +'<td><button class="spf-copy-btn" onclick="copyText(\''+escAttr(f)+'\')">복사</button></td></tr>';
+      }).join('');
+    })();
+
+    // Formula builder
+    function updateBuilder(){
+      var ticker=(document.getElementById('builder-ticker').value.trim()||'TICKER');
+      var attr=document.getElementById('builder-attr').value;
+      var f='=GOOGLEFINANCE("'+ticker+'","'+attr+'")';
+      document.getElementById('builder-formula').textContent=f;
+    }
+    function copyBuilderFormula(){
+      var ticker=(document.getElementById('builder-ticker').value.trim()||'TICKER');
+      var attr=document.getElementById('builder-attr').value;
+      copyText('=GOOGLEFINANCE("'+ticker+'","'+attr+'")');
+    }
+
+    // ── Stock rows ──
+    var rowId=0;
+    function addRow(d){
+      d=d||{};rowId++;var id=rowId;
+      var ex=d.exchange||'KRX';
+      var currencies=['KRW','USD','JPY','EUR','HKD','GBP'];
+      var curr=d.currency||'KRW';
+      var excList=['KRX','NASDAQ','NYSE','AMEX','TYO','HKG','LON'];
+      var tr=document.createElement('tr');tr.id='row-'+id;
+      tr.innerHTML=
+        '<td><select name="exchange">'+excList.map(function(e){return'<option'+(e===ex?' selected':'')+'>'+e+'</option>';}).join('')+'</select></td>'+
+        '<td><input type="text" name="ticker" value="'+(d.ticker||'')+'" placeholder="005930" /></td>'+
+        '<td><input type="text" name="name" value="'+(d.name||'')+'" placeholder="종목명(선택)" /></td>'+
+        '<td><input type="number" name="qty" value="'+(d.qty||'')+'" placeholder="100" min="0" /></td>'+
+        '<td><input type="number" name="price" value="'+(d.price||'')+'" placeholder="75000" min="0" step="any" /></td>'+
+        '<td><select name="currency">'+currencies.map(function(c){return'<option'+(c===curr?' selected':'')+'>'+c+'</option>';}).join('')+'</select></td>'+
+        '<td><button class="spf-del-btn" onclick="removeRow('+id+')" title="삭제">✕</button></td>';
+      document.getElementById('stock-tbody').appendChild(tr);
+      updateRowCount();
+    }
+    function removeRow(id){var r=document.getElementById('row-'+id);if(r)r.remove();updateRowCount();}
+    function updateRowCount(){var n=document.getElementById('stock-tbody').children.length;document.getElementById('row-count').textContent=n?n+'개 종목':'';}
+
+    function loadExample(){
+      clearAll(true);
+      [{exchange:'KRX',ticker:'005930',name:'삼성전자',qty:100,price:75000,currency:'KRW'},
+       {exchange:'KRX',ticker:'000660',name:'SK하이닉스',qty:30,price:150000,currency:'KRW'},
+       {exchange:'KRX',ticker:'035420',name:'NAVER',qty:10,price:200000,currency:'KRW'},
+       {exchange:'NASDAQ',ticker:'AAPL',name:'Apple',qty:10,price:180,currency:'USD'},
+       {exchange:'NASDAQ',ticker:'MSFT',name:'Microsoft',qty:5,price:380,currency:'USD'},
+      ].forEach(addRow);
+    }
+
+    function clearAll(silent){
+      document.getElementById('stock-tbody').innerHTML='';
+      updateRowCount();
+      document.getElementById('formula-wrap').style.display='none';
+      if(!silent)showToast('초기화되었습니다.');
+    }
+
+    function getStocks(){
+      return Array.from(document.getElementById('stock-tbody').querySelectorAll('tr')).map(function(tr){
+        return{
+          exchange:tr.querySelector('[name=exchange]').value,
+          ticker:tr.querySelector('[name=ticker]').value.trim(),
+          name:tr.querySelector('[name=name]').value.trim(),
+          qty:tr.querySelector('[name=qty]').value.trim(),
+          price:tr.querySelector('[name=price]').value.trim(),
+          currency:tr.querySelector('[name=currency]').value,
+        };
+      }).filter(function(s){return s.ticker;});
+    }
+
+    var lastData=null;
+
+    function generateFormulas(){
+      var stocks=getStocks();
+      if(!stocks.length){showToast('종목코드를 1개 이상 입력해주세요.',true);return;}
+      var n=stocks.length;
+      var lastRow=n+1;
+
+      var cols=[
+        {lbl:'A',title:'거래소코드'},
+        {lbl:'B',title:'종목코드'},
+        {lbl:'C',title:'종목명'},
+        {lbl:'D',title:'보유수량'},
+        {lbl:'E',title:'매입평균가'},
+        {lbl:'F',title:'현재가(GF)'},
+        {lbl:'G',title:'평가금액'},
+        {lbl:'H',title:'매입금액'},
+        {lbl:'I',title:'손익'},
+        {lbl:'J',title:'수익률(%)'},
+        {lbl:'K',title:'비중(%)'},
+      ];
+
+      var rows=stocks.map(function(s,i){
+        var r=i+2;
+        return[
+          s.exchange+':'+s.ticker,
+          s.ticker,
+          s.name||s.ticker,
+          s.qty||0,
+          s.price||0,
+          '=GOOGLEFINANCE(A'+r+',"price")',
+          '=D'+r+'*F'+r,
+          '=D'+r+'*E'+r,
+          '=G'+r+'-H'+r,
+          '=IFERROR((G'+r+'-H'+r+')/H'+r+'*100,0)',
+          '=IFERROR(G'+r+'/SUM($G$2:$G$'+lastRow+')*100,0)',
+        ];
+      });
+
+      var sumRow=[
+        '합계','','','','','',
+        '=SUM(G2:G'+lastRow+')',
+        '=SUM(H2:H'+lastRow+')',
+        '=SUM(I2:I'+lastRow+')',
+        '=IFERROR(SUM(I2:I'+lastRow+')/SUM(H2:H'+lastRow+')*100,0)',
+        '=SUM(K2:K'+lastRow+')',
+      ];
+
+      lastData={cols:cols,rows:rows,sumRow:sumRow};
+
+      var isGF=function(v){return String(v).startsWith('=GOOGLEFINANCE');};
+      var isCalc=function(v){return String(v).startsWith('=')&&!isGF(v);};
+
+      var thead='<thead><tr>'+cols.map(function(c){return'<th><span class="col-lbl">'+c.lbl+'열</span>'+c.title+'</th>';}).join('')+'</tr></thead>';
+      var tbody='<tbody>'+
+        rows.map(function(row){
+          return'<tr>'+row.map(function(v){
+            var cls=isGF(v)?'gf':isCalc(v)?'calc':'';
+            return'<td'+(cls?' class="'+cls+'"':'')+'>'+escHtml(String(v))+'</td>';
+          }).join('')+'</tr>';
+        }).join('')+
+        '<tr class="sum-row">'+sumRow.map(function(v){
+          var cls=isGF(v)?'gf':isCalc(v)?'calc':'';
+          return'<td'+(cls?' class="'+cls+'"':'')+'>'+escHtml(String(v))+'</td>';
+        }).join('')+'</tr>'+
+        '</tbody>';
+      document.getElementById('formula-table').innerHTML=thead+tbody;
+      var fw=document.getElementById('formula-wrap');
+      fw.style.display='block';
+      fw.scrollIntoView({behavior:'smooth',block:'nearest'});
+    }
+
+    function copyFormulas(){
+      if(!lastData){showToast('먼저 수식을 생성해주세요.',true);return;}
+      var lines=[];
+      lines.push(lastData.cols.map(function(c){return c.title;}).join('\t'));
+      lastData.rows.forEach(function(r){lines.push(r.join('\t'));});
+      lines.push(lastData.sumRow.join('\t'));
+      copyText(lines.join('\n'),'복사되었습니다. 구글시트 A1 셀에 붙여넣으세요 (Ctrl+V).');
+    }
+
+    function downloadCSV(){
+      if(!lastData){showToast('먼저 수식을 생성해주세요.',true);return;}
+      var q=function(v){return'"'+String(v).replace(/"/g,'""')+'"';};
+      var lines=[lastData.cols.map(function(c){return q(c.title);}).join(',')];
+      lastData.rows.forEach(function(r){lines.push(r.map(q).join(','));});
+      lines.push(lastData.sumRow.map(q).join(','));
+      var blob=new Blob(['﻿'+lines.join('\n')],{type:'text/csv;charset=utf-8;'});
+      var url=URL.createObjectURL(blob);
+      var a=document.createElement('a');a.href=url;a.download='portfolio_template.csv';a.click();
+      URL.revokeObjectURL(url);
+      showToast('CSV 파일이 다운로드되었습니다.');
+    }
+
+    // Use-case copy data
+    var CASE_DATA={
+      1:'거래소코드\t종목명\t수량\t매입가\t현재가\t평가금액\t매입금액\t손익\t수익률\n'
+       +'KRX:005930\t삼성전자\t100\t75000\t=GOOGLEFINANCE(A2,"price")\t=C2*E2\t=C2*D2\t=F2-G2\t=IFERROR(H2/G2*100,0)&"%"\n'
+       +'KRX:000660\tSK하이닉스\t30\t150000\t=GOOGLEFINANCE(A3,"price")\t=C3*E3\t=C3*D3\t=F3-G3\t=IFERROR(H3/G3*100,0)&"%"\n'
+       +'NASDAQ:AAPL\tApple\t10\t180\t=GOOGLEFINANCE(A4,"price")\t=C4*E4\t=C4*D4\t=F4-G4\t=IFERROR(H4/G4*100,0)&"%"\n'
+       +'합계\t\t\t\t\t=SUM(F2:F4)\t=SUM(G2:G4)\t=SUM(H2:H4)\t=IFERROR(SUM(H2:H4)/SUM(G2:G4)*100,0)&"%"',
+
+      2:'종목\t수량\t매입가$\t현재가$\tUSD/KRW\t평가금액₩\t매입금액₩\t손익₩\n'
+       +'NASDAQ:AAPL\t10\t180\t=GOOGLEFINANCE(A2,"price")\t=GOOGLEFINANCE("CURRENCY:USDKRW")\t=B2*D2*E2\t=B2*C2*E2\t=F2-G2\n'
+       +'NYSE:TSLA\t5\t220\t=GOOGLEFINANCE(A3,"price")\t=GOOGLEFINANCE("CURRENCY:USDKRW")\t=B3*D3*E3\t=B3*C3*E3\t=F3-G3\n'
+       +'NASDAQ:MSFT\t8\t380\t=GOOGLEFINANCE(A4,"price")\t=GOOGLEFINANCE("CURRENCY:USDKRW")\t=B4*D4*E4\t=B4*C4*E4\t=F4-G4\n'
+       +'합계\t\t\t\t\t=SUM(F2:F4)\t=SUM(G2:G4)\t=SUM(H2:H4)',
+
+      3:'종목\t종목명\t현재가\t52주최고\t52주최저\t최고대비\t최저대비\t위치%\n'
+       +'KRX:005930\t삼성전자\t=GOOGLEFINANCE(A2,"price")\t=GOOGLEFINANCE(A2,"high52")\t=GOOGLEFINANCE(A2,"low52")\t=TEXT(C2/D2-1,"0.00%")\t=TEXT(C2/E2-1,"0.00%")\t=TEXT((C2-E2)/(D2-E2),"0%")\n'
+       +'NASDAQ:NVDA\tNVIDIA\t=GOOGLEFINANCE(A3,"price")\t=GOOGLEFINANCE(A3,"high52")\t=GOOGLEFINANCE(A3,"low52")\t=TEXT(C3/D3-1,"0.00%")\t=TEXT(C3/E3-1,"0.00%")\t=TEXT((C3-E3)/(D3-E3),"0%")\n'
+       +'KRX:035420\tNAVER\t=GOOGLEFINANCE(A4,"price")\t=GOOGLEFINANCE(A4,"high52")\t=GOOGLEFINANCE(A4,"low52")\t=TEXT(C4/D4-1,"0.00%")\t=TEXT(C4/E4-1,"0.00%")\t=TEXT((C4-E4)/(D4-E4),"0%")',
+
+      4:'수식\t설명\n'
+       +'=GOOGLEFINANCE("AAPL","price",DATE(2024,1,1),DATE(2024,12,31),"DAILY")\t2024년 Apple 일별 종가 이력\n'
+       +'=GOOGLEFINANCE("KRX:005930","price",DATE(2024,1,1),30)\t2024-01-01부터 30일간 삼성전자 시세\n'
+       +'=GOOGLEFINANCE("AAPL","price",DATE(2024,1,1),DATE(2024,12,31),"WEEKLY")\t2024년 Apple 주별 시세\n'
+       +'=GOOGLEFINANCE("CURRENCY:USDKRW","price",DATE(2024,1,1),DATE(2024,12,31),"DAILY")\t2024년 USD/KRW 일별 환율 이력\n'
+       +'=GOOGLEFINANCE("KRX:005930","all",DATE(2024,6,1),DATE(2024,6,30),"DAILY")\t2024년 6월 삼성전자 OHLCV',
+
+      5:'종목\t섹터\t수량\t현재가\t평가금액\t비중%\n'
+       +'KRX:005930\t반도체\t100\t=GOOGLEFINANCE(A2,"price")\t=C2*D2\t=TEXT(E2/SUM($E$2:$E$5),"0.0%")\n'
+       +'KRX:000660\t반도체\t30\t=GOOGLEFINANCE(A3,"price")\t=C3*D3\t=TEXT(E3/SUM($E$2:$E$5),"0.0%")\n'
+       +'NASDAQ:AAPL\tIT\t10\t=GOOGLEFINANCE(A4,"price")\t=C4*D4\t=TEXT(E4/SUM($E$2:$E$5),"0.0%")\n'
+       +'NYSE:JPM\t금융\t15\t=GOOGLEFINANCE(A5,"price")\t=C5*D5\t=TEXT(E5/SUM($E$2:$E$5),"0.0%")\n'
+       +'합계\t\t\t\t=SUM(E2:E5)\t100.0%',
+    };
+
+    function copyCase(n){copyText(CASE_DATA[n],'수식이 복사되었습니다. 구글시트 A1 셀에 붙여넣으세요.');}
+
+    function copyText(text,msg){
+      msg=msg||'복사되었습니다.';
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(function(){showToast(msg);}).catch(function(){fbCopy(text,msg);});
+      }else{fbCopy(text,msg);}
+    }
+    function fbCopy(text,msg){
+      var ta=document.createElement('textarea');ta.value=text;ta.style.cssText='position:fixed;top:-9999px';
+      document.body.appendChild(ta);ta.select();ta.setSelectionRange(0,999999);
+      try{document.execCommand('copy');showToast(msg);}catch(e){showToast('직접 선택 후 Ctrl+C로 복사하세요.',true);}
+      document.body.removeChild(ta);
+    }
+
+    function escHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+    function escAttr(s){return s.replace(/\\/g,'\\\\').replace(/'/g,"\\'");}
+
+    // Init rows
+    addRow();addRow();addRow();
+  </script>
+  <script src="/assets/js/guh-search.js" defer></script>
+</body>
+</html>
