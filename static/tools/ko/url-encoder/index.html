@@ -1,15 +1,15 @@
-<!DOCTYPE html>
+ï»¿<!DOCTYPE html>
 <html lang="ko" data-theme="">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>URL ÀÎÄÚ´õ ? URL ÀÎÄÚµù¡¤µğÄÚµù ¹«·á ¿Â¶óÀÎ | ±Û·Î¹ú À¯Æ¿¸®Æ¼ Çãºê</title>
-  <meta name="description" content="URL ÀÎÄÚµù(ÆÛ¼¾Æ® ÀÎÄÚµù)°ú µğÄÚµùÀ» Áï½Ã Ã³¸®ÇÕ´Ï´Ù. ÇÑ±Û URL, Æ¯¼ö¹®ÀÚ º¯È¯. ¹«·á ¿Â¶óÀÎ URL ÀÎÄÚ´õ." />
+  <title>URL ì¸ì½”ë” â€“ URL ì¸ì½”ë”©Â·ë””ì½”ë”© ë¬´ë£Œ ì˜¨ë¼ì¸ | ê¸€ë¡œë²Œ ìœ í‹¸ë¦¬í‹° í—ˆë¸Œ</title>
+  <meta name="description" content="URL ì¸ì½”ë”©(í¼ì„¼íŠ¸ ì¸ì½”ë”©)ê³¼ ë””ì½”ë”©ì„ ì¦‰ì‹œ ì²˜ë¦¬í•©ë‹ˆë‹¤. í•œê¸€ URL, íŠ¹ìˆ˜ë¬¸ì ë³€í™˜. ë¬´ë£Œ ì˜¨ë¼ì¸ URL ì¸ì½”ë”." />
   <link rel="canonical" href="https://util.bmsystems.biz/tools/ko/url-encoder/" />
   <link rel="alternate" hreflang="ko" href="https://util.bmsystems.biz/tools/ko/url-encoder/" />
   <link rel="alternate" hreflang="en" href="https://util.bmsystems.biz/tools/en/url-encoder/" />
   <link rel="alternate" hreflang="x-default" href="https://util.bmsystems.biz/tools/en/url-encoder/" />
-  <meta property="og:title" content="URL ÀÎÄÚ´õ" /><meta property="og:description" content="URL ÀÎÄÚµù¡¤µğÄÚµùÀ» Ã³¸®ÇÕ´Ï´Ù." /><meta property="og:type" content="website" /><meta property="og:url" content="https://util.bmsystems.biz/tools/ko/url-encoder/" /><meta property="og:locale" content="ko_KR" /><meta name="twitter:card" content="summary" />
+  <meta property="og:title" content="URL ì¸ì½”ë”" /><meta property="og:description" content="URL ì¸ì½”ë”©Â·ë””ì½”ë”©ì„ ì²˜ë¦¬í•©ë‹ˆë‹¤." /><meta property="og:type" content="website" /><meta property="og:url" content="https://util.bmsystems.biz/tools/ko/url-encoder/" /><meta property="og:locale" content="ko_KR" /><meta name="twitter:card" content="summary" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/assets/css/common.css?v=2" />
@@ -18,71 +18,71 @@
 <body>
 <header class="guh-header" role="banner">
   <div class="guh-header-inner">
-    <button class="guh-menu-btn" id="menu-btn" aria-label="¸Ş´º">?</button>
-    <a href="/ko/" class="guh-logo">±Û·Î¹ú <span>À¯Æ¿¸®Æ¼</span> Çãºê</a>
-    <nav class="guh-nav"><a href="/ko/#file-tools" class="guh-nav-link">ÆÄÀÏµµ±¸</a><a href="/ko/#daily-tools" class="guh-nav-link">»ıÈ°µµ±¸</a><a href="/ko/#finance" class="guh-nav-link">±İÀ¶°è»ê±â</a><a href="/ko/#health" class="guh-nav-link">°Ç°­</a><a href="/ko/#dev-tools" class="guh-nav-link active">°³¹ßÀÚµµ±¸</a><a href="/ko/blog/" class="guh-nav-link">ºí·Î±×</a></nav>
+    <button class="guh-menu-btn" id="menu-btn" aria-label="ë©”ë‰´">â˜°</button>
+    <a href="/ko/" class="guh-logo">ê¸€ë¡œë²Œ <span>ìœ í‹¸ë¦¬í‹°</span> í—ˆë¸Œ</a>
+    <nav class="guh-nav"><a href="/ko/#file-tools" class="guh-nav-link">íŒŒì¼ë„êµ¬</a><a href="/ko/#daily-tools" class="guh-nav-link">ìƒí™œë„êµ¬</a><a href="/ko/#finance" class="guh-nav-link">ê¸ˆìœµê³„ì‚°ê¸°</a><a href="/ko/#health" class="guh-nav-link">ê±´ê°•</a><a href="/ko/#dev-tools" class="guh-nav-link active">ê°œë°œìë„êµ¬</a><a href="/ko/blog/" class="guh-nav-link">ë¸”ë¡œê·¸</a></nav>
     <div class="guh-header-actions">
       <div class="guh-lang-select"><a href="/tools/ko/url-encoder/" class="guh-lang-btn active">KO</a><a href="/tools/en/url-encoder/" class="guh-lang-btn">EN</a></div>
-      <button class="guh-theme-btn" onclick="guhToggleTheme()" aria-label="´ÙÅ©¸ğµå ÀüÈ¯"><span id="theme-icon">??</span></button>
+      <button class="guh-theme-btn" onclick="guhToggleTheme()" aria-label="ë‹¤í¬ëª¨ë“œ ì „í™˜"><span id="theme-icon">ğŸŒ™</span></button>
     </div>
   </div>
 </header>
 <div class="guh-mobile-nav" id="mobile-nav">
-  <a href="/ko/#file-tools">ÆÄÀÏµµ±¸</a><a href="/ko/#daily-tools">»ıÈ°µµ±¸</a><a href="/ko/#finance">±İÀ¶°è»ê±â</a><a href="/ko/#health">°Ç°­</a><a href="/ko/#dev-tools">°³¹ßÀÚµµ±¸</a><a href="/ko/blog/">ºí·Î±×</a>
-  <hr/><a href="/tools/ko/url-encoder/">???? ÇÑ±¹¾î</a><a href="/tools/en/url-encoder/">???? English</a>
+  <a href="/ko/#file-tools">íŒŒì¼ë„êµ¬</a><a href="/ko/#daily-tools">ìƒí™œë„êµ¬</a><a href="/ko/#finance">ê¸ˆìœµê³„ì‚°ê¸°</a><a href="/ko/#health">ê±´ê°•</a><a href="/ko/#dev-tools">ê°œë°œìë„êµ¬</a><a href="/ko/blog/">ë¸”ë¡œê·¸</a>
+  <hr/><a href="/tools/ko/url-encoder/">ğŸ‡°ğŸ‡· í•œêµ­ì–´</a><a href="/tools/en/url-encoder/">ğŸ‡ºğŸ‡¸ English</a>
 </div>
 
 <main class="guh-container guh-page" id="main-content">
-  <nav class="guh-breadcrumb"><a href="/ko/">È¨</a><span class="guh-breadcrumb-sep">?</span><a href="/ko/#dev-tools">°³¹ßÀÚµµ±¸</a><span class="guh-breadcrumb-sep">?</span><span>URL ÀÎÄÚ´õ</span></nav>
-  <div class="guh-hero"><h1>?? URL ÀÎÄÚ´õ</h1><p>ÅØ½ºÆ®¸¦ URL ÆÛ¼¾Æ® ÀÎÄÚµùÀ¸·Î º¯È¯ÇÏ°Å³ª µğÄÚµùÇÕ´Ï´Ù.</p></div>
+  <nav class="guh-breadcrumb"><a href="/ko/">í™ˆ</a><span class="guh-breadcrumb-sep">â€º</span><a href="/ko/#dev-tools">ê°œë°œìë„êµ¬</a><span class="guh-breadcrumb-sep">â€º</span><span>URL ì¸ì½”ë”</span></nav>
+  <div class="guh-hero"><h1>ğŸ”— URL ì¸ì½”ë”</h1><p>í…ìŠ¤íŠ¸ë¥¼ URL í¼ì„¼íŠ¸ ì¸ì½”ë”©ìœ¼ë¡œ ë³€í™˜í•˜ê±°ë‚˜ ë””ì½”ë”©í•©ë‹ˆë‹¤.</p></div>
 
   <section class="guh-section" id="calculator">
     <div class="guh-calc-card">
       <div class="guh-form-group">
-        <label class="guh-label">ÀÔ·Â ÅØ½ºÆ®</label>
-        <textarea id="input" class="guh-input" rows="5" placeholder="ÀÎÄÚµùÇÏ°Å³ª µğÄÚµùÇÒ ÅØ½ºÆ®¸¦ ÀÔ·ÂÇÏ¼¼¿ä" oninput="liveProcess()"></textarea>
+        <label class="guh-label">ì…ë ¥ í…ìŠ¤íŠ¸</label>
+        <textarea id="input" class="guh-input" rows="5" placeholder="ì¸ì½”ë”©í•˜ê±°ë‚˜ ë””ì½”ë”©í•  í…ìŠ¤íŠ¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”" oninput="liveProcess()"></textarea>
       </div>
 
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0;">
-        <button class="guh-btn" onclick="encode()">ÀÎÄÚµù (encode)</button>
-        <button class="guh-btn guh-btn-outline" onclick="decode()">µğÄÚµù (decode)</button>
-        <button class="guh-btn guh-btn-outline" onclick="clearAll()">Áö¿ì±â</button>
+        <button class="guh-btn" onclick="encode()">ì¸ì½”ë”© (encode)</button>
+        <button class="guh-btn guh-btn-outline" onclick="decode()">ë””ì½”ë”© (decode)</button>
+        <button class="guh-btn guh-btn-outline" onclick="clearAll()">ì§€ìš°ê¸°</button>
       </div>
 
       <div class="guh-form-group" style="margin-top:12px;">
-        <label class="guh-label">°á°ú</label>
-        <textarea id="output" class="guh-input" rows="5" readonly placeholder="°á°ú°¡ ¿©±â¿¡ Ç¥½ÃµË´Ï´Ù"></textarea>
+        <label class="guh-label">ê²°ê³¼</label>
+        <textarea id="output" class="guh-input" rows="5" readonly placeholder="ê²°ê³¼ê°€ ì—¬ê¸°ì— í‘œì‹œë©ë‹ˆë‹¤"></textarea>
       </div>
       <div id="err-msg" style="color:var(--red);font-size:13px;margin-top:4px;"></div>
-      <button class="guh-btn guh-btn-outline" style="margin-top:8px;" onclick="copyResult()">°á°ú º¹»ç</button>
+      <button class="guh-btn guh-btn-outline" style="margin-top:8px;" onclick="copyResult()">ê²°ê³¼ ë³µì‚¬</button>
     </div>
   </section>
 
   <section class="guh-section" id="faq">
-    <h2 class="guh-section-title">? ÀÚÁÖ ¹¯´Â Áú¹®</h2>
-    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">URL ÀÎÄÚµùÀÌ¶õ?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">URL¿¡¼­ Æ¯¼ö¹®ÀÚ³ª ÇÑ±Û µî ºñASCII ¹®ÀÚ´Â %XX Çü½Ä(ÆÛ¼¾Æ® ÀÎÄÚµù)À¸·Î º¯È¯ÇØ¾ß ÇÕ´Ï´Ù. ¿¹: ¾È³ç ¡æ %EC%95%88%EB%85%95, °ø¹é ¡æ %20</div></div>
-    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">encodeURI¿Í encodeURIComponentÀÇ Â÷ÀÌ?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">encodeURI´Â URL ÀüÃ¼¸¦ ÀÎÄÚµùÇÏ¹Ç·Î /, ?, # µî URL ±¸Á¶ ¹®ÀÚ´Â À¯ÁöÇÕ´Ï´Ù. encodeURIComponent´Â Äõ¸® ÆÄ¶ó¹ÌÅÍ µî URL ÀÏºÎ¸¦ ÀÎÄÚµùÇÒ ¶§ »ç¿ëÇÏ¸ç Æ¯¼ö¹®ÀÚ¸¦ ´õ Ã¶ÀúÈ÷ º¯È¯ÇÕ´Ï´Ù. ÀÌ µµ±¸´Â encodeURIComponent¸¦ »ç¿ëÇÕ´Ï´Ù.</div></div>
-    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">+ ±âÈ£°¡ °ø¹éÀÎ°¡¿ä?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">HTML form ÀÎÄÚµù(application/x-www-form-urlencoded)¿¡¼­´Â °ø¹éÀÌ +·Î ÀÎÄÚµùµË´Ï´Ù. ÆÛ¼¾Æ® ÀÎÄÚµù¿¡¼­´Â °ø¹éÀÌ %20ÀÔ´Ï´Ù. ÀÌ µµ±¸´Â %20À» »ç¿ëÇÕ´Ï´Ù.</div></div>
+    <h2 class="guh-section-title">â“ ìì£¼ ë¬»ëŠ” ì§ˆë¬¸</h2>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">URL ì¸ì½”ë”©ì´ë€?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">URLì—ì„œ íŠ¹ìˆ˜ë¬¸ìë‚˜ í•œê¸€ ë“± ë¹„ASCII ë¬¸ìëŠ” %XX í˜•ì‹(í¼ì„¼íŠ¸ ì¸ì½”ë”©)ìœ¼ë¡œ ë³€í™˜í•´ì•¼ í•©ë‹ˆë‹¤. ì˜ˆ: ì•ˆë…• â†’ %EC%95%88%EB%85%95, ê³µë°± â†’ %20</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">encodeURIì™€ encodeURIComponentì˜ ì°¨ì´?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">encodeURIëŠ” URL ì „ì²´ë¥¼ ì¸ì½”ë”©í•˜ë¯€ë¡œ /, ?, # ë“± URL êµ¬ì¡° ë¬¸ìëŠ” ìœ ì§€í•©ë‹ˆë‹¤. encodeURIComponentëŠ” ì¿¼ë¦¬ íŒŒë¼ë¯¸í„° ë“± URL ì¼ë¶€ë¥¼ ì¸ì½”ë”©í•  ë•Œ ì‚¬ìš©í•˜ë©° íŠ¹ìˆ˜ë¬¸ìë¥¼ ë” ì² ì €íˆ ë³€í™˜í•©ë‹ˆë‹¤. ì´ ë„êµ¬ëŠ” encodeURIComponentë¥¼ ì‚¬ìš©í•©ë‹ˆë‹¤.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">+ ê¸°í˜¸ê°€ ê³µë°±ì¸ê°€ìš”?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">HTML form ì¸ì½”ë”©(application/x-www-form-urlencoded)ì—ì„œëŠ” ê³µë°±ì´ +ë¡œ ì¸ì½”ë”©ë©ë‹ˆë‹¤. í¼ì„¼íŠ¸ ì¸ì½”ë”©ì—ì„œëŠ” ê³µë°±ì´ %20ì…ë‹ˆë‹¤. ì´ ë„êµ¬ëŠ” %20ì„ ì‚¬ìš©í•©ë‹ˆë‹¤.</div></div>
   </section>
 
   <section class="guh-section" id="related-tools">
-    <h2 class="guh-section-title">?? °ü·Ã µµ±¸</h2>
+    <h2 class="guh-section-title">ğŸ”— ê´€ë ¨ ë„êµ¬</h2>
     <div class="guh-tool-grid">
-      <a href="/tools/ko/base64/" class="guh-tool-card"><span class="guh-tool-icon">??</span><span>Base64</span></a>
-      <a href="/tools/ko/html-escape/" class="guh-tool-card"><span class="guh-tool-icon">???</span><span>HTML ÀÌ½ºÄÉÀÌÇÁ</span></a>
-      <a href="/tools/ko/json-formatter/" class="guh-tool-card"><span class="guh-tool-icon">??</span><span>JSON Æ÷¸ÅÅÍ</span></a>
-      <a href="/tools/ko/regex-tester/" class="guh-tool-card"><span class="guh-tool-icon">??</span><span>Á¤±Ô½Ä Å×½ºÅÍ</span></a>
-      <a href="/tools/ko/color-picker/" class="guh-tool-card"><span class="guh-tool-icon">??</span><span>»ö»ó ¼±ÅÃ±â</span></a>
+      <a href="/tools/ko/base64/" class="guh-tool-card"><span class="guh-tool-icon">ğŸ”</span><span>Base64</span></a>
+      <a href="/tools/ko/html-escape/" class="guh-tool-card"><span class="guh-tool-icon">ğŸ·ï¸</span><span>HTML ì´ìŠ¤ì¼€ì´í”„</span></a>
+      <a href="/tools/ko/json-formatter/" class="guh-tool-card"><span class="guh-tool-icon">ğŸ“‹</span><span>JSON í¬ë§¤í„°</span></a>
+      <a href="/tools/ko/regex-tester/" class="guh-tool-card"><span class="guh-tool-icon">ğŸ”</span><span>ì •ê·œì‹ í…ŒìŠ¤í„°</span></a>
+      <a href="/tools/ko/color-picker/" class="guh-tool-card"><span class="guh-tool-icon">ğŸ¨</span><span>ìƒ‰ìƒ ì„ íƒê¸°</span></a>
     </div>
   </section>
-  <section class="guh-section" id="related-blog"><h2 class="guh-section-title">?? °ü·Ã ºí·Î±×</h2><div class="guh-blog-grid" id="blog-grid"><div class="guh-blog-empty">°ü·Ã ºí·Î±× Æ÷½ºÆ®¸¦ ºÒ·¯¿À´Â Áß...</div></div></section>
+  <section class="guh-section" id="related-blog"><h2 class="guh-section-title">ğŸ“ ê´€ë ¨ ë¸”ë¡œê·¸</h2><div class="guh-blog-grid" id="blog-grid"><div class="guh-blog-empty">ê´€ë ¨ ë¸”ë¡œê·¸ í¬ìŠ¤íŠ¸ë¥¼ ë¶ˆëŸ¬ì˜¤ëŠ” ì¤‘...</div></div></section>
 </main>
 
-<footer class="guh-footer"><div class="guh-footer-inner"><a href="/ko/" class="guh-footer-logo">Global Utility Hub</a><nav class="guh-footer-links"><a href="/ko/blog/">ºí·Î±×</a><a href="/ko/">µµ±¸ ¸ñ·Ï</a><a href="mailto:contact@bmsystems.biz">¹®ÀÇ</a></nav><p class="guh-footer-copy">¨Ï 2026 Global Utility Hub. All rights reserved.</p></div></footer>
+<footer class="guh-footer"><div class="guh-footer-inner"><a href="/ko/" class="guh-footer-logo">Global Utility Hub</a><nav class="guh-footer-links"><a href="/ko/blog/">ë¸”ë¡œê·¸</a><a href="/ko/">ë„êµ¬ ëª©ë¡</a><a href="mailto:contact@bmsystems.biz">ë¬¸ì˜</a></nav><p class="guh-footer-copy">Â© 2026 Global Utility Hub. All rights reserved.</p></div></footer>
 <div class="guh-toast" id="toast"></div>
 <script>
-  function guhToggleTheme(){var isDark=document.documentElement.dataset.theme==='dark';document.documentElement.dataset.theme=isDark?'light':'dark';localStorage.setItem('GUH-theme',document.documentElement.dataset.theme);document.getElementById('theme-icon').textContent=isDark?'??':'??';}
-  (function(){document.getElementById('theme-icon').textContent=document.documentElement.dataset.theme==='dark'?'??':'??';})();
+  function guhToggleTheme(){var isDark=document.documentElement.dataset.theme==='dark';document.documentElement.dataset.theme=isDark?'light':'dark';localStorage.setItem('GUH-theme',document.documentElement.dataset.theme);document.getElementById('theme-icon').textContent=isDark?'ğŸŒ™':'â˜€ï¸';}
+  (function(){document.getElementById('theme-icon').textContent=document.documentElement.dataset.theme==='dark'?'â˜€ï¸':'ğŸŒ™';})();
   document.getElementById('menu-btn').addEventListener('click',function(){document.getElementById('mobile-nav').classList.toggle('open');});
   document.querySelectorAll('.guh-faq-q').forEach(function(btn){btn.addEventListener('click',function(){var isOpen=this.classList.contains('open');document.querySelectorAll('.guh-faq-q').forEach(function(b){b.classList.remove('open');b.nextElementSibling.classList.remove('open');});if(!isOpen){this.classList.add('open');this.nextElementSibling.classList.add('open');}});});
   function showToast(msg,isErr){var t=document.getElementById('toast');t.textContent=msg;t.style.background=isErr?'var(--red)':'var(--green)';t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2500);}
@@ -91,23 +91,23 @@
     var inp=document.getElementById('input').value;
     document.getElementById('err-msg').textContent='';
     try{document.getElementById('output').value=encodeURIComponent(inp);}
-    catch(e){document.getElementById('err-msg').textContent='? ÀÎÄÚµù ½ÇÆĞ: '+e.message;}
+    catch(e){document.getElementById('err-msg').textContent='âŒ ì¸ì½”ë”© ì‹¤íŒ¨: '+e.message;}
   }
   function decode(){
     var inp=document.getElementById('input').value;
     document.getElementById('err-msg').textContent='';
     try{document.getElementById('output').value=decodeURIComponent(inp);}
-    catch(e){document.getElementById('err-msg').textContent='? µğÄÚµù ½ÇÆĞ: À¯È¿ÇÏÁö ¾ÊÀº URL ÀÎÄÚµùÀÔ´Ï´Ù.';}
+    catch(e){document.getElementById('err-msg').textContent='âŒ ë””ì½”ë”© ì‹¤íŒ¨: ìœ íš¨í•˜ì§€ ì•Šì€ URL ì¸ì½”ë”©ì…ë‹ˆë‹¤.';}
   }
   function liveProcess(){document.getElementById('output').value='';document.getElementById('err-msg').textContent='';}
   function clearAll(){document.getElementById('input').value='';document.getElementById('output').value='';document.getElementById('err-msg').textContent='';}
   function copyResult(){
     var val=document.getElementById('output').value;
-    if(!val){showToast('º¹»çÇÒ °á°ú°¡ ¾ø½À´Ï´Ù.',true);return;}
-    navigator.clipboard.writeText(val).then(function(){showToast('º¹»çµÊ!',false);});
+    if(!val){showToast('ë³µì‚¬í•  ê²°ê³¼ê°€ ì—†ìŠµë‹ˆë‹¤.',true);return;}
+    navigator.clipboard.writeText(val).then(function(){showToast('ë³µì‚¬ë¨!',false);});
   }
 
-  (async function(){try{var r=await fetch('/ko/blog/index.json');if(!r.ok)return;var posts=await r.json();var related=posts.filter(function(p){return p.related_tool==='url-encoder';}).slice(0,3);var grid=document.getElementById('blog-grid');if(!related.length){grid.innerHTML='<div class="guh-blog-empty">°ü·Ã ºí·Î±× Æ÷½ºÆ®°¡ ÁØºñ ÁßÀÔ´Ï´Ù.</div>';return;}grid.innerHTML=related.map(function(p){return'<a href="'+p.url+'" class="guh-blog-card"><div class="guh-blog-card-title">'+p.title+'</div><div class="guh-blog-card-date">'+p.date+'</div></a>';}).join('');}catch(e){document.getElementById('blog-grid').innerHTML='<div class="guh-blog-empty">°ü·Ã ºí·Î±× Æ÷½ºÆ®°¡ ÁØºñ ÁßÀÔ´Ï´Ù.</div>';}})();
+  (async function(){try{var r=await fetch('/ko/blog/index.json');if(!r.ok)return;var posts=await r.json();var related=posts.filter(function(p){return p.related_tool==='url-encoder';}).slice(0,3);var grid=document.getElementById('blog-grid');if(!related.length){grid.innerHTML='<div class="guh-blog-empty">ê´€ë ¨ ë¸”ë¡œê·¸ í¬ìŠ¤íŠ¸ê°€ ì¤€ë¹„ ì¤‘ì…ë‹ˆë‹¤.</div>';return;}grid.innerHTML=related.map(function(p){return'<a href="'+p.url+'" class="guh-blog-card"><div class="guh-blog-card-title">'+p.title+'</div><div class="guh-blog-card-date">'+p.date+'</div></a>';}).join('');}catch(e){document.getElementById('blog-grid').innerHTML='<div class="guh-blog-empty">ê´€ë ¨ ë¸”ë¡œê·¸ í¬ìŠ¤íŠ¸ê°€ ì¤€ë¹„ ì¤‘ì…ë‹ˆë‹¤.</div>';}})();
 </script>
 <script src="/assets/js/guh-search.js?v=2" defer></script>
 </body>
