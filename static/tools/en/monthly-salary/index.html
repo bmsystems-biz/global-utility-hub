@@ -1,9 +1,9 @@
-Ôªø<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" data-theme="">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hourly Wage Calculator ‚Äì Convert Hourly Rate to Monthly Salary | Global Utility Hub</title>
+  <title>Hourly Wage Calculator ? Convert Hourly Rate to Monthly Salary | Global Utility Hub</title>
   <meta name="description" content="Convert hourly wage to monthly or annual salary, or reverse. Includes overtime multiplier. Free online hourly wage to salary calculator." />
   <link rel="canonical" href="https://util.bmsystems.biz/tools/en/monthly-salary/" />
   <link rel="alternate" hreflang="ko" href="https://util.bmsystems.biz/tools/ko/monthly-salary/" />
@@ -12,7 +12,7 @@
   <meta property="og:title" content="Hourly Wage Calculator" /><meta property="og:description" content="Convert hourly wage to monthly and annual salary." /><meta property="og:type" content="website" /><meta property="og:url" content="https://util.bmsystems.biz/tools/en/monthly-salary/" /><meta property="og:locale" content="en_US" /><meta name="twitter:card" content="summary" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/assets/css/common.css" />
+  <link rel="stylesheet" href="/assets/css/common.css?v=2" />
   <script>(function(){var t=localStorage.getItem('GUH-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark';})();</script>
   <style>
     .result-box{background:var(--accent-soft);border:1px solid var(--accent);border-radius:10px;padding:16px;margin:16px 0;}
@@ -25,31 +25,31 @@
 <body>
 <header class="guh-header" role="banner">
   <div class="guh-header-inner">
-    <button class="guh-menu-btn" id="menu-btn" aria-label="Menu">‚ò∞</button>
+    <button class="guh-menu-btn" id="menu-btn" aria-label="Menu">?</button>
     <a href="/en/" class="guh-logo">Global <span>Utility</span> Hub</a>
     <nav class="guh-nav"><a href="/en/#file-tools" class="guh-nav-link">File Tools</a><a href="/en/#daily-tools" class="guh-nav-link">Daily Tools</a><a href="/en/#finance" class="guh-nav-link active">Finance</a><a href="/en/#health" class="guh-nav-link">Health</a><a href="/en/#dev-tools" class="guh-nav-link">Dev Tools</a><a href="/en/blog/" class="guh-nav-link">Blog</a></nav>
     <div class="guh-header-actions">
       <div class="guh-lang-select"><a href="/tools/ko/monthly-salary/" class="guh-lang-btn">KO</a><a href="/tools/en/monthly-salary/" class="guh-lang-btn active">EN</a></div>
-      <button class="guh-theme-btn" onclick="guhToggleTheme()" aria-label="Toggle dark mode"><span id="theme-icon">üåô</span></button>
+      <button class="guh-theme-btn" onclick="guhToggleTheme()" aria-label="Toggle dark mode"><span id="theme-icon">??</span></button>
     </div>
   </div>
 </header>
 <div class="guh-mobile-nav" id="mobile-nav">
   <a href="/en/#file-tools">File Tools</a><a href="/en/#daily-tools">Daily Tools</a><a href="/en/#finance">Finance</a><a href="/en/#health">Health</a><a href="/en/#dev-tools">Dev Tools</a><a href="/en/blog/">Blog</a>
-  <hr/><a href="/tools/ko/monthly-salary/">üá∞üá∑ ÌïúÍµ≠Ïñ¥</a><a href="/tools/en/monthly-salary/">üá∫üá∏ English</a>
+  <hr/><a href="/tools/ko/monthly-salary/">???? «—±πæÓ</a><a href="/tools/en/monthly-salary/">???? English</a>
 </div>
 
 <main class="guh-container guh-page" id="main-content">
-  <nav class="guh-breadcrumb"><a href="/en/">Home</a><span class="guh-breadcrumb-sep">‚Ä∫</span><a href="/en/#finance">Finance</a><span class="guh-breadcrumb-sep">‚Ä∫</span><span>Hourly Wage Calculator</span></nav>
-  <div class="guh-hero"><h1>‚è∞ Hourly Wage Calculator</h1><p>Convert between hourly rate and monthly/annual salary. Or reverse-calculate your hourly rate from a salary.</p></div>
+  <nav class="guh-breadcrumb"><a href="/en/">Home</a><span class="guh-breadcrumb-sep">?</span><a href="/en/#finance">Finance</a><span class="guh-breadcrumb-sep">?</span><span>Hourly Wage Calculator</span></nav>
+  <div class="guh-hero"><h1>? Hourly Wage Calculator</h1><p>Convert between hourly rate and monthly/annual salary. Or reverse-calculate your hourly rate from a salary.</p></div>
 
   <section class="guh-section" id="calculator">
     <div class="guh-calc-card">
       <div style="margin-bottom:12px;">
         <label class="guh-label">Direction</label>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
-          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;"><input type="radio" name="direction" value="hourly-to-monthly" checked onchange="switchMode()"> Hourly ‚Üí Salary</label>
-          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;"><input type="radio" name="direction" value="monthly-to-hourly" onchange="switchMode()"> Salary ‚Üí Hourly</label>
+          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;"><input type="radio" name="direction" value="hourly-to-monthly" checked onchange="switchMode()"> Hourly °Ê Salary</label>
+          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;"><input type="radio" name="direction" value="monthly-to-hourly" onchange="switchMode()"> Salary °Ê Hourly</label>
         </div>
       </div>
 
@@ -86,36 +86,36 @@
       <div class="result-box" id="result-box" style="display:none;">
         <div id="result-items"></div>
       </div>
-      <div style="font-size:12px;color:var(--text-3);margin-top:4px;">‚Äª US federal minimum wage: $7.25/hr. Many states have higher minimums. These are gross figures before taxes.</div>
+      <div style="font-size:12px;color:var(--text-3);margin-top:4px;">°ÿ US federal minimum wage: $7.25/hr. Many states have higher minimums. These are gross figures before taxes.</div>
     </div>
   </section>
 
   <section class="guh-section" id="faq">
-    <h2 class="guh-section-title">‚ùì FAQ</h2>
-    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">How is monthly salary calculated from hourly rate?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">Monthly = Hourly √ó Hours/Day √ó Days/Week √ó (52 √∑ 12 ‚âà 4.333 weeks). For a standard 40-hour week: Monthly = Hourly √ó 40 √ó 4.333 = Hourly √ó 173.33.</div></div>
-    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">What is the standard hours per month?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">For a 40-hour work week: 40 hours √ó 52 weeks √∑ 12 months ‚âà 173.33 hours per month. This is commonly rounded to 173 hours. Some calculations use 2,080 hours per year (52 √ó 40).</div></div>
-    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">How do I convert annual salary to hourly?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">Hourly = Annual √∑ 2,080 (for a standard 40-hour week). Example: $52,000 √∑ 2,080 = $25/hr. Use the reverse calculator to get this automatically.</div></div>
-    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">What is overtime pay?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">Under the US Fair Labor Standards Act, non-exempt employees must receive 1.5√ó their regular rate for hours over 40 per week. Some states require daily overtime (over 8 hours/day). Salaried exempt employees typically don't receive overtime.</div></div>
+    <h2 class="guh-section-title">? FAQ</h2>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">How is monthly salary calculated from hourly rate?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">Monthly = Hourly °ø Hours/Day °ø Days/Week °ø (52 °¿ 12 ? 4.333 weeks). For a standard 40-hour week: Monthly = Hourly °ø 40 °ø 4.333 = Hourly °ø 173.33.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">What is the standard hours per month?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">For a 40-hour work week: 40 hours °ø 52 weeks °¿ 12 months ? 173.33 hours per month. This is commonly rounded to 173 hours. Some calculations use 2,080 hours per year (52 °ø 40).</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">How do I convert annual salary to hourly?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">Hourly = Annual °¿ 2,080 (for a standard 40-hour week). Example: $52,000 °¿ 2,080 = $25/hr. Use the reverse calculator to get this automatically.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">What is overtime pay?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">Under the US Fair Labor Standards Act, non-exempt employees must receive 1.5°ø their regular rate for hours over 40 per week. Some states require daily overtime (over 8 hours/day). Salaried exempt employees typically don't receive overtime.</div></div>
   </section>
 
   <section class="guh-section" id="related-tools">
-    <h2 class="guh-section-title">üîó Related Tools</h2>
+    <h2 class="guh-section-title">?? Related Tools</h2>
     <div class="guh-tool-grid">
-      <a href="/tools/en/salary-calculator/" class="guh-tool-card"><span class="guh-tool-icon">üíº</span><span>Salary Calculator</span></a>
-      <a href="/tools/en/compound-interest/" class="guh-tool-card"><span class="guh-tool-icon">üìà</span><span>Compound Interest</span></a>
-      <a href="/tools/en/vat-calculator/" class="guh-tool-card"><span class="guh-tool-icon">üßæ</span><span>VAT Calculator</span></a>
-      <a href="/tools/en/percentage-calculator/" class="guh-tool-card"><span class="guh-tool-icon">üî¢</span><span>Percentage Calculator</span></a>
-      <a href="/tools/en/loan-calculator/" class="guh-tool-card"><span class="guh-tool-icon">üè¶</span><span>Loan Calculator</span></a>
+      <a href="/tools/en/salary-calculator/" class="guh-tool-card"><span class="guh-tool-icon">??</span><span>Salary Calculator</span></a>
+      <a href="/tools/en/compound-interest/" class="guh-tool-card"><span class="guh-tool-icon">??</span><span>Compound Interest</span></a>
+      <a href="/tools/en/vat-calculator/" class="guh-tool-card"><span class="guh-tool-icon">??</span><span>VAT Calculator</span></a>
+      <a href="/tools/en/percentage-calculator/" class="guh-tool-card"><span class="guh-tool-icon">??</span><span>Percentage Calculator</span></a>
+      <a href="/tools/en/loan-calculator/" class="guh-tool-card"><span class="guh-tool-icon">??</span><span>Loan Calculator</span></a>
     </div>
   </section>
-  <section class="guh-section" id="related-blog"><h2 class="guh-section-title">üìù Related Blog</h2><div class="guh-blog-grid" id="blog-grid"><div class="guh-blog-empty">Loading...</div></div></section>
+  <section class="guh-section" id="related-blog"><h2 class="guh-section-title">?? Related Blog</h2><div class="guh-blog-grid" id="blog-grid"><div class="guh-blog-empty">Loading...</div></div></section>
 </main>
 
-<footer class="guh-footer"><div class="guh-footer-inner"><a href="/en/" class="guh-footer-logo">Global Utility Hub</a><nav class="guh-footer-links"><a href="/en/blog/">Blog</a><a href="/en/">All Tools</a><a href="mailto:contact@bmsystems.biz">Contact</a></nav><p class="guh-footer-copy">¬© 2026 Global Utility Hub. All rights reserved.</p></div></footer>
+<footer class="guh-footer"><div class="guh-footer-inner"><a href="/en/" class="guh-footer-logo">Global Utility Hub</a><nav class="guh-footer-links"><a href="/en/blog/">Blog</a><a href="/en/">All Tools</a><a href="mailto:contact@bmsystems.biz">Contact</a></nav><p class="guh-footer-copy">®œ 2026 Global Utility Hub. All rights reserved.</p></div></footer>
 <div class="guh-toast" id="toast"></div>
 <script>
-  function guhToggleTheme(){var isDark=document.documentElement.dataset.theme==='dark';document.documentElement.dataset.theme=isDark?'light':'dark';localStorage.setItem('GUH-theme',document.documentElement.dataset.theme);document.getElementById('theme-icon').textContent=isDark?'üåô':'‚òÄÔ∏è';}
-  (function(){document.getElementById('theme-icon').textContent=document.documentElement.dataset.theme==='dark'?'‚òÄÔ∏è':'üåô';})();
+  function guhToggleTheme(){var isDark=document.documentElement.dataset.theme==='dark';document.documentElement.dataset.theme=isDark?'light':'dark';localStorage.setItem('GUH-theme',document.documentElement.dataset.theme);document.getElementById('theme-icon').textContent=isDark?'??':'??';}
+  (function(){document.getElementById('theme-icon').textContent=document.documentElement.dataset.theme==='dark'?'??':'??';})();
   document.getElementById('menu-btn').addEventListener('click',function(){document.getElementById('mobile-nav').classList.toggle('open');});
   document.querySelectorAll('.guh-faq-q').forEach(function(btn){btn.addEventListener('click',function(){var isOpen=this.classList.contains('open');document.querySelectorAll('.guh-faq-q').forEach(function(b){b.classList.remove('open');b.nextElementSibling.classList.remove('open');});if(!isOpen){this.classList.add('open');this.nextElementSibling.classList.add('open');}});});
 

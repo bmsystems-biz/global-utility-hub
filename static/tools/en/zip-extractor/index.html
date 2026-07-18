@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ZIP Extractor â€“ Open ZIP Files Online Free | Global Utility Hub</title>
+  <title>ZIP Extractor ??Open ZIP Files Online Free | Global Utility Hub</title>
   <meta name="description" content="Extract ZIP files directly in your browser. View file list, download individual files. No server upload. Free online ZIP extractor." />
   <link rel="canonical" href="https://util.bmsystems.biz/tools/en/zip-extractor/" />
   <link rel="alternate" hreflang="ko" href="https://util.bmsystems.biz/tools/ko/zip-extractor/" />
@@ -12,13 +12,13 @@
   <meta property="og:title" content="ZIP Extractor" /><meta property="og:description" content="Open and extract ZIP files in your browser." /><meta property="og:type" content="website" /><meta property="og:url" content="https://util.bmsystems.biz/tools/en/zip-extractor/" /><meta property="og:locale" content="en_US" /><meta name="twitter:card" content="summary" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/assets/css/common.css" />
+  <link rel="stylesheet" href="/assets/css/common.css?v=2" />
   <script>(function(){var t=localStorage.getItem('GUH-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark';})();</script>
   <style>
     .drop-zone{border:2px dashed var(--border);border-radius:12px;padding:36px 20px;text-align:center;cursor:pointer;transition:border-color 0.2s,background 0.2s;color:var(--text-3);}
     .drop-zone:hover,.drop-zone.drag-over{border-color:var(--accent);background:var(--accent-soft);}
 
-    /* â”€â”€ Tree view â”€â”€ */
+    /* ?€?€ Tree view ?€?€ */
     .tree-root{font-size:13px;line-height:1.4;}
     .tree-folder-row{display:flex;align-items:center;gap:5px;padding:6px 8px;border-radius:6px;cursor:pointer;user-select:none;}
     .tree-folder-row:hover{background:var(--surface2);}
@@ -40,28 +40,28 @@
 <body>
 <header class="guh-header" role="banner">
   <div class="guh-header-inner">
-    <button class="guh-menu-btn" id="menu-btn" aria-label="Menu">â˜°</button>
+    <button class="guh-menu-btn" id="menu-btn" aria-label="Menu">??/button>
     <a href="/en/" class="guh-logo">Global <span>Utility</span> Hub</a>
     <nav class="guh-nav"><a href="/en/#file-tools" class="guh-nav-link active">File Tools</a><a href="/en/#daily-tools" class="guh-nav-link">Daily Tools</a><a href="/en/#finance" class="guh-nav-link">Finance</a><a href="/en/#health" class="guh-nav-link">Health</a><a href="/en/#dev-tools" class="guh-nav-link">Dev Tools</a><a href="/en/blog/" class="guh-nav-link">Blog</a></nav>
     <div class="guh-header-actions">
       <div class="guh-lang-select"><a href="/tools/ko/zip-extractor/" class="guh-lang-btn">KO</a><a href="/tools/en/zip-extractor/" class="guh-lang-btn active">EN</a></div>
-      <button class="guh-theme-btn" onclick="guhToggleTheme()" aria-label="Toggle dark mode"><span id="theme-icon">ğŸŒ™</span></button>
+      <button class="guh-theme-btn" onclick="guhToggleTheme()" aria-label="Toggle dark mode"><span id="theme-icon">?Œ™</span></button>
     </div>
   </div>
 </header>
 <div class="guh-mobile-nav" id="mobile-nav">
   <a href="/en/#file-tools">File Tools</a><a href="/en/#daily-tools">Daily Tools</a><a href="/en/#finance">Finance</a><a href="/en/#health">Health</a><a href="/en/#dev-tools">Dev Tools</a><a href="/en/blog/">Blog</a>
-  <hr/><a href="/tools/ko/zip-extractor/">ğŸ‡°ğŸ‡· í•œêµ­ì–´</a><a href="/tools/en/zip-extractor/">ğŸ‡ºğŸ‡¸ English</a>
+  <hr/><a href="/tools/ko/zip-extractor/">?‡°?‡· ?œêµ­??/a><a href="/tools/en/zip-extractor/">?‡º?‡¸ English</a>
 </div>
 
 <main class="guh-container guh-page" id="main-content">
-  <nav class="guh-breadcrumb"><a href="/en/">Home</a><span class="guh-breadcrumb-sep">â€º</span><a href="/en/#file-tools">File Tools</a><span class="guh-breadcrumb-sep">â€º</span><span>ZIP Extractor</span></nav>
-  <div class="guh-hero"><h1>ğŸ“¦ ZIP Extractor</h1><p>Open ZIP files directly in your browser. Browse folders and files, then download what you need.</p></div>
+  <nav class="guh-breadcrumb"><a href="/en/">Home</a><span class="guh-breadcrumb-sep">??/span><a href="/en/#file-tools">File Tools</a><span class="guh-breadcrumb-sep">??/span><span>ZIP Extractor</span></nav>
+  <div class="guh-hero"><h1>?“¦ ZIP Extractor</h1><p>Open ZIP files directly in your browser. Browse folders and files, then download what you need.</p></div>
 
   <section class="guh-section" id="calculator">
     <div class="guh-calc-card">
       <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
-        <div style="font-size:32px;margin-bottom:8px;">ğŸ“‚</div>
+        <div style="font-size:32px;margin-bottom:8px;">?“‚</div>
         <div style="font-weight:600;margin-bottom:4px;">Drop a ZIP file here or click to select</div>
         <div style="font-size:13px;">Supports .zip Â· All processing happens in your browser</div>
         <input type="file" id="file-input" accept=".zip,application/zip" style="display:none" onchange="onFile(this.files[0])" />
@@ -70,9 +70,9 @@
       <div id="zip-info" style="display:none;margin-top:16px;">
         <div id="zip-summary" style="font-size:13px;color:var(--text-2);margin-bottom:10px;"></div>
         <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
-          <button class="guh-btn" id="dl-all-btn" onclick="downloadAll()">â¬‡ Download All</button>
-          <button class="guh-btn guh-btn-outline" id="toggle-btn" onclick="toggleAll()">ğŸ“‚ Expand All</button>
-          <button class="guh-btn guh-btn-outline" onclick="resetAll()">ğŸ—‘ Reset</button>
+          <button class="guh-btn" id="dl-all-btn" onclick="downloadAll()">â¬?Download All</button>
+          <button class="guh-btn guh-btn-outline" id="toggle-btn" onclick="toggleAll()">?“‚ Expand All</button>
+          <button class="guh-btn guh-btn-outline" onclick="resetAll()">?—‘ Reset</button>
         </div>
         <div class="guh-calc-card" style="padding:8px;max-height:520px;overflow-y:auto;">
           <div class="tree-root" id="tree-root"></div>
@@ -84,7 +84,7 @@
   </section>
 
   <section class="guh-section" id="faq">
-    <h2 class="guh-section-title">â“ FAQ</h2>
+    <h2 class="guh-section-title">??FAQ</h2>
     <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">Are files uploaded to a server?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">No. The JSZip library processes everything locally in your browser. No files are sent to any server, ensuring complete privacy.</div></div>
     <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">What ZIP files are supported?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">Standard ZIP format (.zip) is supported. Password-protected ZIP files are not supported. Other archive formats like RAR, 7z, and tar.gz are not supported.</div></div>
     <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">File names appear garbled?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">This typically happens with ZIP files created on older Windows systems using non-UTF-8 encoding (e.g. CP932 for Japanese, EUC-KR for Korean). Modern ZIP tools use UTF-8 by default which displays correctly.</div></div>
@@ -92,24 +92,24 @@
   </section>
 
   <section class="guh-section" id="related-tools">
-    <h2 class="guh-section-title">ğŸ”— Related Tools</h2>
+    <h2 class="guh-section-title">?”— Related Tools</h2>
     <div class="guh-tool-grid">
-      <a href="/tools/en/image-converter/" class="guh-tool-card"><span class="guh-tool-icon">ğŸ–¼ï¸</span><span>Image Converter</span></a>
-      <a href="/tools/en/image-compress/" class="guh-tool-card"><span class="guh-tool-icon">ğŸ—œï¸</span><span>Image Compressor</span></a>
-      <a href="/tools/en/svg-converter/" class="guh-tool-card"><span class="guh-tool-icon">âœï¸</span><span>SVG Converter</span></a>
-      <a href="/tools/en/gif-maker/" class="guh-tool-card"><span class="guh-tool-icon">ğŸï¸</span><span>GIF Maker</span></a>
-      <a href="/tools/en/barcode-generator/" class="guh-tool-card"><span class="guh-tool-icon">ğŸ“Š</span><span>Barcode Generator</span></a>
+      <a href="/tools/en/image-converter/" class="guh-tool-card"><span class="guh-tool-icon">?–¼ï¸?/span><span>Image Converter</span></a>
+      <a href="/tools/en/image-compress/" class="guh-tool-card"><span class="guh-tool-icon">?—œï¸?/span><span>Image Compressor</span></a>
+      <a href="/tools/en/svg-converter/" class="guh-tool-card"><span class="guh-tool-icon">?ï¸</span><span>SVG Converter</span></a>
+      <a href="/tools/en/gif-maker/" class="guh-tool-card"><span class="guh-tool-icon">?ï¸?/span><span>GIF Maker</span></a>
+      <a href="/tools/en/barcode-generator/" class="guh-tool-card"><span class="guh-tool-icon">?“Š</span><span>Barcode Generator</span></a>
     </div>
   </section>
-  <section class="guh-section" id="related-blog"><h2 class="guh-section-title">ğŸ“ Related Blog</h2><div class="guh-blog-grid" id="blog-grid"><div class="guh-blog-empty">Loading...</div></div></section>
+  <section class="guh-section" id="related-blog"><h2 class="guh-section-title">?“ Related Blog</h2><div class="guh-blog-grid" id="blog-grid"><div class="guh-blog-empty">Loading...</div></div></section>
 </main>
 
 <footer class="guh-footer"><div class="guh-footer-inner"><a href="/en/" class="guh-footer-logo">Global Utility Hub</a><nav class="guh-footer-links"><a href="/en/blog/">Blog</a><a href="/en/">All Tools</a><a href="mailto:contact@bmsystems.biz">Contact</a></nav><p class="guh-footer-copy">Â© 2026 Global Utility Hub. All rights reserved.</p></div></footer>
 <div class="guh-toast" id="toast"></div>
 <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
 <script>
-  function guhToggleTheme(){var isDark=document.documentElement.dataset.theme==='dark';document.documentElement.dataset.theme=isDark?'light':'dark';localStorage.setItem('GUH-theme',document.documentElement.dataset.theme);document.getElementById('theme-icon').textContent=isDark?'ğŸŒ™':'â˜€ï¸';}
-  (function(){document.getElementById('theme-icon').textContent=document.documentElement.dataset.theme==='dark'?'â˜€ï¸':'ğŸŒ™';})();
+  function guhToggleTheme(){var isDark=document.documentElement.dataset.theme==='dark';document.documentElement.dataset.theme=isDark?'light':'dark';localStorage.setItem('GUH-theme',document.documentElement.dataset.theme);document.getElementById('theme-icon').textContent=isDark?'?Œ™':'?€ï¸?;}
+  (function(){document.getElementById('theme-icon').textContent=document.documentElement.dataset.theme==='dark'?'?€ï¸?:'?Œ™';})();
   document.getElementById('menu-btn').addEventListener('click',function(){document.getElementById('mobile-nav').classList.toggle('open');});
   document.querySelectorAll('.guh-faq-q').forEach(function(btn){btn.addEventListener('click',function(){var isOpen=this.classList.contains('open');document.querySelectorAll('.guh-faq-q').forEach(function(b){b.classList.remove('open');b.nextElementSibling.classList.remove('open');});if(!isOpen){this.classList.add('open');this.nextElementSibling.classList.add('open');}});});
   function showToast(msg,isErr){var t=document.getElementById('toast');t.textContent=msg;t.style.background=isErr?'var(--red)':'var(--green)';t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2500);}
@@ -118,13 +118,13 @@
   var currentZipName = '';
   var allExpanded = false;
 
-  // â”€â”€ Drag & Drop â”€â”€
+  // ?€?€ Drag & Drop ?€?€
   var dz = document.getElementById('drop-zone');
   dz.addEventListener('dragover', function(e){e.preventDefault();dz.classList.add('drag-over');});
   dz.addEventListener('dragleave', function(){dz.classList.remove('drag-over');});
   dz.addEventListener('drop', function(e){e.preventDefault();dz.classList.remove('drag-over');if(e.dataTransfer.files[0])onFile(e.dataTransfer.files[0]);});
 
-  // â”€â”€ Load file â”€â”€
+  // ?€?€ Load file ?€?€
   function onFile(file) {
     document.getElementById('err-msg').textContent = '';
     if (!file || (file.type !== 'application/zip' && !file.name.toLowerCase().endsWith('.zip'))) {
@@ -139,21 +139,21 @@
       var fileCount = entries.filter(function(f){return !f.entry.dir;}).length;
       var dirCount  = entries.filter(function(f){return f.entry.dir;}).length;
       document.getElementById('zip-summary').textContent =
-        'ğŸ“¦ ' + file.name + ' â€” ' + fileCount + ' files, ' + dirCount + ' folders';
+        '?“¦ ' + file.name + ' ??' + fileCount + ' files, ' + dirCount + ' folders';
 
       var tree = buildTree(entries);
       var root = document.getElementById('tree-root');
       root.innerHTML = '';
       allExpanded = false;
-      document.getElementById('toggle-btn').textContent = 'ğŸ“‚ Expand All';
+      document.getElementById('toggle-btn').textContent = '?“‚ Expand All';
       renderTree(tree, 0, root, true);
       document.getElementById('zip-info').style.display = 'block';
     }).catch(function(e) {
-      document.getElementById('err-msg').textContent = 'âŒ Cannot read ZIP file: ' + e.message;
+      document.getElementById('err-msg').textContent = '??Cannot read ZIP file: ' + e.message;
     });
   }
 
-  // â”€â”€ Build tree â”€â”€
+  // ?€?€ Build tree ?€?€
   function buildTree(entries) {
     var root = {dirs: {}, files: []};
     entries.forEach(function(f) {
@@ -183,7 +183,7 @@
     return n;
   }
 
-  // â”€â”€ Render tree â”€â”€
+  // ?€?€ Render tree ?€?€
   function renderTree(node, depth, container, autoExpand) {
     var indent = depth * 18;
 
@@ -198,10 +198,10 @@
 
       var toggle = document.createElement('span');
       toggle.className = 'tree-toggle';
-      toggle.textContent = 'â–¶';
+      toggle.textContent = '??;
 
       var icon = document.createElement('span');
-      icon.textContent = 'ğŸ“';
+      icon.textContent = '?“';
       icon.style.flexShrink = '0';
 
       var name = document.createElement('span');
@@ -261,7 +261,7 @@
 
       var dl = document.createElement('button');
       dl.className = 'tree-dl-btn';
-      dl.textContent = 'â†“';
+      dl.textContent = '??;
       dl.title = 'Download ' + f.name;
       dl.onclick = (function(entry, name){
         return function(e) {
@@ -283,33 +283,33 @@
     });
   }
 
-  // â”€â”€ File icons â”€â”€
+  // ?€?€ File icons ?€?€
   function getFileIcon(name) {
     var ext = (name.split('.').pop() || '').toLowerCase();
     var m = {
-      jpg:'ğŸ–¼ï¸',jpeg:'ğŸ–¼ï¸',png:'ğŸ–¼ï¸',gif:'ğŸ–¼ï¸',svg:'ğŸ–¼ï¸',webp:'ğŸ–¼ï¸',bmp:'ğŸ–¼ï¸',ico:'ğŸ–¼ï¸',
-      mp4:'ğŸ¬',avi:'ğŸ¬',mov:'ğŸ¬',mkv:'ğŸ¬',wmv:'ğŸ¬',flv:'ğŸ¬',
-      mp3:'ğŸµ',wav:'ğŸµ',flac:'ğŸµ',m4a:'ğŸµ',ogg:'ğŸµ',aac:'ğŸµ',
-      pdf:'ğŸ“•',doc:'ğŸ“',docx:'ğŸ“',xls:'ğŸ“Š',xlsx:'ğŸ“Š',csv:'ğŸ“Š',ppt:'ğŸ“Š',pptx:'ğŸ“Š',
-      txt:'ğŸ“„',md:'ğŸ“„',
-      js:'ğŸ“œ',ts:'ğŸ“œ',jsx:'ğŸ“œ',tsx:'ğŸ“œ',py:'ğŸ“œ',java:'ğŸ“œ',cpp:'ğŸ“œ',c:'ğŸ“œ',cs:'ğŸ“œ',go:'ğŸ“œ',rb:'ğŸ“œ',php:'ğŸ“œ',sh:'ğŸ“œ',
-      html:'ğŸŒ',htm:'ğŸŒ',css:'ğŸ¨',json:'ğŸ“‹',xml:'ğŸ“‹',yaml:'ğŸ“‹',yml:'ğŸ“‹',toml:'ğŸ“‹',
-      zip:'ğŸ“¦',rar:'ğŸ“¦','7z':'ğŸ“¦',tar:'ğŸ“¦',gz:'ğŸ“¦',
-      exe:'âš™ï¸',dll:'âš™ï¸',msi:'âš™ï¸',
-      ttf:'ğŸ”¤',otf:'ğŸ”¤',woff:'ğŸ”¤',woff2:'ğŸ”¤',
+      jpg:'?–¼ï¸?,jpeg:'?–¼ï¸?,png:'?–¼ï¸?,gif:'?–¼ï¸?,svg:'?–¼ï¸?,webp:'?–¼ï¸?,bmp:'?–¼ï¸?,ico:'?–¼ï¸?,
+      mp4:'?¬',avi:'?¬',mov:'?¬',mkv:'?¬',wmv:'?¬',flv:'?¬',
+      mp3:'?µ',wav:'?µ',flac:'?µ',m4a:'?µ',ogg:'?µ',aac:'?µ',
+      pdf:'?“•',doc:'?“',docx:'?“',xls:'?“Š',xlsx:'?“Š',csv:'?“Š',ppt:'?“Š',pptx:'?“Š',
+      txt:'?“„',md:'?“„',
+      js:'?“œ',ts:'?“œ',jsx:'?“œ',tsx:'?“œ',py:'?“œ',java:'?“œ',cpp:'?“œ',c:'?“œ',cs:'?“œ',go:'?“œ',rb:'?“œ',php:'?“œ',sh:'?“œ',
+      html:'?Œ',htm:'?Œ',css:'?¨',json:'?“‹',xml:'?“‹',yaml:'?“‹',yml:'?“‹',toml:'?“‹',
+      zip:'?“¦',rar:'?“¦','7z':'?“¦',tar:'?“¦',gz:'?“¦',
+      exe:'?™ï¸',dll:'?™ï¸',msi:'?™ï¸',
+      ttf:'?”¤',otf:'?”¤',woff:'?”¤',woff2:'?”¤',
     };
-    return m[ext] || 'ğŸ“„';
+    return m[ext] || '?“„';
   }
 
-  // â”€â”€ Expand / Collapse All â”€â”€
+  // ?€?€ Expand / Collapse All ?€?€
   function toggleAll() {
     allExpanded = !allExpanded;
     document.querySelectorAll('.tree-children').forEach(function(el){el.classList.toggle('open', allExpanded);});
     document.querySelectorAll('.tree-toggle').forEach(function(el){el.classList.toggle('open', allExpanded);});
-    document.getElementById('toggle-btn').textContent = allExpanded ? 'ğŸ“ Collapse All' : 'ğŸ“‚ Expand All';
+    document.getElementById('toggle-btn').textContent = allExpanded ? '?“ Collapse All' : '?“‚ Expand All';
   }
 
-  // â”€â”€ Download All â”€â”€
+  // ?€?€ Download All ?€?€
   async function downloadAll() {
     if (!currentZip) return;
     var files = [];
@@ -324,7 +324,7 @@
 
         btn.disabled = true;
         for (var i = 0; i < files.length; i++) {
-          btn.textContent = 'â³ ' + (i + 1) + ' / ' + files.length;
+          btn.textContent = '??' + (i + 1) + ' / ' + files.length;
           var f = files[i];
           var parts = f.path.split('/').filter(function(p) { return p !== ''; });
           var fileName = parts.pop();
@@ -339,17 +339,17 @@
           await writable.close();
         }
         btn.disabled = false;
-        btn.textContent = 'âœ… Saved';
-        showToast('ğŸ“ Saved to folder: ' + folderName, false);
-        setTimeout(function() { btn.textContent = 'â¬‡ Download All'; }, 3000);
+        btn.textContent = '??Saved';
+        showToast('?“ Saved to folder: ' + folderName, false);
+        setTimeout(function() { btn.textContent = 'â¬?Download All'; }, 3000);
       } catch(e) {
         btn.disabled = false;
-        btn.textContent = 'â¬‡ Download All';
+        btn.textContent = 'â¬?Download All';
         if (e.name !== 'AbortError') showToast('Save failed: ' + e.message, true);
       }
     } else {
       // Fallback: individual file downloads
-      showToast('Folder save not supported in this browser â†’ downloading files individually', false);
+      showToast('Folder save not supported in this browser ??downloading files individually', false);
       files.forEach(function(f, i) {
         setTimeout(function() {
           f.entry.async('blob').then(function(blob) {
@@ -369,7 +369,7 @@
     document.getElementById('tree-root').innerHTML = '';
     document.getElementById('file-input').value = '';
     document.getElementById('err-msg').textContent = '';
-    document.getElementById('dl-all-btn').textContent = 'â¬‡ Download All';
+    document.getElementById('dl-all-btn').textContent = 'â¬?Download All';
   }
 
   (async function(){try{var r=await fetch('/en/blog/index.json');if(!r.ok)return;var posts=await r.json();var related=posts.filter(function(p){return p.related_tool==='zip-extractor';}).slice(0,3);var grid=document.getElementById('blog-grid');if(!related.length){grid.innerHTML='<div class="guh-blog-empty">No related posts yet.</div>';return;}grid.innerHTML=related.map(function(p){return'<a href="'+p.url+'" class="guh-blog-card"><div class="guh-blog-card-title">'+p.title+'</div><div class="guh-blog-card-date">'+p.date+'</div></a>';}).join('');}catch(e){document.getElementById('blog-grid').innerHTML='<div class="guh-blog-empty">No related posts yet.</div>';}})();
