@@ -36,7 +36,8 @@
       { title: '환율 계산기', url: '/tools/ko/exchange-rate/' },
       { title: '부가세 계산기', url: '/tools/ko/vat-calculator/' },
       { title: '연봉 계산기', url: '/tools/ko/salary-calculator/' },
-      { title: '시급·월급 계산기', url: '/tools/ko/monthly-salary/' }
+      { title: '시급·월급 계산기', url: '/tools/ko/monthly-salary/' },
+      { title: '이미지 자르기', url: '/tools/ko/image-cropper/' }
     ],
     en: [
       { title: 'BMI Calculator', url: '/tools/en/bmi-calculator/' },
@@ -69,7 +70,8 @@
       { title: 'Exchange Rate Calculator', url: '/tools/en/exchange-rate/' },
       { title: 'VAT Calculator', url: '/tools/en/vat-calculator/' },
       { title: 'Salary Calculator', url: '/tools/en/salary-calculator/' },
-      { title: 'Hourly Wage Calculator', url: '/tools/en/monthly-salary/' }
+      { title: 'Hourly Wage Calculator', url: '/tools/en/monthly-salary/' },
+      { title: 'Image Cropper', url: '/tools/en/image-cropper/' }
     ]
   };
 

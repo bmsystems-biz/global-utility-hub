@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Image Cropper – Crop Images Online Free | Global Utility Hub</title>
+  <meta name="description" content="Crop images by dragging a selection area. Supports aspect ratio lock (1:1, 16:9, 4:3, etc.), coordinate input, and rule-of-thirds guide. 100% browser-based, no uploads." />
+  <link rel="canonical" href="https://util.bmsystems.biz/tools/en/image-cropper/" />
+  <link rel="alternate" hreflang="ko" href="https://util.bmsystems.biz/tools/ko/image-cropper/" />
+  <link rel="alternate" hreflang="en" href="https://util.bmsystems.biz/tools/en/image-cropper/" />
+  <link rel="alternate" hreflang="x-default" href="https://util.bmsystems.biz/tools/en/image-cropper/" />
+  <meta property="og:title" content="Image Cropper" /><meta property="og:description" content="Crop images online by dragging a selection area." /><meta property="og:type" content="website" /><meta property="og:url" content="https://util.bmsystems.biz/tools/en/image-cropper/" /><meta property="og:locale" content="en_US" /><meta name="twitter:card" content="summary" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/common.css" />
+  <script>(function(){var t=localStorage.getItem('GUH-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark';})();</script>
+  <style>
+    .drop-zone{border:2px dashed var(--border);border-radius:12px;padding:36px 20px;text-align:center;cursor:pointer;transition:border-color 0.2s;color:var(--text-3);}
+    .drop-zone:hover,.drop-zone.drag-over{border-color:var(--accent);background:var(--accent-soft);}
+    .ratio-btn{padding:5px 11px;font-size:12px;border-radius:6px;border:1px solid var(--border);background:var(--surface2);cursor:pointer;color:var(--text-1);}
+    .ratio-btn:hover,.ratio-btn.active{background:var(--accent);color:#fff;border-color:var(--accent);}
+    #crop-wrap{position:relative;width:100%;border-radius:8px;border:1px solid var(--border);overflow:hidden;background:#1a1a1a;text-align:center;line-height:0;}
+    #crop-canvas{display:inline-block;max-width:100%;cursor:crosshair;touch-action:none;}
+    .coord-row{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;align-items:flex-end;}
+    .coord-row .guh-form-group{margin:0;flex:1;min-width:70px;}
+  </style>
+</head>
+<body>
+<header class="guh-header" role="banner">
+  <div class="guh-header-inner">
+    <button class="guh-menu-btn" id="menu-btn" aria-label="Menu">☰</button>
+    <a href="/en/" class="guh-logo">Global <span>Utility</span> Hub</a>
+    <nav class="guh-nav"><a href="/en/#daily-tools" class="guh-nav-link">Daily Tools</a><a href="/en/#finance" class="guh-nav-link">Finance</a><a href="/en/#health" class="guh-nav-link">Health</a><a href="/en/#dev-tools" class="guh-nav-link">Dev Tools</a><a href="/en/#file-tools" class="guh-nav-link active">File Tools</a><a href="/en/blog/" class="guh-nav-link">Blog</a></nav>
+    <div class="guh-header-actions">
+      <div class="guh-lang-select"><a href="/tools/ko/image-cropper/" class="guh-lang-btn">KO</a><a href="/tools/en/image-cropper/" class="guh-lang-btn active">EN</a></div>
+      <button class="guh-theme-btn" onclick="guhToggleTheme()" aria-label="Toggle dark mode"><span id="theme-icon">🌙</span></button>
+    </div>
+  </div>
+</header>
+<div class="guh-mobile-nav" id="mobile-nav">
+  <a href="/en/#daily-tools">Daily Tools</a><a href="/en/#finance">Finance</a><a href="/en/#health">Health</a><a href="/en/#dev-tools">Dev Tools</a><a href="/en/#file-tools">File Tools</a><a href="/en/blog/">Blog</a>
+  <hr/><a href="/tools/ko/image-cropper/">🇰🇷 한국어</a><a href="/tools/en/image-cropper/">🇺🇸 English</a>
+</div>
+
+<main class="guh-container guh-page" id="main-content">
+  <nav class="guh-breadcrumb"><a href="/en/">Home</a><span class="guh-breadcrumb-sep">›</span><a href="/en/#file-tools">File Tools</a><span class="guh-breadcrumb-sep">›</span><span>Image Cropper</span></nav>
+  <div class="guh-hero"><h1>✂️ Image Cropper</h1><p>Drag to select a crop area. Lock to an aspect ratio or enter pixel coordinates directly.</p></div>
+
+  <section class="guh-section" id="calculator">
+    <div class="guh-calc-card">
+
+      <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
+        <div style="font-size:28px;margin-bottom:6px;">✂️</div>
+        <div style="font-weight:600;margin-bottom:4px;">Drop image here or click to upload</div>
+        <div style="font-size:13px;">JPG, PNG, WebP, GIF, BMP supported</div>
+        <input type="file" id="file-input" accept="image/*" style="display:none" onchange="onFile(this.files[0])" />
+      </div>
+
+      <div id="tool-area" style="display:none;">
+        <div id="orig-info" style="font-size:13px;color:var(--text-2);margin:8px 0;"></div>
+
+        <div style="margin:10px 0;display:flex;flex-wrap:wrap;align-items:center;gap:6px;">
+          <span style="font-size:13px;font-weight:600;color:var(--text-2);">Ratio:</span>
+          <button class="ratio-btn active" onclick="setRatio(0,this)">Free</button>
+          <button class="ratio-btn" onclick="setRatio(1,this)">1:1</button>
+          <button class="ratio-btn" onclick="setRatio(4/3,this)">4:3</button>
+          <button class="ratio-btn" onclick="setRatio(3/4,this)">3:4</button>
+          <button class="ratio-btn" onclick="setRatio(16/9,this)">16:9</button>
+          <button class="ratio-btn" onclick="setRatio(9/16,this)">9:16</button>
+          <button class="ratio-btn" onclick="setRatio(3/2,this)">3:2</button>
+          <button class="ratio-btn" onclick="setRatio(2/3,this)">2:3</button>
+        </div>
+
+        <div id="crop-wrap"><canvas id="crop-canvas"></canvas></div>
+        <div style="font-size:12px;color:var(--text-3);margin-top:5px;">Drag to select · Drag handles to resize · Drag inside selection to move</div>
+
+        <div class="coord-row">
+          <div class="guh-form-group"><label class="guh-label">X (px)</label><input type="number" id="ci-x" class="guh-input" min="0" oninput="onCoordInput()" /></div>
+          <div class="guh-form-group"><label class="guh-label">Y (px)</label><input type="number" id="ci-y" class="guh-input" min="0" oninput="onCoordInput()" /></div>
+          <div class="guh-form-group"><label class="guh-label">Width (px)</label><input type="number" id="ci-w" class="guh-input" min="1" oninput="onCoordInput()" /></div>
+          <div class="guh-form-group"><label class="guh-label">Height (px)</label><input type="number" id="ci-h" class="guh-input" min="1" oninput="onCoordInput()" /></div>
+        </div>
+        <div id="crop-size-hint" style="font-size:12px;color:var(--text-3);margin-bottom:8px;"></div>
+
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="guh-btn" id="crop-btn" onclick="doCrop()" disabled>✂️ Crop &amp; Download</button>
+          <button class="guh-btn guh-btn-outline" onclick="selectAll()">Select All</button>
+          <button class="guh-btn guh-btn-outline" onclick="resetAll()">Reset</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="guh-section" id="faq">
+    <h2 class="guh-section-title">❓ FAQ</h2>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">Is my image uploaded to a server?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">No. Everything runs in your browser using the Canvas API. Your image never leaves your device, so it's completely private.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">How do I lock the aspect ratio?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">Click one of the ratio buttons (1:1, 16:9, etc.) before or after dragging. When a ratio is active, dragging to create or resize a crop area will automatically maintain that ratio. Useful for social media: Instagram square (1:1), YouTube thumbnail (16:9), Twitter header (3:1).</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">What format does the cropped image download as?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">PNG. If you need a different format (JPG, WebP), use the Image Converter after cropping.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">Can I enter exact pixel coordinates?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">Yes. The X, Y, Width, and Height inputs let you type precise values in original image pixels. X and Y are the top-left corner coordinates. Changes update the selection on the canvas immediately.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">Does it work on mobile?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">Yes. Touch drag is supported for selecting and moving the crop area. For fine adjustments, use the pixel coordinate inputs.</div></div>
+  </section>
+
+  <section class="guh-section" id="related-tools">
+    <h2 class="guh-section-title">🔗 Related Tools</h2>
+    <div class="guh-tool-grid">
+      <a href="/tools/en/image-resizer/" class="guh-tool-card"><span class="guh-tool-icon">↔️</span><span>Image Resizer</span></a>
+      <a href="/tools/en/image-compress/" class="guh-tool-card"><span class="guh-tool-icon">🗜️</span><span>Image Compressor</span></a>
+      <a href="/tools/en/image-converter/" class="guh-tool-card"><span class="guh-tool-icon">🖼️</span><span>Image Converter</span></a>
+      <a href="/tools/en/svg-converter/" class="guh-tool-card"><span class="guh-tool-icon">✏️</span><span>SVG Converter</span></a>
+      <a href="/tools/en/gif-maker/" class="guh-tool-card"><span class="guh-tool-icon">🎞️</span><span>GIF Maker</span></a>
+    </div>
+  </section>
+  <section class="guh-section" id="related-blog"><h2 class="guh-section-title">📝 Related Blog</h2><div class="guh-blog-grid" id="blog-grid"><div class="guh-blog-empty">Loading...</div></div></section>
+</main>
+
+<footer class="guh-footer"><div class="guh-footer-inner"><a href="/en/" class="guh-footer-logo">Global Utility Hub</a><nav class="guh-footer-links"><a href="/en/blog/">Blog</a><a href="/en/">All Tools</a><a href="mailto:contact@bmsystems.biz">Contact</a></nav><p class="guh-footer-copy">© 2026 Global Utility Hub. All rights reserved.</p></div></footer>
+<div class="guh-toast" id="toast"></div>
+<script>
+  function guhToggleTheme(){var isDark=document.documentElement.dataset.theme==='dark';document.documentElement.dataset.theme=isDark?'light':'dark';localStorage.setItem('GUH-theme',document.documentElement.dataset.theme);document.getElementById('theme-icon').textContent=isDark?'🌙':'☀️';}
+  (function(){document.getElementById('theme-icon').textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';})();
+  document.getElementById('menu-btn').addEventListener('click',function(){document.getElementById('mobile-nav').classList.toggle('open');});
+  document.querySelectorAll('.guh-faq-q').forEach(function(btn){btn.addEventListener('click',function(){var isOpen=this.classList.contains('open');document.querySelectorAll('.guh-faq-q').forEach(function(b){b.classList.remove('open');b.nextElementSibling.classList.remove('open');});if(!isOpen){this.classList.add('open');this.nextElementSibling.classList.add('open');}});});
+  function showToast(msg,isErr){var t=document.getElementById('toast');t.textContent=msg;t.style.background=isErr?'var(--red)':'var(--green)';t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2500);}
+
+  var origImg=null, origW=0, origH=0, origName='image';
+  var displayScale=1;
+  var cropX=0, cropY=0, cropW=0, cropH=0;
+  var aspectRatio=0;
+  var canvas=document.getElementById('crop-canvas');
+  var ctx=canvas.getContext('2d');
+
+  var dragState='none';
+  var dragStartMX=0, dragStartMY=0;
+  var savedCrop={x:0,y:0,w:0,h:0};
+  var activeHandle='';
+  var HS=8;
+
+  var dz=document.getElementById('drop-zone');
+  dz.addEventListener('dragover',function(e){e.preventDefault();dz.classList.add('drag-over');});
+  dz.addEventListener('dragleave',function(){dz.classList.remove('drag-over');});
+  dz.addEventListener('drop',function(e){e.preventDefault();dz.classList.remove('drag-over');if(e.dataTransfer.files[0])onFile(e.dataTransfer.files[0]);});
+
+  function onFile(file){
+    if(!file||!file.type.startsWith('image/')){showToast('Please select an image file.',true);return;}
+    origName=file.name.replace(/\.[^.]+$/,'');
+    var reader=new FileReader();
+    reader.onload=function(e){
+      origImg=new Image();
+      origImg.onload=function(){
+        origW=origImg.naturalWidth;origH=origImg.naturalHeight;
+        document.getElementById('orig-info').textContent='Source: '+file.name+' | '+origW+'×'+origH+'px | '+(file.size/1024).toFixed(1)+' KB';
+        document.getElementById('tool-area').style.display='block';
+        document.getElementById('drop-zone').style.display='none';
+        setupCanvas();selectAll();
+      };
+      origImg.src=e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function setupCanvas(){
+    var wrap=document.getElementById('crop-wrap');
+    var wrapW=wrap.clientWidth||Math.min(700,window.innerWidth-40);
+    var maxH=580;
+    var dispW=Math.min(wrapW,origW);
+    var dispH=dispW*origH/origW;
+    if(dispH>maxH){dispH=maxH;dispW=dispH*origW/origH;}
+    canvas.width=Math.round(dispW);canvas.height=Math.round(dispH);
+    displayScale=canvas.width/origW;
+  }
+
+  function td(v){return v*displayScale;}
+  function to(v){return v/displayScale;}
+  function clamp(v,lo,hi){return Math.max(lo,Math.min(hi,v));}
+
+  function clampCrop(){
+    cropX=clamp(cropX,0,origW-1);cropY=clamp(cropY,0,origH-1);
+    cropW=clamp(cropW,1,origW-Math.round(cropX));cropH=clamp(cropH,1,origH-Math.round(cropY));
+  }
+
+  function draw(){
+    if(!origImg)return;
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.drawImage(origImg,0,0,canvas.width,canvas.height);
+    if(cropW<1||cropH<1)return;
+    var dx=td(cropX),dy=td(cropY),dw=td(cropW),dh=td(cropH);
+    ctx.fillStyle='rgba(0,0,0,0.55)';
+    ctx.fillRect(0,0,canvas.width,dy);ctx.fillRect(0,dy,dx,dh);
+    ctx.fillRect(dx+dw,dy,canvas.width-dx-dw,dh);ctx.fillRect(0,dy+dh,canvas.width,canvas.height-dy-dh);
+    ctx.strokeStyle='#fff';ctx.lineWidth=1.5;ctx.strokeRect(dx,dy,dw,dh);
+    ctx.strokeStyle='rgba(255,255,255,0.35)';ctx.lineWidth=0.8;
+    for(var i=1;i<3;i++){
+      ctx.beginPath();ctx.moveTo(dx+dw*i/3,dy);ctx.lineTo(dx+dw*i/3,dy+dh);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(dx,dy+dh*i/3);ctx.lineTo(dx+dw,dy+dh*i/3);ctx.stroke();
+    }
+    var hpts=[[dx,dy],[dx+dw/2,dy],[dx+dw,dy],[dx,dy+dh/2],[dx+dw,dy+dh/2],[dx,dy+dh],[dx+dw/2,dy+dh],[dx+dw,dy+dh]];
+    ctx.fillStyle='#fff';ctx.strokeStyle='rgba(0,0,0,0.5)';ctx.lineWidth=1;
+    hpts.forEach(function(p){ctx.fillRect(p[0]-HS/2,p[1]-HS/2,HS,HS);ctx.strokeRect(p[0]-HS/2,p[1]-HS/2,HS,HS);});
+  }
+
+  function getHandle(mx,my){
+    if(cropW<1||cropH<1)return null;
+    var dx=td(cropX),dy=td(cropY),dw=td(cropW),dh=td(cropH),tol=HS+3;
+    var hm={tl:[dx,dy],tc:[dx+dw/2,dy],tr:[dx+dw,dy],ml:[dx,dy+dh/2],mr:[dx+dw,dy+dh/2],bl:[dx,dy+dh],bc:[dx+dw/2,dy+dh],br:[dx+dw,dy+dh]};
+    for(var k in hm){var p=hm[k];if(Math.abs(mx-p[0])<=tol&&Math.abs(my-p[1])<=tol)return k;}
+    return null;
+  }
+
+  function inCrop(mx,my){return mx>=td(cropX)&&mx<=td(cropX+cropW)&&my>=td(cropY)&&my<=td(cropY+cropH);}
+
+  function getCanvasXY(e){
+    var rect=canvas.getBoundingClientRect();
+    var src=(e.touches&&e.touches.length)?e.touches[0]:(e.changedTouches&&e.changedTouches.length)?e.changedTouches[0]:e;
+    return{x:(src.clientX-rect.left)*(canvas.width/rect.width),y:(src.clientY-rect.top)*(canvas.height/rect.height)};
+  }
+
+  function getCursor(mx,my){
+    var h=getHandle(mx,my);
+    if(h){var c={tl:'nw-resize',tc:'n-resize',tr:'ne-resize',ml:'w-resize',mr:'e-resize',bl:'sw-resize',bc:'s-resize',br:'se-resize'};return c[h]||'default';}
+    if(cropW>0&&inCrop(mx,my))return 'move';
+    return 'crosshair';
+  }
+
+  function onMouseDown(e){
+    e.preventDefault();
+    var p=getCanvasXY(e);
+    dragStartMX=p.x;dragStartMY=p.y;
+    var h=getHandle(p.x,p.y);
+    if(h){dragState='resizing';activeHandle=h;savedCrop={x:cropX,y:cropY,w:cropW,h:cropH};}
+    else if(cropW>0&&inCrop(p.x,p.y)){dragState='moving';savedCrop={x:cropX,y:cropY,w:cropW,h:cropH};}
+    else{dragState='creating';cropX=clamp(to(p.x),0,origW);cropY=clamp(to(p.y),0,origH);cropW=0;cropH=0;}
+  }
+
+  function onMouseMove(e){
+    e.preventDefault();
+    var p=getCanvasXY(e);
+    if(dragState==='none'){canvas.style.cursor=getCursor(p.x,p.y);return;}
+    var ddx=to(p.x-dragStartMX),ddy=to(p.y-dragStartMY);
+    if(dragState==='creating'){
+      var sx=to(dragStartMX),sy=to(dragStartMY);
+      var ex=clamp(to(p.x),0,origW),ey=clamp(to(p.y),0,origH);
+      if(aspectRatio){var rw=Math.abs(ex-sx),rh=Math.abs(ey-sy);if(rw/rh>aspectRatio)rh=rw/aspectRatio;else rw=rh*aspectRatio;ex=sx+(ex>=sx?rw:-rw);ey=sy+(ey>=sy?rh:-rh);}
+      cropX=Math.min(sx,ex);cropY=Math.min(sy,ey);cropW=Math.abs(ex-sx);cropH=Math.abs(ey-sy);
+    } else if(dragState==='moving'){
+      cropX=savedCrop.x+ddx;cropY=savedCrop.y+ddy;cropW=savedCrop.w;cropH=savedCrop.h;
+    } else if(dragState==='resizing'){
+      var sc=savedCrop,h=activeHandle;
+      var nx=sc.x,ny=sc.y,nw=sc.w,nh=sc.h;
+      if(h==='tl'){nx=sc.x+ddx;ny=sc.y+ddy;nw=sc.w-ddx;nh=sc.h-ddy;}
+      else if(h==='tc'){ny=sc.y+ddy;nh=sc.h-ddy;}
+      else if(h==='tr'){ny=sc.y+ddy;nw=sc.w+ddx;nh=sc.h-ddy;}
+      else if(h==='ml'){nx=sc.x+ddx;nw=sc.w-ddx;}
+      else if(h==='mr'){nw=sc.w+ddx;}
+      else if(h==='bl'){nx=sc.x+ddx;nw=sc.w-ddx;nh=sc.h+ddy;}
+      else if(h==='bc'){nh=sc.h+ddy;}
+      else if(h==='br'){nw=sc.w+ddx;nh=sc.h+ddy;}
+      if(aspectRatio){if(h==='ml'||h==='mr')nh=nw/aspectRatio;else if(h==='tc'||h==='bc')nw=nh*aspectRatio;else{if(Math.abs(ddx)>=Math.abs(ddy))nh=nw/aspectRatio;else nw=nh*aspectRatio;}}
+      cropX=nx;cropY=ny;cropW=Math.max(1,nw);cropH=Math.max(1,nh);
+    }
+    clampCrop();updateInputs();draw();
+  }
+
+  function onMouseUp(){
+    if(dragState==='creating'&&cropW<3){cropW=0;cropH=0;}
+    else if(cropW>0&&cropH>0)document.getElementById('crop-btn').disabled=false;
+    dragState='none';draw();
+  }
+
+  canvas.addEventListener('mousedown',onMouseDown);
+  canvas.addEventListener('mousemove',onMouseMove);
+  canvas.addEventListener('mouseup',onMouseUp);
+  canvas.addEventListener('mouseleave',function(){if(dragState!=='none')onMouseUp();});
+  canvas.addEventListener('touchstart',onMouseDown,{passive:false});
+  canvas.addEventListener('touchmove',onMouseMove,{passive:false});
+  canvas.addEventListener('touchend',onMouseUp,{passive:false});
+
+  function updateInputs(){
+    document.getElementById('ci-x').value=Math.round(cropX);
+    document.getElementById('ci-y').value=Math.round(cropY);
+    document.getElementById('ci-w').value=Math.round(cropW);
+    document.getElementById('ci-h').value=Math.round(cropH);
+    if(cropW>0&&cropH>0)document.getElementById('crop-size-hint').textContent='Selection: '+Math.round(cropW)+' × '+Math.round(cropH)+' px';
+  }
+
+  function onCoordInput(){
+    cropX=parseInt(document.getElementById('ci-x').value)||0;
+    cropY=parseInt(document.getElementById('ci-y').value)||0;
+    cropW=parseInt(document.getElementById('ci-w').value)||0;
+    cropH=parseInt(document.getElementById('ci-h').value)||0;
+    clampCrop();updateInputs();
+    if(cropW>0&&cropH>0)document.getElementById('crop-btn').disabled=false;
+    draw();
+  }
+
+  function setRatio(r,btn){
+    aspectRatio=r;
+    document.querySelectorAll('.ratio-btn').forEach(function(b){b.classList.remove('active');});
+    if(btn)btn.classList.add('active');
+    if(r&&cropW>0&&cropH>0){
+      if(cropW/cropH>r)cropH=cropW/r;else cropW=cropH*r;
+      clampCrop();updateInputs();draw();
+    }
+  }
+
+  function selectAll(){
+    cropX=0;cropY=0;cropW=origW;cropH=origH;
+    if(aspectRatio){if(cropW/cropH>aspectRatio)cropH=cropW/aspectRatio;else cropW=cropH*aspectRatio;clampCrop();}
+    updateInputs();document.getElementById('crop-btn').disabled=false;draw();
+  }
+
+  function doCrop(){
+    if(!origImg||cropW<1||cropH<1){showToast('Please select a crop area first.',true);return;}
+    var out=document.createElement('canvas');
+    out.width=Math.round(cropW);out.height=Math.round(cropH);
+    out.getContext('2d').drawImage(origImg,Math.round(cropX),Math.round(cropY),Math.round(cropW),Math.round(cropH),0,0,Math.round(cropW),Math.round(cropH));
+    var a=document.createElement('a');
+    a.download=origName+'_crop_'+Math.round(cropW)+'x'+Math.round(cropH)+'.png';
+    a.href=out.toDataURL('image/png');a.click();
+    showToast('Cropped!',false);
+  }
+
+  function resetAll(){
+    origImg=null;origW=0;origH=0;cropX=0;cropY=0;cropW=0;cropH=0;
+    document.getElementById('tool-area').style.display='none';
+    document.getElementById('drop-zone').style.display='';
+    document.getElementById('file-input').value='';
+    document.getElementById('crop-btn').disabled=true;
+    document.getElementById('crop-size-hint').textContent='';
+    ctx.clearRect(0,0,canvas.width,canvas.height);updateInputs();
+  }
+
+  (async function(){try{var r=await fetch('/en/blog/index.json');if(!r.ok)return;var posts=await r.json();var related=posts.filter(function(p){return p.related_tool==='image-cropper';}).slice(0,3);var grid=document.getElementById('blog-grid');if(!related.length){grid.innerHTML='<div class="guh-blog-empty">No related posts yet.</div>';return;}grid.innerHTML=related.map(function(p){return'<a href="'+p.url+'" class="guh-blog-card"><div class="guh-blog-card-title">'+p.title+'</div><div class="guh-blog-card-date">'+p.date+'</div></a>';}).join('');}catch(e){document.getElementById('blog-grid').innerHTML='<div class="guh-blog-empty">No related posts yet.</div>';}})();
+</script>
+<script src="/assets/js/guh-search.js" defer></script>
+</body>
+</html>
