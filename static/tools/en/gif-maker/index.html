@@ -121,6 +121,14 @@
   function showToast(msg,isErr){var t=document.getElementById('toast');t.textContent=msg;t.style.background=isErr?'var(--red)':'var(--green)';t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2500);}
 
   var frames=[];
+  var gifWorkerUrl=null;
+
+  // Fetch gif.worker.js and wrap in a Blob URL to bypass cross-origin worker restriction
+  fetch('https://cdn.jsdelivr.net/npm/gif.js@0.2.0/dist/gif.worker.js')
+    .then(function(r){return r.text();})
+    .then(function(t){gifWorkerUrl=URL.createObjectURL(new Blob([t],{type:'application/javascript'}));})
+    .catch(function(){});
+
   var dz=document.getElementById('drop-zone');
   dz.addEventListener('dragover',function(e){e.preventDefault();dz.classList.add('drag-over');});
   dz.addEventListener('dragleave',function(){dz.classList.remove('drag-over');});
@@ -157,20 +165,18 @@
     else document.getElementById('status-msg').textContent=frames.length+' frames ready';
   }
 
-  function makeGif(){
-    if(frames.length<2){showToast('At least 2 images required.',true);return;}
+  function doRender(workerSrc){
     var w=parseInt(document.getElementById('gif-w').value)||480;
     var h=parseInt(document.getElementById('gif-h').value)||320;
     var delay=parseInt(document.getElementById('delay').value)||200;
     var quality=parseInt(document.getElementById('gif-q').value)||10;
-    document.getElementById('status-msg').textContent='Creating GIF...';
-    document.getElementById('make-btn').disabled=true;
-    var gif=new GIF({workers:2,quality:quality,width:w,height:h,workerScript:'https://cdn.jsdelivr.net/npm/gif.js@0.2.0/dist/gif.worker.js'});
+    var gif=new GIF({workers:2,quality:quality,width:w,height:h,workerScript:workerSrc});
     frames.forEach(function(f){
       var canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;
-      var ctx=canvas.getContext('2d');ctx.drawImage(f.img,0,0,w,h);
-      gif.addFrame(canvas,{delay:delay});
+      canvas.getContext('2d').drawImage(f.img,0,0,w,h);
+      gif.addFrame(canvas,{delay:delay,copy:true});
     });
+    gif.on('progress',function(p){document.getElementById('status-msg').textContent='Creating GIF... '+Math.round(p*100)+'%';});
     gif.on('finished',function(blob){
       var url=URL.createObjectURL(blob);
       document.getElementById('preview-gif').src=url;
@@ -180,7 +186,29 @@
       document.getElementById('make-btn').disabled=false;
       showToast('GIF created!',false);
     });
+    gif.on('error',function(e){
+      document.getElementById('status-msg').textContent='❌ Failed: '+e;
+      document.getElementById('make-btn').disabled=false;
+      showToast('GIF creation failed',true);
+    });
     gif.render();
+  }
+
+  function makeGif(){
+    if(frames.length<2){showToast('At least 2 images required.',true);return;}
+    document.getElementById('status-msg').textContent='Creating GIF...';
+    document.getElementById('make-btn').disabled=true;
+    if(gifWorkerUrl){doRender(gifWorkerUrl);return;}
+    fetch('https://cdn.jsdelivr.net/npm/gif.js@0.2.0/dist/gif.worker.js')
+      .then(function(r){return r.text();})
+      .then(function(t){
+        gifWorkerUrl=URL.createObjectURL(new Blob([t],{type:'application/javascript'}));
+        doRender(gifWorkerUrl);
+      })
+      .catch(function(){
+        document.getElementById('status-msg').textContent='❌ Library load failed. Check network.';
+        document.getElementById('make-btn').disabled=false;
+      });
   }
 
   function resetAll(){frames=[];document.getElementById('frame-list').innerHTML='';document.getElementById('make-btn').disabled=true;document.getElementById('status-msg').textContent='';document.getElementById('preview-wrap').style.display='none';document.getElementById('file-input').value='';}
