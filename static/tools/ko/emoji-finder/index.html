@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>이모지 찾기 – 이모지 검색·복사 무료 | 글로벌 유틸리티 허브</title>
+  <meta name="description" content="카테고리별 이모지를 검색하고 클릭 한 번으로 복사합니다. 얼굴, 동물, 음식, 사물 등 전체 이모지 모음. 무료 온라인 이모지 피커." />
+  <link rel="canonical" href="https://util.bmsystems.biz/tools/ko/emoji-finder/" />
+  <link rel="alternate" hreflang="ko" href="https://util.bmsystems.biz/tools/ko/emoji-finder/" />
+  <link rel="alternate" hreflang="en" href="https://util.bmsystems.biz/tools/en/emoji-finder/" />
+  <link rel="alternate" hreflang="x-default" href="https://util.bmsystems.biz/tools/en/emoji-finder/" />
+  <meta property="og:title" content="이모지 찾기" /><meta property="og:description" content="카테고리별 이모지를 검색하고 클릭으로 복사하세요." /><meta property="og:type" content="website" /><meta property="og:url" content="https://util.bmsystems.biz/tools/ko/emoji-finder/" /><meta property="og:locale" content="ko_KR" /><meta name="twitter:card" content="summary" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/common.css" />
+  <script>(function(){var t=localStorage.getItem('GUH-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark';})();</script>
+  <style>
+    /* ── 검색 ── */
+    .emoji-search-wrap{position:relative;margin-bottom:16px;}
+    .emoji-search{width:100%;padding:12px 16px 12px 42px;border:2px solid var(--border);border-radius:10px;background:var(--bg);color:var(--text-1);font-size:14px;font-family:inherit;outline:none;transition:border-color 0.2s;}
+    .emoji-search:focus{border-color:var(--accent);}
+    .emoji-search::placeholder{color:var(--text-3);}
+    .emoji-search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:16px;pointer-events:none;}
+
+    /* ── 카테고리 탭 ── */
+    .cat-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;}
+    .cat-tab{display:flex;align-items:center;gap:5px;padding:8px 14px;border-radius:20px;border:1.5px solid var(--border);background:transparent;cursor:pointer;white-space:nowrap;font-size:13px;font-weight:500;color:var(--text-2);transition:all 0.15s;font-family:inherit;}
+    .cat-tab:hover:not(.active){border-color:var(--text-3);color:var(--text-1);}
+    .cat-tab.active{border-color:var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:700;}
+
+    /* ── 최근 복사 ── */
+    .recent-row{display:flex;align-items:center;gap:6px;margin-bottom:14px;min-height:36px;}
+    .recent-label{font-size:12px;color:var(--text-3);white-space:nowrap;flex-shrink:0;}
+    .recent-emojis{display:flex;gap:4px;flex-wrap:wrap;}
+    .recent-chip{font-size:22px;cursor:pointer;padding:2px 4px;border-radius:6px;transition:background 0.15s;line-height:1;}
+    .recent-chip:hover{background:var(--surface2);}
+
+    /* ── 이모지 그리드 ── */
+    .emoji-count{font-size:12px;color:var(--text-3);margin-bottom:10px;}
+    .emoji-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:4px;}
+    .emoji-card{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 4px 8px;border-radius:10px;cursor:pointer;border:1.5px solid transparent;transition:all 0.12s;text-align:center;user-select:none;}
+    .emoji-card:hover{background:var(--surface2);border-color:var(--border);}
+    .emoji-card.copied{background:var(--green-soft)!important;border-color:var(--green)!important;}
+    .emoji-char{font-size:30px;line-height:1;margin-bottom:5px;}
+    .emoji-name{font-size:10px;color:var(--text-3);line-height:1.3;word-break:keep-all;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
+    .emoji-empty{grid-column:1/-1;text-align:center;padding:40px;color:var(--text-3);font-size:14px;}
+  </style>
+</head>
+<body>
+<header class="guh-header" role="banner">
+  <div class="guh-header-inner">
+    <button class="guh-menu-btn" id="menu-btn" aria-label="메뉴">☰</button>
+    <a href="/ko/" class="guh-logo">글로벌 <span>유틸리티</span> 허브</a>
+    <nav class="guh-nav"><a href="/ko/#daily-tools" class="guh-nav-link active">생활도구</a><a href="/ko/#file-tools" class="guh-nav-link">파일도구</a><a href="/ko/#finance" class="guh-nav-link">금융계산기</a><a href="/ko/#health" class="guh-nav-link">건강</a><a href="/ko/#dev-tools" class="guh-nav-link">개발자도구</a><a href="/ko/blog/" class="guh-nav-link">블로그</a></nav>
+    <div class="guh-header-actions">
+      <div class="guh-lang-select"><a href="/tools/ko/emoji-finder/" class="guh-lang-btn active">KO</a><a href="/tools/en/emoji-finder/" class="guh-lang-btn">EN</a></div>
+      <button class="guh-theme-btn" onclick="guhToggleTheme()" aria-label="다크모드 전환"><span id="theme-icon">🌙</span></button>
+    </div>
+  </div>
+</header>
+<div class="guh-mobile-nav" id="mobile-nav">
+  <a href="/ko/#daily-tools">생활도구</a><a href="/ko/#file-tools">파일도구</a><a href="/ko/#finance">금융계산기</a><a href="/ko/#health">건강</a><a href="/ko/#dev-tools">개발자도구</a><a href="/ko/blog/">블로그</a>
+  <hr/><a href="/tools/ko/emoji-finder/">🇰🇷 한국어</a><a href="/tools/en/emoji-finder/">🇺🇸 English</a>
+</div>
+
+<main class="guh-container guh-page" id="main-content">
+  <nav class="guh-breadcrumb"><a href="/ko/">홈</a><span class="guh-breadcrumb-sep">›</span><a href="/ko/#daily-tools">생활도구</a><span class="guh-breadcrumb-sep">›</span><span>이모지 찾기</span></nav>
+  <div class="guh-hero"><h1>😊 이모지 찾기</h1><p>카테고리를 선택하거나 이름으로 검색해 이모지를 클릭하면 바로 복사됩니다.</p></div>
+
+  <section class="guh-section" id="calculator">
+    <div class="guh-calc-card">
+
+      <!-- 검색 -->
+      <div class="emoji-search-wrap">
+        <span class="emoji-search-icon">🔍</span>
+        <input class="emoji-search" id="emoji-search" type="text" placeholder="이모지 이름 검색... (예: 웃음, 강아지, 피자)" autocomplete="off" oninput="onSearch(this.value)" />
+      </div>
+
+      <!-- 카테고리 탭 -->
+      <div class="cat-tabs" id="cat-tabs"></div>
+
+      <!-- 최근 복사 -->
+      <div class="recent-row" id="recent-row" style="display:none;">
+        <span class="recent-label">최근:</span>
+        <div class="recent-emojis" id="recent-emojis"></div>
+      </div>
+
+      <!-- 카운트 -->
+      <div class="emoji-count" id="emoji-count"></div>
+
+      <!-- 이모지 그리드 -->
+      <div class="emoji-grid" id="emoji-grid"></div>
+    </div>
+  </section>
+
+  <section class="guh-section" id="related-tools">
+    <h2 class="guh-section-title">🔗 관련 도구</h2>
+    <div class="guh-tool-grid">
+      <a href="/tools/ko/character-counter/" class="guh-tool-card"><span class="guh-tool-icon">🔤</span><span>문자 수 계산기</span></a>
+      <a href="/tools/ko/base64/" class="guh-tool-card"><span class="guh-tool-icon">🔐</span><span>Base64 인코더</span></a>
+      <a href="/tools/ko/url-encoder/" class="guh-tool-card"><span class="guh-tool-icon">🔗</span><span>URL 인코더</span></a>
+      <a href="/tools/ko/html-escape/" class="guh-tool-card"><span class="guh-tool-icon">🌐</span><span>HTML 이스케이프</span></a>
+      <a href="/tools/ko/qr-code-generator/" class="guh-tool-card"><span class="guh-tool-icon">📱</span><span>QR코드 생성기</span></a>
+    </div>
+  </section>
+</main>
+
+<footer class="guh-footer"><div class="guh-footer-inner"><a href="/ko/" class="guh-footer-logo">Global Utility Hub</a><nav class="guh-footer-links"><a href="/ko/blog/">블로그</a><a href="/ko/">도구 목록</a><a href="mailto:contact@bmsystems.biz">문의</a></nav><p class="guh-footer-copy">© 2026 Global Utility Hub. All rights reserved.</p></div></footer>
+<div class="guh-toast" id="toast"></div>
+<script>
+function guhToggleTheme(){var isDark=document.documentElement.dataset.theme==='dark';document.documentElement.dataset.theme=isDark?'light':'dark';localStorage.setItem('GUH-theme',document.documentElement.dataset.theme);document.getElementById('theme-icon').textContent=isDark?'🌙':'☀️';}
+(function(){document.getElementById('theme-icon').textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';})();
+document.getElementById('menu-btn').addEventListener('click',function(){document.getElementById('mobile-nav').classList.toggle('open');});
+function showToast(msg,isErr){var t=document.getElementById('toast');t.textContent=msg;t.style.background=isErr?'var(--red)':'var(--green)';t.classList.add('show');setTimeout(function(){t.classList.remove('show');},1800);}
+
+// ── 카테고리 정의 ──────────────────────────────────
+var CATS = [
+  {id:'all',    label:'전체',     icon:'🔍'},
+  {id:'face',   label:'얼굴·감정', icon:'😊'},
+  {id:'people', label:'사람·신체', icon:'👋'},
+  {id:'animal', label:'동물·자연', icon:'🐾'},
+  {id:'food',   label:'음식·음료', icon:'🍕'},
+  {id:'travel', label:'여행·장소', icon:'✈️'},
+  {id:'act',    label:'활동',     icon:'⚽'},
+  {id:'obj',    label:'사물',     icon:'💡'},
+  {id:'sym',    label:'기호',     icon:'🔣'},
+  {id:'flag',   label:'깃발',     icon:'🏳️'},
+];
+
+// ── 이모지 데이터 [이모지, 이름, 카테고리] ───────────
+var EMOJIS = [
+// 얼굴·감정
+['😀','환하게 웃음','face'],['😃','환한 눈 웃음','face'],['😄','눈 감고 웃음','face'],['😁','씩 웃음','face'],
+['😆','눈 감고 크게 웃음','face'],['😅','식은땀 웃음','face'],['🤣','뒹굴며 웃음','face'],['😂','눈물 웃음','face'],
+['🙂','약간 웃음','face'],['🙃','거꾸로 웃음','face'],['😉','윙크','face'],['😊','두 눈 웃음','face'],
+['😇','후광 미소','face'],['🥰','하트 눈 웃음','face'],['😍','하트 눈','face'],['🤩','별 눈','face'],
+['😘','하트 키스','face'],['😗','키스','face'],['☺️','볼 붉히며 웃음','face'],['😚','눈 감고 키스','face'],
+['😙','미소 키스','face'],['🥲','눈물 미소','face'],['😋','맛있다','face'],['😛','혀 내밀기','face'],
+['😜','윙크 혀 내밀기','face'],['🤪','이상한 웃음','face'],['😝','눈 감고 혀 내밀기','face'],['🤑','돈 눈','face'],
+['🤗','안아줘','face'],['🤭','입 가리고 웃음','face'],['🤫','쉿','face'],['🤔','생각 중','face'],
+['🤐','입 닫음','face'],['🤨','눈썹 올리기','face'],['😐','무표정','face'],['😑','무감각','face'],
+['😶','입 없는 얼굴','face'],['😏','비웃음','face'],['😒','불만','face'],['🙄','눈 굴리기','face'],
+['😬','어색한 웃음','face'],['🤥','거짓말','face'],['😌','안도','face'],['😔','슬픔','face'],
+['😪','졸림','face'],['🤤','침 흘림','face'],['😴','자는 얼굴','face'],['😷','마스크','face'],
+['🤒','열 있음','face'],['🤕','다친 얼굴','face'],['🤢','역겨움','face'],['🤮','구토','face'],
+['🤧','재채기','face'],['🥵','더움','face'],['🥶','추움','face'],['🥴','어지러움','face'],
+['😵','어질어질','face'],['🤯','폭발 머리','face'],['🤠','카우보이','face'],['🥳','파티','face'],
+['🥸','변장','face'],['😎','쿨','face'],['🤓','안경 덕후','face'],['🧐','돋보기 눈','face'],
+['😕','약간 당황','face'],['😟','걱정','face'],['🙁','조금 슬픔','face'],['☹️','슬픔','face'],
+['😮','놀람','face'],['😯','깜짝','face'],['😲','매우 놀람','face'],['😳','얼굴 빨개짐','face'],
+['🥺','간청','face'],['😦','슬프고 놀람','face'],['😧','괴로움','face'],['😨','두려움','face'],
+['😰','식은땀 걱정','face'],['😥','안도와 슬픔','face'],['😢','눈물','face'],['😭','엉엉 울기','face'],
+['😱','공포','face'],['😖','고통','face'],['😣','힘듦','face'],['😞','실망','face'],
+['😓','땀','face'],['😩','지침','face'],['😫','피로','face'],['🥱','하품','face'],
+['😤','콧김','face'],['😡','화남','face'],['😠','매우 화남','face'],['🤬','욕설 화남','face'],
+['😈','나쁜 미소','face'],['👿','분노 악마','face'],['💀','해골','face'],['☠️','해적 해골','face'],
+['💩','응가','face'],['🤡','광대','face'],['👹','도깨비','face'],['👺','빨간 도깨비','face'],
+['👻','유령','face'],['👽','외계인','face'],['👾','우주 몬스터','face'],['🤖','로봇','face'],
+
+// 사람·신체
+['👋','손 흔들기','people'],['🤚','손 들기','people'],['🖐️','손바닥','people'],['✋','손 멈춤','people'],
+['🖖','브이 손','people'],['🤙','전화 손','people'],['👌','OK 손','people'],['🤌','손가락 모음','people'],
+['🤏','조금','people'],['✌️','브이','people'],['🤞','행운','people'],['🤟','사랑해','people'],
+['🤘','록','people'],['👈','왼쪽 가리킴','people'],['👉','오른쪽 가리킴','people'],['👆','위 가리킴','people'],
+['☝️','하나','people'],['👇','아래 가리킴','people'],['👍','좋아요','people'],['👎','싫어요','people'],
+['✊','주먹','people'],['👊','주먹 날리기','people'],['🤛','왼쪽 주먹','people'],['🤜','오른쪽 주먹','people'],
+['🤝','악수','people'],['👏','박수','people'],['🙌','두 손 높이','people'],['🤲','두 손 모음','people'],
+['👐','두 손 펼침','people'],['🙏','두 손 모아 부탁','people'],['🫶','하트 손','people'],['💪','근육','people'],
+['🦾','로봇 팔','people'],['🦵','다리','people'],['🦶','발','people'],['👂','귀','people'],
+['🦻','보청기 귀','people'],['👃','코','people'],['👁️','눈','people'],['👀','두 눈','people'],
+['🫦','입술','people'],['👄','빨간 입술','people'],['🦷','이빨','people'],['👅','혀','people'],
+['🧠','뇌','people'],['🫀','심장','people'],['🦴','뼈','people'],['💅','매니큐어','people'],
+['🤳','셀카','people'],['🧑','사람','people'],['👧','소녀','people'],['👦','소년','people'],
+['👩','여성','people'],['👨','남성','people'],['🧓','노인','people'],['👴','할아버지','people'],
+['👵','할머니','people'],['👶','아기','people'],['👼','천사 아기','people'],['🧑‍🦱','곱슬머리','people'],
+['👩‍💼','여성 직원','people'],['👨‍💼','남성 직원','people'],['👩‍🔬','여성 과학자','people'],['👨‍🎨','남성 예술가','people'],
+['🧑‍🍳','요리사','people'],['🧑‍🎤','가수','people'],['🧑‍🚀','우주비행사','people'],['🧑‍🚒','소방관','people'],
+['🕵️','탐정','people'],['💂','근위병','people'],['🧙','마법사','people'],['🧛','뱀파이어','people'],
+['🧟','좀비','people'],['🧜','인어','people'],['🧚','요정','people'],['🧝','엘프','people'],
+
+// 동물·자연
+['🐶','강아지','animal'],['🐱','고양이','animal'],['🐭','쥐','animal'],['🐹','햄스터','animal'],
+['🐰','토끼','animal'],['🦊','여우','animal'],['🐻','곰','animal'],['🐼','판다','animal'],
+['🐨','코알라','animal'],['🐯','호랑이','animal'],['🦁','사자','animal'],['🐮','소','animal'],
+['🐷','돼지','animal'],['🐸','개구리','animal'],['🐵','원숭이','animal'],['🙈','눈 가린 원숭이','animal'],
+['🙉','귀 가린 원숭이','animal'],['🙊','입 가린 원숭이','animal'],['🐒','원숭이','animal'],['🦆','오리','animal'],
+['🐦','새','animal'],['🦅','독수리','animal'],['🦉','올빼미','animal'],['🦇','박쥐','animal'],
+['🐺','늑대','animal'],['🐗','멧돼지','animal'],['🐴','말','animal'],['🦄','유니콘','animal'],
+['🐝','꿀벌','animal'],['🐛','애벌레','animal'],['🦋','나비','animal'],['🐌','달팽이','animal'],
+['🐞','무당벌레','animal'],['🐜','개미','animal'],['🦟','모기','animal'],['🕷️','거미','animal'],
+['🦂','전갈','animal'],['🐢','거북','animal'],['🐍','뱀','animal'],['🦎','도마뱀','animal'],
+['🦕','브론토사우루스','animal'],['🦖','티라노사우루스','animal'],['🐙','문어','animal'],['🦑','오징어','animal'],
+['🦐','새우','animal'],['🦀','게','animal'],['🐡','복어','animal'],['🐠','열대어','animal'],
+['🐟','물고기','animal'],['🐬','돌고래','animal'],['🐳','고래','animal'],['🦈','상어','animal'],
+['🦭','바다표범','animal'],['🐘','코끼리','animal'],['🦒','기린','animal'],['🦓','얼룩말','animal'],
+['🦘','캥거루','animal'],['🦬','들소','animal'],['🐃','물소','animal'],['🐄','젖소','animal'],
+['🐎','말','animal'],['🐖','돼지','animal'],['🐏','숫양','animal'],['🐑','양','animal'],
+['🦙','라마','animal'],['🐐','염소','animal'],['🦌','사슴','animal'],['🐕','개','animal'],
+['🐈','고양이','animal'],['🐓','닭','animal'],['🦃','칠면조','animal'],['🦜','앵무새','animal'],
+['🐇','토끼','animal'],['🦝','너구리','animal'],['🐁','마우스','animal'],['🌵','선인장','animal'],
+['🎄','크리스마스 트리','animal'],['🌲','상록수','animal'],['🌳','활엽수','animal'],['🌴','야자수','animal'],
+['🌱','새싹','animal'],['🌿','허브','animal'],['☘️','클로버','animal'],['🍀','네 잎 클로버','animal'],
+['🍃','나뭇잎','animal'],['🍂','낙엽','animal'],['🍁','단풍잎','animal'],['🍄','버섯','animal'],
+['🌾','벼','animal'],['💐','꽃다발','animal'],['🌷','튤립','animal'],['🌹','장미','animal'],
+['🥀','시든 꽃','animal'],['🌺','히비스커스','animal'],['🌸','벚꽃','animal'],['🌼','데이지','animal'],
+['🌻','해바라기','animal'],['🌞','해 얼굴','animal'],['🌙','초승달','animal'],['⭐','별','animal'],
+['💫','반짝이는 별','animal'],['✨','빛나는 별','animal'],['❄️','눈결정','animal'],['☃️','눈사람','animal'],
+['⛄','눈사람 모자','animal'],['🌈','무지개','animal'],['🌊','파도','animal'],['🌋','화산','animal'],
+
+// 음식·음료
+['🍏','초록 사과','food'],['🍎','빨간 사과','food'],['🍐','배','food'],['🍊','귤','food'],
+['🍋','레몬','food'],['🍌','바나나','food'],['🍉','수박','food'],['🍇','포도','food'],
+['🍓','딸기','food'],['🫐','블루베리','food'],['🍒','체리','food'],['🍑','복숭아','food'],
+['🥭','망고','food'],['🍍','파인애플','food'],['🥥','코코넛','food'],['🥝','키위','food'],
+['🍅','토마토','food'],['🥑','아보카도','food'],['🍆','가지','food'],['🥦','브로콜리','food'],
+['🥬','청경채','food'],['🥒','오이','food'],['🌽','옥수수','food'],['🥕','당근','food'],
+['🧄','마늘','food'],['🧅','양파','food'],['🥔','감자','food'],['🍔','햄버거','food'],
+['🍟','감자튀김','food'],['🌭','핫도그','food'],['🍕','피자','food'],['🥪','샌드위치','food'],
+['🌮','타코','food'],['🌯','랩','food'],['🥗','샐러드','food'],['🍜','라면','food'],
+['🍝','스파게티','food'],['🍛','카레','food'],['🍣','초밥','food'],['🍱','도시락','food'],
+['🍤','튀김','food'],['🍙','주먹밥','food'],['🍚','밥','food'],['🍘','전병','food'],
+['🍡','경단','food'],['🦪','굴','food'],['🍦','소프트 아이스크림','food'],['🍧','팥빙수','food'],
+['🍨','아이스크림','food'],['🍩','도넛','food'],['🍪','쿠키','food'],['🎂','생일 케이크','food'],
+['🍰','케이크 조각','food'],['🧁','컵케이크','food'],['🍫','초콜릿','food'],['🍬','사탕','food'],
+['🍭','막대 사탕','food'],['🍯','꿀','food'],['🍼','아기 젖병','food'],['🥛','우유','food'],
+['☕','커피','food'],['🍵','차','food'],['🧋','버블티','food'],['🍶','사케','food'],
+['🥤','음료컵','food'],['🍺','맥주','food'],['🍻','맥주 건배','food'],['🍷','와인','food'],
+['🥃','위스키','food'],['🍹','트로피칼 음료','food'],['🧉','마테차','food'],['🍾','샴페인','food'],
+['🧊','얼음','food'],['🥄','숟가락','food'],['🍴','포크 나이프','food'],['🥢','젓가락','food'],
+
+// 여행·장소
+['🌍','지구 유럽아프리카','travel'],['🌎','지구 아메리카','travel'],['🌏','지구 아시아','travel'],
+['🗾','일본 지도','travel'],['🧭','나침반','travel'],['🏔️','눈 덮인 산','travel'],['⛰️','산','travel'],
+['🌋','화산','travel'],['🗻','후지산','travel'],['🏕️','캠핑','travel'],['🏖️','해변','travel'],
+['🏜️','사막','travel'],['🏝️','섬','travel'],['🏞️','국립공원','travel'],['🏟️','경기장','travel'],
+['🏛️','고전 건물','travel'],['🏗️','건설 중','travel'],['🏠','집','travel'],['🏡','집 정원','travel'],
+['🏢','사무용 빌딩','travel'],['🏣','일본 우체국','travel'],['🏥','병원','travel'],['🏦','은행','travel'],
+['🏨','호텔','travel'],['🏪','편의점','travel'],['🏫','학교','travel'],['🏬','백화점','travel'],
+['🏭','공장','travel'],['🏯','일본 성','travel'],['🏰','유럽 성','travel'],['💒','교회 결혼식','travel'],
+['🗼','에펠탑','travel'],['🗽','자유의 여신상','travel'],['⛪','교회','travel'],['🕌','모스크','travel'],
+['⛩️','도리이','travel'],['🚂','기차','travel'],['🚇','지하철','travel'],['🚌','버스','travel'],
+['🚑','구급차','travel'],['🚒','소방차','travel'],['🚓','경찰차','travel'],['🚕','택시','travel'],
+['🚗','자동차','travel'],['🚙','SUV','travel'],['🛻','픽업트럭','travel'],['🚌','버스','travel'],
+['🚲','자전거','travel'],['🛴','킥보드','travel'],['🛹','스케이트보드','travel'],['⛽','주유소','travel'],
+['🚢','배','travel'],['✈️','비행기','travel'],['🛩️','소형 비행기','travel'],['🚁','헬리콥터','travel'],
+['🛸','UFO','travel'],['🚀','로켓','travel'],['⛵','범선','travel'],['🚤','보트','travel'],
+['🗺️','지도','travel'],['🏝️','무인도','travel'],['🌁','안개','travel'],['🌃','야경','travel'],
+['🏙️','도시','travel'],['🌄','새벽','travel'],['🌅','일출','travel'],['🌉','야간 교량','travel'],
+
+// 활동
+['⚽','축구','act'],['🏀','농구','act'],['🏈','미식축구','act'],['⚾','야구','act'],
+['🎾','테니스','act'],['🏐','배구','act'],['🏉','럭비','act'],['🥏','프리스비','act'],
+['🎱','당구','act'],['🏓','탁구','act'],['🏸','배드민턴','act'],['🏒','아이스하키','act'],
+['⛳','골프','act'],['🎣','낚시','act'],['🤿','스쿠버다이빙','act'],['🎽','달리기','act'],
+['🎿','스키','act'],['🛷','썰매','act'],['🥌','컬링','act'],['🎯','다트','act'],
+['🎮','게임 컨트롤러','act'],['🕹️','조이스틱','act'],['🎲','주사위','act'],['♟️','체스','act'],
+['🧩','퍼즐','act'],['🧸','곰 인형','act'],['🎭','공연','act'],['🎨','팔레트','act'],
+['🎬','영화','act'],['🎤','마이크','act'],['🎧','헤드폰','act'],['🎷','색소폰','act'],
+['🎸','기타','act'],['🎺','트럼펫','act'],['🎻','바이올린','act'],['🥁','드럼','act'],
+['🎹','피아노','act'],['🎵','음표','act'],['🎶','여러 음표','act'],['🏆','트로피','act'],
+['🥇','금메달','act'],['🥈','은메달','act'],['🥉','동메달','act'],['🏅','메달','act'],
+['🎪','서커스','act'],['🤹','저글링','act'],['🎠','회전목마','act'],['🎡','관람차','act'],
+['🎢','롤러코스터','act'],['🏊','수영','act'],['🏋️','역도','act'],['🤸','체조','act'],
+['⛹️','농구 드리블','act'],['🤾','핸드볼','act'],['🏇','경마','act'],['🧘','요가','act'],
+
+// 사물
+['📱','스마트폰','obj'],['💻','노트북','obj'],['🖥️','데스크톱','obj'],['🖨️','프린터','obj'],
+['⌨️','키보드','obj'],['🖱️','마우스','obj'],['💾','플로피 디스크','obj'],['💿','CD','obj'],
+['📀','DVD','obj'],['📷','카메라','obj'],['📸','플래시 카메라','obj'],['📹','캠코더','obj'],
+['🎥','영화 카메라','obj'],['📞','전화기','obj'],['☎️','구형 전화기','obj'],['📟','삐삐','obj'],
+['📺','TV','obj'],['📻','라디오','obj'],['🧭','나침반','obj'],['⌚','손목시계','obj'],
+['📡','안테나','obj'],['🔋','배터리','obj'],['🔌','플러그','obj'],['💡','전구','obj'],
+['🔦','손전등','obj'],['🕯️','초','obj'],['💰','돈주머니','obj'],['💳','신용카드','obj'],
+['🪙','동전','obj'],['📊','막대그래프','obj'],['📋','클립보드','obj'],['📌','핀','obj'],
+['📍','위치핀','obj'],['📎','클립','obj'],['✂️','가위','obj'],['📏','자','obj'],
+['📐','삼각자','obj'],['🗑️','쓰레기통','obj'],['🔒','잠금','obj'],['🔓','열림 자물쇠','obj'],
+['🔑','열쇠','obj'],['🗝️','낡은 열쇠','obj'],['🔨','망치','obj'],['⛏️','곡괭이','obj'],
+['🛠️','망치 렌치','obj'],['🔧','렌치','obj'],['🔩','나사','obj'],['⚙️','톱니바퀴','obj'],
+['🔗','링크','obj'],['🧲','자석','obj'],['🧰','공구함','obj'],['🧪','시험관','obj'],
+['🔭','망원경','obj'],['🔬','현미경','obj'],['💊','알약','obj'],['💉','주사기','obj'],
+['🩹','반창고','obj'],['🩺','청진기','obj'],['🎀','리본','obj'],['🎁','선물','obj'],
+['🎗️','리본 배지','obj'],['📦','박스','obj'],['📫','편지함','obj'],['📧','이메일','obj'],
+['📝','메모','obj'],['📓','공책','obj'],['📔','노트북','obj'],['📕','빨간 책','obj'],
+['📗','초록 책','obj'],['📘','파란 책','obj'],['📙','주황 책','obj'],['📚','책들','obj'],
+['🗒️','메모장','obj'],['🗓️','달력','obj'],['📅','달력','obj'],['🗃️','파일 박스','obj'],
+['🔍','돋보기 왼','obj'],['🔎','돋보기 오른','obj'],['💎','다이아몬드','obj'],['🔮','수정구슬','obj'],
+['🧿','악마 눈','obj'],['🪬','부적','obj'],['🛋️','소파','obj'],['🚪','문','obj'],
+['🪞','거울','obj'],['🛁','욕조','obj'],['🧴','로션','obj'],['🧹','빗자루','obj'],
+['🧺','바구니','obj'],['🧻','두루마리 휴지','obj'],['🧼','비누','obj'],['🪣','양동이','obj'],
+['🛒','쇼핑 카트','obj'],['🎒','배낭','obj'],['👜','핸드백','obj'],['👛','지갑','obj'],
+['💼','서류가방','obj'],['🧳','여행 가방','obj'],['☂️','우산','obj'],['🕶️','선글라스','obj'],
+['👒','모자','obj'],['🎩','신사 모자','obj'],['🧢','야구 모자','obj'],['👗','드레스','obj'],
+['👔','넥타이 셔츠','obj'],['👟','운동화','obj'],['👠','하이힐','obj'],['👑','왕관','obj'],
+
+// 기호
+['❤️','빨간 하트','sym'],['🧡','주황 하트','sym'],['💛','노란 하트','sym'],['💚','초록 하트','sym'],
+['💙','파란 하트','sym'],['💜','보라 하트','sym'],['🖤','검은 하트','sym'],['🤍','흰 하트','sym'],
+['🤎','갈색 하트','sym'],['💔','깨진 하트','sym'],['❣️','느낌표 하트','sym'],['💕','두 하트','sym'],
+['💞','회전 하트','sym'],['💓','뛰는 하트','sym'],['💗','성장 하트','sym'],['💖','빛나는 하트','sym'],
+['💘','화살 하트','sym'],['💝','리본 하트','sym'],['💟','하트 장식','sym'],['☮️','평화','sym'],
+['✝️','십자가','sym'],['☪️','이슬람','sym'],['🕉️','힌두교','sym'],['✡️','다윗의 별','sym'],
+['☯️','음양','sym'],['♈','양자리','sym'],['♉','황소자리','sym'],['♊','쌍둥이자리','sym'],
+['♋','게자리','sym'],['♌','사자자리','sym'],['♍','처녀자리','sym'],['♎','천칭자리','sym'],
+['♏','전갈자리','sym'],['♐','사수자리','sym'],['♑','염소자리','sym'],['♒','물병자리','sym'],
+['♓','물고기자리','sym'],['🔴','빨간 원','sym'],['🟠','주황 원','sym'],['🟡','노란 원','sym'],
+['🟢','초록 원','sym'],['🔵','파란 원','sym'],['🟣','보라 원','sym'],['⚫','검은 원','sym'],
+['⚪','흰 원','sym'],['🔶','주황 마름모','sym'],['🔷','파란 마름모','sym'],['⭐','별','sym'],
+['🔱','삼지창','sym'],['⚜️','백합 문장','sym'],['✅','체크','sym'],['❎','X 체크','sym'],
+['💯','백점','sym'],['‼️','이중 느낌표','sym'],['❓','물음표','sym'],['❗','느낌표','sym'],
+['🔅','낮은 밝기','sym'],['🔆','높은 밝기','sym'],['🔔','종','sym'],['🔕','음소거 종','sym'],
+['📢','확성기','sym'],['📣','메가폰','sym'],['💲','달러','sym'],['♻️','재활용','sym'],
+['⚠️','경고','sym'],['🚫','금지','sym'],['⛔','진입 금지','sym'],['🚷','보행 금지','sym'],
+['🔞','성인 전용','sym'],['🅰️','A 혈액형','sym'],['🅱️','B 혈액형','sym'],['🅾️','O 혈액형','sym'],
+['🆗','OK','sym'],['🆕','NEW','sym'],['🆙','UP','sym'],['🆒','COOL','sym'],
+['🆓','FREE','sym'],['🆘','SOS','sym'],['🔰','초보 마크','sym'],['🏧','ATM','sym'],
+['🚾','화장실','sym'],['♿','휠체어','sym'],['🚻','남녀 화장실','sym'],
+
+// 깃발
+['🏳️','흰 깃발','flag'],['🏴','검은 깃발','flag'],['🏁','체커 깃발','flag'],['🚩','삼각 깃발','flag'],
+['🏴‍☠️','해적 깃발','flag'],['🏳️‍🌈','무지개 깃발','flag'],['🏳️‍⚧️','트랜스젠더 깃발','flag'],
+['🇰🇷','대한민국','flag'],['🇺🇸','미국','flag'],['🇯🇵','일본','flag'],['🇨🇳','중국','flag'],
+['🇬🇧','영국','flag'],['🇩🇪','독일','flag'],['🇫🇷','프랑스','flag'],['🇮🇹','이탈리아','flag'],
+['🇪🇸','스페인','flag'],['🇵🇹','포르투갈','flag'],['🇷🇺','러시아','flag'],['🇧🇷','브라질','flag'],
+['🇨🇦','캐나다','flag'],['🇦🇺','호주','flag'],['🇮🇳','인도','flag'],['🇲🇽','멕시코','flag'],
+['🇸🇦','사우디아라비아','flag'],['🇦🇪','UAE','flag'],['🇹🇷','터키','flag'],['🇳🇱','네덜란드','flag'],
+['🇧🇪','벨기에','flag'],['🇸🇪','스웨덴','flag'],['🇳🇴','노르웨이','flag'],['🇩🇰','덴마크','flag'],
+['🇫🇮','핀란드','flag'],['🇨🇭','스위스','flag'],['🇦🇹','오스트리아','flag'],['🇵🇱','폴란드','flag'],
+['🇬🇷','그리스','flag'],['🇵🇭','필리핀','flag'],['🇮🇩','인도네시아','flag'],['🇻🇳','베트남','flag'],
+['🇹🇭','태국','flag'],['🇲🇾','말레이시아','flag'],['🇸🇬','싱가포르','flag'],['🇳🇿','뉴질랜드','flag'],
+['🇿🇦','남아공','flag'],['🇪🇬','이집트','flag'],['🇳🇬','나이지리아','flag'],['🇰🇪','케냐','flag'],
+['🇦🇷','아르헨티나','flag'],['🇨🇱','칠레','flag'],['🇨🇴','콜롬비아','flag'],['🇺🇦','우크라이나','flag'],
+['🇮🇱','이스라엘','flag'],['🇵🇰','파키스탄','flag'],['🇧🇩','방글라데시','flag'],['🇮🇷','이란','flag'],
+];
+
+// ── 상태 ──────────────────────────────────────────
+var currentCat = 'all';
+var searchQuery = '';
+var recentEmojis = [];
+
+try { recentEmojis = JSON.parse(localStorage.getItem('guh-recent-emoji') || '[]'); } catch(e){}
+
+// ── 초기화 ────────────────────────────────────────
+function init() {
+  renderCats();
+  renderRecent();
+  renderGrid();
+}
+
+// ── 카테고리 탭 렌더링 ────────────────────────────
+function renderCats() {
+  var wrap = document.getElementById('cat-tabs');
+  wrap.innerHTML = CATS.map(function(c) {
+    return '<button class="cat-tab' + (c.id === currentCat ? ' active' : '') + '" onclick="setCat(\'' + c.id + '\')">' +
+      c.icon + ' ' + c.label + '</button>';
+  }).join('');
+}
+
+function setCat(id) {
+  currentCat = id;
+  renderCats();
+  renderGrid();
+}
+
+// ── 검색 ──────────────────────────────────────────
+function onSearch(q) {
+  searchQuery = q.trim().toLowerCase();
+  renderGrid();
+}
+
+// ── 이모지 필터링 ─────────────────────────────────
+function filterEmojis() {
+  return EMOJIS.filter(function(e) {
+    var catMatch = (currentCat === 'all' || e[2] === currentCat);
+    var searchMatch = !searchQuery || e[1].toLowerCase().indexOf(searchQuery) !== -1 || e[0] === searchQuery;
+    return catMatch && searchMatch;
+  });
+}
+
+// ── 그리드 렌더링 ─────────────────────────────────
+function renderGrid() {
+  var list = filterEmojis();
+  var grid = document.getElementById('emoji-grid');
+  document.getElementById('emoji-count').textContent = list.length + '개의 이모지';
+
+  if (!list.length) {
+    grid.innerHTML = '<div class="emoji-empty">검색 결과가 없습니다 🔍</div>';
+    return;
+  }
+
+  grid.innerHTML = list.map(function(e) {
+    return '<div class="emoji-card" onclick="copyEmoji(\'' + e[0].replace(/'/g, "\\'") + '\')" title="' + e[1] + '">' +
+      '<span class="emoji-char">' + e[0] + '</span>' +
+      '<span class="emoji-name">' + e[1] + '</span>' +
+      '</div>';
+  }).join('');
+}
+
+// ── 복사 ──────────────────────────────────────────
+function copyEmoji(emoji) {
+  navigator.clipboard.writeText(emoji).then(function() {
+    showToast(emoji + ' 복사됨!', false);
+    addRecent(emoji);
+    // 카드 복사 애니메이션
+    var cards = document.querySelectorAll('.emoji-card');
+    for (var i = 0; i < cards.length; i++) {
+      if (cards[i].querySelector('.emoji-char').textContent === emoji) {
+        var card = cards[i];
+        card.classList.add('copied');
+        setTimeout(function() { card.classList.remove('copied'); }, 600);
+        break;
+      }
+    }
+  }).catch(function() {
+    // 폴백
+    var ta = document.createElement('textarea');
+    ta.value = emoji;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast(emoji + ' 복사됨!', false);
+    addRecent(emoji);
+  });
+}
+
+// ── 최근 복사 ─────────────────────────────────────
+function addRecent(emoji) {
+  recentEmojis = recentEmojis.filter(function(e) { return e !== emoji; });
+  recentEmojis.unshift(emoji);
+  if (recentEmojis.length > 12) recentEmojis = recentEmojis.slice(0, 12);
+  try { localStorage.setItem('guh-recent-emoji', JSON.stringify(recentEmojis)); } catch(e) {}
+  renderRecent();
+}
+
+function renderRecent() {
+  var row = document.getElementById('recent-row');
+  var wrap = document.getElementById('recent-emojis');
+  if (!recentEmojis.length) { row.style.display = 'none'; return; }
+  row.style.display = 'flex';
+  wrap.innerHTML = recentEmojis.map(function(e) {
+    return '<span class="recent-chip" onclick="copyEmoji(\'' + e.replace(/'/g, "\\'") + '\')" title="' + e + '">' + e + '</span>';
+  }).join('');
+}
+
+function showToast(msg,isErr){var t=document.getElementById('toast');t.textContent=msg;t.style.background=isErr?'var(--red)':'var(--green)';t.classList.add('show');setTimeout(function(){t.classList.remove('show');},1800);}
+
+init();
+</script>
+<script src="/assets/js/guh-search.js" defer></script>
+</body>
+</html>

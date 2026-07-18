@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Emoji Finder – Search & Copy Emojis Free | Global Utility Hub</title>
+  <meta name="description" content="Search emojis by category or name and copy with one click. Faces, animals, food, objects and more. Free online emoji picker." />
+  <link rel="canonical" href="https://util.bmsystems.biz/tools/en/emoji-finder/" />
+  <link rel="alternate" hreflang="ko" href="https://util.bmsystems.biz/tools/ko/emoji-finder/" />
+  <link rel="alternate" hreflang="en" href="https://util.bmsystems.biz/tools/en/emoji-finder/" />
+  <link rel="alternate" hreflang="x-default" href="https://util.bmsystems.biz/tools/en/emoji-finder/" />
+  <meta property="og:title" content="Emoji Finder" /><meta property="og:description" content="Search and copy emojis by category." /><meta property="og:type" content="website" /><meta property="og:url" content="https://util.bmsystems.biz/tools/en/emoji-finder/" /><meta property="og:locale" content="en_US" /><meta name="twitter:card" content="summary" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/common.css" />
+  <script>(function(){var t=localStorage.getItem('GUH-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark';})();</script>
+  <style>
+    .emoji-search-wrap{position:relative;margin-bottom:16px;}
+    .emoji-search{width:100%;padding:12px 16px 12px 42px;border:2px solid var(--border);border-radius:10px;background:var(--bg);color:var(--text-1);font-size:14px;font-family:inherit;outline:none;transition:border-color 0.2s;}
+    .emoji-search:focus{border-color:var(--accent);}
+    .emoji-search::placeholder{color:var(--text-3);}
+    .emoji-search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:16px;pointer-events:none;}
+    .cat-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;}
+    .cat-tab{display:flex;align-items:center;gap:5px;padding:8px 14px;border-radius:20px;border:1.5px solid var(--border);background:transparent;cursor:pointer;white-space:nowrap;font-size:13px;font-weight:500;color:var(--text-2);transition:all 0.15s;font-family:inherit;}
+    .cat-tab:hover:not(.active){border-color:var(--text-3);color:var(--text-1);}
+    .cat-tab.active{border-color:var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:700;}
+    .recent-row{display:flex;align-items:center;gap:6px;margin-bottom:14px;min-height:36px;}
+    .recent-label{font-size:12px;color:var(--text-3);white-space:nowrap;flex-shrink:0;}
+    .recent-emojis{display:flex;gap:4px;flex-wrap:wrap;}
+    .recent-chip{font-size:22px;cursor:pointer;padding:2px 4px;border-radius:6px;transition:background 0.15s;line-height:1;}
+    .recent-chip:hover{background:var(--surface2);}
+    .emoji-count{font-size:12px;color:var(--text-3);margin-bottom:10px;}
+    .emoji-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:4px;}
+    .emoji-card{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 4px 8px;border-radius:10px;cursor:pointer;border:1.5px solid transparent;transition:all 0.12s;text-align:center;user-select:none;}
+    .emoji-card:hover{background:var(--surface2);border-color:var(--border);}
+    .emoji-card.copied{background:var(--green-soft)!important;border-color:var(--green)!important;}
+    .emoji-char{font-size:30px;line-height:1;margin-bottom:5px;}
+    .emoji-name{font-size:10px;color:var(--text-3);line-height:1.3;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
+    .emoji-empty{grid-column:1/-1;text-align:center;padding:40px;color:var(--text-3);font-size:14px;}
+  </style>
+</head>
+<body>
+<header class="guh-header" role="banner">
+  <div class="guh-header-inner">
+    <button class="guh-menu-btn" id="menu-btn" aria-label="Menu">☰</button>
+    <a href="/en/" class="guh-logo">Global <span>Utility</span> Hub</a>
+    <nav class="guh-nav"><a href="/en/#daily-tools" class="guh-nav-link active">Daily Tools</a><a href="/en/#file-tools" class="guh-nav-link">File Tools</a><a href="/en/#finance" class="guh-nav-link">Finance</a><a href="/en/#health" class="guh-nav-link">Health</a><a href="/en/#dev-tools" class="guh-nav-link">Dev Tools</a><a href="/en/blog/" class="guh-nav-link">Blog</a></nav>
+    <div class="guh-header-actions">
+      <div class="guh-lang-select"><a href="/tools/ko/emoji-finder/" class="guh-lang-btn">KO</a><a href="/tools/en/emoji-finder/" class="guh-lang-btn active">EN</a></div>
+      <button class="guh-theme-btn" onclick="guhToggleTheme()" aria-label="Toggle dark mode"><span id="theme-icon">🌙</span></button>
+    </div>
+  </div>
+</header>
+<div class="guh-mobile-nav" id="mobile-nav">
+  <a href="/en/#daily-tools">Daily Tools</a><a href="/en/#file-tools">File Tools</a><a href="/en/#finance">Finance</a><a href="/en/#health">Health</a><a href="/en/#dev-tools">Dev Tools</a><a href="/en/blog/">Blog</a>
+  <hr/><a href="/tools/ko/emoji-finder/">🇰🇷 한국어</a><a href="/tools/en/emoji-finder/">🇺🇸 English</a>
+</div>
+
+<main class="guh-container guh-page" id="main-content">
+  <nav class="guh-breadcrumb"><a href="/en/">Home</a><span class="guh-breadcrumb-sep">›</span><a href="/en/#daily-tools">Daily Tools</a><span class="guh-breadcrumb-sep">›</span><span>Emoji Finder</span></nav>
+  <div class="guh-hero"><h1>😊 Emoji Finder</h1><p>Browse by category or search by name. Click any emoji to copy it instantly.</p></div>
+
+  <section class="guh-section" id="calculator">
+    <div class="guh-calc-card">
+      <div class="emoji-search-wrap">
+        <span class="emoji-search-icon">🔍</span>
+        <input class="emoji-search" id="emoji-search" type="text" placeholder="Search emojis... (e.g. smile, dog, pizza)" autocomplete="off" oninput="onSearch(this.value)" />
+      </div>
+      <div class="cat-tabs" id="cat-tabs"></div>
+      <div class="recent-row" id="recent-row" style="display:none;">
+        <span class="recent-label">Recent:</span>
+        <div class="recent-emojis" id="recent-emojis"></div>
+      </div>
+      <div class="emoji-count" id="emoji-count"></div>
+      <div class="emoji-grid" id="emoji-grid"></div>
+    </div>
+  </section>
+
+  <section class="guh-section" id="related-tools">
+    <h2 class="guh-section-title">🔗 Related Tools</h2>
+    <div class="guh-tool-grid">
+      <a href="/tools/en/character-counter/" class="guh-tool-card"><span class="guh-tool-icon">🔤</span><span>Character Counter</span></a>
+      <a href="/tools/en/base64/" class="guh-tool-card"><span class="guh-tool-icon">🔐</span><span>Base64 Encoder</span></a>
+      <a href="/tools/en/url-encoder/" class="guh-tool-card"><span class="guh-tool-icon">🔗</span><span>URL Encoder</span></a>
+      <a href="/tools/en/html-escape/" class="guh-tool-card"><span class="guh-tool-icon">🌐</span><span>HTML Escape</span></a>
+      <a href="/tools/en/qr-code-generator/" class="guh-tool-card"><span class="guh-tool-icon">📱</span><span>QR Code Generator</span></a>
+    </div>
+  </section>
+</main>
+
+<footer class="guh-footer"><div class="guh-footer-inner"><a href="/en/" class="guh-footer-logo">Global Utility Hub</a><nav class="guh-footer-links"><a href="/en/blog/">Blog</a><a href="/en/">All Tools</a><a href="mailto:contact@bmsystems.biz">Contact</a></nav><p class="guh-footer-copy">© 2026 Global Utility Hub. All rights reserved.</p></div></footer>
+<div class="guh-toast" id="toast"></div>
+<script>
+function guhToggleTheme(){var isDark=document.documentElement.dataset.theme==='dark';document.documentElement.dataset.theme=isDark?'light':'dark';localStorage.setItem('GUH-theme',document.documentElement.dataset.theme);document.getElementById('theme-icon').textContent=isDark?'🌙':'☀️';}
+(function(){document.getElementById('theme-icon').textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';})();
+document.getElementById('menu-btn').addEventListener('click',function(){document.getElementById('mobile-nav').classList.toggle('open');});
+function showToast(msg,isErr){var t=document.getElementById('toast');t.textContent=msg;t.style.background=isErr?'var(--red)':'var(--green)';t.classList.add('show');setTimeout(function(){t.classList.remove('show');},1800);}
+
+var CATS = [
+  {id:'all',    label:'All',            icon:'🔍'},
+  {id:'face',   label:'Face & Emotion', icon:'😊'},
+  {id:'people', label:'People & Body',  icon:'👋'},
+  {id:'animal', label:'Animals & Nature',icon:'🐾'},
+  {id:'food',   label:'Food & Drink',   icon:'🍕'},
+  {id:'travel', label:'Travel & Places',icon:'✈️'},
+  {id:'act',    label:'Activities',     icon:'⚽'},
+  {id:'obj',    label:'Objects',        icon:'💡'},
+  {id:'sym',    label:'Symbols',        icon:'🔣'},
+  {id:'flag',   label:'Flags',          icon:'🏳️'},
+];
+
+var EMOJIS = [
+['😀','grinning face','face'],['😃','grinning face with big eyes','face'],['😄','grinning squinting','face'],['😁','beaming','face'],
+['😆','grinning squinting face','face'],['😅','grinning with sweat','face'],['🤣','rolling on floor','face'],['😂','face with tears of joy','face'],
+['🙂','slightly smiling','face'],['🙃','upside-down face','face'],['😉','winking','face'],['😊','smiling with rosy cheeks','face'],
+['😇','smiling with halo','face'],['🥰','smiling with hearts','face'],['😍','heart eyes','face'],['🤩','star-struck','face'],
+['😘','face blowing kiss','face'],['😗','kissing face','face'],['☺️','relaxed','face'],['😚','kissing closed eyes','face'],
+['😙','kissing smiling eyes','face'],['🥲','smiling with tear','face'],['😋','face savoring food','face'],['😛','tongue','face'],
+['😜','winking tongue','face'],['🤪','zany','face'],['😝','squinting tongue','face'],['🤑','money mouth','face'],
+['🤗','hugging','face'],['🤭','face with hand over mouth','face'],['🤫','shushing','face'],['🤔','thinking','face'],
+['🤐','zipper mouth','face'],['🤨','raised eyebrow','face'],['😐','neutral','face'],['😑','expressionless','face'],
+['😶','no mouth','face'],['😏','smirking','face'],['😒','unamused','face'],['🙄','eye roll','face'],
+['😬','grimacing','face'],['🤥','lying','face'],['😌','relieved','face'],['😔','pensive','face'],
+['😪','sleepy','face'],['🤤','drooling','face'],['😴','sleeping','face'],['😷','medical mask','face'],
+['🤒','thermometer face','face'],['🤕','head bandage','face'],['🤢','nauseated','face'],['🤮','vomiting','face'],
+['🤧','sneezing','face'],['🥵','hot face','face'],['🥶','cold face','face'],['🥴','woozy','face'],
+['😵','dizzy','face'],['🤯','exploding head','face'],['🤠','cowboy hat','face'],['🥳','partying','face'],
+['🥸','disguised','face'],['😎','smiling with sunglasses','face'],['🤓','nerd face','face'],['🧐','monocle','face'],
+['😕','confused','face'],['😟','worried','face'],['🙁','slightly frowning','face'],['☹️','frowning','face'],
+['😮','open mouth','face'],['😯','hushed','face'],['😲','astonished','face'],['😳','flushed','face'],
+['🥺','pleading','face'],['😦','frowning open mouth','face'],['😧','anguished','face'],['😨','fearful','face'],
+['😰','anxious with sweat','face'],['😥','sad relieved','face'],['😢','crying','face'],['😭','loudly crying','face'],
+['😱','screaming in fear','face'],['😖','confounded','face'],['😣','persevering','face'],['😞','disappointed','face'],
+['😓','downcast with sweat','face'],['😩','weary','face'],['😫','tired','face'],['🥱','yawning','face'],
+['😤','steam from nose','face'],['😡','pouting','face'],['😠','angry','face'],['🤬','swearing','face'],
+['😈','smiling devil','face'],['👿','angry devil','face'],['💀','skull','face'],['☠️','skull crossbones','face'],
+['💩','pile of poo','face'],['🤡','clown','face'],['👹','ogre','face'],['👺','goblin','face'],
+['👻','ghost','face'],['👽','alien','face'],['👾','alien monster','face'],['🤖','robot','face'],
+
+['👋','waving hand','people'],['🤚','raised back of hand','people'],['🖐️','hand with fingers splayed','people'],['✋','raised hand','people'],
+['🖖','vulcan salute','people'],['🤙','call me hand','people'],['👌','ok hand','people'],['🤌','pinched fingers','people'],
+['🤏','pinching hand','people'],['✌️','victory hand','people'],['🤞','crossed fingers','people'],['🤟','love-you gesture','people'],
+['🤘','sign of the horns','people'],['👈','backhand index left','people'],['👉','backhand index right','people'],['👆','backhand index up','people'],
+['☝️','index pointing up','people'],['👇','backhand index down','people'],['👍','thumbs up','people'],['👎','thumbs down','people'],
+['✊','raised fist','people'],['👊','oncoming fist','people'],['🤛','left-facing fist','people'],['🤜','right-facing fist','people'],
+['🤝','handshake','people'],['👏','clapping hands','people'],['🙌','raising hands','people'],['🤲','palms up together','people'],
+['👐','open hands','people'],['🙏','folded hands','people'],['🫶','heart hands','people'],['💪','flexed biceps','people'],
+['🦾','mechanical arm','people'],['🦵','leg','people'],['🦶','foot','people'],['👂','ear','people'],
+['🦻','ear with hearing aid','people'],['👃','nose','people'],['👁️','eye','people'],['👀','eyes','people'],
+['🫦','biting lip','people'],['👄','mouth','people'],['🦷','tooth','people'],['👅','tongue','people'],
+['🧠','brain','people'],['🫀','heart (anatomical)','people'],['🦴','bone','people'],['💅','nail polish','people'],
+['🤳','selfie','people'],['👶','baby','people'],['👧','girl','people'],['👦','boy','people'],
+['👩','woman','people'],['👨','man','people'],['🧓','older person','people'],['👴','old man','people'],
+['👵','old woman','people'],['👼','baby angel','people'],['🧑‍🍳','cook','people'],['🧑‍🎤','singer','people'],
+['🧑‍🚀','astronaut','people'],['🧑‍🚒','firefighter','people'],['🕵️','detective','people'],['💂','guard','people'],
+['🧙','mage','people'],['🧛','vampire','people'],['🧟','zombie','people'],['🧜','mermaid','people'],
+['🧚','fairy','people'],['🧝','elf','people'],
+
+['🐶','dog face','animal'],['🐱','cat face','animal'],['🐭','mouse face','animal'],['🐹','hamster','animal'],
+['🐰','rabbit face','animal'],['🦊','fox','animal'],['🐻','bear','animal'],['🐼','panda','animal'],
+['🐨','koala','animal'],['🐯','tiger face','animal'],['🦁','lion','animal'],['🐮','cow face','animal'],
+['🐷','pig face','animal'],['🐸','frog','animal'],['🐵','monkey face','animal'],['🙈','see-no-evil','animal'],
+['🙉','hear-no-evil','animal'],['🙊','speak-no-evil','animal'],['🐒','monkey','animal'],['🦆','duck','animal'],
+['🐦','bird','animal'],['🦅','eagle','animal'],['🦉','owl','animal'],['🦇','bat','animal'],
+['🐺','wolf','animal'],['🐗','boar','animal'],['🐴','horse face','animal'],['🦄','unicorn','animal'],
+['🐝','honeybee','animal'],['🐛','caterpillar','animal'],['🦋','butterfly','animal'],['🐌','snail','animal'],
+['🐞','ladybug','animal'],['🐜','ant','animal'],['🦟','mosquito','animal'],['🕷️','spider','animal'],
+['🦂','scorpion','animal'],['🐢','turtle','animal'],['🐍','snake','animal'],['🦎','lizard','animal'],
+['🦕','sauropod','animal'],['🦖','T-Rex','animal'],['🐙','octopus','animal'],['🦑','squid','animal'],
+['🦐','shrimp','animal'],['🦀','crab','animal'],['🐡','blowfish','animal'],['🐠','tropical fish','animal'],
+['🐟','fish','animal'],['🐬','dolphin','animal'],['🐳','whale','animal'],['🦈','shark','animal'],
+['🦭','seal','animal'],['🐘','elephant','animal'],['🦒','giraffe','animal'],['🦓','zebra','animal'],
+['🦘','kangaroo','animal'],['🐄','cow','animal'],['🐎','horse','animal'],['🐑','sheep','animal'],
+['🦙','llama','animal'],['🦌','deer','animal'],['🐕','dog','animal'],['🐈','cat','animal'],
+['🦜','parrot','animal'],['🐇','rabbit','animal'],['🦝','raccoon','animal'],['🌵','cactus','animal'],
+['🎄','Christmas tree','animal'],['🌲','evergreen tree','animal'],['🌳','deciduous tree','animal'],['🌴','palm tree','animal'],
+['🌱','seedling','animal'],['🌿','herb','animal'],['☘️','shamrock','animal'],['🍀','four leaf clover','animal'],
+['🍃','leaf fluttering','animal'],['🍂','fallen leaf','animal'],['🍁','maple leaf','animal'],['🍄','mushroom','animal'],
+['🌾','sheaf of rice','animal'],['💐','bouquet','animal'],['🌷','tulip','animal'],['🌹','rose','animal'],
+['🥀','wilted flower','animal'],['🌺','hibiscus','animal'],['🌸','cherry blossom','animal'],['🌼','blossom','animal'],
+['🌻','sunflower','animal'],['🌞','sun with face','animal'],['🌙','crescent moon','animal'],['⭐','star','animal'],
+['💫','dizzy star','animal'],['✨','sparkles','animal'],['❄️','snowflake','animal'],['☃️','snowman','animal'],
+['⛄','snowman without snow','animal'],['🌈','rainbow','animal'],['🌊','wave','animal'],['🌋','volcano','animal'],
+
+['🍏','green apple','food'],['🍎','red apple','food'],['🍐','pear','food'],['🍊','tangerine','food'],
+['🍋','lemon','food'],['🍌','banana','food'],['🍉','watermelon','food'],['🍇','grapes','food'],
+['🍓','strawberry','food'],['🫐','blueberries','food'],['🍒','cherries','food'],['🍑','peach','food'],
+['🥭','mango','food'],['🍍','pineapple','food'],['🥥','coconut','food'],['🥝','kiwi fruit','food'],
+['🍅','tomato','food'],['🥑','avocado','food'],['🍆','eggplant','food'],['🥦','broccoli','food'],
+['🥬','leafy green','food'],['🥒','cucumber','food'],['🌽','corn','food'],['🥕','carrot','food'],
+['🧄','garlic','food'],['🧅','onion','food'],['🥔','potato','food'],['🍔','hamburger','food'],
+['🍟','french fries','food'],['🌭','hot dog','food'],['🍕','pizza','food'],['🥪','sandwich','food'],
+['🌮','taco','food'],['🌯','burrito','food'],['🥗','green salad','food'],['🍜','steaming bowl','food'],
+['🍝','spaghetti','food'],['🍛','curry rice','food'],['🍣','sushi','food'],['🍱','bento box','food'],
+['🍤','fried shrimp','food'],['🍙','rice ball','food'],['🍚','cooked rice','food'],['🍩','doughnut','food'],
+['🍪','cookie','food'],['🎂','birthday cake','food'],['🍰','shortcake','food'],['🧁','cupcake','food'],
+['🍫','chocolate bar','food'],['🍬','candy','food'],['🍭','lollipop','food'],['🍯','honey pot','food'],
+['🥛','glass of milk','food'],['☕','hot beverage','food'],['🍵','teacup','food'],['🧋','bubble tea','food'],
+['🍶','sake','food'],['🥤','cup with straw','food'],['🍺','beer mug','food'],['🍻','clinking mugs','food'],
+['🍷','wine glass','food'],['🥃','tumbler glass','food'],['🍹','tropical drink','food'],['🍾','champagne','food'],
+['🧊','ice','food'],['🥄','spoon','food'],['🍴','fork and knife','food'],['🥢','chopsticks','food'],
+
+['🌍','globe europe-africa','travel'],['🌎','globe americas','travel'],['🌏','globe asia-australia','travel'],
+['🧭','compass','travel'],['🏔️','snow-capped mountain','travel'],['⛰️','mountain','travel'],['🌋','volcano','travel'],
+['🗻','mount fuji','travel'],['🏕️','camping','travel'],['🏖️','beach','travel'],['🏜️','desert','travel'],
+['🏝️','desert island','travel'],['🏞️','national park','travel'],['🏟️','stadium','travel'],['🏛️','classical building','travel'],
+['🏠','house','travel'],['🏡','house with garden','travel'],['🏢','office building','travel'],['🏥','hospital','travel'],
+['🏦','bank','travel'],['🏨','hotel','travel'],['🏪','convenience store','travel'],['🏫','school','travel'],
+['🏬','department store','travel'],['🏭','factory','travel'],['🏯','Japanese castle','travel'],['🏰','European castle','travel'],
+['💒','wedding chapel','travel'],['🗼','Tokyo tower','travel'],['🗽','Statue of Liberty','travel'],['⛪','church','travel'],
+['🕌','mosque','travel'],['⛩️','shinto shrine','travel'],['🚂','locomotive','travel'],['🚇','metro','travel'],
+['🚌','bus','travel'],['🚑','ambulance','travel'],['🚒','fire engine','travel'],['🚓','police car','travel'],
+['🚕','taxi','travel'],['🚗','automobile','travel'],['🚙','SUV','travel'],['🛻','pickup truck','travel'],
+['🚲','bicycle','travel'],['🛴','kick scooter','travel'],['🛹','skateboard','travel'],['⛽','fuel pump','travel'],
+['🚢','ship','travel'],['✈️','airplane','travel'],['🛩️','small airplane','travel'],['🚁','helicopter','travel'],
+['🛸','flying saucer','travel'],['🚀','rocket','travel'],['⛵','sailboat','travel'],['🚤','speedboat','travel'],
+['🗺️','world map','travel'],['🌁','foggy','travel'],['🌃','night with stars','travel'],['🏙️','cityscape','travel'],
+['🌄','sunrise over mountains','travel'],['🌅','sunrise','travel'],['🌉','bridge at night','travel'],
+
+['⚽','soccer ball','act'],['🏀','basketball','act'],['🏈','american football','act'],['⚾','baseball','act'],
+['🎾','tennis','act'],['🏐','volleyball','act'],['🏉','rugby football','act'],['🥏','flying disc','act'],
+['🎱','pool 8 ball','act'],['🏓','ping pong','act'],['🏸','badminton','act'],['🏒','ice hockey','act'],
+['⛳','flag in hole','act'],['🎣','fishing pole','act'],['🤿','diving mask','act'],['🎽','running shirt','act'],
+['🎿','skis','act'],['🛷','sled','act'],['🥌','curling stone','act'],['🎯','direct hit','act'],
+['🎮','video game','act'],['🕹️','joystick','act'],['🎲','game die','act'],['♟️','chess pawn','act'],
+['🧩','puzzle piece','act'],['🧸','teddy bear','act'],['🎭','performing arts','act'],['🎨','artist palette','act'],
+['🎬','clapper board','act'],['🎤','microphone','act'],['🎧','headphones','act'],['🎷','saxophone','act'],
+['🎸','guitar','act'],['🎺','trumpet','act'],['🎻','violin','act'],['🥁','drum','act'],
+['🎹','musical keyboard','act'],['🎵','musical note','act'],['🎶','musical notes','act'],['🏆','trophy','act'],
+['🥇','gold medal','act'],['🥈','silver medal','act'],['🥉','bronze medal','act'],['🏅','sports medal','act'],
+['🎪','circus tent','act'],['🤹','juggling','act'],['🎠','carousel horse','act'],['🎡','ferris wheel','act'],
+['🎢','roller coaster','act'],['🏊','person swimming','act'],['🏋️','person lifting weights','act'],['🧘','person in lotus','act'],
+
+['📱','mobile phone','obj'],['💻','laptop','obj'],['🖥️','desktop computer','obj'],['🖨️','printer','obj'],
+['⌨️','keyboard','obj'],['🖱️','computer mouse','obj'],['💾','floppy disk','obj'],['💿','optical disk','obj'],
+['📀','DVD','obj'],['📷','camera','obj'],['📸','camera with flash','obj'],['📹','video camera','obj'],
+['🎥','movie camera','obj'],['📞','telephone receiver','obj'],['☎️','telephone','obj'],['📺','television','obj'],
+['📻','radio','obj'],['🧭','compass','obj'],['⌚','watch','obj'],['📡','satellite antenna','obj'],
+['🔋','battery','obj'],['🔌','electric plug','obj'],['💡','light bulb','obj'],['🔦','flashlight','obj'],
+['🕯️','candle','obj'],['💰','money bag','obj'],['💳','credit card','obj'],['🪙','coin','obj'],
+['📊','bar chart','obj'],['📋','clipboard','obj'],['📌','pushpin','obj'],['📍','round pushpin','obj'],
+['📎','paperclip','obj'],['✂️','scissors','obj'],['📏','straight ruler','obj'],['📐','triangular ruler','obj'],
+['🗑️','wastebasket','obj'],['🔒','locked','obj'],['🔓','unlocked','obj'],['🔑','key','obj'],
+['🗝️','old key','obj'],['🔨','hammer','obj'],['⛏️','pick','obj'],['🛠️','hammer and wrench','obj'],
+['🔧','wrench','obj'],['🔩','nut and bolt','obj'],['⚙️','gear','obj'],['🔗','link','obj'],
+['🧲','magnet','obj'],['🧰','toolbox','obj'],['🧪','test tube','obj'],['🔭','telescope','obj'],
+['🔬','microscope','obj'],['💊','pill','obj'],['💉','syringe','obj'],['🩹','adhesive bandage','obj'],
+['🩺','stethoscope','obj'],['🎀','ribbon','obj'],['🎁','wrapped gift','obj'],['📦','package','obj'],
+['📧','e-mail','obj'],['📝','memo','obj'],['📚','books','obj'],['📅','calendar','obj'],
+['🔍','magnifying glass left','obj'],['🔎','magnifying glass right','obj'],['💎','gem stone','obj'],['🔮','crystal ball','obj'],
+['🛋️','couch','obj'],['🚪','door','obj'],['🪞','mirror','obj'],['🛁','bathtub','obj'],
+['🧴','lotion bottle','obj'],['🧹','broom','obj'],['🧺','basket','obj'],['🧻','roll of paper','obj'],
+['🧼','soap','obj'],['🪣','bucket','obj'],['🛒','shopping cart','obj'],['🎒','backpack','obj'],
+['👜','handbag','obj'],['👛','purse','obj'],['💼','briefcase','obj'],['🧳','luggage','obj'],
+['☂️','umbrella','obj'],['🕶️','sunglasses','obj'],['👑','crown','obj'],['💍','ring','obj'],
+
+['❤️','red heart','sym'],['🧡','orange heart','sym'],['💛','yellow heart','sym'],['💚','green heart','sym'],
+['💙','blue heart','sym'],['💜','purple heart','sym'],['🖤','black heart','sym'],['🤍','white heart','sym'],
+['🤎','brown heart','sym'],['💔','broken heart','sym'],['❣️','heart exclamation','sym'],['💕','two hearts','sym'],
+['💞','revolving hearts','sym'],['💓','beating heart','sym'],['💗','growing heart','sym'],['💖','sparkling heart','sym'],
+['💘','heart with arrow','sym'],['💝','heart with ribbon','sym'],['💟','heart decoration','sym'],['☮️','peace symbol','sym'],
+['✝️','latin cross','sym'],['☪️','star and crescent','sym'],['🕉️','om','sym'],['✡️','star of david','sym'],
+['☯️','yin yang','sym'],['♈','aries','sym'],['♉','taurus','sym'],['♊','gemini','sym'],
+['♋','cancer','sym'],['♌','leo','sym'],['♍','virgo','sym'],['♎','libra','sym'],
+['♏','scorpio','sym'],['♐','sagittarius','sym'],['♑','capricorn','sym'],['♒','aquarius','sym'],
+['♓','pisces','sym'],['🔴','red circle','sym'],['🟠','orange circle','sym'],['🟡','yellow circle','sym'],
+['🟢','green circle','sym'],['🔵','blue circle','sym'],['🟣','purple circle','sym'],['⚫','black circle','sym'],
+['⚪','white circle','sym'],['🔶','large orange diamond','sym'],['🔷','large blue diamond','sym'],['⭐','star','sym'],
+['🔱','trident emblem','sym'],['⚜️','fleur-de-lis','sym'],['✅','check mark button','sym'],['❎','cross mark button','sym'],
+['💯','hundred points','sym'],['‼️','double exclamation','sym'],['❓','question mark','sym'],['❗','exclamation mark','sym'],
+['🔔','bell','sym'],['🔕','bell with slash','sym'],['📢','loudspeaker','sym'],['📣','megaphone','sym'],
+['💲','heavy dollar sign','sym'],['♻️','recycling symbol','sym'],['⚠️','warning','sym'],['🚫','prohibited','sym'],
+['⛔','no entry','sym'],['🔞','no one under eighteen','sym'],['🆗','OK button','sym'],['🆕','NEW button','sym'],
+['🆒','COOL button','sym'],['🆓','FREE button','sym'],['🆘','SOS button','sym'],['🔰','Japanese beginner','sym'],
+['🏧','ATM sign','sym'],['♿','wheelchair symbol','sym'],
+
+['🏳️','white flag','flag'],['🏴','black flag','flag'],['🏁','chequered flag','flag'],['🚩','triangular flag','flag'],
+['🏴‍☠️','pirate flag','flag'],['🏳️‍🌈','rainbow flag','flag'],['🏳️‍⚧️','transgender flag','flag'],
+['🇰🇷','South Korea','flag'],['🇺🇸','United States','flag'],['🇯🇵','Japan','flag'],['🇨🇳','China','flag'],
+['🇬🇧','United Kingdom','flag'],['🇩🇪','Germany','flag'],['🇫🇷','France','flag'],['🇮🇹','Italy','flag'],
+['🇪🇸','Spain','flag'],['🇵🇹','Portugal','flag'],['🇷🇺','Russia','flag'],['🇧🇷','Brazil','flag'],
+['🇨🇦','Canada','flag'],['🇦🇺','Australia','flag'],['🇮🇳','India','flag'],['🇲🇽','Mexico','flag'],
+['🇸🇦','Saudi Arabia','flag'],['🇦🇪','UAE','flag'],['🇹🇷','Turkey','flag'],['🇳🇱','Netherlands','flag'],
+['🇧🇪','Belgium','flag'],['🇸🇪','Sweden','flag'],['🇳🇴','Norway','flag'],['🇩🇰','Denmark','flag'],
+['🇫🇮','Finland','flag'],['🇨🇭','Switzerland','flag'],['🇦🇹','Austria','flag'],['🇵🇱','Poland','flag'],
+['🇬🇷','Greece','flag'],['🇵🇭','Philippines','flag'],['🇮🇩','Indonesia','flag'],['🇻🇳','Vietnam','flag'],
+['🇹🇭','Thailand','flag'],['🇲🇾','Malaysia','flag'],['🇸🇬','Singapore','flag'],['🇳🇿','New Zealand','flag'],
+['🇿🇦','South Africa','flag'],['🇪🇬','Egypt','flag'],['🇳🇬','Nigeria','flag'],['🇰🇪','Kenya','flag'],
+['🇦🇷','Argentina','flag'],['🇨🇱','Chile','flag'],['🇨🇴','Colombia','flag'],['🇺🇦','Ukraine','flag'],
+['🇮🇱','Israel','flag'],['🇵🇰','Pakistan','flag'],['🇮🇷','Iran','flag'],
+];
+
+var currentCat = 'all';
+var searchQuery = '';
+var recentEmojis = [];
+try { recentEmojis = JSON.parse(localStorage.getItem('guh-recent-emoji') || '[]'); } catch(e){}
+
+function init() { renderCats(); renderRecent(); renderGrid(); }
+
+function renderCats() {
+  var wrap = document.getElementById('cat-tabs');
+  wrap.innerHTML = CATS.map(function(c) {
+    return '<button class="cat-tab' + (c.id === currentCat ? ' active' : '') + '" onclick="setCat(\'' + c.id + '\')">' + c.icon + ' ' + c.label + '</button>';
+  }).join('');
+}
+function setCat(id) { currentCat = id; renderCats(); renderGrid(); }
+function onSearch(q) { searchQuery = q.trim().toLowerCase(); renderGrid(); }
+
+function filterEmojis() {
+  return EMOJIS.filter(function(e) {
+    var catMatch = (currentCat === 'all' || e[2] === currentCat);
+    var searchMatch = !searchQuery || e[1].toLowerCase().indexOf(searchQuery) !== -1 || e[0] === searchQuery;
+    return catMatch && searchMatch;
+  });
+}
+
+function renderGrid() {
+  var list = filterEmojis();
+  var grid = document.getElementById('emoji-grid');
+  document.getElementById('emoji-count').textContent = list.length + ' emojis';
+  if (!list.length) { grid.innerHTML = '<div class="emoji-empty">No results found 🔍</div>'; return; }
+  grid.innerHTML = list.map(function(e) {
+    return '<div class="emoji-card" onclick="copyEmoji(\'' + e[0].replace(/'/g, "\\'") + '\')" title="' + e[1] + '">' +
+      '<span class="emoji-char">' + e[0] + '</span>' +
+      '<span class="emoji-name">' + e[1] + '</span></div>';
+  }).join('');
+}
+
+function copyEmoji(emoji) {
+  navigator.clipboard.writeText(emoji).then(function() {
+    showToast(emoji + ' copied!', false);
+    addRecent(emoji);
+    var cards = document.querySelectorAll('.emoji-card');
+    for (var i = 0; i < cards.length; i++) {
+      if (cards[i].querySelector('.emoji-char').textContent === emoji) {
+        var card = cards[i]; card.classList.add('copied');
+        setTimeout(function() { card.classList.remove('copied'); }, 600); break;
+      }
+    }
+  }).catch(function() {
+    var ta = document.createElement('textarea'); ta.value = emoji;
+    document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+    showToast(emoji + ' copied!', false); addRecent(emoji);
+  });
+}
+
+function addRecent(emoji) {
+  recentEmojis = recentEmojis.filter(function(e) { return e !== emoji; });
+  recentEmojis.unshift(emoji);
+  if (recentEmojis.length > 12) recentEmojis = recentEmojis.slice(0, 12);
+  try { localStorage.setItem('guh-recent-emoji', JSON.stringify(recentEmojis)); } catch(e) {}
+  renderRecent();
+}
+
+function renderRecent() {
+  var row = document.getElementById('recent-row');
+  var wrap = document.getElementById('recent-emojis');
+  if (!recentEmojis.length) { row.style.display = 'none'; return; }
+  row.style.display = 'flex';
+  wrap.innerHTML = recentEmojis.map(function(e) {
+    return '<span class="recent-chip" onclick="copyEmoji(\'' + e.replace(/'/g, "\\'") + '\')" title="' + e + '">' + e + '</span>';
+  }).join('');
+}
+
+init();
+</script>
+<script src="/assets/js/guh-search.js" defer></script>
+</body>
+</html>

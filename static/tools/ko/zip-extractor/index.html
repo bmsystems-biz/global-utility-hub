@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko" data-theme="">
 <head>
   <meta charset="UTF-8" />
@@ -15,16 +15,26 @@
   <link rel="stylesheet" href="/assets/css/common.css" />
   <script>(function(){var t=localStorage.getItem('GUH-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark';})();</script>
   <style>
-    .drop-zone{border:2px dashed var(--border);border-radius:12px;padding:36px 20px;text-align:center;cursor:pointer;transition:border-color 0.2s;color:var(--text-3);}
+    .drop-zone{border:2px dashed var(--border);border-radius:12px;padding:36px 20px;text-align:center;cursor:pointer;transition:border-color 0.2s,background 0.2s;color:var(--text-3);}
     .drop-zone:hover,.drop-zone.drag-over{border-color:var(--accent);background:var(--accent-soft);}
-    .file-list{margin:12px 0;}
-    .file-row{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;border-bottom:1px solid var(--border);font-size:13px;gap:8px;}
-    .file-row:last-child{border-bottom:none;}
-    .file-name{flex:1;word-break:break-all;color:var(--text-1);}
-    .file-size{color:var(--text-3);white-space:nowrap;min-width:60px;text-align:right;}
-    .file-dl{padding:3px 10px;font-size:12px;border-radius:4px;border:1px solid var(--accent);color:var(--accent);background:transparent;cursor:pointer;white-space:nowrap;}
-    .file-dl:hover{background:var(--accent);color:#fff;}
-    .dir-row{padding:6px 12px;font-size:12px;color:var(--text-3);background:var(--surface2);}
+
+    /* ── 트리 뷰 ── */
+    .tree-root{font-size:13px;line-height:1.4;}
+    .tree-folder-row{display:flex;align-items:center;gap:5px;padding:6px 8px;border-radius:6px;cursor:pointer;user-select:none;}
+    .tree-folder-row:hover{background:var(--surface2);}
+    .tree-toggle{display:inline-block;width:14px;font-size:9px;color:var(--text-3);flex-shrink:0;transition:transform 0.15s;}
+    .tree-toggle.open{transform:rotate(90deg);}
+    .tree-folder-name{font-weight:600;color:var(--text-1);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .tree-folder-count{font-size:11px;color:var(--text-3);white-space:nowrap;flex-shrink:0;}
+    .tree-children{display:none;}
+    .tree-children.open{display:block;}
+    .tree-file-row{display:flex;align-items:center;gap:5px;padding:5px 8px;border-radius:6px;}
+    .tree-file-row:hover{background:var(--surface2);}
+    .tree-file-icon{flex-shrink:0;font-size:14px;}
+    .tree-file-name{flex:1;color:var(--text-1);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .tree-file-size{font-size:11px;color:var(--text-3);white-space:nowrap;min-width:48px;text-align:right;flex-shrink:0;}
+    .tree-dl-btn{padding:2px 9px;font-size:11px;border-radius:4px;border:1px solid var(--border);color:var(--text-2);background:transparent;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:all 0.15s;}
+    .tree-dl-btn:hover{border-color:var(--accent);color:var(--accent);}
   </style>
 </head>
 <body>
@@ -46,24 +56,27 @@
 
 <main class="guh-container guh-page" id="main-content">
   <nav class="guh-breadcrumb"><a href="/ko/">홈</a><span class="guh-breadcrumb-sep">›</span><a href="/ko/#file-tools">파일도구</a><span class="guh-breadcrumb-sep">›</span><span>ZIP 압축해제</span></nav>
-  <div class="guh-hero"><h1>📦 ZIP 압축해제</h1><p>ZIP 파일을 브라우저에서 바로 열어 내용물을 확인하고 개별 파일을 다운로드합니다.</p></div>
+  <div class="guh-hero"><h1>📦 ZIP 압축해제</h1><p>ZIP 파일을 브라우저에서 바로 열어 폴더·파일을 탐색하고 개별 다운로드합니다.</p></div>
 
   <section class="guh-section" id="calculator">
     <div class="guh-calc-card">
       <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
-        <div style="font-size:28px;margin-bottom:6px;">📦</div>
+        <div style="font-size:32px;margin-bottom:8px;">📂</div>
         <div style="font-weight:600;margin-bottom:4px;">ZIP 파일을 끌어다 놓거나 클릭</div>
-        <div style="font-size:13px;">.zip 파일 지원</div>
+        <div style="font-size:13px;">.zip 파일 지원 · 파일은 브라우저 내에서만 처리됩니다</div>
         <input type="file" id="file-input" accept=".zip,application/zip" style="display:none" onchange="onFile(this.files[0])" />
       </div>
 
-      <div id="zip-info" style="display:none;">
-        <div id="zip-summary" style="font-size:13px;color:var(--text-2);margin:8px 0;"></div>
-        <div style="display:flex;gap:8px;margin-bottom:8px;">
-          <button class="guh-btn" onclick="downloadAll()">모두 다운로드</button>
-          <button class="guh-btn guh-btn-outline" onclick="resetAll()">초기화</button>
+      <div id="zip-info" style="display:none;margin-top:16px;">
+        <div id="zip-summary" style="font-size:13px;color:var(--text-2);margin-bottom:10px;"></div>
+        <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+          <button class="guh-btn" id="dl-all-btn" onclick="downloadAll()">⬇ 모두 다운로드</button>
+          <button class="guh-btn guh-btn-outline" id="toggle-btn" onclick="toggleAll()">📂 모두 펼치기</button>
+          <button class="guh-btn guh-btn-outline" onclick="resetAll()">🗑 초기화</button>
         </div>
-        <div id="file-list" class="file-list guh-calc-card" style="padding:0;max-height:400px;overflow-y:auto;"></div>
+        <div class="guh-calc-card" style="padding:8px;max-height:520px;overflow-y:auto;">
+          <div class="tree-root" id="tree-root"></div>
+        </div>
       </div>
 
       <div id="err-msg" style="color:var(--red);font-size:13px;margin-top:8px;"></div>
@@ -101,51 +114,265 @@
   document.querySelectorAll('.guh-faq-q').forEach(function(btn){btn.addEventListener('click',function(){var isOpen=this.classList.contains('open');document.querySelectorAll('.guh-faq-q').forEach(function(b){b.classList.remove('open');b.nextElementSibling.classList.remove('open');});if(!isOpen){this.classList.add('open');this.nextElementSibling.classList.add('open');}});});
   function showToast(msg,isErr){var t=document.getElementById('toast');t.textContent=msg;t.style.background=isErr?'var(--red)':'var(--green)';t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2500);}
 
-  var currentZip=null;
-  var dz=document.getElementById('drop-zone');
-  dz.addEventListener('dragover',function(e){e.preventDefault();dz.classList.add('drag-over');});
-  dz.addEventListener('dragleave',function(){dz.classList.remove('drag-over');});
-  dz.addEventListener('drop',function(e){e.preventDefault();dz.classList.remove('drag-over');if(e.dataTransfer.files[0])onFile(e.dataTransfer.files[0]);});
+  var currentZip = null;
+  var currentZipName = '';
+  var allExpanded = false;
 
-  function onFile(file){
-    document.getElementById('err-msg').textContent='';
-    if(!file||(file.type!=='application/zip'&&!file.name.endsWith('.zip'))){showToast('ZIP 파일을 선택해주세요.',true);return;}
-    JSZip.loadAsync(file).then(function(zip){
-      currentZip=zip;
-      var files=[];
-      zip.forEach(function(path,entry){files.push({path:path,entry:entry});});
-      var fileCount=files.filter(function(f){return!f.entry.dir;}).length;
-      var dirCount=files.filter(function(f){return f.entry.dir;}).length;
-      document.getElementById('zip-summary').textContent=file.name+' — 파일 '+fileCount+'개, 폴더 '+dirCount+'개';
-      var list=document.getElementById('file-list');
-      list.innerHTML='';
-      files.sort(function(a,b){return a.path.localeCompare(b.path);}).forEach(function(f){
-        var row=document.createElement('div');
-        if(f.entry.dir){row.className='dir-row';row.textContent='📁 '+f.path;}
-        else{
-          row.className='file-row';
-          var nm=document.createElement('span');nm.className='file-name';nm.textContent='📄 '+f.path;
-          var sz=document.createElement('span');sz.className='file-size';sz.textContent=f.entry._data?Math.round(f.entry._data.uncompressedSize/1024)+' KB':'';
-          var dl=document.createElement('button');dl.className='file-dl';dl.textContent='다운로드';
-          dl.onclick=(function(entry,name){return function(){entry.async('blob').then(function(blob){var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name.split('/').pop();a.click();});};})(f.entry,f.path);
-          row.appendChild(nm);row.appendChild(sz);row.appendChild(dl);
-        }
-        list.appendChild(row);
-      });
-      document.getElementById('zip-info').style.display='block';
-    }).catch(function(e){document.getElementById('err-msg').textContent='❌ ZIP 파일을 읽을 수 없습니다: '+e.message;});
-  }
+  // ── 드래그&드롭 ──
+  var dz = document.getElementById('drop-zone');
+  dz.addEventListener('dragover', function(e){e.preventDefault();dz.classList.add('drag-over');});
+  dz.addEventListener('dragleave', function(){dz.classList.remove('drag-over');});
+  dz.addEventListener('drop', function(e){e.preventDefault();dz.classList.remove('drag-over');if(e.dataTransfer.files[0])onFile(e.dataTransfer.files[0]);});
 
-  function downloadAll(){
-    if(!currentZip){return;}
-    var files=[];
-    currentZip.forEach(function(path,entry){if(!entry.dir)files.push({entry:entry,path:path});});
-    files.forEach(function(f,i){
-      setTimeout(function(){f.entry.async('blob').then(function(blob){var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=f.path.split('/').pop();a.click();});},i*300);
+  // ── 파일 로드 ──
+  function onFile(file) {
+    document.getElementById('err-msg').textContent = '';
+    if (!file || (file.type !== 'application/zip' && !file.name.toLowerCase().endsWith('.zip'))) {
+      showToast('ZIP 파일을 선택해주세요.', true); return;
+    }
+    currentZipName = file.name;
+    JSZip.loadAsync(file).then(function(zip) {
+      currentZip = zip;
+      var entries = [];
+      zip.forEach(function(path, entry) { entries.push({path: path, entry: entry}); });
+
+      var fileCount = entries.filter(function(f){return !f.entry.dir;}).length;
+      var dirCount  = entries.filter(function(f){return f.entry.dir;}).length;
+      document.getElementById('zip-summary').textContent =
+        '📦 ' + file.name + ' — 파일 ' + fileCount + '개, 폴더 ' + dirCount + '개';
+
+      var tree = buildTree(entries);
+      var root = document.getElementById('tree-root');
+      root.innerHTML = '';
+      allExpanded = false;
+      document.getElementById('toggle-btn').textContent = '📂 모두 펼치기';
+      renderTree(tree, 0, root, true);
+      document.getElementById('zip-info').style.display = 'block';
+    }).catch(function(e) {
+      document.getElementById('err-msg').textContent = '❌ ZIP 파일을 읽을 수 없습니다: ' + e.message;
     });
   }
 
-  function resetAll(){currentZip=null;document.getElementById('zip-info').style.display='none';document.getElementById('file-list').innerHTML='';document.getElementById('file-input').value='';document.getElementById('err-msg').textContent='';}
+  // ── 트리 구조 생성 ──
+  function buildTree(entries) {
+    var root = {dirs: {}, files: []};
+    entries.forEach(function(f) {
+      var parts = f.path.split('/').filter(function(p){return p !== '';});
+      if (f.entry.dir) {
+        var node = root;
+        parts.forEach(function(part) {
+          if (!node.dirs[part]) node.dirs[part] = {name: part, dirs: {}, files: []};
+          node = node.dirs[part];
+        });
+      } else {
+        var node = root;
+        var fileName = parts.pop();
+        parts.forEach(function(part) {
+          if (!node.dirs[part]) node.dirs[part] = {name: part, dirs: {}, files: []};
+          node = node.dirs[part];
+        });
+        node.files.push({name: fileName, entry: f.entry, path: f.path});
+      }
+    });
+    return root;
+  }
+
+  function countFiles(node) {
+    var n = node.files.length;
+    Object.keys(node.dirs).forEach(function(k){n += countFiles(node.dirs[k]);});
+    return n;
+  }
+
+  // ── 트리 렌더링 ──
+  function renderTree(node, depth, container, autoExpand) {
+    var indent = depth * 18;
+
+    // 폴더 먼저
+    Object.keys(node.dirs).sort().forEach(function(dirName) {
+      var dir = node.dirs[dirName];
+      var fc = countFiles(dir);
+      var wrapper = document.createElement('div');
+
+      var folderRow = document.createElement('div');
+      folderRow.className = 'tree-folder-row';
+      folderRow.style.paddingLeft = (8 + indent) + 'px';
+
+      var toggle = document.createElement('span');
+      toggle.className = 'tree-toggle';
+      toggle.textContent = '▶';
+
+      var icon = document.createElement('span');
+      icon.textContent = '📁';
+      icon.style.flexShrink = '0';
+
+      var name = document.createElement('span');
+      name.className = 'tree-folder-name';
+      name.title = dirName;
+      name.textContent = ' ' + dirName;
+
+      var cnt = document.createElement('span');
+      cnt.className = 'tree-folder-count';
+      cnt.textContent = fc + '개';
+
+      folderRow.appendChild(toggle);
+      folderRow.appendChild(icon);
+      folderRow.appendChild(name);
+      folderRow.appendChild(cnt);
+
+      var children = document.createElement('div');
+      children.className = 'tree-children';
+
+      folderRow.addEventListener('click', function() {
+        var open = children.classList.contains('open');
+        children.classList.toggle('open', !open);
+        toggle.classList.toggle('open', !open);
+      });
+
+      if (autoExpand) {
+        children.classList.add('open');
+        toggle.classList.add('open');
+      }
+
+      renderTree(dir, depth + 1, children, false);
+      wrapper.appendChild(folderRow);
+      wrapper.appendChild(children);
+      container.appendChild(wrapper);
+    });
+
+    // 파일
+    node.files.slice().sort(function(a,b){return a.name.localeCompare(b.name);}).forEach(function(f) {
+      var fileRow = document.createElement('div');
+      fileRow.className = 'tree-file-row';
+      fileRow.style.paddingLeft = (8 + indent + 20) + 'px';
+
+      var icon = document.createElement('span');
+      icon.className = 'tree-file-icon';
+      icon.textContent = getFileIcon(f.name);
+
+      var nm = document.createElement('span');
+      nm.className = 'tree-file-name';
+      nm.title = f.name;
+      nm.textContent = f.name;
+
+      var rawSize = f.entry._data ? f.entry._data.uncompressedSize : 0;
+      var sz = document.createElement('span');
+      sz.className = 'tree-file-size';
+      sz.textContent = rawSize > 1048576 ? (rawSize/1048576).toFixed(1)+' MB'
+                     : rawSize > 1024    ? Math.round(rawSize/1024)+' KB'
+                     : rawSize + ' B';
+
+      var dl = document.createElement('button');
+      dl.className = 'tree-dl-btn';
+      dl.textContent = '↓';
+      dl.title = f.name + ' 다운로드';
+      dl.onclick = (function(entry, name){
+        return function(e) {
+          e.stopPropagation();
+          entry.async('blob').then(function(blob){
+            var a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = name;
+            a.click();
+          });
+        };
+      })(f.entry, f.name);
+
+      fileRow.appendChild(icon);
+      fileRow.appendChild(nm);
+      fileRow.appendChild(sz);
+      fileRow.appendChild(dl);
+      container.appendChild(fileRow);
+    });
+  }
+
+  // ── 파일 아이콘 ──
+  function getFileIcon(name) {
+    var ext = (name.split('.').pop() || '').toLowerCase();
+    var m = {
+      jpg:'🖼️',jpeg:'🖼️',png:'🖼️',gif:'🖼️',svg:'🖼️',webp:'🖼️',bmp:'🖼️',ico:'🖼️',
+      mp4:'🎬',avi:'🎬',mov:'🎬',mkv:'🎬',wmv:'🎬',flv:'🎬',
+      mp3:'🎵',wav:'🎵',flac:'🎵',m4a:'🎵',ogg:'🎵',aac:'🎵',
+      pdf:'📕',doc:'📝',docx:'📝',xls:'📊',xlsx:'📊',csv:'📊',ppt:'📊',pptx:'📊',
+      txt:'📄',md:'📄',
+      js:'📜',ts:'📜',jsx:'📜',tsx:'📜',py:'📜',java:'📜',cpp:'📜',c:'📜',cs:'📜',go:'📜',rb:'📜',php:'📜',sh:'📜',
+      html:'🌐',htm:'🌐',css:'🎨',json:'📋',xml:'📋',yaml:'📋',yml:'📋',toml:'📋',
+      zip:'📦',rar:'📦','7z':'📦',tar:'📦',gz:'📦',
+      exe:'⚙️',dll:'⚙️',msi:'⚙️',
+      ttf:'🔤',otf:'🔤',woff:'🔤',woff2:'🔤',
+    };
+    return m[ext] || '📄';
+  }
+
+  // ── 모두 펼치기/접기 ──
+  function toggleAll() {
+    allExpanded = !allExpanded;
+    document.querySelectorAll('.tree-children').forEach(function(el){el.classList.toggle('open', allExpanded);});
+    document.querySelectorAll('.tree-toggle').forEach(function(el){el.classList.toggle('open', allExpanded);});
+    document.getElementById('toggle-btn').textContent = allExpanded ? '📁 모두 접기' : '📂 모두 펼치기';
+  }
+
+  // ── 모두 다운로드 ──
+  async function downloadAll() {
+    if (!currentZip) return;
+    var files = [];
+    currentZip.forEach(function(path, entry) { if (!entry.dir) files.push({path: path, entry: entry}); });
+    var btn = document.getElementById('dl-all-btn');
+
+    if (window.showDirectoryPicker) {
+      try {
+        var dirHandle = await window.showDirectoryPicker({ mode: 'readwrite' });
+        var folderName = currentZipName.replace(/\.zip$/i, '');
+        var subDir = await dirHandle.getDirectoryHandle(folderName, { create: true });
+
+        btn.disabled = true;
+        for (var i = 0; i < files.length; i++) {
+          btn.textContent = '⏳ ' + (i + 1) + ' / ' + files.length;
+          var f = files[i];
+          var parts = f.path.split('/').filter(function(p) { return p !== ''; });
+          var fileName = parts.pop();
+          var cur = subDir;
+          for (var j = 0; j < parts.length; j++) {
+            cur = await cur.getDirectoryHandle(parts[j], { create: true });
+          }
+          var fh = await cur.getFileHandle(fileName, { create: true });
+          var writable = await fh.createWritable();
+          var blob = await f.entry.async('blob');
+          await writable.write(blob);
+          await writable.close();
+        }
+        btn.disabled = false;
+        btn.textContent = '✅ 저장 완료';
+        showToast('📁 ' + folderName + ' 폴더에 저장 완료', false);
+        setTimeout(function() { btn.textContent = '⬇ 모두 다운로드'; }, 3000);
+      } catch(e) {
+        btn.disabled = false;
+        btn.textContent = '⬇ 모두 다운로드';
+        if (e.name !== 'AbortError') showToast('저장 실패: ' + e.message, true);
+      }
+    } else {
+      // 폴백: 개별 다운로드 (Firefox 등 미지원 브라우저)
+      showToast('이 브라우저는 폴더 저장 미지원 → 파일 개별 다운로드', false);
+      files.forEach(function(f, i) {
+        setTimeout(function() {
+          f.entry.async('blob').then(function(blob) {
+            var a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = f.path.split('/').pop();
+            a.click();
+          });
+        }, i * 300);
+      });
+    }
+  }
+
+  function resetAll() {
+    currentZip = null; currentZipName = ''; allExpanded = false;
+    document.getElementById('zip-info').style.display = 'none';
+    document.getElementById('tree-root').innerHTML = '';
+    document.getElementById('file-input').value = '';
+    document.getElementById('err-msg').textContent = '';
+    document.getElementById('dl-all-btn').textContent = '⬇ 모두 다운로드';
+  }
 
   (async function(){try{var r=await fetch('/ko/blog/index.json');if(!r.ok)return;var posts=await r.json();var related=posts.filter(function(p){return p.related_tool==='zip-extractor';}).slice(0,3);var grid=document.getElementById('blog-grid');if(!related.length){grid.innerHTML='<div class="guh-blog-empty">관련 블로그 포스트가 준비 중입니다.</div>';return;}grid.innerHTML=related.map(function(p){return'<a href="'+p.url+'" class="guh-blog-card"><div class="guh-blog-card-title">'+p.title+'</div><div class="guh-blog-card-date">'+p.date+'</div></a>';}).join('');}catch(e){document.getElementById('blog-grid').innerHTML='<div class="guh-blog-empty">관련 블로그 포스트가 준비 중입니다.</div>';}})();
 </script>

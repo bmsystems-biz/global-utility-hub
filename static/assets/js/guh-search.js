@@ -33,12 +33,12 @@
       { title: '이미지 PDF 변환기', url: '/tools/ko/image-to-pdf/' },
       { title: '복리 계산기', url: '/tools/ko/compound-interest/' },
       { title: '대출 계산기', url: '/tools/ko/loan-calculator/' },
-      { title: '환율 계산기', url: '/tools/ko/exchange-rate/' },
-      { title: '부가세 계산기', url: '/tools/ko/vat-calculator/' },
+{ title: '부가세 계산기', url: '/tools/ko/vat-calculator/' },
       { title: '연봉 계산기', url: '/tools/ko/salary-calculator/' },
       { title: '시급·월급 계산기', url: '/tools/ko/monthly-salary/' },
       { title: '이미지 자르기', url: '/tools/ko/image-cropper/' },
-      { title: '주식 포트폴리오 수식 생성기', url: '/tools/ko/stock-portfolio-formula/' }
+      { title: '주식 포트폴리오 수식 생성기', url: '/tools/ko/stock-portfolio-formula/' },
+      { title: '이모지 찾기', url: '/tools/ko/emoji-finder/' }
     ],
     en: [
       { title: 'BMI Calculator', url: '/tools/en/bmi-calculator/' },
@@ -68,12 +68,12 @@
       { title: 'Image to PDF Converter', url: '/tools/en/image-to-pdf/' },
       { title: 'Compound Interest Calculator', url: '/tools/en/compound-interest/' },
       { title: 'Loan Calculator', url: '/tools/en/loan-calculator/' },
-      { title: 'Exchange Rate Calculator', url: '/tools/en/exchange-rate/' },
-      { title: 'VAT Calculator', url: '/tools/en/vat-calculator/' },
+{ title: 'VAT Calculator', url: '/tools/en/vat-calculator/' },
       { title: 'Salary Calculator', url: '/tools/en/salary-calculator/' },
       { title: 'Hourly Wage Calculator', url: '/tools/en/monthly-salary/' },
       { title: 'Image Cropper', url: '/tools/en/image-cropper/' },
-      { title: 'Stock Portfolio Formula Generator', url: '/tools/en/stock-portfolio-formula/' }
+      { title: 'Stock Portfolio Formula Generator', url: '/tools/en/stock-portfolio-formula/' },
+      { title: 'Emoji Finder', url: '/tools/en/emoji-finder/' }
     ]
   };
 
