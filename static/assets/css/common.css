@@ -95,14 +95,12 @@ a { color: var(--accent); }
 }
 .guh-logo {
   font-size: 17px;
-  font-weight: 700;
-  color: var(--navy);
+  font-weight: 500;
   text-decoration: none;
   white-space: nowrap;
   flex-shrink: 0;
 }
-.guh-logo:hover { color: var(--accent); text-decoration: none; }
-.guh-logo span { color: var(--accent); }
+.guh-logo:hover { text-decoration: none; }
 
 .guh-nav {
   display: flex;
