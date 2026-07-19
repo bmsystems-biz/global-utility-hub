@@ -47,6 +47,7 @@
   </script>
   {{ with .Params.json_ld }}<script type="application/ld+json">{{ if eq (printf "%T" .) "string" }}{{ . | safeJS }}{{ else }}{{ . | jsonify | safeJS }}{{ end }}</script>{{ end }}
   {{ block "head_extra" . }}{{ end }}
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6232829953801988" crossorigin="anonymous"></script>
 </head>
 <body>
   <!-- HEADER -->
