@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BG Remover (Transparent Background) – Free Online | EveryUtil</title>
+  <meta name="description" content="Remove image backgrounds for free. Choose AI automatic removal or color-based magic wand. 100% browser-based — no uploads, no sign-up." />
+  <link rel="canonical" href="https://util.bmsystems.biz/tools/en/bg-remover/" />
+  <link rel="alternate" hreflang="ko" href="https://util.bmsystems.biz/tools/ko/bg-remover/" />
+  <link rel="alternate" hreflang="en" href="https://util.bmsystems.biz/tools/en/bg-remover/" />
+  <link rel="alternate" hreflang="x-default" href="https://util.bmsystems.biz/tools/en/bg-remover/" />
+  <meta property="og:title" content="BG Remover (Transparent Background)" /><meta property="og:description" content="Remove image backgrounds free with AI or color-based magic wand." /><meta property="og:type" content="website" /><meta property="og:url" content="https://util.bmsystems.biz/tools/en/bg-remover/" /><meta property="og:locale" content="en_US" /><meta name="twitter:card" content="summary" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/common.css?v=2" />
+  <script>(function(){var t=localStorage.getItem('GUH-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark';})();</script>
+  <style>
+    .drop-zone{border:2px dashed var(--border);border-radius:12px;padding:36px 20px;text-align:center;cursor:pointer;transition:border-color 0.2s;color:var(--text-3);}
+    .drop-zone:hover,.drop-zone.drag-over{border-color:var(--accent);background:var(--accent-soft);}
+    .tab-bar{display:flex;gap:6px;margin-bottom:16px;border-bottom:2px solid var(--border);padding-bottom:0;}
+    .tab-btn{padding:9px 18px;font-size:14px;font-weight:600;border:none;background:none;cursor:pointer;color:var(--text-2);border-bottom:2px solid transparent;margin-bottom:-2px;transition:color 0.2s;}
+    .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);}
+    .tab-panel{display:none;}.tab-panel.active{display:block;}
+    .preview-area{display:flex;gap:12px;flex-wrap:wrap;margin:16px 0;}
+    .preview-box{flex:1;min-width:200px;border:1px solid var(--border);border-radius:10px;overflow:hidden;background:repeating-conic-gradient(#ccc 0% 25%,#fff 0% 50%) 0 0/20px 20px;position:relative;}
+    .preview-box canvas,.preview-box img{width:100%;height:auto;display:block;}
+    .preview-label{position:absolute;top:6px;left:8px;font-size:11px;font-weight:700;background:rgba(0,0,0,0.5);color:#fff;padding:2px 7px;border-radius:10px;}
+    .tolerance-row{display:flex;align-items:center;gap:10px;margin:10px 0;flex-wrap:wrap;}
+    .tolerance-row label{font-size:13px;font-weight:600;color:var(--text-2);}
+    #tolerance-val{font-size:13px;font-weight:700;color:var(--accent);min-width:30px;}
+    #wand-canvas{cursor:crosshair;max-width:100%;}
+    .ai-status{font-size:13px;color:var(--text-2);margin:10px 0;min-height:20px;}
+    .progress-bar-wrap{width:100%;height:6px;background:var(--surface2);border-radius:3px;margin:8px 0;overflow:hidden;display:none;}
+    .progress-bar{height:100%;background:var(--accent);border-radius:3px;transition:width 0.3s;width:0%;}
+    .checker{background:repeating-conic-gradient(#ccc 0% 25%,#fff 0% 50%) 0 0/20px 20px;border-radius:8px;border:1px solid var(--border);}
+  </style>
+</head>
+<body>
+<header class="guh-header" role="banner">
+  <div class="guh-header-inner">
+    <button class="guh-menu-btn" id="menu-btn" aria-label="Menu">☰</button>
+    <a href="/en/" class="guh-logo" style="display:inline-flex;align-items:center;gap:6px;font-family:'Poppins',sans-serif;font-weight:500;"><img src="/assets/img/logo_100.png" alt="EveryUtil" style="height:1em;width:1em;object-fit:contain;" /><span><span style="color:var(--guh-logo-every);">Every</span><span style="background:linear-gradient(79deg,#1fbc9a 0%,#9156fb 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Util</span></span></a>
+    <nav class="guh-nav"><a href="/en/#file-tools" class="guh-nav-link">File Tools</a><a href="/en/#image-tools" class="guh-nav-link active">Image Tools</a><a href="/en/#daily-tools" class="guh-nav-link">Daily Tools</a><a href="/en/#finance" class="guh-nav-link">Finance</a><a href="/en/#health" class="guh-nav-link">Health</a><a href="/en/#dev-tools" class="guh-nav-link">Dev Tools</a><a href="/en/blog/" class="guh-nav-link">Blog</a></nav>
+    <div class="guh-header-actions">
+      <div class="guh-lang-select"><a href="/tools/ko/bg-remover/" class="guh-lang-btn">KO</a><a href="/tools/en/bg-remover/" class="guh-lang-btn active">EN</a></div>
+      <button class="guh-theme-btn" onclick="guhToggleTheme()" aria-label="Toggle dark mode"><span id="theme-icon">🌙</span></button>
+    </div>
+  </div>
+</header>
+<div class="guh-mobile-nav" id="mobile-nav">
+  <a href="/en/#file-tools">File Tools</a><a href="/en/#image-tools">Image Tools</a><a href="/en/#daily-tools">Daily Tools</a><a href="/en/#finance">Finance</a><a href="/en/#health">Health</a><a href="/en/#dev-tools">Dev Tools</a><a href="/en/blog/">Blog</a>
+  <hr/><a href="/tools/ko/bg-remover/">🇰🇷 한국어</a><a href="/tools/en/bg-remover/">🇺🇸 English</a>
+</div>
+
+<main class="guh-container guh-page" id="main-content">
+  <nav class="guh-breadcrumb"><a href="/en/">Home</a><span class="guh-breadcrumb-sep">›</span><a href="/en/#image-tools">Image Tools</a><span class="guh-breadcrumb-sep">›</span><span>BG Remover (Transparent)</span></nav>
+  <div class="guh-hero"><h1>🪄 BG Remover (Transparent Background)</h1><p>Remove image backgrounds with AI auto-detection or color-based magic wand. Free, private, 100% in-browser.</p></div>
+
+  <section class="guh-section" id="calculator">
+    <div class="guh-calc-card">
+
+      <!-- Upload -->
+      <div class="drop-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
+        <div style="font-size:28px;margin-bottom:6px;">🖼️</div>
+        <div style="font-weight:600;margin-bottom:4px;">Drop image here or click to upload</div>
+        <div style="font-size:13px;">JPG, PNG, WebP, BMP supported · Same file used in both tabs</div>
+        <input type="file" id="file-input" accept="image/*" style="display:none" onchange="onFile(this.files[0])" />
+      </div>
+
+      <div id="tool-area" style="display:none;">
+        <div id="file-info" style="font-size:13px;color:var(--text-2);margin-bottom:12px;"></div>
+
+        <!-- Tabs -->
+        <div class="tab-bar">
+          <button class="tab-btn active" onclick="switchTab('ai',this)">🤖 AI Auto Remove</button>
+          <button class="tab-btn" onclick="switchTab('wand',this)">🎨 Color-Based Remove</button>
+        </div>
+
+        <!-- AI Tab -->
+        <div class="tab-panel active" id="tab-ai">
+          <p style="font-size:13px;color:var(--text-2);margin:0 0 12px;">AI automatically detects and removes the background. The model is downloaded once (~50MB) and cached in your browser for future use.</p>
+          <div class="ai-status" id="ai-status">Press the button to start AI background removal.</div>
+          <div class="progress-bar-wrap" id="prog-wrap"><div class="progress-bar" id="prog-bar"></div></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
+            <button class="guh-btn" id="ai-btn" onclick="runAI()">🤖 Start AI Removal</button>
+            <button class="guh-btn guh-btn-outline" id="ai-dl-btn" style="display:none" onclick="downloadResult('ai')">⬇️ Download Transparent PNG</button>
+          </div>
+          <div class="preview-area" id="ai-preview" style="display:none;">
+            <div class="preview-box" style="flex:1;"><div class="preview-label">Original</div><img id="ai-orig-img" alt="Original" /></div>
+            <div class="preview-box checker" style="flex:1;"><div class="preview-label">Result</div><canvas id="ai-result-canvas"></canvas></div>
+          </div>
+        </div>
+
+        <!-- Color/Wand Tab -->
+        <div class="tab-panel" id="tab-wand">
+          <p style="font-size:13px;color:var(--text-2);margin:0 0 8px;">Click on the background color you want to remove. Adjust tolerance to control how much of a similar color is selected.</p>
+          <div class="tolerance-row">
+            <label>Tolerance:</label>
+            <input type="range" id="tolerance" min="0" max="128" value="30" style="flex:1;max-width:200px;" oninput="document.getElementById('tolerance-val').textContent=this.value" />
+            <span id="tolerance-val">30</span>
+            <button class="guh-btn guh-btn-outline" style="padding:4px 12px;font-size:12px;" onclick="undoLast()">↩ Undo</button>
+            <button class="guh-btn guh-btn-outline" style="padding:4px 12px;font-size:12px;" onclick="resetWand()">↺ Reset</button>
+          </div>
+          <div style="font-size:12px;color:var(--text-3);margin-bottom:8px;">💡 Lower tolerance = more precise; Higher tolerance = broader removal</div>
+          <div style="border-radius:10px;overflow:hidden;border:1px solid var(--border);background:repeating-conic-gradient(#ccc 0% 25%,#fff 0% 50%) 0 0/20px 20px;">
+            <canvas id="wand-canvas"></canvas>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;">
+            <button class="guh-btn" id="wand-dl-btn" onclick="downloadResult('wand')">⬇️ Download Transparent PNG</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="guh-section" id="faq">
+    <h2 class="guh-section-title">❓ FAQ</h2>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">Is my image uploaded to a server?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">No. All processing happens entirely in your browser. The AI model is downloaded once and cached locally — your image never leaves your device.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">What's the difference between AI and Color-Based tabs?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">The AI tab uses a machine learning model to automatically detect subjects (people, animals, objects) and remove the background — great for complex backgrounds. The Color-Based tab works like a magic wand: click a color region and it selects similar neighboring pixels for removal — best for solid or near-solid backgrounds.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">What format is the output image?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">PNG with transparency (alpha channel). JPG does not support transparency, so PNG is the appropriate format for transparent backgrounds.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">Why does the AI model take a long time on first use?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">The @imgly/background-removal model is about 50MB. On first use the browser must download it, which can take 10–60 seconds depending on your connection. After that it is cached locally and runs instantly.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">I accidentally removed too much in the Color tab — can I undo?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">Yes. Click the ↩ Undo button to revert your last click. Click ↺ Reset to restore the original image completely.</div></div>
+  </section>
+
+  <section class="guh-section" id="related-tools">
+    <h2 class="guh-section-title">🔗 Related Tools</h2>
+    <div class="guh-tool-grid">
+      <a href="/tools/en/image-cropper/" class="guh-tool-card"><span class="guh-tool-icon">✂️</span><span>Image Cropper</span></a>
+      <a href="/tools/en/image-resizer/" class="guh-tool-card"><span class="guh-tool-icon">↔️</span><span>Image Resizer</span></a>
+      <a href="/tools/en/image-compress/" class="guh-tool-card"><span class="guh-tool-icon">🗜️</span><span>Image Compressor</span></a>
+      <a href="/tools/en/image-converter/" class="guh-tool-card"><span class="guh-tool-icon">🔄</span><span>Image Converter</span></a>
+      <a href="/tools/en/gif-maker/" class="guh-tool-card"><span class="guh-tool-icon">🎞️</span><span>GIF Maker</span></a>
+    </div>
+  </section>
+  <section class="guh-section" id="related-blog"><h2 class="guh-section-title">📝 Related Blog</h2><div class="guh-blog-grid" id="blog-grid"><div class="guh-blog-empty">Loading...</div></div></section>
+</main>
+
+<footer class="guh-footer"><div class="guh-footer-inner"><a href="/en/" class="guh-footer-logo">EveryUtil</a><nav class="guh-footer-links"><a href="/en/blog/">Blog</a><a href="/en/">All Tools</a><a href="mailto:contact@bmsystems.biz">Contact</a></nav><p class="guh-footer-copy">© 2026 EveryUtil. All rights reserved.</p></div></footer>
+<div class="guh-toast" id="toast"></div>
+
+<script type="module">
+  // ── Common utils ──
+  function guhToggleTheme(){var isDark=document.documentElement.dataset.theme==='dark';document.documentElement.dataset.theme=isDark?'light':'dark';localStorage.setItem('GUH-theme',document.documentElement.dataset.theme);document.getElementById('theme-icon').textContent=isDark?'🌙':'☀️';}
+  window.guhToggleTheme=guhToggleTheme;
+  (function(){document.getElementById('theme-icon').textContent=document.documentElement.dataset.theme==='dark'?'☀️':'🌙';})();
+  document.getElementById('menu-btn').addEventListener('click',function(){document.getElementById('mobile-nav').classList.toggle('open');});
+  document.querySelectorAll('#mobile-nav a').forEach(function(l){l.addEventListener('click',function(){document.getElementById('mobile-nav').classList.remove('open');});});
+  document.querySelectorAll('.guh-faq-q').forEach(function(btn){btn.addEventListener('click',function(){var isOpen=this.classList.contains('open');document.querySelectorAll('.guh-faq-q').forEach(function(b){b.classList.remove('open');b.nextElementSibling.classList.remove('open');});if(!isOpen){this.classList.add('open');this.nextElementSibling.classList.add('open');}});});
+  function showToast(msg,isErr){var t=document.getElementById('toast');t.textContent=msg;t.style.background=isErr?'var(--red)':'var(--green)';t.classList.add('show');setTimeout(function(){t.classList.remove('show');},2500);}
+  window.showToast=showToast;
+
+  // ── File state ──
+  var origFile=null, origBlobURL=null, origName='image';
+  var origImg=null, origW=0, origH=0;
+  var wandHistory=[];
+
+  // ── Drop zone ──
+  var dz=document.getElementById('drop-zone');
+  dz.addEventListener('dragover',function(e){e.preventDefault();dz.classList.add('drag-over');});
+  dz.addEventListener('dragleave',function(){dz.classList.remove('drag-over');});
+  dz.addEventListener('drop',function(e){e.preventDefault();dz.classList.remove('drag-over');if(e.dataTransfer.files[0])onFile(e.dataTransfer.files[0]);});
+
+  function onFile(file){
+    if(!file||!file.type.startsWith('image/')){showToast('Please select an image file.',true);return;}
+    origFile=file;
+    origName=file.name.replace(/\.[^.]+$/,'');
+    if(origBlobURL)URL.revokeObjectURL(origBlobURL);
+    origBlobURL=URL.createObjectURL(file);
+    var img=new Image();
+    img.onload=function(){
+      origImg=img; origW=img.naturalWidth; origH=img.naturalHeight;
+      document.getElementById('file-info').textContent='File: '+file.name+' | '+origW+'×'+origH+'px | '+(file.size/1024).toFixed(1)+' KB';
+      document.getElementById('tool-area').style.display='block';
+      document.getElementById('drop-zone').style.display='none';
+      // AI tab reset
+      document.getElementById('ai-orig-img').src=origBlobURL;
+      document.getElementById('ai-preview').style.display='none';
+      document.getElementById('ai-dl-btn').style.display='none';
+      document.getElementById('ai-status').textContent='Press the button to start AI background removal.';
+      document.getElementById('prog-wrap').style.display='none';
+      document.getElementById('prog-bar').style.width='0%';
+      // Wand tab reset
+      initWand();
+      wandHistory=[];
+    };
+    img.src=origBlobURL;
+  }
+  window.onFile=onFile;
+
+  // ── Tab switch ──
+  function switchTab(name,btn){
+    document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
+    document.querySelectorAll('.tab-panel').forEach(function(p){p.classList.remove('active');});
+    btn.classList.add('active');
+    document.getElementById('tab-'+name).classList.add('active');
+  }
+  window.switchTab=switchTab;
+
+  // ────────────────────────────
+  //  AI Tab
+  // ────────────────────────────
+  var aiResultBlob=null;
+
+  async function runAI(){
+    if(!origFile){showToast('Please upload an image first.',true);return;}
+    var btn=document.getElementById('ai-btn');
+    btn.disabled=true;
+    var statusEl=document.getElementById('ai-status');
+    var progWrap=document.getElementById('prog-wrap');
+    var progBar=document.getElementById('prog-bar');
+    progWrap.style.display='block';
+    progBar.style.width='0%';
+    statusEl.textContent='Loading AI model... (first run may take up to 1 minute)';
+
+    try {
+      // Try CDN sources in order
+      var removeBackground = null;
+      var cdnList = [
+        'https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.4.5/+esm',
+        'https://esm.sh/@imgly/background-removal@1.4.5',
+        'https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.4.5',
+      ];
+      for (var ci=0; ci<cdnList.length; ci++) {
+        try {
+          var mod = await import(cdnList[ci]);
+          removeBackground = mod.removeBackground || (mod.default && mod.default.removeBackground);
+          if (removeBackground) break;
+        } catch(ce) { console.warn('CDN failed:', cdnList[ci], ce); }
+      }
+      if (!removeBackground) throw new Error('Failed to load AI library — please check your internet connection.');
+
+      statusEl.textContent='Removing background...';
+      progBar.style.width='30%';
+
+      const config = {
+        publicPath: 'https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.4.5/dist/',
+        progress: function(key, current, total){
+          var pct = total > 0 ? Math.round(current/total*100) : 0;
+          progBar.style.width = Math.max(30, pct) + '%';
+          statusEl.textContent = 'Processing... ' + pct + '%';
+        }
+      };
+
+      const resultBlob = await removeBackground(origFile, config);
+      aiResultBlob = resultBlob;
+      progBar.style.width='100%';
+      statusEl.textContent='Done! Background successfully removed.';
+
+      var url=URL.createObjectURL(resultBlob);
+      var resultImg=new Image();
+      resultImg.onload=function(){
+        var rc=document.getElementById('ai-result-canvas');
+        rc.width=resultImg.naturalWidth;
+        rc.height=resultImg.naturalHeight;
+        rc.getContext('2d').drawImage(resultImg,0,0);
+        URL.revokeObjectURL(url);
+      };
+      resultImg.src=url;
+
+      document.getElementById('ai-orig-img').src=origBlobURL;
+      document.getElementById('ai-preview').style.display='flex';
+      document.getElementById('ai-dl-btn').style.display='';
+      showToast('AI removal complete!',false);
+    } catch(err){
+      console.error(err);
+      statusEl.textContent='Error: '+err.message;
+      showToast('AI removal failed. Please try again.',true);
+    }
+    btn.disabled=false;
+  }
+  window.runAI=runAI;
+
+  // ────────────────────────────
+  //  Color-Based (Magic Wand) Tab
+  // ────────────────────────────
+  var wandCanvas=document.getElementById('wand-canvas');
+  var wandCtx=wandCanvas.getContext('2d');
+
+  function initWand(){
+    var maxW=Math.min(origW, window.innerWidth-60);
+    var scale=maxW/origW;
+    wandCanvas.width=origW;
+    wandCanvas.height=origH;
+    wandCanvas.style.width=Math.round(origW*scale)+'px';
+    wandCanvas.style.height=Math.round(origH*scale)+'px';
+    wandCtx.clearRect(0,0,origW,origH);
+    wandCtx.drawImage(origImg,0,0,origW,origH);
+    wandHistory=[];
+  }
+
+  wandCanvas.addEventListener('click',function(e){
+    var rect=wandCanvas.getBoundingClientRect();
+    var sx=origW/rect.width, sy=origH/rect.height;
+    var px=Math.round((e.clientX-rect.left)*sx);
+    var py=Math.round((e.clientY-rect.top)*sy);
+    var tol=parseInt(document.getElementById('tolerance').value)||30;
+    magicWand(px,py,tol);
+  });
+
+  function magicWand(startX,startY,tolerance){
+    var imageData=wandCtx.getImageData(0,0,origW,origH);
+    var data=imageData.data;
+    wandHistory.push(new Uint8ClampedArray(data));
+
+    var idx=(startY*origW+startX)*4;
+    var targetR=data[idx], targetG=data[idx+1], targetB=data[idx+2], targetA=data[idx+3];
+    if(targetA===0){showToast('This area is already transparent.',false);wandHistory.pop();return;}
+
+    var visited=new Uint8Array(origW*origH);
+    var queue=[[startX,startY]];
+    visited[startY*origW+startX]=1;
+
+    while(queue.length){
+      var cur=queue.pop();
+      var cx=cur[0],cy=cur[1];
+      var ci=(cy*origW+cx)*4;
+      data[ci+3]=0;
+
+      var neighbors=[[cx-1,cy],[cx+1,cy],[cx,cy-1],[cx,cy+1]];
+      for(var n=0;n<neighbors.length;n++){
+        var nx=neighbors[n][0],ny=neighbors[n][1];
+        if(nx<0||nx>=origW||ny<0||ny>=origH)continue;
+        var ni_idx=ny*origW+nx;
+        if(visited[ni_idx])continue;
+        visited[ni_idx]=1;
+        var ni=ni_idx*4;
+        if(data[ni+3]===0)continue;
+        var dr=data[ni]-targetR, dg=data[ni+1]-targetG, db=data[ni+2]-targetB;
+        var diff=Math.sqrt(dr*dr+dg*dg+db*db);
+        if(diff<=tolerance)queue.push([nx,ny]);
+      }
+    }
+    wandCtx.putImageData(imageData,0,0);
+    showToast('Color region removed!',false);
+  }
+
+  function undoLast(){
+    if(!wandHistory.length){showToast('Nothing to undo.',false);return;}
+    var prev=wandHistory.pop();
+    var imageData=wandCtx.getImageData(0,0,origW,origH);
+    imageData.data.set(prev);
+    wandCtx.putImageData(imageData,0,0);
+    showToast('Undone.',false);
+  }
+  window.undoLast=undoLast;
+
+  function resetWand(){
+    initWand();
+    showToast('Reset to original.',false);
+  }
+  window.resetWand=resetWand;
+
+  // ── Download ──
+  function downloadResult(type){
+    var a=document.createElement('a');
+    a.download=origName+'_nobg.png';
+    if(type==='ai'){
+      if(!aiResultBlob){showToast('Run AI removal first.',true);return;}
+      a.href=URL.createObjectURL(aiResultBlob);
+      a.click();
+      setTimeout(function(){URL.revokeObjectURL(a.href);},1000);
+    } else {
+      wandCanvas.toBlob(function(blob){
+        a.href=URL.createObjectURL(blob);
+        a.click();
+        setTimeout(function(){URL.revokeObjectURL(a.href);},1000);
+      },'image/png');
+    }
+    showToast('Download started!',false);
+  }
+  window.downloadResult=downloadResult;
+
+  // ── Blog load ──
+  (async function(){try{var r=await fetch('/en/blog/index.json');if(!r.ok)return;var posts=await r.json();var related=posts.filter(function(p){return p.related_tool==='bg-remover';}).slice(0,3);var grid=document.getElementById('blog-grid');if(!related.length){grid.innerHTML='<div class="guh-blog-empty">No related posts yet.</div>';return;}grid.innerHTML=related.map(function(p){return'<a href="'+p.url+'" class="guh-blog-card"><div class="guh-blog-card-title">'+p.title+'</div><div class="guh-blog-card-date">'+p.date+'</div></a>';}).join('');}catch(e){document.getElementById('blog-grid').innerHTML='<div class="guh-blog-empty">No related posts yet.</div>';}})();
+</script>
+<script src="/assets/js/guh-search.js?v=2" defer></script>
+</body>
+</html>

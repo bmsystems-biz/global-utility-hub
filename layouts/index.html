@@ -3,26 +3,32 @@
 {{ $lang := .Language.Lang }}
 <div class="guh-container guh-page">
   <!-- Hero -->
-  <section class="guh-hero" style="text-align:center;padding:32px 0 40px;">
-    <h1 style="font-size:32px;">
-      {{ if eq $lang "ko" }}🌍 글로벌 유틸리티 허브{{ else }}🌍 Global Utility Hub{{ end }}
+  <section class="guh-hero" style="text-align:center;padding:44px 0 52px;">
+    <img src="/assets/img/logo_100.png" alt="EveryUtil" style="width:80px;height:80px;object-fit:contain;display:block;margin:0 auto 18px;" />
+    <h1 style="font-size:clamp(36px,7vw,56px);font-weight:500;letter-spacing:-0.02em;line-height:1;margin:0 0 14px;font-family:'Poppins',sans-serif;">
+      <span style="color:var(--guh-logo-every);">Every</span><span style="background:linear-gradient(79deg,#1fbc9a 0%,#9156fb 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Util</span>
     </h1>
-    <p style="font-size:16px;max-width:520px;margin:10px auto 0;">{{ .Site.Params.description }}</p>
+    <p style="font-size:13px;font-weight:700;letter-spacing:.07em;color:var(--accent);margin:0 0 14px;text-transform:uppercase;">Every Tool. Everywhere. Every Device.</p>
+    <p style="font-size:15px;max-width:520px;margin:0 auto;color:var(--text-2);line-height:2;">
+      {{ if eq $lang "ko" }}
+      필요한 순간, 필요한 도구를. 언제 어디서나.<br>
+      데스크톱, 노트북, 태블릿, 스마트폰 등 어떤 기기에서도 빠르고, 안전하고, 무료로.
+      {{ else }}
+      The right tool, right when you need it. Anytime, anywhere.<br>
+      Desktop, laptop, tablet, smartphone — fast, secure, and completely free on every device.
+      {{ end }}
+    </p>
   </section>
 
-  <!-- 파일도구 / File Tools -->
-  <section class="guh-section" id="file-tools" aria-label="File tools">
+  <!-- 이미지도구 / Image Tools -->
+  <section class="guh-section" id="image-tools" aria-label="Image tools">
     <h2 class="guh-section-title">
-      {{ if eq $lang "ko" }}📁 파일 도구{{ else }}📁 File Tools{{ end }}
+      {{ if eq $lang "ko" }}🖼️ 이미지 도구{{ else }}🖼️ Image Tools{{ end }}
     </h2>
     <div class="guh-tool-grid">
       <a href="/tools/{{ $lang }}/image-converter/" class="guh-tool-card">
-        <span class="guh-tool-icon">🖼️</span>
+        <span class="guh-tool-icon">🔄</span>
         <span>{{ if eq $lang "ko" }}이미지 변환기{{ else }}Image Converter{{ end }}</span>
-      </a>
-      <a href="/tools/{{ $lang }}/barcode-generator/" class="guh-tool-card">
-        <span class="guh-tool-icon">📊</span>
-        <span>{{ if eq $lang "ko" }}바코드 생성기{{ else }}Barcode Generator{{ end }}</span>
       </a>
       <a href="/tools/{{ $lang }}/image-resizer/" class="guh-tool-card">
         <span class="guh-tool-icon">↔️</span>
@@ -30,31 +36,27 @@
       </a>
       <a href="/tools/{{ $lang }}/image-compress/" class="guh-tool-card">
         <span class="guh-tool-icon">🗜️</span>
-        <span>{{ if eq $lang "ko" }}이미지 파일크기 줄이기{{ else }}Image Compress{{ end }}</span>
+        <span>{{ if eq $lang "ko" }}이미지 압축{{ else }}Image Compress{{ end }}</span>
       </a>
-      <a href="/tools/{{ $lang }}/svg-converter/" class="guh-tool-card">
-        <span class="guh-tool-icon">✏️</span>
-        <span>{{ if eq $lang "ko" }}SVG 변환기{{ else }}SVG Converter{{ end }}</span>
+      <a href="/tools/{{ $lang }}/image-cropper/" class="guh-tool-card">
+        <span class="guh-tool-icon">✂️</span>
+        <span>{{ if eq $lang "ko" }}이미지 자르기{{ else }}Image Cropper{{ end }}</span>
+      </a>
+      <a href="/tools/{{ $lang }}/bg-remover/" class="guh-tool-card">
+        <span class="guh-tool-icon">🪄</span>
+        <span>{{ if eq $lang "ko" }}배경제거(투명배경){{ else }}BG Remover (Transparent){{ end }}</span>
       </a>
       <a href="/tools/{{ $lang }}/gif-maker/" class="guh-tool-card">
         <span class="guh-tool-icon">🎞️</span>
         <span>{{ if eq $lang "ko" }}GIF 메이커{{ else }}GIF Maker{{ end }}</span>
       </a>
-      <a href="/tools/{{ $lang }}/zip-extractor/" class="guh-tool-card">
-        <span class="guh-tool-icon">📦</span>
-        <span>{{ if eq $lang "ko" }}ZIP 압축해제{{ else }}ZIP Extractor{{ end }}</span>
-      </a>
-      <a href="/tools/{{ $lang }}/qr-code-generator/" class="guh-tool-card">
-        <span class="guh-tool-icon">📱</span>
-        <span>{{ if eq $lang "ko" }}QR코드 생성기{{ else }}QR Code Generator{{ end }}</span>
+      <a href="/tools/{{ $lang }}/svg-converter/" class="guh-tool-card">
+        <span class="guh-tool-icon">✏️</span>
+        <span>{{ if eq $lang "ko" }}SVG 변환기{{ else }}SVG Converter{{ end }}</span>
       </a>
       <a href="/tools/{{ $lang }}/image-to-pdf/" class="guh-tool-card">
         <span class="guh-tool-icon">📄</span>
         <span>{{ if eq $lang "ko" }}이미지→PDF{{ else }}Image to PDF{{ end }}</span>
-      </a>
-      <a href="/tools/{{ $lang }}/image-cropper/" class="guh-tool-card">
-        <span class="guh-tool-icon">✂️</span>
-        <span>{{ if eq $lang "ko" }}이미지 자르기{{ else }}Image Cropper{{ end }}</span>
       </a>
     </div>
   </section>
@@ -96,6 +98,27 @@
       <a href="/tools/{{ $lang }}/emoji-finder/" class="guh-tool-card">
         <span class="guh-tool-icon">😊</span>
         <span>{{ if eq $lang "ko" }}이모지 찾기{{ else }}Emoji Finder{{ end }}</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- 파일도구 / File Tools -->
+  <section class="guh-section" id="file-tools" aria-label="File tools">
+    <h2 class="guh-section-title">
+      {{ if eq $lang "ko" }}📁 파일 도구{{ else }}📁 File Tools{{ end }}
+    </h2>
+    <div class="guh-tool-grid">
+      <a href="/tools/{{ $lang }}/zip-extractor/" class="guh-tool-card">
+        <span class="guh-tool-icon">📦</span>
+        <span>{{ if eq $lang "ko" }}ZIP 압축해제{{ else }}ZIP Extractor{{ end }}</span>
+      </a>
+      <a href="/tools/{{ $lang }}/barcode-generator/" class="guh-tool-card">
+        <span class="guh-tool-icon">📊</span>
+        <span>{{ if eq $lang "ko" }}바코드 생성기{{ else }}Barcode Generator{{ end }}</span>
+      </a>
+      <a href="/tools/{{ $lang }}/qr-code-generator/" class="guh-tool-card">
+        <span class="guh-tool-icon">📱</span>
+        <span>{{ if eq $lang "ko" }}QR코드 생성기{{ else }}QR Code Generator{{ end }}</span>
       </a>
     </div>
   </section>

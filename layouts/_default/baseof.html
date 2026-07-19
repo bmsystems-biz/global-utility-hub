@@ -23,7 +23,7 @@
   <meta name="twitter:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}" />
   <!-- Fonts & Styles -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=Poppins:wght@700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/assets/css/common.css?v=2" />
   <style>
     .article-content img { max-width: 100%; height: auto; border-radius: 8px; }
@@ -55,20 +55,20 @@
   <header class="guh-header" role="banner">
     <div class="guh-header-inner">
       <button class="guh-menu-btn" id="menu-btn" aria-label="Navigation menu">☰</button>
-      <a href="{{ $homeUrl }}" class="guh-logo">
-        {{ if eq $lang "ko" }}글로벌 <span>유틸리티</span> 허브{{ else }}Global <span>Utility</span> Hub{{ end }}
-      </a>
+      <a href="{{ $homeUrl }}" class="guh-logo" style="display:inline-flex;align-items:center;gap:6px;font-family:'Poppins',sans-serif;font-weight:500;"><img src="/assets/img/logo_100.png" alt="EveryUtil" style="height:1em;width:1em;object-fit:contain;" /><span><span style="color:var(--guh-logo-every);">Every</span><span style="background:linear-gradient(79deg,#1fbc9a 0%,#9156fb 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Util</span></span></a>
       <nav class="guh-nav" aria-label="Main navigation">
         {{ if eq $lang "ko" }}
-        <a href="{{ $homeUrl }}#file-tools" class="guh-nav-link">파일도구</a>
+        <a href="{{ $homeUrl }}#image-tools" class="guh-nav-link">이미지도구</a>
         <a href="{{ $homeUrl }}#daily-tools" class="guh-nav-link">생활도구</a>
+        <a href="{{ $homeUrl }}#file-tools" class="guh-nav-link">파일도구</a>
         <a href="{{ $homeUrl }}#finance" class="guh-nav-link">금융계산기</a>
         <a href="{{ $homeUrl }}#health" class="guh-nav-link">건강</a>
         <a href="{{ $homeUrl }}#dev-tools" class="guh-nav-link">개발자도구</a>
         <a href="{{ $homeUrl }}blog/" class="guh-nav-link{{ if eq .Section "blog" }} active{{ end }}">블로그</a>
         {{ else }}
-        <a href="{{ $homeUrl }}#file-tools" class="guh-nav-link">File Tools</a>
+        <a href="{{ $homeUrl }}#image-tools" class="guh-nav-link">Image Tools</a>
         <a href="{{ $homeUrl }}#daily-tools" class="guh-nav-link">Daily Tools</a>
+        <a href="{{ $homeUrl }}#file-tools" class="guh-nav-link">File Tools</a>
         <a href="{{ $homeUrl }}#finance" class="guh-nav-link">Finance</a>
         <a href="{{ $homeUrl }}#health" class="guh-nav-link">Health</a>
         <a href="{{ $homeUrl }}#dev-tools" class="guh-nav-link">Dev Tools</a>
@@ -89,22 +89,26 @@
   <!-- MOBILE NAV -->
   <div class="guh-mobile-nav" id="mobile-nav" role="navigation" aria-label="Mobile navigation">
     {{ if eq $lang "ko" }}
-    <a href="{{ $homeUrl }}#file-tools">파일도구</a>
+    <a href="{{ $homeUrl }}#image-tools">이미지도구</a>
     <a href="{{ $homeUrl }}#daily-tools">생활도구</a>
+    <a href="{{ $homeUrl }}#file-tools">파일도구</a>
     <a href="{{ $homeUrl }}#finance">금융계산기</a>
     <a href="{{ $homeUrl }}#health">건강</a>
     <a href="{{ $homeUrl }}#dev-tools">개발자도구</a>
     <a href="{{ $homeUrl }}blog/">블로그</a>
+    <a href="{{ $homeUrl }}about/">소개</a>
     <hr />
     <a href="{{ .Permalink | replaceRE (printf "/%s/" $lang) "/ko/" }}">🇰🇷 한국어</a>
     <a href="{{ .Permalink | replaceRE (printf "/%s/" $lang) "/en/" }}">🇺🇸 English</a>
     {{ else }}
-    <a href="{{ $homeUrl }}#file-tools">File Tools</a>
+    <a href="{{ $homeUrl }}#image-tools">Image Tools</a>
     <a href="{{ $homeUrl }}#daily-tools">Daily Tools</a>
+    <a href="{{ $homeUrl }}#file-tools">File Tools</a>
     <a href="{{ $homeUrl }}#finance">Finance</a>
     <a href="{{ $homeUrl }}#health">Health</a>
     <a href="{{ $homeUrl }}#dev-tools">Dev Tools</a>
     <a href="{{ $homeUrl }}blog/">Blog</a>
+    <a href="{{ $homeUrl }}about/">About</a>
     <hr />
     <a href="{{ .Permalink | replaceRE (printf "/%s/" $lang) "/ko/" }}">🇰🇷 한국어</a>
     <a href="{{ .Permalink | replaceRE (printf "/%s/" $lang) "/en/" }}">🇺🇸 English</a>
@@ -118,13 +122,14 @@
   <!-- FOOTER -->
   <footer class="guh-footer" role="contentinfo">
     <div class="guh-footer-inner">
-      <a href="{{ $homeUrl }}" class="guh-footer-logo">Global Utility Hub</a>
+      <a href="{{ $homeUrl }}" class="guh-footer-logo">EveryUtil</a>
       <nav class="guh-footer-links" aria-label="Footer navigation">
+        <a href="{{ $homeUrl }}about/">{{ if eq $lang "ko" }}소개{{ else }}About{{ end }}</a>
         <a href="{{ $homeUrl }}blog/">{{ if eq $lang "ko" }}블로그{{ else }}Blog{{ end }}</a>
         <a href="{{ $homeUrl }}">{{ if eq $lang "ko" }}도구 목록{{ else }}All Tools{{ end }}</a>
         <a href="mailto:contact@bmsystems.biz">Contact</a>
       </nav>
-      <p class="guh-footer-copy">© {{ now.Year }} Global Utility Hub. All rights reserved.</p>
+      <p class="guh-footer-copy">© {{ now.Year }} EveryUtil. All rights reserved.</p>
     </div>
   </footer>
 
@@ -142,6 +147,11 @@
     })();
     document.getElementById('menu-btn').addEventListener('click', function() {
       document.getElementById('mobile-nav').classList.toggle('open');
+    });
+    document.querySelectorAll('#mobile-nav a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        document.getElementById('mobile-nav').classList.remove('open');
+      });
     });
     document.querySelectorAll('.guh-faq-q').forEach(function(btn) {
       btn.addEventListener('click', function() {

@@ -1,0 +1,113 @@
+{{ define "title" }}{{ if eq .Language.Lang "ko" }}소개{{ else }}About{{ end }} | {{ .Site.Title }}{{ end }}
+
+{{ define "main" }}
+{{ $lang := .Language.Lang }}
+{{ $homeUrl := printf "/%s/" $lang }}
+
+<div class="guh-container guh-page">
+
+  <!-- Hero -->
+  <section style="text-align:center;padding:52px 0 48px;">
+    <img src="/assets/img/logo_100.png" alt="EveryUtil" style="width:72px;height:72px;object-fit:contain;display:block;margin:0 auto 16px;" />
+    <h1 style="font-size:clamp(32px,6vw,50px);font-weight:500;letter-spacing:-0.02em;line-height:1;margin:0 0 12px;font-family:'Poppins',sans-serif;">
+      <span style="color:var(--guh-logo-every);">Every</span><span style="background:linear-gradient(79deg,#1fbc9a 0%,#9156fb 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Util</span>
+    </h1>
+    <p style="font-size:13px;font-weight:700;letter-spacing:.07em;color:var(--accent);margin:0 0 10px;text-transform:uppercase;">Every Tool. Everywhere. Every Device.</p>
+    <p style="font-size:16px;font-weight:500;color:var(--text-2);margin:0;">Everything You Need. One Utility Hub.</p>
+  </section>
+
+  <!-- Brand Story -->
+  <section class="guh-section">
+    <h2 class="guh-section-title">
+      {{ if eq $lang "ko" }}📖 브랜드 스토리{{ else }}📖 Brand Story{{ end }}
+    </h2>
+    <div class="guh-calc-card" style="line-height:1.9;font-size:15px;color:var(--text-2);">
+      {{ if eq $lang "ko" }}
+      <p>EveryUtil은 전 세계 누구나, 언제 어디서든, 어떤 기기에서든 필요한 온라인 도구를 쉽고 빠르게 사용할 수 있도록 만든 글로벌 Utility Hub입니다.</p>
+      <p>복잡한 프로그램을 설치하거나 회원가입을 할 필요 없이, 브라우저만 있으면 필요한 도구를 즉시 사용할 수 있습니다.</p>
+      <p>학생은 학습을 위해, 개발자는 생산성을 위해, 디자이너는 작업 효율을 위해, 직장인은 업무를 위해, 투자자는 의사결정을 위해. EveryUtil은 다양한 사용자의 일상을 더 쉽고 효율적으로 만들어 줍니다.</p>
+      <p style="margin-bottom:0;">우리는 단순히 도구를 모아놓은 웹사이트를 만드는 것이 아니라, 누구나 신뢰하고 다시 찾는 글로벌 유틸리티 플랫폼을 목표로 합니다.</p>
+      {{ else }}
+      <p>EveryUtil is a global Utility Hub built so that anyone, anywhere, on any device can instantly access the online tools they need.</p>
+      <p>No complex installation, no sign-up required. Just open your browser and use the tools you need, right away.</p>
+      <p>For students who need learning tools, developers boosting productivity, designers working faster, office workers handling daily tasks, and investors making decisions — EveryUtil makes everyday life simpler and more efficient for everyone.</p>
+      <p style="margin-bottom:0;">We are not just building a website with a collection of tools. Our goal is to become a global utility platform that everyone trusts and returns to.</p>
+      {{ end }}
+    </div>
+  </section>
+
+  <!-- Brand Promise -->
+  <section class="guh-section">
+    <h2 class="guh-section-title">
+      {{ if eq $lang "ko" }}🤝 브랜드 프로미스{{ else }}🤝 Brand Promise{{ end }}
+    </h2>
+    <div class="guh-tool-grid" style="grid-template-columns:repeat(auto-fill,minmax(220px,1fr));">
+
+      <div class="guh-calc-card" style="text-align:center;padding:28px 20px;">
+        <div style="font-size:32px;margin-bottom:12px;">🌍</div>
+        <div style="font-size:13px;font-weight:700;letter-spacing:.05em;color:var(--accent);text-transform:uppercase;margin-bottom:8px;">Every Tool.</div>
+        <p style="font-size:14px;color:var(--text-2);margin:0;line-height:1.7;">
+          {{ if eq $lang "ko" }}필요한 순간, 필요한 도구를. 언제 어디서나.{{ else }}The right tool, right when you need it. Anytime, anywhere.{{ end }}
+        </p>
+      </div>
+
+      <div class="guh-calc-card" style="text-align:center;padding:28px 20px;">
+        <div style="font-size:32px;margin-bottom:12px;">📍</div>
+        <div style="font-size:13px;font-weight:700;letter-spacing:.05em;color:var(--accent);text-transform:uppercase;margin-bottom:8px;">Everywhere.</div>
+        <p style="font-size:14px;color:var(--text-2);margin:0;line-height:1.7;">
+          {{ if eq $lang "ko" }}전 세계 어디서든, 인터넷과 브라우저만 있으면 충분합니다.{{ else }}Anywhere in the world — all you need is a browser and internet access.{{ end }}
+        </p>
+      </div>
+
+      <div class="guh-calc-card" style="text-align:center;padding:28px 20px;">
+        <div style="font-size:32px;margin-bottom:12px;">📱</div>
+        <div style="font-size:13px;font-weight:700;letter-spacing:.05em;color:var(--accent);text-transform:uppercase;margin-bottom:8px;">Every Device.</div>
+        <p style="font-size:14px;color:var(--text-2);margin:0;line-height:1.7;">
+          {{ if eq $lang "ko" }}데스크톱, 노트북, 태블릿, 스마트폰 등 어떤 기기에서도 빠르고, 안전하고, 무료로.{{ else }}Desktop, laptop, tablet, smartphone — fast, secure, and completely free on every device.{{ end }}
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="guh-section">
+    <h2 class="guh-section-title">
+      {{ if eq $lang "ko" }}✨ 우리의 약속{{ else }}✨ Our Values{{ end }}
+    </h2>
+    <div class="guh-tool-grid" style="grid-template-columns:repeat(auto-fill,minmax(200px,1fr));">
+      <div class="guh-calc-card" style="padding:24px 20px;">
+        <div style="font-size:26px;margin-bottom:8px;">🆓</div>
+        <div style="font-size:15px;font-weight:700;color:var(--text-1);margin-bottom:6px;">{{ if eq $lang "ko" }}무료{{ else }}Free Forever{{ end }}</div>
+        <p style="font-size:13px;color:var(--text-2);margin:0;line-height:1.6;">{{ if eq $lang "ko" }}모든 도구는 무료입니다. 회원가입 없이 바로 사용하세요.{{ else }}All tools are free with no sign-up required.{{ end }}</p>
+      </div>
+      <div class="guh-calc-card" style="padding:24px 20px;">
+        <div style="font-size:26px;margin-bottom:8px;">🔒</div>
+        <div style="font-size:15px;font-weight:700;color:var(--text-1);margin-bottom:6px;">{{ if eq $lang "ko" }}프라이버시 우선{{ else }}Privacy First{{ end }}</div>
+        <p style="font-size:13px;color:var(--text-2);margin:0;line-height:1.6;">{{ if eq $lang "ko" }}파일과 데이터는 브라우저에서만 처리됩니다. 서버로 전송되지 않습니다.{{ else }}Files and data are processed in your browser. Nothing is sent to our servers.{{ end }}</p>
+      </div>
+      <div class="guh-calc-card" style="padding:24px 20px;">
+        <div style="font-size:26px;margin-bottom:8px;">⚡</div>
+        <div style="font-size:15px;font-weight:700;color:var(--text-1);margin-bottom:6px;">{{ if eq $lang "ko" }}빠르고 가볍게{{ else }}Fast & Lightweight{{ end }}</div>
+        <p style="font-size:13px;color:var(--text-2);margin:0;line-height:1.6;">{{ if eq $lang "ko" }}불필요한 광고와 기능 없이, 필요한 것만 빠르게.{{ else }}No bloat. No unnecessary ads. Just what you need, fast.{{ end }}</p>
+      </div>
+      <div class="guh-calc-card" style="padding:24px 20px;">
+        <div style="font-size:26px;margin-bottom:8px;">🌐</div>
+        <div style="font-size:15px;font-weight:700;color:var(--text-1);margin-bottom:6px;">{{ if eq $lang "ko" }}다국어 지원{{ else }}Multi-Language{{ end }}</div>
+        <p style="font-size:13px;color:var(--text-2);margin:0;line-height:1.6;">{{ if eq $lang "ko" }}한국어와 영어를 지원합니다. 앞으로 더 많은 언어를 추가할 예정입니다.{{ else }}Korean and English supported. More languages coming soon.{{ end }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="text-align:center;padding:40px 0 24px;">
+    <p style="font-size:16px;color:var(--text-2);margin-bottom:20px;">
+      {{ if eq $lang "ko" }}지금 바로 도구를 사용해보세요.{{ else }}Start using tools right now.{{ end }}
+    </p>
+    <a href="{{ $homeUrl }}" class="guh-btn" style="font-size:15px;padding:12px 32px;">
+      {{ if eq $lang "ko" }}🛠️ 도구 목록 보기{{ else }}🛠️ Browse All Tools{{ end }}
+    </a>
+  </section>
+
+</div>
+{{ end }}

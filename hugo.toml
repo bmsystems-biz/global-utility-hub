@@ -1,5 +1,5 @@
 baseURL = "https://util.bmsystems.biz/"
-title   = "Global Utility Hub"
+title   = "EveryUtil"
 defaultContentLanguage = "ko"
 defaultContentLanguageInSubdir = true
 
@@ -8,21 +8,21 @@ defaultContentLanguageInSubdir = true
     contentDir   = "content/ko"
     label        = "한국어"
     weight = 1
-    title  = "글로벌 유틸리티 허브"
+    title  = "EveryUtil"
     [languages.ko.params]
-      description = "전 세계 사용자를 위한 유틸리티 플랫폼"
+      description = "Every Tool. Everywhere. Every Device. — 전 세계 누구나 브라우저 하나로 필요한 도구를 즉시 사용하세요."
       locale      = "ko-KR"
   [languages.en]
     contentDir   = "content/en"
     label        = "English"
     weight = 2
-    title  = "Global Utility Hub"
+    title  = "EveryUtil"
     [languages.en.params]
-      description = "Utility Platform for global users"
+      description = "Every Tool. Everywhere. Every Device. — Everything You Need. One Utility Hub."
       locale      = "en-US"
 
 [params]
-  author = "Global Utility Hub"
+  author = "EveryUtil"
 
 [markup]
   [markup.goldmark]

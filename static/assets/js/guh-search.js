@@ -21,7 +21,7 @@
       { title: 'Base64 인코더', url: '/tools/ko/base64/' },
       { title: 'URL 인코더', url: '/tools/ko/url-encoder/' },
       { title: 'HTML 이스케이프', url: '/tools/ko/html-escape/' },
-      { title: '색상 선택기', url: '/tools/ko/color-picker/' },
+      { title: '색상 선택기 컬러 피커', url: '/tools/ko/color-picker/' },
       { title: '이미지 변환기', url: '/tools/ko/image-converter/' },
       { title: '바코드 생성기', url: '/tools/ko/barcode-generator/' },
       { title: '이미지 리사이저', url: '/tools/ko/image-resizer/' },
@@ -37,6 +37,7 @@
       { title: '연봉 계산기', url: '/tools/ko/salary-calculator/' },
       { title: '시급·월급 계산기', url: '/tools/ko/monthly-salary/' },
       { title: '이미지 자르기', url: '/tools/ko/image-cropper/' },
+      { title: '배경제거 투명배경', url: '/tools/ko/bg-remover/' },
       { title: '주식 포트폴리오 수식 생성기', url: '/tools/ko/stock-portfolio-formula/' },
       { title: '이모지 찾기', url: '/tools/ko/emoji-finder/' }
     ],
@@ -72,6 +73,7 @@
       { title: 'Salary Calculator', url: '/tools/en/salary-calculator/' },
       { title: 'Hourly Wage Calculator', url: '/tools/en/monthly-salary/' },
       { title: 'Image Cropper', url: '/tools/en/image-cropper/' },
+      { title: 'BG Remover Transparent Background', url: '/tools/en/bg-remover/' },
       { title: 'Stock Portfolio Formula Generator', url: '/tools/en/stock-portfolio-formula/' },
       { title: 'Emoji Finder', url: '/tools/en/emoji-finder/' }
     ]
