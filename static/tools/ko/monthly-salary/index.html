@@ -184,6 +184,6 @@
 
   (async function(){try{var r=await fetch('/ko/blog/index.json');if(!r.ok)return;var posts=await r.json();var related=posts.filter(function(p){return p.related_tool==='monthly-salary';}).slice(0,3);var grid=document.getElementById('blog-grid');if(!related.length){grid.innerHTML='<div class="guh-blog-empty">관련 블로그 포스트가 준비 중입니다.</div>';return;}grid.innerHTML=related.map(function(p){return'<a href="'+p.url+'" class="guh-blog-card"><div class="guh-blog-card-title">'+p.title+'</div><div class="guh-blog-card-date">'+p.date+'</div></a>';}).join('');}catch(e){document.getElementById('blog-grid').innerHTML='<div class="guh-blog-empty">관련 블로그 포스트가 준비 중입니다.</div>';}})();
 </script>
-<script src="/assets/js/guh-search.js?v=2" defer></script>
+<script src="/assets/js/guh-search.js?v=3" defer></script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 'use strict';
 
-var CACHE = 'everyutil-v1';
+var CACHE = 'everyutil-v2';
 var STATIC = [
   '/assets/css/common.css',
   '/assets/js/guh-search.js',
