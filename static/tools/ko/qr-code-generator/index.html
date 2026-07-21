@@ -17,6 +17,14 @@
   <meta name="twitter:card" content="summary" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=Poppins:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="/assets/img/logo_100.png" />
+  <link rel="shortcut icon" href="/assets/img/logo_100.png" />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#4f7ef8" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="EveryUtil" />
+  <link rel="apple-touch-icon" href="/assets/img/logo_100.png" />
   <link rel="stylesheet" href="/assets/css/common.css?v=3" />
   <script>(function(){var t=localStorage.getItem('GUH-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark';})();</script>
   <script type="application/ld+json">
@@ -196,7 +204,7 @@
 <div class="guh-toast" id="toast"></div>
 
 <!-- QR Code library (client-side only, no data sent to server) -->
-<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
 <script>
   function guhToggleTheme() {
     var isDark = document.documentElement.dataset.theme === 'dark';
@@ -215,6 +223,7 @@
   });
 
   var autoTimer = null;
+  var qrGenerated = false;
   function autoGenerate() {
     clearTimeout(autoTimer);
     autoTimer = setTimeout(generateQR, 400);
@@ -226,21 +235,27 @@
     var size = parseInt(document.getElementById('qr-size').value);
     var errorLevel = document.getElementById('qr-error').value;
     var canvas = document.getElementById('qr-canvas');
-    QRCode.toCanvas(canvas, text, {
-      width: size, margin: 2,
-      errorCorrectionLevel: errorLevel,
-      color: { dark: document.documentElement.dataset.theme === 'dark' ? '#e8edf8' : '#1a2236', light: document.documentElement.dataset.theme === 'dark' ? '#1e2a3a' : '#ffffff' }
-    }, function(err) {
-      if (err) { showToast('QR코드 생성 실패: ' + err.message, true); return; }
+    try {
+      new QRious({
+        element: canvas,
+        value: text,
+        size: size,
+        level: errorLevel,
+        foreground: document.documentElement.dataset.theme === 'dark' ? '#e8edf8' : '#1a2236',
+        background: document.documentElement.dataset.theme === 'dark' ? '#1e2a3a' : '#ffffff'
+      });
+      qrGenerated = true;
       document.getElementById('qr-output').classList.add('show');
       var preview = text.length > 50 ? text.substring(0, 50) + '...' : text;
       document.getElementById('qr-content-preview').textContent = preview;
-    });
+    } catch(err) {
+      showToast('QR코드 생성 실패: ' + err.message, true);
+    }
   }
 
   function downloadQR() {
+    if (!qrGenerated) { showToast('먼저 QR코드를 생성하세요.', true); return; }
     var canvas = document.getElementById('qr-canvas');
-    if (!canvas.width) { showToast('먼저 QR코드를 생성하세요.', true); return; }
     var link = document.createElement('a');
     link.download = 'qrcode.png';
     link.href = canvas.toDataURL('image/png');

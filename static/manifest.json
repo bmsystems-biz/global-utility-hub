@@ -1,0 +1,53 @@
+{
+  "name": "EveryUtil",
+  "short_name": "EveryUtil",
+  "description": "Every Tool. Everywhere. Every Device.",
+  "start_url": "/ko/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f7f9fb",
+  "theme_color": "#4f7ef8",
+  "lang": "ko",
+  "categories": ["utilities", "productivity"],
+  "icons": [
+    {
+      "src": "/assets/img/logo_100.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/img/logo_512.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/img/logo_512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "이미지 변환기",
+      "short_name": "이미지변환",
+      "url": "/tools/ko/image-converter/",
+      "icons": [{ "src": "/assets/img/logo_100.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "QR코드 생성기",
+      "short_name": "QR코드",
+      "url": "/tools/ko/qr-code-generator/",
+      "icons": [{ "src": "/assets/img/logo_100.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "BMI 계산기",
+      "short_name": "BMI",
+      "url": "/tools/ko/bmi-calculator/",
+      "icons": [{ "src": "/assets/img/logo_100.png", "sizes": "96x96" }]
+    }
+  ]
+}

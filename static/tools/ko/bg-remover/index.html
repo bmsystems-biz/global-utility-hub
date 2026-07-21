@@ -4,14 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>배경제거(투명배경) – 이미지 배경 무료 제거 | EveryUtil</title>
-  <meta name="description" content="이미지 배경을 무료로 제거하세요. AI 자동 제거와 색상 기반 제거(매직완드) 두 가지 방식 지원. 100% 브라우저에서 처리, 서버 업로드 없음." />
+  <meta name="description" content="이미지 배경을 무료로 제거하세요. 색상 기반 제거(매직완드)와 지우개 브러시 지원. 100% 브라우저에서 처리, 서버 업로드 없음." />
   <link rel="canonical" href="https://util.bmsystems.biz/tools/ko/bg-remover/" />
   <link rel="alternate" hreflang="ko" href="https://util.bmsystems.biz/tools/ko/bg-remover/" />
   <link rel="alternate" hreflang="en" href="https://util.bmsystems.biz/tools/en/bg-remover/" />
   <link rel="alternate" hreflang="x-default" href="https://util.bmsystems.biz/tools/en/bg-remover/" />
-  <meta property="og:title" content="배경제거(투명배경)" /><meta property="og:description" content="AI 또는 색상 기반으로 이미지 배경을 무료로 제거하세요." /><meta property="og:type" content="website" /><meta property="og:url" content="https://util.bmsystems.biz/tools/ko/bg-remover/" /><meta property="og:locale" content="ko_KR" /><meta name="twitter:card" content="summary" />
+  <meta property="og:title" content="배경제거(투명배경)" /><meta property="og:description" content="색상 기반 마법봉과 지우개 브러시로 이미지 배경을 무료로 제거하세요." /><meta property="og:type" content="website" /><meta property="og:url" content="https://util.bmsystems.biz/tools/ko/bg-remover/" /><meta property="og:locale" content="ko_KR" /><meta name="twitter:card" content="summary" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=Poppins:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="/assets/img/logo_100.png" />
+  <link rel="shortcut icon" href="/assets/img/logo_100.png" />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#4f7ef8" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="EveryUtil" />
+  <link rel="apple-touch-icon" href="/assets/img/logo_100.png" />
   <link rel="stylesheet" href="/assets/css/common.css?v=3" />
   <script>(function(){var t=localStorage.getItem('GUH-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark';})();</script>
   <style>
@@ -21,18 +29,11 @@
     .tab-btn{padding:9px 18px;font-size:14px;font-weight:600;border:none;background:none;cursor:pointer;color:var(--text-2);border-bottom:2px solid transparent;margin-bottom:-2px;transition:color 0.2s;}
     .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);}
     .tab-panel{display:none;}.tab-panel.active{display:block;}
-    .preview-area{display:flex;gap:12px;flex-wrap:wrap;margin:16px 0;}
-    .preview-box{flex:1;min-width:200px;border:1px solid var(--border);border-radius:10px;overflow:hidden;background:repeating-conic-gradient(#ccc 0% 25%,#fff 0% 50%) 0 0/20px 20px;position:relative;}
-    .preview-box canvas,.preview-box img{width:100%;height:auto;display:block;}
-    .preview-label{position:absolute;top:6px;left:8px;font-size:11px;font-weight:700;background:rgba(0,0,0,0.5);color:#fff;padding:2px 7px;border-radius:10px;}
     .tolerance-row{display:flex;align-items:center;gap:10px;margin:10px 0;flex-wrap:wrap;}
     .tolerance-row label{font-size:13px;font-weight:600;color:var(--text-2);}
     #tolerance-val{font-size:13px;font-weight:700;color:var(--accent);min-width:30px;}
     #wand-canvas{cursor:crosshair;max-width:100%;}
-    .ai-status{font-size:13px;color:var(--text-2);margin:10px 0;min-height:20px;}
-    .progress-bar-wrap{width:100%;height:6px;background:var(--surface2);border-radius:3px;margin:8px 0;overflow:hidden;display:none;}
-    .progress-bar{height:100%;background:var(--accent);border-radius:3px;transition:width 0.3s;width:0%;}
-    .checker{background:repeating-conic-gradient(#ccc 0% 25%,#fff 0% 50%) 0 0/20px 20px;border-radius:8px;border:1px solid var(--border);}
+    #eraser-cursor{position:fixed;border:2px solid var(--accent);border-radius:50%;pointer-events:none;display:none;z-index:9999;box-shadow:0 0 0 1px rgba(0,0,0,0.2);transform:translate(0,0);}
   </style>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6232829953801988" crossorigin="anonymous"></script>
 </head>
@@ -55,7 +56,7 @@
 
 <main class="guh-container guh-page" id="main-content">
   <nav class="guh-breadcrumb"><a href="/ko/">홈</a><span class="guh-breadcrumb-sep">›</span><a href="/ko/#image-tools">이미지도구</a><span class="guh-breadcrumb-sep">›</span><span>배경제거(투명배경)</span></nav>
-  <div class="guh-hero"><h1>🪄 배경제거(투명배경)</h1><p>AI 자동 제거 또는 색상 기반 마법봉으로 배경을 투명하게 만드세요. 완전 무료, 서버 업로드 없음.</p></div>
+  <div class="guh-hero"><h1>🪄 배경제거(투명배경)</h1><p>색상 기반 마법봉 또는 지우개 브러시로 배경을 투명하게 만드세요. 완전 무료, 서버 업로드 없음.</p></div>
 
   <section class="guh-section" id="calculator">
     <div class="guh-calc-card">
@@ -73,27 +74,12 @@
 
         <!-- 탭 -->
         <div class="tab-bar">
-          <button class="tab-btn active" onclick="switchTab('ai',this)">🤖 AI 자동 제거</button>
-          <button class="tab-btn" onclick="switchTab('wand',this)">🎨 색상 기반 제거</button>
-        </div>
-
-        <!-- AI 탭 -->
-        <div class="tab-panel active" id="tab-ai">
-          <p style="font-size:13px;color:var(--text-2);margin:0 0 12px;">AI가 자동으로 배경을 감지하고 제거합니다. 첫 실행 시 AI 모델을 다운로드합니다 (~50MB, 이후 브라우저 캐시 사용).</p>
-          <div class="ai-status" id="ai-status">버튼을 눌러 AI 배경제거를 시작하세요.</div>
-          <div class="progress-bar-wrap" id="prog-wrap"><div class="progress-bar" id="prog-bar"></div></div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
-            <button class="guh-btn" id="ai-btn" onclick="runAI()">🤖 AI 배경제거 시작</button>
-            <button class="guh-btn guh-btn-outline" id="ai-dl-btn" style="display:none" onclick="downloadResult('ai')">⬇️ 투명 PNG 다운로드</button>
-          </div>
-          <div class="preview-area" id="ai-preview" style="display:none;">
-            <div class="preview-box" style="flex:1;"><div class="preview-label">원본</div><img id="ai-orig-img" alt="원본" /></div>
-            <div class="preview-box checker" style="flex:1;"><div class="preview-label">결과</div><canvas id="ai-result-canvas"></canvas></div>
-          </div>
+          <button class="tab-btn active" onclick="switchTab('wand',this)">🎨 색상 기반 제거</button>
+          <button class="tab-btn" onclick="switchTab('eraser',this)">✏️ 지우개</button>
         </div>
 
         <!-- 색상 기반 탭 -->
-        <div class="tab-panel" id="tab-wand">
+        <div class="tab-panel active" id="tab-wand">
           <p style="font-size:13px;color:var(--text-2);margin:0 0 8px;">이미지에서 제거할 배경 색상을 클릭하세요. 허용 범위를 조절해 세밀하게 제어할 수 있습니다.</p>
           <div class="tolerance-row">
             <label>허용 범위:</label>
@@ -110,17 +96,40 @@
             <button class="guh-btn" id="wand-dl-btn" onclick="downloadResult('wand')">⬇️ 투명 PNG 다운로드</button>
           </div>
         </div>
+
+        <!-- 지우개 탭 -->
+        <div class="tab-panel" id="tab-eraser">
+          <p style="font-size:13px;color:var(--text-2);margin:0 0 10px;">드래그해서 원하는 영역을 지웁니다. 색상 제거 결과를 불러온 뒤 세밀하게 보정할 수 있습니다.</p>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;">
+            <button class="guh-btn guh-btn-outline" style="padding:6px 12px;font-size:12px;width:auto;" onclick="loadIntoEraser('wand')">🎨 색상탭 결과 불러오기</button>
+            <button class="guh-btn guh-btn-outline" style="padding:6px 12px;font-size:12px;width:auto;" onclick="loadIntoEraser('original')">🖼️ 원본으로 시작</button>
+          </div>
+          <div class="tolerance-row">
+            <label>브러시 크기:</label>
+            <input type="range" id="eraser-size" min="3" max="100" value="20" style="flex:1;max-width:200px;" oninput="document.getElementById('eraser-size-val').textContent=this.value" />
+            <span id="eraser-size-val">20</span>
+            <button class="guh-btn guh-btn-outline" style="padding:4px 12px;font-size:12px;" onclick="undoEraser()">↩ 실행취소</button>
+            <button class="guh-btn guh-btn-outline" style="padding:4px 12px;font-size:12px;" onclick="resetEraser()">↺ 초기화</button>
+          </div>
+          <div style="font-size:12px;color:var(--text-3);margin-bottom:8px;">💡 마우스를 드래그하거나 손가락으로 쓸어내리면 해당 영역이 투명해집니다.</div>
+          <div style="border-radius:10px;overflow:hidden;border:1px solid var(--border);background:repeating-conic-gradient(#ccc 0% 25%,#fff 0% 50%) 0 0/20px 20px;">
+            <canvas id="eraser-canvas" style="cursor:none;max-width:100%;display:block;touch-action:none;"></canvas>
+          </div>
+          <div style="margin-top:12px;">
+            <button class="guh-btn" onclick="downloadResult('eraser')">⬇️ 투명 PNG 다운로드</button>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <section class="guh-section" id="faq">
     <h2 class="guh-section-title">❓ 자주 묻는 질문</h2>
-    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">이미지가 서버에 업로드되나요?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">아니요. 모든 처리는 브라우저에서 완전히 이루어집니다. AI 모델도 처음 한 번 다운로드 후 브라우저에 캐싱되며, 이미지는 서버로 전송되지 않습니다.</div></div>
-    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">AI 탭과 색상 탭의 차이는 무엇인가요?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">AI 탭은 머신러닝 모델이 사람, 동물, 물체 등을 자동으로 인식해 배경을 제거합니다. 복잡한 배경에 효과적이지만 모델 로딩이 필요합니다. 색상 탭은 클릭한 색과 유사한 영역을 선택적으로 제거하는 방식으로, 단색 배경에 빠르고 정확합니다.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">이미지가 서버에 업로드되나요?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">아니요. 모든 처리는 브라우저에서 완전히 이루어집니다. 이미지는 서버로 전송되지 않습니다.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">색상 탭과 지우개 탭의 차이는 무엇인가요?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">색상 탭은 클릭한 색과 유사한 영역을 한 번에 선택적으로 제거하는 방식으로, 단색 배경에 빠르고 정확합니다. 지우개 탭은 브러시로 드래그해 원하는 영역만 세밀하게 지울 수 있습니다. 두 탭을 함께 사용하면 더 깔끔한 결과를 얻을 수 있습니다.</div></div>
     <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">결과 이미지 형식은 무엇인가요?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">투명도(알파채널)를 지원하는 PNG 형식으로 다운로드됩니다. JPG는 투명도를 지원하지 않으므로 PNG가 가장 적합합니다.</div></div>
-    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">AI 모델 첫 로딩이 느린 이유는?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">@imgly/background-removal 모델은 약 50MB입니다. 처음 사용 시 브라우저가 모델을 다운로드해야 하므로 약 10-60초 소요될 수 있습니다. 이후에는 브라우저 캐시를 사용해 즉시 실행됩니다.</div></div>
     <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">색상 기반 제거에서 실수로 잘못 클릭했을 때는?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">허용 범위 옆 '↩ 실행취소' 버튼으로 마지막 클릭을 되돌릴 수 있습니다. '↺ 초기화'를 누르면 원본으로 돌아갑니다.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">지우개 탭에서 실수로 지웠을 때는?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">지우개 탭의 '↩ 실행취소' 버튼으로 최대 20단계까지 되돌릴 수 있습니다. '↺ 초기화'를 누르면 불러온 상태로 되돌아갑니다.</div></div>
   </section>
 
   <section class="guh-section" id="related-tools">
@@ -138,6 +147,7 @@
 
 <footer class="guh-footer"><div class="guh-footer-inner"><a href="/ko/" class="guh-footer-logo">EveryUtil</a><nav class="guh-footer-links"><a href="/ko/blog/">블로그</a><a href="/ko/">도구 목록</a><a href="mailto:contact@bmsystems.biz">Contact</a></nav><p class="guh-footer-copy">© 2026 EveryUtil. All rights reserved.</p></div></footer>
 <div class="guh-toast" id="toast"></div>
+<div id="eraser-cursor"></div>
 
 <script type="module">
   // ── 공통 유틸 ──
@@ -173,14 +183,6 @@
       document.getElementById('file-info').textContent='파일: '+file.name+' | '+origW+'×'+origH+'px | '+(file.size/1024).toFixed(1)+' KB';
       document.getElementById('tool-area').style.display='block';
       document.getElementById('drop-zone').style.display='none';
-      // AI 탭 초기화
-      document.getElementById('ai-orig-img').src=origBlobURL;
-      document.getElementById('ai-preview').style.display='none';
-      document.getElementById('ai-dl-btn').style.display='none';
-      document.getElementById('ai-status').textContent='버튼을 눌러 AI 배경제거를 시작하세요.';
-      document.getElementById('prog-wrap').style.display='none';
-      document.getElementById('prog-bar').style.width='0%';
-      // 색상탭 초기화
       initWand();
       wandHistory=[];
     };
@@ -194,84 +196,9 @@
     document.querySelectorAll('.tab-panel').forEach(function(p){p.classList.remove('active');});
     btn.classList.add('active');
     document.getElementById('tab-'+name).classList.add('active');
+    if(name==='eraser'&&origImg){initEraserCanvas();}
   }
   window.switchTab=switchTab;
-
-  // ────────────────────────────
-  //  AI 탭
-  // ────────────────────────────
-  var aiResultBlob=null;
-
-  async function runAI(){
-    if(!origFile){showToast('먼저 이미지를 업로드하세요.',true);return;}
-    var btn=document.getElementById('ai-btn');
-    btn.disabled=true;
-    var statusEl=document.getElementById('ai-status');
-    var progWrap=document.getElementById('prog-wrap');
-    var progBar=document.getElementById('prog-bar');
-    progWrap.style.display='block';
-    progBar.style.width='0%';
-    statusEl.textContent='AI 모델 로딩 중... (첫 실행 시 최대 1분 소요)';
-
-    try {
-      // @imgly/background-removal CDN ES module
-      // CDN 순서대로 시도
-      var removeBackground = null;
-      var cdnList = [
-        'https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.4.5/+esm',
-        'https://esm.sh/@imgly/background-removal@1.4.5',
-        'https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.4.5',
-      ];
-      for (var ci=0; ci<cdnList.length; ci++) {
-        try {
-          var mod = await import(cdnList[ci]);
-          removeBackground = mod.removeBackground || (mod.default && mod.default.removeBackground);
-          if (removeBackground) break;
-        } catch(ce) { console.warn('CDN 실패:', cdnList[ci], ce); }
-      }
-      if (!removeBackground) throw new Error('AI 라이브러리 로드 실패 — 인터넷 연결을 확인해주세요.');
-
-      statusEl.textContent='배경 제거 중...';
-      progBar.style.width='30%';
-
-      const config = {
-        publicPath: 'https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.4.5/dist/',
-        progress: function(key, current, total){
-          var pct = total > 0 ? Math.round(current/total*100) : 0;
-          progBar.style.width = Math.max(30, pct) + '%';
-          statusEl.textContent = '처리 중... ' + pct + '%';
-        }
-      };
-
-      const resultBlob = await removeBackground(origFile, config);
-      aiResultBlob = resultBlob;
-      progBar.style.width='100%';
-      statusEl.textContent='완료! 배경이 성공적으로 제거되었습니다.';
-
-      // 결과 캔버스에 표시
-      var url=URL.createObjectURL(resultBlob);
-      var resultImg=new Image();
-      resultImg.onload=function(){
-        var rc=document.getElementById('ai-result-canvas');
-        rc.width=resultImg.naturalWidth;
-        rc.height=resultImg.naturalHeight;
-        rc.getContext('2d').drawImage(resultImg,0,0);
-        URL.revokeObjectURL(url);
-      };
-      resultImg.src=url;
-
-      document.getElementById('ai-orig-img').src=origBlobURL;
-      document.getElementById('ai-preview').style.display='flex';
-      document.getElementById('ai-dl-btn').style.display='';
-      showToast('AI 배경제거 완료!',false);
-    } catch(err){
-      console.error(err);
-      statusEl.textContent='오류: '+err.message;
-      showToast('AI 배경제거 실패. 다시 시도하세요.',true);
-    }
-    btn.disabled=false;
-  }
-  window.runAI=runAI;
 
   // ────────────────────────────
   //  색상 기반 탭 (마법봉)
@@ -303,7 +230,6 @@
   function magicWand(startX,startY,tolerance){
     var imageData=wandCtx.getImageData(0,0,origW,origH);
     var data=imageData.data;
-    // 이전 상태 저장 (undo용)
     wandHistory.push(new Uint8ClampedArray(data));
 
     var idx=(startY*origW+startX)*4;
@@ -318,7 +244,7 @@
       var cur=queue.pop();
       var cx=cur[0],cy=cur[1];
       var ci=(cy*origW+cx)*4;
-      data[ci+3]=0; // 투명
+      data[ci+3]=0;
 
       var neighbors=[[cx-1,cy],[cx+1,cy],[cx,cy-1],[cx,cy+1]];
       for(var n=0;n<neighbors.length;n++){
@@ -360,11 +286,13 @@
   function downloadResult(type){
     var a=document.createElement('a');
     a.download=origName+'_nobg.png';
-    if(type==='ai'){
-      if(!aiResultBlob){showToast('먼저 AI 배경제거를 실행하세요.',true);return;}
-      a.href=URL.createObjectURL(aiResultBlob);
-      a.click();
-      setTimeout(function(){URL.revokeObjectURL(a.href);},1000);
+    if(type==='eraser'){
+      if(!eraserCanvas.width){showToast('먼저 이미지를 불러오세요.',true);return;}
+      eraserCanvas.toBlob(function(blob){
+        a.href=URL.createObjectURL(blob);
+        a.click();
+        setTimeout(function(){URL.revokeObjectURL(a.href);},1000);
+      },'image/png');
     } else {
       wandCanvas.toBlob(function(blob){
         a.href=URL.createObjectURL(blob);
@@ -375,6 +303,136 @@
     showToast('다운로드 시작!',false);
   }
   window.downloadResult=downloadResult;
+
+  // ────────────────────────────
+  //  지우개 탭
+  // ────────────────────────────
+  var eraserCanvas=document.getElementById('eraser-canvas');
+  var eraserCtx=eraserCanvas.getContext('2d');
+  var eraserHistory=[];
+  var eraserPainting=false;
+  var eraserCursor=document.getElementById('eraser-cursor');
+
+  function initEraserCanvas(){
+    if(!origImg)return;
+    var maxW=Math.min(origW, window.innerWidth-60);
+    var scale=maxW/origW;
+    eraserCanvas.width=origW;
+    eraserCanvas.height=origH;
+    eraserCanvas.style.width=Math.round(origW*scale)+'px';
+    eraserCanvas.style.height=Math.round(origH*scale)+'px';
+    eraserCtx.clearRect(0,0,origW,origH);
+    eraserCtx.drawImage(origImg,0,0,origW,origH);
+    eraserHistory=[];
+  }
+
+  function loadIntoEraser(source){
+    if(!origImg){showToast('먼저 이미지를 업로드하세요.',true);return;}
+    var maxW=Math.min(origW, window.innerWidth-60);
+    var scale=maxW/origW;
+    eraserCanvas.width=origW;
+    eraserCanvas.height=origH;
+    eraserCanvas.style.width=Math.round(origW*scale)+'px';
+    eraserCanvas.style.height=Math.round(origH*scale)+'px';
+    eraserCtx.clearRect(0,0,origW,origH);
+    if(source==='wand'){
+      var id=wandCtx.getImageData(0,0,origW,origH);
+      eraserCtx.putImageData(id,0,0);
+      eraserHistory=[];
+      showToast('색상탭 결과 불러오기 완료',false);
+    } else {
+      eraserCtx.drawImage(origImg,0,0,origW,origH);
+      eraserHistory=[];
+      showToast('원본 불러오기 완료',false);
+    }
+  }
+  window.loadIntoEraser=loadIntoEraser;
+
+  function getEraserPos(e){
+    var rect=eraserCanvas.getBoundingClientRect();
+    var clientX, clientY;
+    if(e.touches){
+      clientX=e.touches[0].clientX;
+      clientY=e.touches[0].clientY;
+    } else {
+      clientX=e.clientX;
+      clientY=e.clientY;
+    }
+    return {
+      x:(clientX-rect.left)*(origW/rect.width),
+      y:(clientY-rect.top)*(origH/rect.height),
+      cx:clientX,
+      cy:clientY
+    };
+  }
+
+  function doErase(pos){
+    var brushPx=parseInt(document.getElementById('eraser-size').value)||20;
+    var radius=brushPx*(origW/eraserCanvas.getBoundingClientRect().width);
+    eraserCtx.save();
+    eraserCtx.globalCompositeOperation='destination-out';
+    eraserCtx.beginPath();
+    eraserCtx.arc(pos.x,pos.y,radius,0,Math.PI*2);
+    eraserCtx.fill();
+    eraserCtx.restore();
+  }
+
+  function moveCursor(cx,cy){
+    var brushPx=parseInt(document.getElementById('eraser-size').value)||20;
+    eraserCursor.style.display='block';
+    eraserCursor.style.width=brushPx*2+'px';
+    eraserCursor.style.height=brushPx*2+'px';
+    eraserCursor.style.left=(cx-brushPx)+'px';
+    eraserCursor.style.top=(cy-brushPx)+'px';
+  }
+
+  function saveEraserSnapshot(){
+    eraserHistory.push(eraserCtx.getImageData(0,0,origW,origH));
+    if(eraserHistory.length>20)eraserHistory.shift();
+  }
+
+  eraserCanvas.addEventListener('mousedown',function(e){
+    e.preventDefault();
+    saveEraserSnapshot();
+    eraserPainting=true;
+    var pos=getEraserPos(e);
+    doErase(pos);
+    moveCursor(pos.cx,pos.cy);
+  });
+  eraserCanvas.addEventListener('mousemove',function(e){
+    e.preventDefault();
+    var pos=getEraserPos(e);
+    moveCursor(pos.cx,pos.cy);
+    if(eraserPainting)doErase(pos);
+  });
+  eraserCanvas.addEventListener('mouseup',function(){eraserPainting=false;});
+  eraserCanvas.addEventListener('mouseleave',function(){eraserPainting=false;eraserCursor.style.display='none';});
+
+  eraserCanvas.addEventListener('touchstart',function(e){
+    e.preventDefault();
+    saveEraserSnapshot();
+    eraserPainting=true;
+    var pos=getEraserPos(e);
+    doErase(pos);
+  },{passive:false});
+  eraserCanvas.addEventListener('touchmove',function(e){
+    e.preventDefault();
+    if(eraserPainting){var pos=getEraserPos(e);doErase(pos);}
+  },{passive:false});
+  eraserCanvas.addEventListener('touchend',function(){eraserPainting=false;});
+
+  function undoEraser(){
+    if(!eraserHistory.length){showToast('되돌릴 기록이 없습니다.',false);return;}
+    eraserCtx.putImageData(eraserHistory.pop(),0,0);
+    showToast('실행 취소',false);
+  }
+  window.undoEraser=undoEraser;
+
+  function resetEraser(){
+    initEraserCanvas();
+    showToast('초기화 완료',false);
+  }
+  window.resetEraser=resetEraser;
 
   // ── 블로그 로드 ──
   (async function(){try{var r=await fetch('/ko/blog/index.json');if(!r.ok)return;var posts=await r.json();var related=posts.filter(function(p){return p.related_tool==='bg-remover';}).slice(0,3);var grid=document.getElementById('blog-grid');if(!related.length){grid.innerHTML='<div class="guh-blog-empty">관련 포스트가 없습니다.</div>';return;}grid.innerHTML=related.map(function(p){return'<a href="'+p.url+'" class="guh-blog-card"><div class="guh-blog-card-title">'+p.title+'</div><div class="guh-blog-card-date">'+p.date+'</div></a>';}).join('');}catch(e){document.getElementById('blog-grid').innerHTML='<div class="guh-blog-empty">관련 포스트가 없습니다.</div>';}})();

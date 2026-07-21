@@ -4,14 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BG Remover (Transparent Background) – Free Online | EveryUtil</title>
-  <meta name="description" content="Remove image backgrounds for free. Choose AI automatic removal or color-based magic wand. 100% browser-based — no uploads, no sign-up." />
+  <meta name="description" content="Remove image backgrounds for free. Color-based magic wand and eraser brush. 100% browser-based — no uploads, no sign-up." />
   <link rel="canonical" href="https://util.bmsystems.biz/tools/en/bg-remover/" />
   <link rel="alternate" hreflang="ko" href="https://util.bmsystems.biz/tools/ko/bg-remover/" />
   <link rel="alternate" hreflang="en" href="https://util.bmsystems.biz/tools/en/bg-remover/" />
   <link rel="alternate" hreflang="x-default" href="https://util.bmsystems.biz/tools/en/bg-remover/" />
-  <meta property="og:title" content="BG Remover (Transparent Background)" /><meta property="og:description" content="Remove image backgrounds free with AI or color-based magic wand." /><meta property="og:type" content="website" /><meta property="og:url" content="https://util.bmsystems.biz/tools/en/bg-remover/" /><meta property="og:locale" content="en_US" /><meta name="twitter:card" content="summary" />
+  <meta property="og:title" content="BG Remover (Transparent Background)" /><meta property="og:description" content="Remove image backgrounds free with color-based magic wand and eraser brush." /><meta property="og:type" content="website" /><meta property="og:url" content="https://util.bmsystems.biz/tools/en/bg-remover/" /><meta property="og:locale" content="en_US" /><meta name="twitter:card" content="summary" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&family=Poppins:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="/assets/img/logo_100.png" />
+  <link rel="shortcut icon" href="/assets/img/logo_100.png" />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#4f7ef8" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="EveryUtil" />
+  <link rel="apple-touch-icon" href="/assets/img/logo_100.png" />
   <link rel="stylesheet" href="/assets/css/common.css?v=3" />
   <script>(function(){var t=localStorage.getItem('GUH-theme');if(t)document.documentElement.dataset.theme=t;else if(window.matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.theme='dark';})();</script>
   <style>
@@ -21,18 +29,11 @@
     .tab-btn{padding:9px 18px;font-size:14px;font-weight:600;border:none;background:none;cursor:pointer;color:var(--text-2);border-bottom:2px solid transparent;margin-bottom:-2px;transition:color 0.2s;}
     .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);}
     .tab-panel{display:none;}.tab-panel.active{display:block;}
-    .preview-area{display:flex;gap:12px;flex-wrap:wrap;margin:16px 0;}
-    .preview-box{flex:1;min-width:200px;border:1px solid var(--border);border-radius:10px;overflow:hidden;background:repeating-conic-gradient(#ccc 0% 25%,#fff 0% 50%) 0 0/20px 20px;position:relative;}
-    .preview-box canvas,.preview-box img{width:100%;height:auto;display:block;}
-    .preview-label{position:absolute;top:6px;left:8px;font-size:11px;font-weight:700;background:rgba(0,0,0,0.5);color:#fff;padding:2px 7px;border-radius:10px;}
     .tolerance-row{display:flex;align-items:center;gap:10px;margin:10px 0;flex-wrap:wrap;}
     .tolerance-row label{font-size:13px;font-weight:600;color:var(--text-2);}
     #tolerance-val{font-size:13px;font-weight:700;color:var(--accent);min-width:30px;}
     #wand-canvas{cursor:crosshair;max-width:100%;}
-    .ai-status{font-size:13px;color:var(--text-2);margin:10px 0;min-height:20px;}
-    .progress-bar-wrap{width:100%;height:6px;background:var(--surface2);border-radius:3px;margin:8px 0;overflow:hidden;display:none;}
-    .progress-bar{height:100%;background:var(--accent);border-radius:3px;transition:width 0.3s;width:0%;}
-    .checker{background:repeating-conic-gradient(#ccc 0% 25%,#fff 0% 50%) 0 0/20px 20px;border-radius:8px;border:1px solid var(--border);}
+    #eraser-cursor{position:fixed;border:2px solid var(--accent);border-radius:50%;pointer-events:none;display:none;z-index:9999;box-shadow:0 0 0 1px rgba(0,0,0,0.2);transform:translate(0,0);}
   </style>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6232829953801988" crossorigin="anonymous"></script>
 </head>
@@ -55,7 +56,7 @@
 
 <main class="guh-container guh-page" id="main-content">
   <nav class="guh-breadcrumb"><a href="/en/">Home</a><span class="guh-breadcrumb-sep">›</span><a href="/en/#image-tools">Image Tools</a><span class="guh-breadcrumb-sep">›</span><span>BG Remover (Transparent)</span></nav>
-  <div class="guh-hero"><h1>🪄 BG Remover (Transparent Background)</h1><p>Remove image backgrounds with AI auto-detection or color-based magic wand. Free, private, 100% in-browser.</p></div>
+  <div class="guh-hero"><h1>🪄 BG Remover (Transparent Background)</h1><p>Remove image backgrounds with color-based magic wand or eraser brush. Free, private, 100% in-browser.</p></div>
 
   <section class="guh-section" id="calculator">
     <div class="guh-calc-card">
@@ -73,27 +74,12 @@
 
         <!-- Tabs -->
         <div class="tab-bar">
-          <button class="tab-btn active" onclick="switchTab('ai',this)">🤖 AI Auto Remove</button>
-          <button class="tab-btn" onclick="switchTab('wand',this)">🎨 Color-Based Remove</button>
-        </div>
-
-        <!-- AI Tab -->
-        <div class="tab-panel active" id="tab-ai">
-          <p style="font-size:13px;color:var(--text-2);margin:0 0 12px;">AI automatically detects and removes the background. The model is downloaded once (~50MB) and cached in your browser for future use.</p>
-          <div class="ai-status" id="ai-status">Press the button to start AI background removal.</div>
-          <div class="progress-bar-wrap" id="prog-wrap"><div class="progress-bar" id="prog-bar"></div></div>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
-            <button class="guh-btn" id="ai-btn" onclick="runAI()">🤖 Start AI Removal</button>
-            <button class="guh-btn guh-btn-outline" id="ai-dl-btn" style="display:none" onclick="downloadResult('ai')">⬇️ Download Transparent PNG</button>
-          </div>
-          <div class="preview-area" id="ai-preview" style="display:none;">
-            <div class="preview-box" style="flex:1;"><div class="preview-label">Original</div><img id="ai-orig-img" alt="Original" /></div>
-            <div class="preview-box checker" style="flex:1;"><div class="preview-label">Result</div><canvas id="ai-result-canvas"></canvas></div>
-          </div>
+          <button class="tab-btn active" onclick="switchTab('wand',this)">🎨 Color-Based Remove</button>
+          <button class="tab-btn" onclick="switchTab('eraser',this)">✏️ Eraser</button>
         </div>
 
         <!-- Color/Wand Tab -->
-        <div class="tab-panel" id="tab-wand">
+        <div class="tab-panel active" id="tab-wand">
           <p style="font-size:13px;color:var(--text-2);margin:0 0 8px;">Click on the background color you want to remove. Adjust tolerance to control how much of a similar color is selected.</p>
           <div class="tolerance-row">
             <label>Tolerance:</label>
@@ -110,17 +96,40 @@
             <button class="guh-btn" id="wand-dl-btn" onclick="downloadResult('wand')">⬇️ Download Transparent PNG</button>
           </div>
         </div>
+
+        <!-- Eraser Tab -->
+        <div class="tab-panel" id="tab-eraser">
+          <p style="font-size:13px;color:var(--text-2);margin:0 0 10px;">Drag to erase specific areas. Load the color-removal result to refine it, or start from scratch with the original.</p>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;">
+            <button class="guh-btn guh-btn-outline" style="padding:6px 12px;font-size:12px;width:auto;" onclick="loadIntoEraser('wand')">🎨 Load Color Result</button>
+            <button class="guh-btn guh-btn-outline" style="padding:6px 12px;font-size:12px;width:auto;" onclick="loadIntoEraser('original')">🖼️ Start from Original</button>
+          </div>
+          <div class="tolerance-row">
+            <label>Brush size:</label>
+            <input type="range" id="eraser-size" min="3" max="100" value="20" style="flex:1;max-width:200px;" oninput="document.getElementById('eraser-size-val').textContent=this.value" />
+            <span id="eraser-size-val">20</span>
+            <button class="guh-btn guh-btn-outline" style="padding:4px 12px;font-size:12px;" onclick="undoEraser()">↩ Undo</button>
+            <button class="guh-btn guh-btn-outline" style="padding:4px 12px;font-size:12px;" onclick="resetEraser()">↺ Reset</button>
+          </div>
+          <div style="font-size:12px;color:var(--text-3);margin-bottom:8px;">💡 Click and drag (or swipe on mobile) to make areas transparent.</div>
+          <div style="border-radius:10px;overflow:hidden;border:1px solid var(--border);background:repeating-conic-gradient(#ccc 0% 25%,#fff 0% 50%) 0 0/20px 20px;">
+            <canvas id="eraser-canvas" style="cursor:none;max-width:100%;display:block;touch-action:none;"></canvas>
+          </div>
+          <div style="margin-top:12px;">
+            <button class="guh-btn" onclick="downloadResult('eraser')">⬇️ Download Transparent PNG</button>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <section class="guh-section" id="faq">
     <h2 class="guh-section-title">❓ FAQ</h2>
-    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">Is my image uploaded to a server?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">No. All processing happens entirely in your browser. The AI model is downloaded once and cached locally — your image never leaves your device.</div></div>
-    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">What's the difference between AI and Color-Based tabs?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">The AI tab uses a machine learning model to automatically detect subjects (people, animals, objects) and remove the background — great for complex backgrounds. The Color-Based tab works like a magic wand: click a color region and it selects similar neighboring pixels for removal — best for solid or near-solid backgrounds.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">Is my image uploaded to a server?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">No. All processing happens entirely in your browser — your image never leaves your device.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">What's the difference between the Color and Eraser tabs?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">The Color tab works like a magic wand: click a color region and it removes all similar neighboring pixels at once — best for solid or near-solid backgrounds. The Eraser tab lets you paint over specific areas with a brush to make them transparent, giving you pixel-level control. Use both together for the cleanest results.</div></div>
     <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">What format is the output image?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">PNG with transparency (alpha channel). JPG does not support transparency, so PNG is the appropriate format for transparent backgrounds.</div></div>
-    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">Why does the AI model take a long time on first use?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">The @imgly/background-removal model is about 50MB. On first use the browser must download it, which can take 10–60 seconds depending on your connection. After that it is cached locally and runs instantly.</div></div>
-    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">I accidentally removed too much in the Color tab — can I undo?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">Yes. Click the ↩ Undo button to revert your last click. Click ↺ Reset to restore the original image completely.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">I accidentally removed too much in the Color tab — can I undo?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">Yes. Click ↩ Undo to revert your last click. Click ↺ Reset to restore the original image completely.</div></div>
+    <div class="guh-faq-item"><button class="guh-faq-q" aria-expanded="false">Can I undo eraser strokes?<span class="guh-faq-icon">+</span></button><div class="guh-faq-a">Yes. The Eraser tab supports up to 20 undo steps with the ↩ Undo button. Click ↺ Reset to go back to the loaded state.</div></div>
   </section>
 
   <section class="guh-section" id="related-tools">
@@ -138,6 +147,7 @@
 
 <footer class="guh-footer"><div class="guh-footer-inner"><a href="/en/" class="guh-footer-logo">EveryUtil</a><nav class="guh-footer-links"><a href="/en/blog/">Blog</a><a href="/en/">All Tools</a><a href="mailto:contact@bmsystems.biz">Contact</a></nav><p class="guh-footer-copy">© 2026 EveryUtil. All rights reserved.</p></div></footer>
 <div class="guh-toast" id="toast"></div>
+<div id="eraser-cursor"></div>
 
 <script type="module">
   // ── Common utils ──
@@ -173,14 +183,6 @@
       document.getElementById('file-info').textContent='File: '+file.name+' | '+origW+'×'+origH+'px | '+(file.size/1024).toFixed(1)+' KB';
       document.getElementById('tool-area').style.display='block';
       document.getElementById('drop-zone').style.display='none';
-      // AI tab reset
-      document.getElementById('ai-orig-img').src=origBlobURL;
-      document.getElementById('ai-preview').style.display='none';
-      document.getElementById('ai-dl-btn').style.display='none';
-      document.getElementById('ai-status').textContent='Press the button to start AI background removal.';
-      document.getElementById('prog-wrap').style.display='none';
-      document.getElementById('prog-bar').style.width='0%';
-      // Wand tab reset
       initWand();
       wandHistory=[];
     };
@@ -194,82 +196,9 @@
     document.querySelectorAll('.tab-panel').forEach(function(p){p.classList.remove('active');});
     btn.classList.add('active');
     document.getElementById('tab-'+name).classList.add('active');
+    if(name==='eraser'&&origImg){initEraserCanvas();}
   }
   window.switchTab=switchTab;
-
-  // ────────────────────────────
-  //  AI Tab
-  // ────────────────────────────
-  var aiResultBlob=null;
-
-  async function runAI(){
-    if(!origFile){showToast('Please upload an image first.',true);return;}
-    var btn=document.getElementById('ai-btn');
-    btn.disabled=true;
-    var statusEl=document.getElementById('ai-status');
-    var progWrap=document.getElementById('prog-wrap');
-    var progBar=document.getElementById('prog-bar');
-    progWrap.style.display='block';
-    progBar.style.width='0%';
-    statusEl.textContent='Loading AI model... (first run may take up to 1 minute)';
-
-    try {
-      // Try CDN sources in order
-      var removeBackground = null;
-      var cdnList = [
-        'https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.4.5/+esm',
-        'https://esm.sh/@imgly/background-removal@1.4.5',
-        'https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.4.5',
-      ];
-      for (var ci=0; ci<cdnList.length; ci++) {
-        try {
-          var mod = await import(cdnList[ci]);
-          removeBackground = mod.removeBackground || (mod.default && mod.default.removeBackground);
-          if (removeBackground) break;
-        } catch(ce) { console.warn('CDN failed:', cdnList[ci], ce); }
-      }
-      if (!removeBackground) throw new Error('Failed to load AI library — please check your internet connection.');
-
-      statusEl.textContent='Removing background...';
-      progBar.style.width='30%';
-
-      const config = {
-        publicPath: 'https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.4.5/dist/',
-        progress: function(key, current, total){
-          var pct = total > 0 ? Math.round(current/total*100) : 0;
-          progBar.style.width = Math.max(30, pct) + '%';
-          statusEl.textContent = 'Processing... ' + pct + '%';
-        }
-      };
-
-      const resultBlob = await removeBackground(origFile, config);
-      aiResultBlob = resultBlob;
-      progBar.style.width='100%';
-      statusEl.textContent='Done! Background successfully removed.';
-
-      var url=URL.createObjectURL(resultBlob);
-      var resultImg=new Image();
-      resultImg.onload=function(){
-        var rc=document.getElementById('ai-result-canvas');
-        rc.width=resultImg.naturalWidth;
-        rc.height=resultImg.naturalHeight;
-        rc.getContext('2d').drawImage(resultImg,0,0);
-        URL.revokeObjectURL(url);
-      };
-      resultImg.src=url;
-
-      document.getElementById('ai-orig-img').src=origBlobURL;
-      document.getElementById('ai-preview').style.display='flex';
-      document.getElementById('ai-dl-btn').style.display='';
-      showToast('AI removal complete!',false);
-    } catch(err){
-      console.error(err);
-      statusEl.textContent='Error: '+err.message;
-      showToast('AI removal failed. Please try again.',true);
-    }
-    btn.disabled=false;
-  }
-  window.runAI=runAI;
 
   // ────────────────────────────
   //  Color-Based (Magic Wand) Tab
@@ -355,11 +284,13 @@
   function downloadResult(type){
     var a=document.createElement('a');
     a.download=origName+'_nobg.png';
-    if(type==='ai'){
-      if(!aiResultBlob){showToast('Run AI removal first.',true);return;}
-      a.href=URL.createObjectURL(aiResultBlob);
-      a.click();
-      setTimeout(function(){URL.revokeObjectURL(a.href);},1000);
+    if(type==='eraser'){
+      if(!eraserCanvas.width){showToast('Please load an image first.',true);return;}
+      eraserCanvas.toBlob(function(blob){
+        a.href=URL.createObjectURL(blob);
+        a.click();
+        setTimeout(function(){URL.revokeObjectURL(a.href);},1000);
+      },'image/png');
     } else {
       wandCanvas.toBlob(function(blob){
         a.href=URL.createObjectURL(blob);
@@ -370,6 +301,136 @@
     showToast('Download started!',false);
   }
   window.downloadResult=downloadResult;
+
+  // ────────────────────────────
+  //  Eraser Tab
+  // ────────────────────────────
+  var eraserCanvas=document.getElementById('eraser-canvas');
+  var eraserCtx=eraserCanvas.getContext('2d');
+  var eraserHistory=[];
+  var eraserPainting=false;
+  var eraserCursor=document.getElementById('eraser-cursor');
+
+  function initEraserCanvas(){
+    if(!origImg)return;
+    var maxW=Math.min(origW, window.innerWidth-60);
+    var scale=maxW/origW;
+    eraserCanvas.width=origW;
+    eraserCanvas.height=origH;
+    eraserCanvas.style.width=Math.round(origW*scale)+'px';
+    eraserCanvas.style.height=Math.round(origH*scale)+'px';
+    eraserCtx.clearRect(0,0,origW,origH);
+    eraserCtx.drawImage(origImg,0,0,origW,origH);
+    eraserHistory=[];
+  }
+
+  function loadIntoEraser(source){
+    if(!origImg){showToast('Please upload an image first.',true);return;}
+    var maxW=Math.min(origW, window.innerWidth-60);
+    var scale=maxW/origW;
+    eraserCanvas.width=origW;
+    eraserCanvas.height=origH;
+    eraserCanvas.style.width=Math.round(origW*scale)+'px';
+    eraserCanvas.style.height=Math.round(origH*scale)+'px';
+    eraserCtx.clearRect(0,0,origW,origH);
+    if(source==='wand'){
+      var id=wandCtx.getImageData(0,0,origW,origH);
+      eraserCtx.putImageData(id,0,0);
+      eraserHistory=[];
+      showToast('Color result loaded.',false);
+    } else {
+      eraserCtx.drawImage(origImg,0,0,origW,origH);
+      eraserHistory=[];
+      showToast('Original loaded.',false);
+    }
+  }
+  window.loadIntoEraser=loadIntoEraser;
+
+  function getEraserPos(e){
+    var rect=eraserCanvas.getBoundingClientRect();
+    var clientX, clientY;
+    if(e.touches){
+      clientX=e.touches[0].clientX;
+      clientY=e.touches[0].clientY;
+    } else {
+      clientX=e.clientX;
+      clientY=e.clientY;
+    }
+    return {
+      x:(clientX-rect.left)*(origW/rect.width),
+      y:(clientY-rect.top)*(origH/rect.height),
+      cx:clientX,
+      cy:clientY
+    };
+  }
+
+  function doErase(pos){
+    var brushPx=parseInt(document.getElementById('eraser-size').value)||20;
+    var radius=brushPx*(origW/eraserCanvas.getBoundingClientRect().width);
+    eraserCtx.save();
+    eraserCtx.globalCompositeOperation='destination-out';
+    eraserCtx.beginPath();
+    eraserCtx.arc(pos.x,pos.y,radius,0,Math.PI*2);
+    eraserCtx.fill();
+    eraserCtx.restore();
+  }
+
+  function moveCursor(cx,cy){
+    var brushPx=parseInt(document.getElementById('eraser-size').value)||20;
+    eraserCursor.style.display='block';
+    eraserCursor.style.width=brushPx*2+'px';
+    eraserCursor.style.height=brushPx*2+'px';
+    eraserCursor.style.left=(cx-brushPx)+'px';
+    eraserCursor.style.top=(cy-brushPx)+'px';
+  }
+
+  function saveEraserSnapshot(){
+    eraserHistory.push(eraserCtx.getImageData(0,0,origW,origH));
+    if(eraserHistory.length>20)eraserHistory.shift();
+  }
+
+  eraserCanvas.addEventListener('mousedown',function(e){
+    e.preventDefault();
+    saveEraserSnapshot();
+    eraserPainting=true;
+    var pos=getEraserPos(e);
+    doErase(pos);
+    moveCursor(pos.cx,pos.cy);
+  });
+  eraserCanvas.addEventListener('mousemove',function(e){
+    e.preventDefault();
+    var pos=getEraserPos(e);
+    moveCursor(pos.cx,pos.cy);
+    if(eraserPainting)doErase(pos);
+  });
+  eraserCanvas.addEventListener('mouseup',function(){eraserPainting=false;});
+  eraserCanvas.addEventListener('mouseleave',function(){eraserPainting=false;eraserCursor.style.display='none';});
+
+  eraserCanvas.addEventListener('touchstart',function(e){
+    e.preventDefault();
+    saveEraserSnapshot();
+    eraserPainting=true;
+    var pos=getEraserPos(e);
+    doErase(pos);
+  },{passive:false});
+  eraserCanvas.addEventListener('touchmove',function(e){
+    e.preventDefault();
+    if(eraserPainting){var pos=getEraserPos(e);doErase(pos);}
+  },{passive:false});
+  eraserCanvas.addEventListener('touchend',function(){eraserPainting=false;});
+
+  function undoEraser(){
+    if(!eraserHistory.length){showToast('Nothing to undo.',false);return;}
+    eraserCtx.putImageData(eraserHistory.pop(),0,0);
+    showToast('Undone.',false);
+  }
+  window.undoEraser=undoEraser;
+
+  function resetEraser(){
+    initEraserCanvas();
+    showToast('Reset.',false);
+  }
+  window.resetEraser=resetEraser;
 
   // ── Blog load ──
   (async function(){try{var r=await fetch('/en/blog/index.json');if(!r.ok)return;var posts=await r.json();var related=posts.filter(function(p){return p.related_tool==='bg-remover';}).slice(0,3);var grid=document.getElementById('blog-grid');if(!related.length){grid.innerHTML='<div class="guh-blog-empty">No related posts yet.</div>';return;}grid.innerHTML=related.map(function(p){return'<a href="'+p.url+'" class="guh-blog-card"><div class="guh-blog-card-title">'+p.title+'</div><div class="guh-blog-card-date">'+p.date+'</div></a>';}).join('');}catch(e){document.getElementById('blog-grid').innerHTML='<div class="guh-blog-empty">No related posts yet.</div>';}})();

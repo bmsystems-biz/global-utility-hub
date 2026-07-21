@@ -190,3 +190,282 @@
     init();
   }
 })();
+
+// ── Favorites ──────────────────────────────────────────────────────
+(function () {
+  'use strict';
+
+  var FAV_KEY = 'GUH-favorites';
+  var path = location.pathname;
+  var lang = (path.indexOf('/tools/en/') !== -1 || path.indexOf('/en/') === 0) ? 'en' : 'ko';
+
+  var TOOL_ICONS = {
+    'image-converter': '🔄', 'image-resizer': '↔️', 'image-compress': '🗜️',
+    'image-cropper': '✂️', 'bg-remover': '🪄', 'gif-maker': '🎞️',
+    'svg-converter': '✏️', 'image-to-pdf': '📄',
+    'date-calculator': '📅', 'korean-age-calculator': '🎂',
+    'character-counter': '📝', 'byte-calculator': '💾',
+    'dday-calculator': '⏳', 'percentage-calculator': '💯',
+    'unit-converter': '📏', 'emoji-finder': '😊',
+    'zip-extractor': '📦', 'barcode-generator': '📊',
+    'qr-code-generator': '📱', 'compound-interest': '📈',
+    'loan-calculator': '🏦', 'vat-calculator': '🧾',
+    'salary-calculator': '💼', 'monthly-salary': '🕐',
+    'stock-portfolio-formula': '📊', 'bmi-calculator': '⚖️',
+    'ideal-weight-calculator': '🏋️', 'json-formatter': '{ }',
+    'xml-formatter': '📄', 'regex-tester': '🔍',
+    'base64': '🔤', 'url-encoder': '🔗',
+    'html-escape': '🛡️', 'color-picker': '🎨',
+    'exchange-rate': '💱'
+  };
+
+  var TOOL_TITLES = {
+    ko: {
+      'image-converter': '이미지 변환기', 'image-resizer': '이미지 리사이저',
+      'image-compress': '이미지 압축', 'image-cropper': '이미지 자르기',
+      'bg-remover': '배경제거(투명배경)', 'gif-maker': 'GIF 메이커',
+      'svg-converter': 'SVG 변환기', 'image-to-pdf': '이미지→PDF',
+      'date-calculator': '날짜 계산기', 'korean-age-calculator': '만나이 계산기',
+      'character-counter': '글자수 계산기', 'byte-calculator': 'Byte 계산기',
+      'dday-calculator': 'D-Day 계산기', 'percentage-calculator': '퍼센트 계산기',
+      'unit-converter': '단위환산기', 'emoji-finder': '이모지 찾기',
+      'zip-extractor': 'ZIP 압축해제', 'barcode-generator': '바코드 생성기',
+      'qr-code-generator': 'QR코드 생성기', 'compound-interest': '복리 계산기',
+      'loan-calculator': '대출 계산기', 'vat-calculator': '부가세 계산기',
+      'salary-calculator': '연봉 계산기', 'monthly-salary': '월급·시급 계산기',
+      'stock-portfolio-formula': '주식 포트폴리오', 'bmi-calculator': 'BMI 계산기',
+      'ideal-weight-calculator': '이상체중 계산기', 'json-formatter': 'JSON 포매터',
+      'xml-formatter': 'XML 포매터', 'regex-tester': 'Regex 테스터',
+      'base64': 'Base64 인코더', 'url-encoder': 'URL 인코더',
+      'html-escape': 'HTML Escape', 'color-picker': '색상 선택기',
+      'exchange-rate': '환율 계산기'
+    },
+    en: {
+      'image-converter': 'Image Converter', 'image-resizer': 'Image Resizer',
+      'image-compress': 'Image Compress', 'image-cropper': 'Image Cropper',
+      'bg-remover': 'BG Remover', 'gif-maker': 'GIF Maker',
+      'svg-converter': 'SVG Converter', 'image-to-pdf': 'Image to PDF',
+      'date-calculator': 'Date Calculator', 'korean-age-calculator': 'Korean Age',
+      'character-counter': 'Character Counter', 'byte-calculator': 'Byte Calculator',
+      'dday-calculator': 'D-Day Calculator', 'percentage-calculator': 'Percentage Calc',
+      'unit-converter': 'Unit Converter', 'emoji-finder': 'Emoji Finder',
+      'zip-extractor': 'ZIP Extractor', 'barcode-generator': 'Barcode Generator',
+      'qr-code-generator': 'QR Code Generator', 'compound-interest': 'Compound Interest',
+      'loan-calculator': 'Loan Calculator', 'vat-calculator': 'VAT Calculator',
+      'salary-calculator': 'Salary Calculator', 'monthly-salary': 'Hourly/Monthly Pay',
+      'stock-portfolio-formula': 'Stock Portfolio', 'bmi-calculator': 'BMI Calculator',
+      'ideal-weight-calculator': 'Ideal Weight', 'json-formatter': 'JSON Formatter',
+      'xml-formatter': 'XML Formatter', 'regex-tester': 'Regex Tester',
+      'base64': 'Base64 Encoder', 'url-encoder': 'URL Encoder',
+      'html-escape': 'HTML Escape', 'color-picker': 'Color Picker',
+      'exchange-rate': 'Exchange Rate'
+    }
+  };
+
+  function getFavs() {
+    try { return JSON.parse(localStorage.getItem(FAV_KEY)) || []; } catch (e) { return []; }
+  }
+
+  function setFavs(arr) {
+    localStorage.setItem(FAV_KEY, JSON.stringify(arr));
+  }
+
+  function isFav(id) {
+    return getFavs().indexOf(id) !== -1;
+  }
+
+  function toggleFav(id) {
+    var favs = getFavs();
+    var idx = favs.indexOf(id);
+    if (idx === -1) favs.push(id); else favs.splice(idx, 1);
+    setFavs(favs);
+    return idx === -1;
+  }
+
+  function getToolId() {
+    var m = path.match(/\/tools\/(?:ko|en)\/([^\/]+)\//);
+    return m ? m[1] : null;
+  }
+
+  function isMainPage() {
+    return /^\/(ko|en)\/$/.test(path);
+  }
+
+  function showToast(msg, added) {
+    var t = document.getElementById('toast');
+    if (!t) return;
+    t.textContent = msg;
+    t.style.background = added ? 'var(--gold)' : 'var(--text-3)';
+    t.classList.add('show');
+    setTimeout(function () { t.classList.remove('show'); }, 2000);
+  }
+
+  function initFavBtn() {
+    var toolId = getToolId();
+    if (!toolId) return;
+    var hero = document.querySelector('.guh-hero');
+    if (!hero) return;
+    var h1 = hero.querySelector('h1');
+    if (!h1) return;
+
+    var favored = isFav(toolId);
+    var addLabel  = lang === 'ko' ? '즐겨찾기 추가' : 'Add to favorites';
+    var rmLabel   = lang === 'ko' ? '즐겨찾기 해제' : 'Remove from favorites';
+
+    var btn = document.createElement('button');
+    btn.className = 'guh-fav-btn' + (favored ? ' active' : '');
+    btn.setAttribute('aria-label', favored ? rmLabel : addLabel);
+    btn.innerHTML =
+      '<span class="guh-fav-star">' + (favored ? '★' : '☆') + '</span>' +
+      '<span class="guh-fav-label">' + (favored ? rmLabel : addLabel) + '</span>';
+
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      var added = toggleFav(toolId);
+      btn.querySelector('.guh-fav-star').textContent = added ? '★' : '☆';
+      btn.querySelector('.guh-fav-label').textContent = added ? rmLabel : addLabel;
+      btn.setAttribute('aria-label', added ? rmLabel : addLabel);
+      btn.classList.toggle('active', added);
+      var msg = added
+        ? (lang === 'ko' ? '즐겨찾기에 추가됐습니다.' : 'Added to favorites.')
+        : (lang === 'ko' ? '즐겨찾기에서 제거됐습니다.' : 'Removed from favorites.');
+      showToast(msg, added);
+    });
+
+    h1.appendChild(btn);
+  }
+
+  function initFavSection() {
+    if (!isMainPage()) return;
+    var favs = getFavs();
+    if (!favs.length) return;
+
+    var titles = TOOL_TITLES[lang] || {};
+    var items = favs.map(function (id) {
+      return {
+        id: id,
+        title: titles[id] || id,
+        icon: TOOL_ICONS[id] || '⭐',
+        url: '/tools/' + lang + '/' + id + '/'
+      };
+    });
+
+    var section = document.createElement('section');
+    section.className = 'guh-section guh-fav-section';
+    section.id = 'favorites';
+    section.innerHTML =
+      '<h2 class="guh-section-title">' +
+      (lang === 'ko' ? '⭐ 즐겨찾기 도구' : '⭐ Favorite Tools') +
+      '</h2>' +
+      '<div class="guh-tool-grid">' +
+      items.map(function (t) {
+        return '<a href="' + t.url + '" class="guh-tool-card">' +
+          '<span class="guh-tool-icon">' + t.icon + '</span>' +
+          '<span>' + t.title + '</span></a>';
+      }).join('') +
+      '</div>';
+
+    var container = document.querySelector('.guh-container.guh-page');
+    if (!container) return;
+    var hero = container.querySelector('.guh-hero');
+    var anchor = hero ? hero.nextSibling : container.firstChild;
+    container.insertBefore(section, anchor);
+  }
+
+  function init() {
+    initFavBtn();
+    initFavSection();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+
+// ── PWA Install Prompt ─────────────────────────────────────────────
+(function () {
+  'use strict';
+
+  // 이미 앱으로 실행 중이면 종료
+  if (window.matchMedia('(display-mode: standalone)').matches ||
+      window.navigator.standalone) return;
+
+  var path = location.pathname;
+  var lang = (path.indexOf('/en/') === 0 || path.indexOf('/tools/en/') === 0) ? 'en' : 'ko';
+  var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent.toLowerCase());
+  var deferredPrompt = null;
+
+  // 7일 내 닫은 경우 표시 안 함
+  var dismissedAt = parseInt(localStorage.getItem('GUH-pwa-dismissed') || '0');
+  if (Date.now() - dismissedAt < 7 * 24 * 60 * 60 * 1000) return;
+
+  function createBanner(msg, btnLabel, onInstall) {
+    if (document.getElementById('guh-pwa-banner')) return;
+    var banner = document.createElement('div');
+    banner.id = 'guh-pwa-banner';
+    banner.innerHTML =
+      '<div class="guh-pwa-inner">' +
+        '<img src="/assets/img/logo_100.png" class="guh-pwa-icon" alt="EveryUtil" />' +
+        '<p class="guh-pwa-msg">' + msg + '</p>' +
+        '<div class="guh-pwa-btns">' +
+          '<button id="guh-pwa-ok">' + btnLabel + '</button>' +
+          '<button id="guh-pwa-close" aria-label="닫기">✕</button>' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(banner);
+    setTimeout(function () { banner.classList.add('show'); }, 80);
+
+    document.getElementById('guh-pwa-ok').addEventListener('click', function () {
+      onInstall();
+      dismiss();
+    });
+    document.getElementById('guh-pwa-close').addEventListener('click', dismiss);
+  }
+
+  function dismiss() {
+    var banner = document.getElementById('guh-pwa-banner');
+    if (banner) {
+      banner.classList.remove('show');
+      setTimeout(function () { banner.remove(); }, 350);
+    }
+    localStorage.setItem('GUH-pwa-dismissed', String(Date.now()));
+  }
+
+  // 서비스워커 등록
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('/sw.js').catch(function () {});
+    });
+  }
+
+  if (isIOS) {
+    // iOS Safari: 수동 안내 배너
+    window.addEventListener('load', function () {
+      setTimeout(function () {
+        var msg = lang === 'ko'
+          ? 'Safari 하단 <b>공유(↑) → 홈 화면에 추가</b>를 탭하면 앱처럼 사용할 수 있어요!'
+          : 'Tap <b>Share (↑) → Add to Home Screen</b> in Safari to install as an app!';
+        createBanner(msg, lang === 'ko' ? '알겠어요' : 'Got it', function () {});
+      }, 3000);
+    });
+  } else {
+    // Android / Chrome: beforeinstallprompt 이벤트
+    window.addEventListener('beforeinstallprompt', function (e) {
+      e.preventDefault();
+      deferredPrompt = e;
+      setTimeout(function () {
+        var msg = lang === 'ko'
+          ? 'EveryUtil을 <b>앱으로 설치</b>하면 홈 화면에서 바로 실행할 수 있어요!'
+          : 'Install <b>EveryUtil</b> as an app for quick access from your home screen!';
+        createBanner(msg, lang === 'ko' ? '📲 앱으로 설치' : '📲 Install App', function () {
+          if (deferredPrompt) {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then(function () { deferredPrompt = null; });
+          }
+        });
+      }, 2500);
+    });
+  }
+})();

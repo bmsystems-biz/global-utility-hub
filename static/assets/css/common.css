@@ -810,6 +810,66 @@ a { color: var(--accent); }
 }
 .guh-category-chip:hover { background: var(--accent); color: white; text-decoration: none; }
 
+/* ─── Favorites ──────────────────────────────────────────────────── */
+.guh-fav-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px 6px;
+  color: var(--text-3);
+  transition: color 0.15s, transform 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  vertical-align: middle;
+  margin-left: 6px;
+}
+.guh-fav-btn:hover { transform: scale(1.05); }
+.guh-fav-btn.active { color: #f5c518; }
+.guh-fav-star { font-size: 20px; line-height: 1; }
+.guh-fav-label { font-size: 11px; font-weight: 400; line-height: 1; color: var(--text-3); }
+.guh-fav-btn.active .guh-fav-label { color: #f5c518; }
+.guh-fav-section {
+  padding: 20px;
+  background: var(--accent-soft);
+  border: 1.5px solid var(--accent);
+  border-radius: var(--radius-lg);
+}
+
+/* ─── PWA Install Banner ─────────────────────────────────────────── */
+#guh-pwa-banner {
+  position: fixed;
+  bottom: -130px;
+  left: 0; right: 0;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  box-shadow: 0 -4px 24px rgba(26,34,54,0.13);
+  z-index: 10000;
+  transition: bottom 0.35s cubic-bezier(0.4,0,0.2,1);
+  padding: 14px 16px;
+}
+#guh-pwa-banner.show { bottom: 0; }
+.guh-pwa-inner {
+  max-width: 640px; margin: 0 auto;
+  display: flex; align-items: center; gap: 12px;
+}
+.guh-pwa-icon { width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0; object-fit: contain; }
+.guh-pwa-msg { font-size: 13px; color: var(--text-2); flex: 1; line-height: 1.5; margin: 0; }
+.guh-pwa-msg b { color: var(--text-1); font-weight: 600; }
+.guh-pwa-btns { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+#guh-pwa-ok {
+  background: var(--accent); color: #fff; border: none;
+  border-radius: var(--radius); padding: 9px 18px;
+  font-size: 13px; font-weight: 600; cursor: pointer;
+  white-space: nowrap; font-family: var(--font);
+  transition: opacity 0.15s;
+}
+#guh-pwa-ok:hover { opacity: 0.88; }
+#guh-pwa-close {
+  background: none; border: none; font-size: 18px;
+  color: var(--text-3); cursor: pointer; padding: 4px 6px; line-height: 1;
+}
+
 /* ─── Responsive ─────────────────────────────────────────────────── */
 @media (max-width: 576px) {
   .guh-calc-card { padding: 16px; }
