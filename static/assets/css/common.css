@@ -815,7 +815,7 @@ a { color: var(--accent); }
   background: none;
   border: none;
   cursor: pointer;
-  padding: 2px 6px;
+  padding: 6px 10px;
   color: var(--text-3);
   transition: color 0.15s, transform 0.15s;
   display: inline-flex;
@@ -823,12 +823,19 @@ a { color: var(--accent); }
   gap: 4px;
   vertical-align: middle;
   margin-left: 6px;
+  touch-action: manipulation;
+  min-height: 36px;
 }
 .guh-fav-btn:hover { transform: scale(1.05); }
 .guh-fav-btn.active { color: #f5c518; }
 .guh-fav-star { font-size: 20px; line-height: 1; }
 .guh-fav-label { font-size: 11px; font-weight: 400; line-height: 1; color: var(--text-3); }
 .guh-fav-btn.active .guh-fav-label { color: #f5c518; }
+@media (max-width: 768px) {
+  .guh-fav-btn { padding: 10px 14px; min-height: 44px; gap: 6px; }
+  .guh-fav-star { font-size: 24px; }
+  .guh-fav-label { font-size: 13px; }
+}
 .guh-fav-section {
   padding: 20px;
   background: var(--accent-soft);
